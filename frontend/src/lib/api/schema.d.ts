@@ -72,10 +72,162 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/advocate/columns": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Columns
+         * @description The file's own column names, so the user can map them before anything is parsed.
+         *
+         *     A separate call rather than a first pass of the analysis, because the mapping is a
+         *     decision the user makes and the file has to be on screen before they can make it.
+         */
+        post: operations["columns_api_advocate_columns_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/advocate/analyze": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Analyze Batch */
+        post: operations["analyze_batch_api_advocate_analyze_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/advocate/analyze-affidavits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Analyze Affidavits
+         * @description The same report, built from affidavits the defendant flow already confirmed.
+         */
+        post: operations["analyze_affidavits_api_advocate_analyze_affidavits_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/advocate/export.csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Export Csv
+         * @description The report as a file, so it can be attached to something rather than screenshotted.
+         *
+         *     The client posts back the report it already holds rather than the server recomputing
+         *     it: there is no case id because there is nothing stored, and re-uploading the whole
+         *     spreadsheet to get a CSV of a result already on screen would be the wrong trade.
+         */
+        post: operations["export_csv_api_advocate_export_csv_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AdvocateAnalysis */
+        AdvocateAnalysis: {
+            /** Reports */
+            reports: components["schemas"]["ServerReport"][];
+            /** Rejected */
+            rejected: components["schemas"]["RejectedRow"][];
+            /**
+             * Records
+             * @default []
+             */
+            records: components["schemas"]["ServiceRecord"][];
+            mapping: components["schemas"]["AdvocateColumnMapping"];
+            stats: components["schemas"]["AdvocateStats"];
+        };
+        /**
+         * AdvocateColumnMapping
+         * @description Which column of the uploaded file holds each field. Values are header names.
+         *
+         *     Two things are required and each may be given two ways, because case-management
+         *     systems export both: a time is either one column or a date column plus a time column,
+         *     and a place is either a coordinate pair or an address to look up.
+         */
+        AdvocateColumnMapping: {
+            /** Server Id */
+            server_id: string;
+            /** At */
+            at?: string | null;
+            /** Date */
+            date?: string | null;
+            /** Time */
+            time?: string | null;
+            /** Lat */
+            lat?: string | null;
+            /** Lng */
+            lng?: string | null;
+            /** Address */
+            address?: string | null;
+            /** Case Ref */
+            case_ref?: string | null;
+            /** Outcome */
+            outcome?: string | null;
+            /** Recipient Desc */
+            recipient_desc?: string | null;
+        };
+        /** AdvocateStats */
+        AdvocateStats: {
+            /** Rows Read */
+            rows_read: number;
+            /** Records */
+            records: number;
+            /** Rejected */
+            rejected: number;
+            /** Servers */
+            servers: number;
+            /** Addresses Geocoded */
+            addresses_geocoded: number;
+            /** Records Returned */
+            records_returned: number;
+            /** Params Version */
+            params_version: string;
+            /** Engine Version */
+            engine_version: string;
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+        };
         /** Affidavit */
         Affidavit: {
             /** Index Number */
@@ -233,6 +385,18 @@ export interface components {
             location?: components["schemas"]["LatLng"] | null;
             /** Outcome */
             outcome?: string | null;
+        };
+        /** Body_analyze_batch_api_advocate_analyze_post */
+        Body_analyze_batch_api_advocate_analyze_post: {
+            /** File */
+            file: string;
+            /** Mapping */
+            mapping: string;
+        };
+        /** Body_columns_api_advocate_columns_post */
+        Body_columns_api_advocate_columns_post: {
+            /** File */
+            file: string;
         };
         /** Body_extract_api_extract_post */
         Body_extract_api_extract_post: {
@@ -403,6 +567,17 @@ export interface components {
              */
             is_defendant: boolean;
         };
+        /** ImpossiblePair */
+        ImpossiblePair: {
+            a: components["schemas"]["ServiceRecord"];
+            b: components["schemas"]["ServiceRecord"];
+            /** Distance Km */
+            distance_km: number;
+            /** Minutes */
+            minutes: number;
+            /** Required Speed Kmh */
+            required_speed_kmh: number;
+        };
         /** LatLng */
         LatLng: {
             /** Lat */
@@ -449,6 +624,40 @@ export interface components {
             /** Raw Text */
             raw_text?: string | null;
         };
+        /**
+         * RejectedRow
+         * @description A row that could not be turned into a service record, and why.
+         *
+         *     Rejections are part of the answer, not an error path. An advocate is assembling a
+         *     complaint, and a parser that silently drops the eleven rows it could not read hands
+         *     them a report whose denominator is wrong.
+         */
+        RejectedRow: {
+            /** Row */
+            row: number;
+            /** Code */
+            code: string;
+            /** Reason */
+            reason: string;
+        };
+        /** ServerReport */
+        ServerReport: {
+            /** Server Id */
+            server_id: string;
+            /** N Records */
+            n_records: number;
+            /** Impossible Pairs */
+            impossible_pairs: components["schemas"]["ImpossiblePair"][];
+            /** Max Services Per Hour */
+            max_services_per_hour: number;
+            /** Repeated Descriptions */
+            repeated_descriptions: [
+                string,
+                number
+            ][];
+            /** Risk Rank */
+            risk_rank: number;
+        };
         /** ServiceAttempt */
         ServiceAttempt: {
             /**
@@ -470,6 +679,25 @@ export interface components {
          * @enum {string}
          */
         ServiceMethod: "308_1" | "308_2" | "308_4" | "unknown";
+        /** ServiceRecord */
+        ServiceRecord: {
+            /** Server Id */
+            server_id: string;
+            /**
+             * At
+             * Format: date-time
+             */
+            at: string;
+            loc: components["schemas"]["LatLng"];
+            /** Address */
+            address?: string | null;
+            /** Case Ref */
+            case_ref?: string | null;
+            /** Outcome */
+            outcome?: string | null;
+            /** Recipient Desc */
+            recipient_desc?: string | null;
+        };
         /**
          * Severity
          * @enum {string}
@@ -618,6 +846,142 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CaseAnalysis"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    columns_api_advocate_columns_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_columns_api_advocate_columns_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string[];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    analyze_batch_api_advocate_analyze_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_analyze_batch_api_advocate_analyze_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdvocateAnalysis"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    analyze_affidavits_api_advocate_analyze_affidavits_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Affidavit"][];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdvocateAnalysis"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    export_csv_api_advocate_export_csv_post: {
+        parameters: {
+            query?: {
+                kind?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ServerReport"][];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

@@ -472,3 +472,118 @@ docstrings, and all reached by following a fixture rather than an opinion.
   position stands; session 7 pulls maplibre in for `ResultMap` anyway.
 - `docker build` remains unverified in this environment for the reason recorded in
   session 1.
+
+## Session 5 — Advocate mode
+
+**Goal:** a legal-aid worker loads a spreadsheet of service records from one or more
+process servers and gets servers ranked by physical-impossibility evidence, with a map of
+each server's day and exports they can attach to a DCWP complaint. Bible §11.4, §14.6.
+
+The defendant flow asks one question of one affidavit. This asks the same question of a
+whole filing history, and the answer is a different kind of evidence: one contradicted
+service is a dispute, and six sequences nobody could have driven is a pattern.
+
+### Steps
+- [x] S5.1 `advocate/ingest.py` — CSV and XLSX (openpyxl read-only). Column-mapping
+      contract: `server_id`, `datetime` (or `date` + `time`), and either `lat`+`lng` or
+      `address`. Rows that fail validation are **returned with a reason**, never dropped
+- [x] S5.2 Address geocoding inside ingest: cache first, GeoSearch after, at most five
+      lookups in flight, per-row status
+- [x] S5.3 Accept a JSON list of confirmed `Affidavit` objects and convert to
+      `ServiceRecord` (the served claim plus every attempt)
+- [x] S5.4 `advocate/patterns.py` — bible §11.4 exactly: consecutive-pair impossibility,
+      rolling-hour throughput, repeated descriptions, risk rank. Sort + single pass +
+      deque; O(n log n) per server
+- [x] S5.5 `advocate/report.py` — CSV of impossible pairs, plus a JSON summary
+- [x] S5.6 `POST /api/advocate/analyze` (multipart file + mapping JSON) →
+      `{reports, rejected, stats}`; §16 caps, rate limited
+- [x] S5.7 Tests: recall 1.0 on the generator's injected pairs and zero false pairs on
+      clean servers; throughput window edges; description normalisation; 50k rows < 3 s
+- [x] S5.8 `fixtures/demo_cases/advocate_servers.xlsx` committed with its expected
+      report snapshot
+- [x] S5.9 Frontend: `/advocate` — upload, column mapping, ranked server table,
+      `AdvocateMap.svelte` day view with impossible edges in red, pair list, exports
+- [x] S5.10 Quality gates both sides; types regenerated
+
+### Risks / open questions
+- **What counts as "completed" for throughput.** Bible §11.4 says "max completed services
+  in any rolling 60-minute window". A `not_home` is an attempt, not a service. Counting
+  attempts would inflate a diligent server's number and make the flag meaningless.
+- **Two records at the same instant.** `required_speed_kmh` is a float on the wire and
+  infinity is not JSON. The engine already solved the same problem with a floor on elapsed
+  time (`MIN_ELAPSED_S`); advocate must use the same floor, or the two halves of the
+  product will price the same journey differently.
+- **A rejected row is the product, not an error.** An advocate is building a complaint. A
+  parser that quietly drops the eleven rows it could not read hands them a report whose
+  denominator is wrong, so every rejection carries its row number and its reason.
+- **Precision matters more than recall here.** A false impossible pair in a DCWP complaint
+  damages the advocate who filed it. The §11.4 thresholds are the engine's, unchanged.
+
+### Outcome
+
+**Built**
+
+- **`advocate/patterns.py`** — bible §11.4 as pure functions over one server's filings:
+  consecutive-pair impossibility, rolling-hour throughput, repeated descriptions, risk
+  rank. The elapsed-time floor is imported from `engine/feasibility.py` rather than
+  restated, so an advocate and a defendant looking at the same two points are told the
+  same speed.
+- **`advocate/ingest.py`** — CSV and XLSX through openpyxl in read-only mode, the column
+  mapping contract, the date formats case-management systems actually export, address
+  lookups capped at five in flight and at a per-file budget, and a `RejectedRow` for every
+  row that could not be used. Also `records_from_affidavits`, so an advocate who has run
+  clients through the defendant flow can analyse what they already hold.
+- **`advocate/report.py`** — CSV of the sequences and of the server summary, written in
+  New York local time because the reader is checking them against a paper affidavit.
+- **`POST /api/advocate/{columns,analyze,analyze-affidavits,export.csv}`**, behind the
+  same token bucket and the same §16 caps as everything else.
+- **`eval/advocate_eval.py`**, folded into the one eval command, writing
+  `eval/results/advocate.json` and the batch figures the Methodology page now prints.
+- **Frontend `/advocate`** — a three-stage flow on one route: drop a file, confirm the
+  columns we guessed, read the report. Ranked server table, `AdvocateMap.svelte` with the
+  ordinary week in grey and the impossible steps in labelled red, per-pair cards with both
+  filings, reused-description cards, the rejected-row list, and CSV exports.
+- **`lib/advocate/mapping.ts`** — header guessing as a pure, tested function, so the
+  mapping step is a review rather than a form.
+- **`lib/map/color.ts`** — design tokens into MapLibre. See the lesson.
+- **`fixtures/demo_cases/advocate_servers.xlsx`** — 194 filings, four servers, one week,
+  committed with its expected report, and loadable from the page itself.
+
+**Verified**
+
+- Backend: `ruff check`, `ruff format --check` (93 files), `mypy` strict over 63 files,
+  `pytest` **503 passed** (was 405).
+- Frontend: `svelte-check` 0 errors 0 warnings over 286 files, `tsc --noEmit` clean,
+  `npm run build` clean, `vitest` **264 passed** (was 244).
+- **Precision 1.00 and recall 1.00** on the corpus' 12 injected sequences, and **0 of 3
+  ordinary servers named.** 16 of 16 reused-description doors found. Both flagged servers
+  rank above all three clean ones.
+- 50,000 filings across 25 servers in **247 ms** against a 3 s budget, and doubling the
+  rows costs 1.98× the time — the ratio is the assertion that matters, because a wall-clock
+  bound passes on a fast laptop even for an O(n²) implementation.
+- The committed demo XLSX goes through the real ingest and the real engine in the test
+  suite, needs no network, and every one of its 194 rows is usable.
+- Live in a browser, both colour schemes, 375 px and desktop: the demo file loads from the
+  page, the guessed mapping is right, the report renders, selecting a server re-draws the
+  map, and the impossible edges are labelled with their speeds.
+
+**Two decisions worth recording**
+
+1. **`AdvocateAnalysis` carries the filings back, and the mapping that produced them.**
+   A `ServerReport` holds only the pairs that do not fit, and a map of those alone would
+   imply four flagged steps were the server's whole output — the cluster of ordinary doors
+   is what makes the outlier mean anything. The records are capped at 10,000 and cut
+   *between* servers, so any server the map can open it can draw completely. The mapping
+   rides along for the same reason `params_version` does: a number is only reproducible
+   beside what produced it.
+2. **A rejected row is part of the answer.** Every row that cannot be used comes back with
+   its spreadsheet row number and the column at fault, and never the cell's contents. An
+   advocate is building something they will put their name to, and a parser that quietly
+   drops eleven rows hands them a report whose denominator is wrong.
+
+**Deferred**
+
+- Documents (S6) and the defendant wizard (S7) are next. `/check`, `/result` and `/demo`
+  are still styled placeholders; the advocate PDF report waits for S6's print stylesheet,
+  so batch mode exports CSV today.
+- `docker build` remains unverified here for the reason recorded in session 1.

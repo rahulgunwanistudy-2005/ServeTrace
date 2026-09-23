@@ -1,7 +1,8 @@
 # Evaluation
 
-Two evals live here. The **engine** eval has been run and its numbers are below. The
-**extraction** eval is written and has not been run, for want of an API key.
+Three evals live here. The **engine** and **advocate** evals have been run and their
+numbers are below; both come out of one command. The **extraction** eval is written and
+has not been run, for want of an API key.
 
 ## The engine
 
@@ -132,6 +133,64 @@ Fixes are sorted and indexed once per request and bisected per claim, so an affi
 three prior attempts asks four questions of one export rather than four passes over it.
 Asserted by `backend/tests/engine/test_performance.py`, which prints the real figures.
 
+## Advocate mode
+
+A different question, a different corpus, and a different failure to be afraid of. The
+defendant engine asks whether one person's phone can be reconciled with one sworn claim.
+Batch mode asks whether a *process server's own filings* can be reconciled with each
+other, which needs no location history from anybody: two services sworn eleven kilometres
+apart three minutes apart are in conflict whatever either defendant was doing.
+
+`fixtures/generator/advocate.py` builds five servers' filings — 400 each — and rewrites
+some of two servers' records into sequences nobody could have travelled, writing down
+exactly which. It decides that from where it *placed* the records and never by calling the
+engine, the same independence the case corpus rests on.
+
+### The number that matters
+
+**No server the generator built as ordinary is named: 0 of 3.**
+
+This is batch mode's version of the no-false-accusation gate, and it is the inverse of a
+recall number. A sequence the engine misses costs an advocate one line of evidence. A
+sequence it reports wrongly goes into a filing or a DCWP complaint under that advocate's
+name, and costs them their credibility with whoever reads it. Precision leads; recall
+follows.
+
+### Impossible sequences
+
+| | |
+|---|---|
+| Filings scored | 2,000 |
+| Process servers | 5 |
+| Planted sequences found | **12 of 12** (recall 100%) |
+| Sequences reported that were not planted | **0** (precision 100%) |
+| Ordinary servers named | **0 of 3** |
+| Reused descriptions | 16 of 16 doors found |
+
+Both flagged servers rank above all three ordinary ones, which is what an advocate
+actually reads: the order of the table, not the numbers in it.
+
+A caveat worth stating plainly. 100% precision over 2,000 filings of synthetic ordinary
+work is a statement about *this* corpus, whose ordinary days are 14 to 48 minutes apart
+within one borough. A real agency's records will contain same-minute duplicate filings,
+mis-keyed dates and two servers sharing a licence number, and each of those can look like
+an impossible sequence. That is why the ingest returns every unusable row with a reason
+instead of dropping it, and why the report never says anything stronger than that two
+filings cannot both be right.
+
+### Runtime
+
+| | |
+|---|---|
+| 2,000 filings | 15 ms |
+| 50,000 filings × 25 servers | **247 ms** against a 3 s budget |
+| 25,000 → 50,000 filings | 1.98× the time |
+
+That last row is the one that matters. A wall-clock budget passes on a fast laptop even
+for an implementation that compares every filing with every other; the ratio is what
+asserts the complexity is sort-plus-one-pass. Both are asserted by
+`backend/tests/advocate/test_performance.py`, which prints the real figures.
+
 ## Extraction — written, not yet run
 
 `eval/extraction_eval.py` scores the extractor field by field against the corpus' ground
@@ -156,9 +215,8 @@ as they come out.
 
 ## Still to measure
 
-- **Advocate mode**: recall and precision against the injected impossible pairs, which are
-  already written to the corpus as a known answer key, and throughput on 50,000 rows.
 - **Extraction**, above, once a key exists.
+- **A robustness sweep** over GPS jitter and sampling gaps, per S8.
 
 ## Honesty
 

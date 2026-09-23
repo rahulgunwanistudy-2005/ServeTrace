@@ -129,3 +129,35 @@ bisect saved nothing. -> A performance assertion that fails should be read as a 
 about the design, not the bound. The index is now built once per request and shared by
 every claim, which is what makes four claims cost less than four passes - and the test now
 asserts that, which is the property that was actually wanted.
+
+[2026-09-23] - The advocate map drew its pins and neither of its line layers, with a clean
+type-check, a clean lint, a clean test run and no error in the console. Two separate
+causes, both invisible except on screen. First, `app.css` defines the palette in `oklch`
+and MapLibre parses style colours itself and understands none of it, so every layer was
+added with a colour it rejected. Second, and the expensive one: the symbol layer that
+labels each impossible edge had no `text-font`, MapLibre's default is `Open Sans Regular`,
+and OpenFreeMap serves only Noto - so the glyph request 404'd, the worker errored the
+whole *tile*, and a tile belongs to a source rather than to a layer. An unlabelled symbol
+layer silently took down the two line layers that shared its source. -> A failure inside a
+map worker is scoped to the source, not to the layer that caused it, so "one layer is
+misconfigured" and "three layers render nothing" are the same symptom. The diagnosis came
+from `map.style.sourceCaches[id]._tiles`, where every tile read `state: "errored"`; that
+is the first thing to look at when a source with valid data draws nothing. Design tokens
+now reach the map through `lib/map/color.ts`, which rasterises one pixel and reads the
+sRGB bytes back rather than reimplementing OKLCH, so the map and the page can never
+disagree about what a colour is.
+
+[2026-09-23] - A test asserted the §11.4 simultaneity clause at exactly its threshold, by
+placing a record 2.0 km from the origin, and failed: the polar-coordinate test helper
+round-trips through the sphere and came back 1.2 nanometres short of 2 km. -> The helper
+is right, the engine is right, and the test was asserting a float equality dressed up as a
+threshold. A threshold test belongs clearly inside and clearly outside the boundary; at
+the boundary it asserts the rounding behaviour of the test's own constructor.
+
+[2026-09-23] - `published.json` grew a second block when advocate figures joined the
+Methodology page, and the staleness test failed because it compared the whole file against
+the engine scorer's output alone. The tempting fix was to exclude the new block. -> The
+value of that test is that *everything* on that page is whatever the eval last said, so
+the new block is compared against its own scorer instead. Only the two figures that
+measure a machine rather than a decision - per-case latency and batch runtime - are
+checked for shape rather than equality, and for the same stated reason.

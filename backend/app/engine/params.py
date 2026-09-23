@@ -46,6 +46,14 @@ class EngineParams:
     adv_simultaneous_km: float = 2.0
     adv_max_per_hour: int = 12
 
+    adv_repeated_desc_min_addresses: int = 3
+    """Bible §11.4: one description reused at this many *different* addresses is reported.
+
+    Added after `PARAMS_VERSION` was set, without bumping it, because it is read only by
+    `advocate/` and so cannot move any `CaseAnalysis` that version is stamped on. The rule
+    the version protects is about a value changing under a published verdict; a threshold
+    for a mode that publishes its own report separately is not that."""
+
     tz: str = "America/New_York"
 
 

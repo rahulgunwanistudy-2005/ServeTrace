@@ -21,6 +21,16 @@ class Settings(BaseSettings):
     max_fixes: int = 5_000
     """Bible §16: location points accepted in one analyse request."""
     max_advocate_rows: int = 50_000
+    max_advocate_lookups: int = 1_000
+    """New addresses one batch upload may look up. A 50,000-row file naming 50,000 unknown
+    addresses would otherwise point 50,000 requests at a free city service. Rows over the
+    budget are reported as fixable — a lat/lng column needs no lookups at all."""
+    max_advocate_map_records: int = 10_000
+    """Filings returned to the browser so the map can draw a server's week.
+
+    Whole servers at a time, highest-ranked first. The cap exists because a 50,000-row
+    file would otherwise answer with ten megabytes of JSON for a map that only ever shows
+    one server at a time."""
     max_household: int = 25
     cors_origins: str = ""
     rate_limit_per_minute: int = 30

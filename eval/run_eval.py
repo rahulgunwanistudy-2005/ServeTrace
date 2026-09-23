@@ -34,6 +34,9 @@ from typing import Any
 from app.domain.models import AnalyzeRequest, ClaimTier, ServiceMethod, Severity
 from app.engine.params import PARAMS, PARAMS_VERSION
 from app.engine.verdict import MAIN_CLAIM, analyze
+from eval.advocate_eval import format_report as format_advocate
+from eval.advocate_eval import published_figures as advocate_published
+from eval.advocate_eval import run as run_advocate
 
 TIERS = ("contradicted", "consistent", "no_data", "inconclusive")
 
@@ -357,7 +360,12 @@ PUBLISHED = (
 
 
 def run(corpus: Path, out: Path, publish: Path | None = PUBLISHED) -> Report:
-    """Analyse every case, compare tiers against ground truth, write the report."""
+    """Analyse every case, compare tiers against ground truth, write the report.
+
+    Batch mode is scored in the same pass. It shares the thresholds and the same
+    independently-labelled corpus, and the Methodology page prints both sets of numbers,
+    so running them apart is how one of them goes stale without anybody noticing.
+    """
     results = score_corpus(corpus)
     report = build_report(results)
     out.mkdir(parents=True, exist_ok=True)
@@ -369,10 +377,19 @@ def run(corpus: Path, out: Path, publish: Path | None = PUBLISHED) -> Report:
         )
         + "\n"
     )
+
+    advocate = run_advocate(corpus, out) if (corpus / "advocate").is_dir() else None
+
     if publish is not None:
+        figures = published_figures(report)
+        if advocate is not None:
+            figures["advocate"] = advocate_published(advocate)
         publish.parent.mkdir(parents=True, exist_ok=True)
-        publish.write_text(json.dumps(published_figures(report), indent=1, sort_keys=True) + "\n")
+        publish.write_text(json.dumps(figures, indent=1, sort_keys=True) + "\n")
+
     print(format_report(report))
+    if advocate is not None:
+        print("\n" + format_advocate(advocate))
     return report
 
 

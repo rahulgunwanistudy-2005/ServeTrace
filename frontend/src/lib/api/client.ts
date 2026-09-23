@@ -68,6 +68,13 @@ export type ClaimTier = components['schemas']['ClaimTier'];
 export type Finding = components['schemas']['Finding'];
 export type Severity = components['schemas']['Severity'];
 export type Deadlines = components['schemas']['Deadlines'];
+export type AdvocateAnalysis = components['schemas']['AdvocateAnalysis'];
+export type AdvocateColumnMapping = components['schemas']['AdvocateColumnMapping'];
+export type AdvocateStats = components['schemas']['AdvocateStats'];
+export type ServerReport = components['schemas']['ServerReport'];
+export type ImpossiblePair = components['schemas']['ImpossiblePair'];
+export type ServiceRecord = components['schemas']['ServiceRecord'];
+export type RejectedRow = components['schemas']['RejectedRow'];
 
 const JSON_HEADERS = { 'content-type': 'application/json' } as const;
 
@@ -110,5 +117,51 @@ export const api = {
 			method: 'POST',
 			headers: JSON_HEADERS,
 			body: JSON.stringify(body)
-		})
+		}),
+
+	advocate: {
+		/**
+		 * The file's own column names, so the user can map them before anything is
+		 * interpreted. A separate call because the mapping is a decision they make, and
+		 * the columns have to be on screen before they can make it.
+		 */
+		columns: (file: File) => {
+			const body = new FormData();
+			body.append('file', file);
+			return request<{ columns: string[] }>('/advocate/columns', { method: 'POST', body });
+		},
+
+		/**
+		 * A spreadsheet of filings in, servers ranked by impossibility out. Unlike the
+		 * defendant flow this file is not windowed in the browser: every row is a sworn
+		 * public filing rather than one person's movements, and the whole point is the
+		 * sequence across all of them.
+		 */
+		analyze: (file: File, mapping: AdvocateColumnMapping) => {
+			const body = new FormData();
+			body.append('file', file);
+			body.append('mapping', JSON.stringify(mapping));
+			return request<AdvocateAnalysis>('/advocate/analyze', { method: 'POST', body });
+		},
+
+		/**
+		 * The report as a file to attach to something. The client posts back the report it
+		 * already holds: there is no case id because nothing is stored, and re-uploading a
+		 * spreadsheet to get a CSV of what is already on screen would be the wrong trade.
+		 */
+		exportCsv: async (reports: ServerReport[], kind: 'pairs' | 'servers'): Promise<Blob> => {
+			let response: Response;
+			try {
+				response = await fetch(`/api/advocate/export.csv?kind=${kind}`, {
+					method: 'POST',
+					headers: JSON_HEADERS,
+					body: JSON.stringify(reports)
+				});
+			} catch {
+				throw new ApiError('network', 0);
+			}
+			if (!response.ok) throw await toError(response);
+			return await response.blob();
+		}
+	}
 } as const;

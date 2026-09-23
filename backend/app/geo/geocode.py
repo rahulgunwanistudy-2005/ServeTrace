@@ -86,6 +86,16 @@ def _remember(key: str, result: GeocodeResult) -> None:
         _runtime_cache.popitem(last=False)
 
 
+def cached_result(address: str) -> GeocodeResult | None:
+    """What is already known about an address, without any possibility of a request.
+
+    Advocate mode needs this: a 50,000-row file may name thousands of addresses, and the
+    decision of which ones are worth spending the lookup budget on has to be made before
+    any of them are looked up.
+    """
+    return _cached(cache_key(address))
+
+
 def _cached(key: str) -> GeocodeResult | None:
     hit = _disk_cache().get(key)
     if hit is not None:

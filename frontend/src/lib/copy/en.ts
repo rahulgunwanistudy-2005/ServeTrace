@@ -364,6 +364,17 @@ export const methodology = {
 	descriptionBody: (caught: number, total: number, falseFlags: number, skipped: number) =>
 		`Where the affidavit says papers were handed to someone, ${caught} of ${total} descriptions that matched nobody in the household were flagged, with ${falseFlags} households wrongly told that nobody matched. ${skipped} cases were not scored, because papers taped to a door were not handed to anyone and there is nobody to compare.`,
 
+	advocateTitle: 'Batch mode, scored separately',
+	advocateBody: (filings: number, servers: number) =>
+		`Advocate mode asks a different question of a different corpus: ${filings.toLocaleString('en-US')} filings from ${servers} synthetic process servers, some of whose sequences were deliberately built so that nobody could have travelled them. As with the case corpus, the generator decided which ones from where it placed the records, and never by asking the engine.`,
+	advocateStatClean: 'Ordinary servers named',
+	advocateStatPrecision: 'Sequences found that were planted',
+	advocateStatRecall: 'Planted sequences found',
+	advocatePrecisionNote:
+		'Precision leads here and recall follows. A sequence this misses costs an advocate one line of evidence; a sequence it reports wrongly costs them their credibility with whoever reads the report.',
+	advocateRuntime: (ms: number, filings: number) =>
+		`${filings.toLocaleString('en-US')} filings analysed in ${Math.round(ms)} ms. The design target is 50,000 in under three seconds.`,
+
 	limitsTitle: 'Where this cannot help',
 	limits: [
 		'Location history shows where your phone was. It is not proof of where you were, and a judge decides what happened.',
@@ -411,18 +422,109 @@ export const methodology = {
 export const advocate = {
 	title: 'Advocate mode',
 	sub: 'Load many service records from one process server and look for sequences nobody could have travelled.',
+
+	/**
+	 * Why this is a different kind of evidence from the defendant flow, said once and
+	 * plainly. It needs no location history from anybody: the conflict is inside the
+	 * server\u2019s own filings.
+	 */
+	premiseTitle: 'What this looks at',
+	premiseBody:
+		'The defendant check compares one sworn affidavit against one person\u2019s own location history. This compares a process server\u2019s filings against each other. If two services are sworn eleven kilometres apart three minutes apart, the two filings conflict whatever either defendant was doing that day.',
+
+	// --- Step 1: the file
+	uploadTitle: 'Your service records',
 	upload: 'Upload a CSV or XLSX of service records.',
+	uploadHint:
+		'Most case-management systems export this. ServeTrace needs a server, a date and time, and either coordinates or a New York City address.',
+	chooseFile: 'Choose a file',
+	orTryDemo: 'Or open the example file',
+	demoFileNote:
+		'A synthetic week for four process servers, so you can see the report before you upload anything real.',
+	reading: 'Reading your file\u2026',
+	analysing: 'Looking for sequences that do not add up\u2026',
+
+	// --- Step 2: the mapping
 	mapColumns: 'Match your columns',
+	mapColumnsHint:
+		'We guessed from your headings. Change anything we got wrong. Nothing is read until you press the button.',
+	mapRequired: 'Needed',
+	mapOptional: 'Optional, and worth having',
+	notMapped: '\u2014 not used \u2014',
+	fields: {
+		server_id: 'Process server',
+		at: 'Date and time',
+		date: 'Date',
+		time: 'Time',
+		lat: 'Latitude',
+		lng: 'Longitude',
+		address: 'Address',
+		case_ref: 'Case number',
+		outcome: 'Outcome',
+		recipient_desc: 'Description of the person served'
+	},
+	fieldHints: {
+		at: 'One column holding both, or use the date and time columns below.',
+		lat: 'Coordinates are best: nothing has to be looked up, and nothing is sent anywhere.',
+		address: 'Used only when there are no coordinates. Only the address is ever looked up.',
+		outcome: 'Lets us count completed services separately from attempts.',
+		recipient_desc: 'Lets us spot one description reused at many different doors.'
+	},
+	analyse: 'Find the conflicts',
+	back: 'Choose a different file',
+
+	// --- The report
 	riskTable: 'Servers, ranked',
+	riskTableHint: 'Ordered by how much in their own filings does not fit together.',
+	columns: {
+		rank: 'Rank',
+		server: 'Process server',
+		filings: 'Filings',
+		impossible: 'Sequences that do not add up',
+		busiest: 'Busiest hour',
+		descriptions: 'Reused descriptions'
+	},
+	nothingFound: 'Nothing to report',
+	nothingFoundBody:
+		'None of these servers has a sequence in their own filings that could not have been travelled. That is the result, and it is a real one.',
 	impossiblePairs: 'Sequences that do not add up',
-	exportCsv: 'Export CSV',
-	exportPdf: 'Export report',
+	pairSummary: (km: string, minutes: string, speed: string) =>
+		`${km} apart, ${minutes} apart. Covering that would mean about ${speed}.`,
+	repeatedTitle: 'One description, many doors',
+	repeatedBody: (doors: number) =>
+		`The same description of the person who took the papers appears at ${doors} different addresses.`,
+	repeatedNote:
+		'This is worth checking rather than conclusive: coded descriptions are short, and two people can genuinely be described the same way.',
+	busiestHourTitle: 'Busiest hour',
+	busiestHour: (n: number) =>
+		`${n} completed service${n === 1 ? '' : 's'} in a single hour, at the busiest point.`,
+	busiestHourOk: 'No hour in this file is unusually busy.',
+	selectServer: 'Select a server to see their day on the map.',
+	mapTitle: 'That server\u2019s filings',
+	mapHint:
+		'Each pin is a filing. A red line joins two the server could not have travelled between.',
+	mapAlternative: 'The same filings as a table',
+	viewDay: 'See this server\u2019s day',
+
+	// --- Rejected rows
+	rejectedTitle: (n: number) => `${n} row${n === 1 ? '' : 's'} could not be used`,
+	rejectedBody:
+		'These are listed rather than dropped, because a report is only as good as the rows it counted.',
+	rejectedRow: (row: number) => `Row ${row}`,
+	statsLine: (records: number, rows: number, servers: number) =>
+		`${records.toLocaleString('en-US')} of ${rows.toLocaleString('en-US')} rows used, across ${servers} process server${servers === 1 ? '' : 's'}.`,
+
+	// --- Exports and next steps
+	exportCsv: 'Download the sequences (CSV)',
+	exportServers: 'Download the summary (CSV)',
 	/** Bible §5 L7. */
 	dcwpNote:
 		'The NYC Department of Consumer and Worker Protection accepts complaints about process servers from legal advocates.',
 	gpsTitle: 'Ask for the GPS record',
-	comingSoon:
-		'Batch analysis — a spreadsheet of service records, ranked servers and a map of the sequences nobody could have travelled — arrives in a later session.'
+	gpsBody:
+		'Licensed New York City process servers must carry a device that electronically records the GPS location, date and time of every service and attempt. That record can be asked for, and it either matches these filings or it does not.',
+	limitation:
+		'This compares filings with each other. It shows where two sworn statements cannot both be right; what happened, and what follows from it, is for a court.'
 } as const;
 
 /** The Privacy page (bible §14.7, §16). Every claim here is one the code actually keeps. */

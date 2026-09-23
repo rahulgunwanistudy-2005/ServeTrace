@@ -285,3 +285,95 @@ class ServerReport(BaseModel):
     max_services_per_hour: int
     repeated_descriptions: list[tuple[str, int]]
     risk_rank: int
+
+
+# --- Advocate mode I/O (bible §14.6) ------------------------------------------------------
+#
+# Bible §10 specifies the three shapes the batch engine computes over. These are the three
+# it needs at the HTTP boundary: how a spreadsheet's own column names map onto them, what
+# happened to a row that could not be used, and what the route answers with.
+
+
+class AdvocateColumnMapping(BaseModel):
+    """Which column of the uploaded file holds each field. Values are header names.
+
+    Two things are required and each may be given two ways, because case-management
+    systems export both: a time is either one column or a date column plus a time column,
+    and a place is either a coordinate pair or an address to look up.
+    """
+
+    server_id: str
+    at: str | None = None
+    """One column holding the whole date and time."""
+    date: str | None = None
+    time: str | None = None
+    """Or these two, used only when `at` is absent."""
+    lat: str | None = None
+    lng: str | None = None
+    address: str | None = None
+    case_ref: str | None = None
+    outcome: str | None = None
+    recipient_desc: str | None = None
+
+    @property
+    def has_time(self) -> bool:
+        return bool(self.at) or bool(self.date and self.time)
+
+    @property
+    def has_place(self) -> bool:
+        return bool(self.lat and self.lng) or bool(self.address)
+
+
+class RejectedRow(BaseModel):
+    """A row that could not be turned into a service record, and why.
+
+    Rejections are part of the answer, not an error path. An advocate is assembling a
+    complaint, and a parser that silently drops the eleven rows it could not read hands
+    them a report whose denominator is wrong.
+    """
+
+    row: int
+    """The row number as the spreadsheet shows it: the header is row 1."""
+    code: str
+    """For example "missing_time", "bad_coordinates", "address_not_found"."""
+    reason: str
+    """Plain language, naming the column at fault. Never echoes the cell's contents."""
+
+
+class AdvocateStats(BaseModel):
+    rows_read: int
+    records: int
+    rejected: int
+    servers: int
+    addresses_geocoded: int
+    records_returned: int
+    """How many filings came back for the map. Fewer than `records` on very large files."""
+    params_version: str
+    engine_version: str
+    generated_at: AwareDatetime
+
+
+class AdvocateAnalysis(BaseModel):
+    reports: list[ServerReport]
+    """In risk order, worst first."""
+    rejected: list[RejectedRow]
+    records: list[ServiceRecord] = []
+    """The filings themselves, so the map can draw a server's whole week.
+
+    A `ServerReport` carries only the pairs that do not fit, and a map of those alone
+    would imply that four flagged steps were the server's entire output. The cluster of
+    ordinary doors is what makes the outlier mean something, so the records come back too.
+
+    Whole servers at a time, highest-ranked first, until the cap is reached — so any
+    server the map can open, it can draw completely, and the rest keep their row in the
+    table and say plainly that their day is not on the map.
+    """
+    mapping: AdvocateColumnMapping
+    """Which column was read as which field, echoed back with the report.
+
+    The same discipline as `params_version` on a `CaseAnalysis`: a number is only
+    reproducible alongside what produced it, and "the times came out of the column headed
+    `filed_on`" is exactly the kind of thing an advocate needs to be able to check when
+    somebody disputes the report.
+    """
+    stats: AdvocateStats

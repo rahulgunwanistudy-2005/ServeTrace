@@ -14,6 +14,9 @@ from pathlib import Path
 
 import pytest
 
+from eval.advocate_eval import load_records
+from eval.advocate_eval import published_figures as advocate_published
+from eval.advocate_eval import score as advocate_score
 from eval.run_eval import (
     PUBLISHED,
     TIERS,
@@ -24,6 +27,16 @@ from eval.run_eval import (
 )
 
 CORPUS = Path(__file__).resolve().parents[3] / "fixtures" / "out"
+
+
+def advocate_report():
+    """The batch scorer over the same corpus, so the page's two halves stay in step."""
+    advocate = CORPUS / "advocate"
+    truth = {
+        server["server_id"]: server
+        for server in json.loads((advocate / "ground_truth.json").read_text())["servers"]
+    }
+    return advocate_score(load_records(advocate / "records.csv"), truth)
 
 
 @pytest.fixture(scope="module")
@@ -100,10 +113,21 @@ def test_the_figures_on_the_methodology_page_are_the_figures_this_run_produced(r
     committed = json.loads(PUBLISHED.read_text())
     fresh = published_figures(report)
 
-    # Latency is the one figure that is a measurement of a machine rather than a decision
-    # of the engine's, so it is checked for shape and sanity and not for equality. Pinning
-    # it would make this test fail on a busy laptop, and a test people learn to ignore is
-    # worse than no test.
+    # The page also prints batch-mode figures, which come from a different scorer over a
+    # different corpus. They are compared here rather than exempted, because the whole
+    # value of this test is that *everything* on that page is whatever the eval last said.
+    committed_advocate = committed.pop("advocate", None)
+    assert committed_advocate is not None, "the page publishes batch figures; re-run the eval"
+
+    # Two figures here measure a machine rather than a decision of the engine's — the
+    # per-case latency and the batch runtime — so both are checked for shape and sanity
+    # and not for equality. Pinning either would make this fail on a busy laptop, and a
+    # test people learn to ignore is worse than no test.
+    fresh_advocate = advocate_published(advocate_report())
+    assert isinstance(committed_advocate.pop("runtime_ms"), (int, float))
+    assert isinstance(fresh_advocate.pop("runtime_ms"), (int, float))
+    assert committed_advocate == fresh_advocate
+
     assert committed.pop("latency_ms").keys() == fresh.pop("latency_ms").keys()
     assert committed == fresh
     assert report.latency_ms["p95"] < 200.0

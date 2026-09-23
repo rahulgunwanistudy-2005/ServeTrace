@@ -1,4 +1,16 @@
 {
+ "advocate": {
+  "clean_servers": 3,
+  "clean_servers_accused": 0,
+  "false_negatives": 0,
+  "false_positives": 0,
+  "n_records": 2000,
+  "n_servers": 5,
+  "precision": 1.0,
+  "recall": 1.0,
+  "runtime_ms": 15.2,
+  "true_positives": 12
+ },
  "by_edge_kind": {
   "dst_fold": {
    "claim_accuracy": 1.0,
@@ -94,9 +106,9 @@
  },
  "false_accusations": 0,
  "latency_ms": {
-  "max": 2.22,
-  "median": 0.15,
-  "p95": 0.81
+  "max": 1.34,
+  "median": 0.13,
+  "p95": 0.65
  },
  "n_cases": 200,
  "n_disagreements": 4,

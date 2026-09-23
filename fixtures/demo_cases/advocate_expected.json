@@ -1,0 +1,56 @@
+{
+ "mapping": {
+  "address": "address",
+  "at": "service_datetime",
+  "case_ref": "case_number",
+  "lat": "latitude",
+  "lng": "longitude",
+  "outcome": "outcome",
+  "recipient_desc": "person_served_description",
+  "server_id": "server_id"
+ },
+ "n_rows": 194,
+ "seed": 20260923,
+ "servers": [
+  {
+   "impossible_hops": 0,
+   "n_records": 42,
+   "notes": [],
+   "reused_description": null,
+   "reused_description_doors": 0,
+   "server_id": "1387421"
+  },
+  {
+   "impossible_hops": 4,
+   "n_records": 60,
+   "notes": [
+    "10.9 km in 2 min at 9:57 AM on 4 March",
+    "13.5 km in 4 min at 12:50 PM on 4 March",
+    "9.2 km in 3 min at 10:21 AM on 6 March",
+    "13.0 km in 4 min at 1:05 PM on 7 March"
+   ],
+   "reused_description": "M/Medium/Brown/40/70/190",
+   "reused_description_doors": 6,
+   "server_id": "1422908"
+  },
+  {
+   "impossible_hops": 0,
+   "n_records": 40,
+   "notes": [],
+   "reused_description": null,
+   "reused_description_doors": 0,
+   "server_id": "1390115"
+  },
+  {
+   "impossible_hops": 2,
+   "n_records": 52,
+   "notes": [
+    "13.9 km in 4 min at 4:00 PM on 4 March",
+    "21.0 km in 4 min at 10:28 AM on 6 March"
+   ],
+   "reused_description": "F/Heavy/Black/30/70/120",
+   "reused_description_doors": 4,
+   "server_id": "1451760"
+  }
+ ]
+}

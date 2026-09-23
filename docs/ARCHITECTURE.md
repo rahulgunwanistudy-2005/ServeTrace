@@ -153,6 +153,54 @@ affidavit with three prior attempts asks four questions of one export rather tha
 four passes over it. Interval fixes are bounded on the right and scanned on the left,
 because a ten-hour stay can start long before a six-hour window and still cover it.
 
+## Advocate mode
+
+The same physics as the claim engine, pointed at a different question and carrying a
+different weight of evidence.
+
+```
+XLSX / CSV ─► advocate/ingest.py ─► ServiceRecord[]  +  RejectedRow[]
+                                          │
+                                          ▼
+                              advocate/patterns.py  (bible §11.4)
+                                          │
+                        ServerReport[] ranked by risk ─► advocate/report.py ─► CSV
+```
+
+The defendant flow asks whether one person's phone can be reconciled with one sworn claim.
+Batch mode asks whether a process server's **own filings** can be reconciled with each
+other, which needs no location history from anybody: two services sworn eleven kilometres
+apart three minutes apart are in conflict whatever either defendant was doing that day.
+That makes it a different kind of evidence, and the copy says so rather than leaving the
+reader to infer it — one contradicted service is a dispute between two accounts, and six
+impossible sequences inside one account is a pattern.
+
+Four decisions.
+
+**The elapsed-time floor is imported, not restated.** `patterns.py` prices a step between
+two filings with `engine/feasibility.MIN_ELAPSED_S`. Two filings at the same instant would
+otherwise divide by zero, and infinity is not JSON; more importantly, an advocate and a
+defendant looking at the same two points must be told the same speed.
+
+**A rejected row is part of the answer.** Every row that cannot be parsed comes back as a
+`RejectedRow` with the row number the spreadsheet shows and the column at fault — never the
+cell's contents, for the same reason the logs redact (bible §16). An advocate is assembling
+something they will put their name to, and a parser that silently discards eleven rows
+hands them a report whose denominator is wrong.
+
+**Throughput counts completed services, not doors knocked on.** A `not_home` is the
+evidence of diligence that 308(4) asks for, so counting attempts would give the server who
+documents six fruitless visits a worse number than the one who claims six services. The
+rolling-hour window is half-open for the same reason the other thresholds are generous:
+the reading that flags less is the one that accuses less.
+
+**`AdvocateAnalysis` carries the filings and the mapping back.** A `ServerReport` holds
+only the pairs that do not fit, and a map of those alone would imply that four flagged
+steps were the server's entire output — the cluster of ordinary doors is what makes the
+outlier mean something. Records are capped and the cut falls *between* servers, so any
+server the map can open it can draw completely. The column mapping rides along for the
+reason `params_version` does: a number is reproducible only beside what produced it.
+
 ## Geocoding
 
 `geo/geocode.py` asks NYC GeoSearch and nothing else, sends only the address, and drops any
@@ -250,6 +298,27 @@ and one unauthenticated client should not be able to spend all of it.
 One thing this boundary does **not** cover: the result map pans to the user's own points,
 so the tile host can infer roughly where those points are from which tiles are requested.
 No location data is sent, but the inference is real, and the privacy page says so.
+
+## Maps
+
+`lib/map/AdvocateMap.svelte` and, from session 7, `ResultMap.svelte` both draw with
+MapLibre over OpenFreeMap's `liberty` style, with `preserveDrawingBuffer` on so a canvas
+can be captured for a document (bible §15).
+
+Two things about that pairing are not obvious and both cost real time to find.
+
+**MapLibre parses style colours itself and does not understand `oklch`.** The whole
+palette in `app.css` is OKLCH, so a layer painted straight from a token is rejected and
+never drawn. `lib/map/color.ts` resolves a token by filling one canvas pixel with it and
+reading the sRGB bytes back, which gets the browser's own conversion — including its gamut
+clamping — rather than a second implementation that could disagree with the page.
+
+**A worker failure is scoped to the source, not to the layer that caused it.** A symbol
+layer with no `text-font` asks for MapLibre's default `Open Sans Regular`, which
+OpenFreeMap does not serve; the glyph request 404s, the worker errors the whole *tile*, and
+every layer sharing that source renders nothing. When a source with valid data draws
+nothing, `map.style.sourceCaches[id]._tiles` is the place to look — the tiles read
+`state: "errored"`.
 
 ## The visual system
 

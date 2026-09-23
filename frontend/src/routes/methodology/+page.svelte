@@ -2,6 +2,7 @@
 	import published from '$lib/eval/published.json';
 	import Callout from '$lib/ui/Callout.svelte';
 	import { deadlines, methodology as copy, nav, tiers, tierLabels } from '$copy/en';
+	import { toneInk, type Tone } from '$lib/ui/tone';
 
 	const p = published.engine_params;
 	const pct = (n: number) => `${(n * 100).toFixed(n === 1 ? 0 : 1)}%`;
@@ -23,6 +24,8 @@
 	// the table markup readable and the strictness intact.
 	const matrix = published.claim_matrix as Record<string, Record<string, number>>;
 	const cell = (truth: string, pred: string) => matrix[truth]?.[pred] ?? 0;
+
+	const advocate = published.advocate;
 </script>
 
 <svelte:head><title>{nav.methodology} — ServeTrace</title></svelte:head>
@@ -153,6 +156,29 @@
 			published.description.n_skipped_by_method
 		)}
 	</p>
+
+	<h2>{copy.advocateTitle}</h2>
+	<p>{copy.advocateBody(advocate.n_records, advocate.n_servers)}</p>
+
+	<dl class="not-prose my-6 grid gap-3 sm:grid-cols-3">
+		{#each [
+			{
+				label: copy.advocateStatClean,
+				value: `${advocate.clean_servers_accused} of ${advocate.clean_servers}`,
+				tone: 'consistent'
+			},
+			{ label: copy.advocateStatPrecision, value: pct(advocate.precision), tone: 'accent' },
+			{ label: copy.advocateStatRecall, value: pct(advocate.recall), tone: 'accent' }
+		] as stat (stat.label)}
+			<div class="rounded-card border border-line bg-surface p-4 shadow-card">
+				<dt class="text-sm text-muted">{stat.label}</dt>
+				<dd class="mt-1 text-2xl font-semibold {toneInk[stat.tone as Tone]}">{stat.value}</dd>
+			</div>
+		{/each}
+	</dl>
+
+	<p>{copy.advocatePrecisionNote}</p>
+	<p>{copy.advocateRuntime(advocate.runtime_ms, advocate.n_records)}</p>
 
 	<h2>{copy.limitsTitle}</h2>
 	<ul>
