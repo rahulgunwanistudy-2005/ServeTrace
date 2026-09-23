@@ -6,6 +6,7 @@
  */
 
 import { errors, type ErrorCode } from '$copy/en';
+import type { components } from './schema';
 
 export class ApiError extends Error {
 	readonly code: ErrorCode;
@@ -50,20 +51,40 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 	return (await response.json()) as T;
 }
 
-export type Health = {
-	status: string;
-	engine_version: string;
-	params_version: string;
-	llm_provider: string;
-};
+/** Generated from the backend's OpenAPI document. Never hand-written. Bible §7. */
+export type Health = components['schemas']['Health'];
+export type ExtractionResult = components['schemas']['ExtractionResult'];
+export type AffidavitDraft = components['schemas']['AffidavitDraft'];
+export type ValidationNote = components['schemas']['ValidationNote'];
+export type GeocodeResponse = components['schemas']['GeocodeResponse'];
+export type GeocodeResult = components['schemas']['GeocodeResult'];
+
+const JSON_HEADERS = { 'content-type': 'application/json' } as const;
 
 export const api = {
 	health: () => request<Health>('/health'),
 
-	/** Session 2. */
-	extract: (_file: File): Promise<never> => {
-		throw new Error('Not implemented until session 2');
+	/**
+	 * Upload one affidavit of service. The file leaves the device; nothing else does,
+	 * and the server keeps no copy of it (bible §16).
+	 */
+	extract: (file: File) => {
+		const body = new FormData();
+		body.append('file', file);
+		return request<ExtractionResult>('/extract', { method: 'POST', body });
 	},
+
+	/**
+	 * Resolve one New York City address. The address is the entire request: when the
+	 * source is a bank statement, the merchant and the amount stay in the browser
+	 * (bible §13).
+	 */
+	geocode: (address: string) =>
+		request<GeocodeResponse>('/geocode', {
+			method: 'POST',
+			headers: JSON_HEADERS,
+			body: JSON.stringify({ address })
+		}),
 
 	/** Session 3. */
 	analyze: (_body: unknown): Promise<never> => {

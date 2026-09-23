@@ -61,3 +61,11 @@ Every fixture, demo case, name, index number, licence number and affidavit in th
 repository is invented. Street addresses come from NYC Planning Labs GeoSearch and are used
 purely as geography; no address is associated with any real person. Demo screens carry a
 "Synthetic demo data" chip.
+
+The demo cases ship with their extraction already computed, in
+`fixtures/demo_cases/<case>/extraction.json`, so a demonstration never calls a language
+model or a network. Each of those files records how it was produced in its `provider`
+field. `derived_from_ground_truth` means the draft was built from the case's own committed
+affidavit, quoted from the rendered document and run through the same deterministic
+validators as a real upload — it is what a perfect extraction of that document looks like,
+not something a model said. A provider name there means a real model produced it.

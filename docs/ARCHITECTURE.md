@@ -44,6 +44,52 @@ browser must apply it *before* anything is transmitted — that is the privacy b
 **Types are generated.** `backend` OpenAPI → `openapi-typescript` → `frontend/src/lib/api/schema.d.ts`,
 via `npm run gen:types`. Hand-copied types drift.
 
+## Extraction
+
+One provider-agnostic pipeline, in `backend/app/extraction/`:
+
+```
+bytes ─► sniff (magic bytes)  ─► pdfplumber text layer ─► text >= 200 chars ─► text prompt
+                              └─► image                └─► otherwise ───────► pypdfium2 raster,
+                                                                              <= 3 pages, 200 dpi
+                                        │
+                                        ▼
+                               provider (gemini | anthropic | none)
+                                        │  JSON, one shared schema
+                                        ▼
+                               validators.py  (deterministic)
+                                        │
+                                        ▼
+                          AffidavitDraft + ValidationNote[]
+```
+
+`schema.py` holds the one JSON Schema every provider is given and the one parser that
+reads every provider's answer, so "what the model may say" and "what we do with it" cannot
+drift apart. Every field comes back as `{value, confidence, evidence_quote}`; the quote is
+what makes grounding possible, and it doubles as the "exactly as written" form of every
+date and time, since the field itself holds the normalised value.
+
+`validators.py` is where every judgement lives: dates and times parsed and localised to
+America/New_York with a DST-ambiguity flag, licence numbers checked, method normalised or
+inferred from the form's own wording, and each quote scored against the text layer with
+`difflib` (0.90). Failing a check never drops a field — it caps that field's confidence and
+attaches a note, because a user can correct a field they can see and cannot correct one
+that was silently discarded. A document with no text layer has nothing to check a quote
+against, so everything read off a scan is capped at 0.6.
+
+`LLM_PROVIDER=none` is a first-class configuration, not a stub: the deterministic half
+still runs, so the service method comes off the affidavit's own wording and the user types
+the rest.
+
+## Geocoding
+
+`geo/geocode.py` asks NYC GeoSearch and nothing else, sends only the address, and drops any
+result outside a five-borough bounding box. `app/geo/cache.json` is committed and derived
+from the same address pool the fixtures use, so every demo and fixture address resolves
+from disk with no upstream call — that is what makes bible §17's "the demo must never fail"
+true rather than hopeful. At runtime, misses are kept in a bounded in-memory LRU; the file
+is never written by the server.
+
 ## Layering
 
 ```

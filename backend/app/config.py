@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     llm_provider: Literal["gemini", "anthropic", "none"] = "none"
     gemini_api_key: str = ""
     anthropic_api_key: str = ""
+    gemini_model: str = "gemini-2.5-flash"
+    anthropic_model: str = "claude-sonnet-5"
     demo_only: bool = False
     max_upload_mb: int = 15
     cors_origins: str = ""

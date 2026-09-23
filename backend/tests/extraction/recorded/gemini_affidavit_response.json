@@ -1,0 +1,97 @@
+{
+ "_note": "A real-shaped provider answer for fixtures/demo_cases/maria_contradicted/affidavit.pdf. Recorded by hand from that document's text layer so the suite never needs a network call or an API key. Every evidence_quote below appears verbatim in that text layer.",
+ "index_number": {
+  "value": "CV-025236-25/BX",
+  "confidence": 0.97,
+  "evidence_quote": "Index no. CV-025236-25/BX"
+ },
+ "court": {
+  "value": "Civil Court of the City of New York, County of Bronx",
+  "confidence": 0.93,
+  "evidence_quote": "CIVIL COURT OF THE CITY OF NEW YORK\nCOUNTY OF BRONX"
+ },
+ "plaintiff": {
+  "value": "Atlas Bay Funding LLC",
+  "confidence": 0.96,
+  "evidence_quote": "Atlas Bay Funding LLC,"
+ },
+ "defendant_name": {
+  "value": "Maria Delarmo",
+  "confidence": 0.98,
+  "evidence_quote": "Maria Delarmo,"
+ },
+ "server_name": {
+  "value": "T. Ockham-Doyle",
+  "confidence": 0.95,
+  "evidence_quote": "T. Ockham-Doyle, being duly sworn, deposes and says"
+ },
+ "server_license": {
+  "value": "1401648",
+  "confidence": 0.94,
+  "evidence_quote": "License No. 1401648"
+ },
+ "agency_license": {
+  "value": "8871386",
+  "confidence": 0.91,
+  "evidence_quote": "Agency License No. 8871386."
+ },
+ "method": {
+  "value": "308_2",
+  "confidence": 0.92,
+  "evidence_quote": "a person of suitable age and discretion"
+ },
+ "served_date": {
+  "value": "2025-06-12",
+  "confidence": 0.96,
+  "evidence_quote": "That on June 12, 2025"
+ },
+ "served_time": {
+  "value": "19:42",
+  "confidence": 0.96,
+  "evidence_quote": "at 7:42 PM"
+ },
+ "served_address": {
+  "value": "2100 WHITE PLAINS ROAD, Bronx, NY 10462",
+  "confidence": 0.95,
+  "evidence_quote": "at 2100 WHITE PLAINS ROAD, Bronx, NY 10462"
+ },
+ "recipient_name": {
+  "value": "Jane Doe (refused name)",
+  "confidence": 0.88,
+  "evidence_quote": "By delivering a true copy of each to Jane Doe (refused\nname)"
+ },
+ "recipient_relationship": {
+  "value": "Person in Charge",
+  "confidence": 0.89,
+  "evidence_quote": "Person in Charge"
+ },
+ "mailing_date": {
+  "value": "2025-06-14",
+  "confidence": 0.9,
+  "evidence_quote": "That on June 14, 2025"
+ },
+ "mailing_address": {
+  "value": "2100 WHITE PLAINS ROAD, Bronx, NY 10462",
+  "confidence": 0.9,
+  "evidence_quote": "addressed to the Defendant at 2100 WHITE PLAINS ROAD, Bronx, NY 10462."
+ },
+ "proof_filed_date": {
+  "value": "2025-06-23",
+  "confidence": 0.86,
+  "evidence_quote": "Proof of service filed with the Clerk of the Court on June 23, 2025."
+ },
+ "recipient_description": {
+  "sex": "male",
+  "age_min": 56,
+  "age_max": 66,
+  "height_in_min": 71,
+  "height_in_max": 75,
+  "weight_lb_min": 180,
+  "weight_lb_max": 200,
+  "hair": "Brown",
+  "raw_text": "Male Light Brown 56-66 5'11\"-6'3\" 180-200 lbs",
+  "confidence": 0.84,
+  "evidence_quote": "Male Light Brown 56-66 5'11\"-6'3\" 180-200 lbs"
+ },
+ "attempts": []
+}

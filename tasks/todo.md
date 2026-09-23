@@ -123,3 +123,83 @@ The bible suggested asserting Times Square to Grand Central at 0.6-0.8 km. The t
 straight-line distance between those landmarks' coordinates is 0.914 km, so the test
 brackets 0.7-1.1 km instead. Asserting the stated range would have meant asserting
 something false.
+
+---
+
+## Session 2 — Affidavit extraction + geocoding
+
+**Goal:** `POST /api/extract` turns an uploaded affidavit (PDF or image) into an
+`AffidavitDraft` with per-field confidence and verbatim evidence quotes, validated
+deterministically. `POST /api/geocode` resolves NYC addresses with caching. Everything
+works with `LLM_PROVIDER=none`.
+
+### Steps
+- [x] S2.1 Contracts: `AffidavitDraft`, `AttemptDraft`, `ValidationNote`, `ExtractionResult`,
+      `GeocodeRequest`/`GeocodeResult` in `domain/models.py` (nothing crosses a module
+      boundary undeclared)
+- [x] S2.2 `extraction/pdf_text.py`: sniff pdf/jpg/png by magic bytes, reject HEIC loudly,
+      pdfplumber text layer, pypdfium2 raster (200 dpi, <= 3 pages), SHA-256 of raw bytes
+- [x] S2.3 `extraction/schema.py`: the provider-facing JSON Schema + `draft_from_payload`
+      (one parser shared by every provider, so a recorded response can be tested offline)
+- [x] S2.4 `extraction/prompt.md` loaded once at import; text >= 200 chars -> text prompt,
+      otherwise the image prompt
+- [x] S2.5 `extraction/vision.py`: orchestrator, `Extractor` protocol, provider registry,
+      `run_with_retry` (temperature 0, 30 s, one retry on schema violation)
+- [x] S2.6 Providers: `gemini.py` (google-genai structured output), `anthropic.py` (tool use),
+      `none.py` (empty draft)
+- [x] S2.7 `extraction/validators.py`: date sanity, licence pattern, time/date parsing,
+      America/New_York localisation with a DST-ambiguity flag, method keyword fallback,
+      evidence-quote grounding (difflib ratio >= 0.90), confidence caps -> `ValidationNote[]`
+- [x] S2.8 `geo/geocode.py`: GeoSearch via httpx (5 s), NYC bounding-box rejection, on-disk
+      cache.json + in-memory LRU; `POST /api/geocode`
+- [x] S2.9 `POST /api/extract`: size/type limits, orchestration, geocode `served_address` and
+      each attempt address, attach `LatLng` when confident
+- [x] S2.10 Seed `backend/app/geo/cache.json` from the committed address pool (no network)
+- [x] S2.11 Tests: pdf_text, schema contract vs a recorded response, validators rule by rule,
+      retry, geocode cache hit/miss on an httpx MockTransport, bbox, route limits. No network.
+- [x] S2.12 `eval/extraction_eval.py` + documented command; run only if a key exists
+- [x] S2.13 Demo cases: `fixtures/demo_cases/*/extraction.json` so demo mode never calls an LLM
+- [x] S2.14 Frontend: regenerate `schema.d.ts` from the new OpenAPI, wire `api.extract` /
+      `api.geocode` in `client.ts`
+- [x] S2.15 Quality gates both sides
+
+### Risks / open questions
+- **No LLM key on this machine.** Every provider path must therefore be provably correct
+  without network: the shared payload parser is tested against a recorded response, and the
+  retry rule is tested with an injected `send`. The real-provider eval is written and
+  documented but reported as not run.
+- **Draft fields stay strings.** Dates, times and method come back from the model as free
+  text and are normalised in `validators.py`, not by pydantic. A model that writes
+  "June 12, 2025" must produce a note the user can act on, not a 422 that loses the whole
+  extraction.
+- **"Exactly as written plus normalised ISO"** is satisfied by one mechanism, not two: the
+  normalised value is the field, the verbatim span is `evidence_quotes[field]`, and that
+  same quote is what the grounding check scores.
+- **Demo extractions without a key.** `extraction.json` records its own provenance
+  (`provider`), so a draft derived from the committed ground truth can never be mistaken
+  for a real model output.
+- **Rate limiting deferred.** Bible §16 wants a token bucket per IP; `RateLimitedError`
+  already exists. `/api/extract` and `/api/geocode` are the first routes that cost money,
+  so this is the next session's first job, not a silent omission.
+
+### Outcome
+
+Built as planned, with three deviations worth recording.
+
+- **`build_geocache.py` needs no network.** The address pool was already resolved against
+  GeoSearch in session 1, so seeding `app/geo/cache.json` only re-keys those answers. 401
+  addresses cached; a test asserts the two files stay in sync, because drift would quietly
+  put the demo back on the network.
+- **`extraction.json` for the demo cases is derived, not extracted.** No API key exists on
+  this machine. Each file records `provider: "derived_from_ground_truth"`, and
+  `docs/DISCLOSURE.md` says what that means, so a derived draft can never be read as
+  something a model produced. With a key configured, the same script records a real one.
+- **Two small additions beyond the brief.** `DemoOnlyError` (the `DEMO_ONLY` setting was
+  otherwise dead) and `GEMINI_MODEL` / `ANTHROPIC_MODEL` settings, so the extraction model
+  is configuration rather than a literal that ages.
+
+**Not run:** `eval/extraction_eval.py`, for want of a key. Its scoring is covered offline
+by `tests/eval/test_extraction_eval.py` and the command is in `eval/REPORT.md`.
+
+**Still deferred:** the §16 rate limiter. `/api/extract` and `/api/geocode` are the first
+routes that cost money on each call, so it is the first job of the next session.

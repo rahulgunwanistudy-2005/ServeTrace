@@ -41,8 +41,24 @@ class AffidavitNotConfirmedError(ServeTraceError):
 
 
 class ExtractionUnavailableError(ServeTraceError):
+    """The extractor could not be reached or is not configured. Manual entry still works."""
+
     code = "extraction_unavailable"
     status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+
+
+class ExtractionInvalidError(ServeTraceError):
+    """The extractor answered, but not with anything matching the schema, twice."""
+
+    code = "extraction_invalid"
+    status_code = status.HTTP_502_BAD_GATEWAY
+
+
+class DemoOnlyError(ServeTraceError):
+    """`DEMO_ONLY=true`: this deployment serves the bundled demo cases and takes no uploads."""
+
+    code = "demo_only"
+    status_code = status.HTTP_403_FORBIDDEN
 
 
 class UpstreamError(ServeTraceError):

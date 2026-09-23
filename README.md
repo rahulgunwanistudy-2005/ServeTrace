@@ -94,6 +94,33 @@ network:
 uv run python -m fixtures.generator.build_addresses
 ```
 
+Two committed artefacts are derived from it, and neither needs the network:
+
+```bash
+cd backend
+# address pool -> backend/app/geo/cache.json, so demo addresses resolve from disk
+PYTHONPATH=.. uv run python -m fixtures.generator.build_geocache
+
+# demo cases -> fixtures/demo_cases/<case>/extraction.json, so demo mode needs no LLM
+PYTHONPATH=.. uv run python -m fixtures.generator.build_demo_extractions
+```
+
+Without a provider configured, the second one derives each draft from the case's own
+committed affidavit and records `provider: "derived_from_ground_truth"` in the file. With
+`LLM_PROVIDER` set it runs the real extractor and records that instead. Tests assert both
+files stay in step with what they were derived from.
+
+## Evaluation
+
+```bash
+cd backend
+# the extractor, per field, clean and scanned separately. Needs a provider and a key.
+PYTHONPATH=.. LLM_PROVIDER=gemini GEMINI_API_KEY=... \
+    uv run python ../eval/extraction_eval.py --corpus ../fixtures/out --out ../eval/results
+```
+
+See [`eval/REPORT.md`](eval/REPORT.md) for what is measured and which numbers exist yet.
+
 ### macOS note
 
 WeasyPrint needs the Homebrew pango stack on its library path, so PDF rendering needs:

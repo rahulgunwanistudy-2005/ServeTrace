@@ -128,6 +128,10 @@ export const errors = {
 	unsupported_file: 'We cannot read that kind of file yet.',
 	affidavit_not_confirmed: 'Please confirm the affidavit details before we analyse them.',
 	extraction_unavailable: 'Automatic reading is unavailable. You can type the details in instead.',
+	extraction_invalid:
+		'We could not read the details off that document. You can type them in instead.',
+	demo_only:
+		'This is the demo version, so it does not take uploads. The example cases show what a real check looks like.',
 	upstream_error: 'Something upstream did not answer. Please try again.',
 	rate_limited: 'Too many requests. Please wait a moment.',
 	invalid_request: 'Some of the details sent were not in the expected format.',

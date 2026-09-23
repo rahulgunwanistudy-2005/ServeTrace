@@ -71,6 +71,105 @@ class Affidavit(BaseModel):
     """Analysis refuses unconfirmed affidavits."""
 
 
+# --- Extraction (bible §12) -------------------------------------------------------------
+#
+# The extractor never produces an `Affidavit`. It produces a *draft*: every field optional,
+# dates, times and method left as the strings the model returned, and one verbatim
+# `evidence_quote` per field. `extraction/validators.py` normalises the strings
+# deterministically; the user confirms the result; only then does an `Affidavit` exist.
+
+
+class AttemptDraft(BaseModel):
+    """A prior service attempt as extracted, before normalisation."""
+
+    at_date: str | None = None
+    at_time: str | None = None
+    at: AwareDatetime | None = None
+    """Filled by the validators from `at_date` + `at_time`."""
+    address: str | None = None
+    location: LatLng | None = None
+    outcome: str | None = None
+
+
+class AffidavitDraft(BaseModel):
+    """What came off the document. Nothing here is trusted until the user confirms it.
+
+    Dates, times and `method` stay as free text on purpose. A model that writes
+    "June 12, 2025" has to produce a note the user can act on, not a validation failure
+    that throws the whole extraction away.
+    """
+
+    index_number: str | None = None
+    court: str | None = None
+    plaintiff: str | None = None
+    defendant_name: str | None = None
+    server_name: str | None = None
+    server_license: str | None = None
+    agency_license: str | None = None
+    method: str | None = None
+    served_date: str | None = None
+    served_time: str | None = None
+    served_at: AwareDatetime | None = None
+    """Filled by the validators: `served_date` + `served_time` localised to America/New_York."""
+    served_at_ambiguous: bool = False
+    """The local time falls in a DST fold and means two different instants. Bible §11.1."""
+    served_address: str | None = None
+    served_location: LatLng | None = None
+    recipient_name: str | None = None
+    recipient_relationship: str | None = None
+    recipient_description: PersonDescription | None = None
+    attempts: list[AttemptDraft] = []
+    mailing_date: str | None = None
+    mailing_address: str | None = None
+    proof_filed_date: str | None = None
+    field_confidence: dict[str, float] = {}
+    """0..1 per field name. A missing entry means the extractor offered no opinion."""
+    evidence_quotes: dict[str, str] = {}
+    """Per field, the verbatim span the value was read from. Also the "exactly as written"
+    form of every date and time: the field holds the normalised value, the quote holds the
+    words on the page, and the grounding check scores that quote against the text layer."""
+
+
+class ValidationNote(BaseModel):
+    """One deterministic observation about a draft field, shown next to that field."""
+
+    field: str
+    level: Literal["info", "warning", "error"]
+    message: str
+
+
+class ExtractionResult(BaseModel):
+    """The response of `POST /api/extract`."""
+
+    draft: AffidavitDraft
+    notes: list[ValidationNote] = []
+    provider: str
+    source_sha256: str
+    n_pages: int
+    has_text_layer: bool
+    used_vision: bool
+    """True when the pages were sent as images because there was no usable text layer."""
+
+
+class GeocodeRequest(BaseModel):
+    address: str = Field(min_length=3, max_length=200)
+
+
+class GeocodeResult(BaseModel):
+    """A resolved NYC address. `label` is GeoSearch's normalised form of the input."""
+
+    location: LatLng
+    label: str
+    confidence: float = Field(ge=0.0, le=1.0)
+    source: Literal["geosearch", "cache"]
+
+
+class GeocodeResponse(BaseModel):
+    """`result` is null when the address could not be resolved inside New York City."""
+
+    result: GeocodeResult | None = None
+
+
 class FixKind(StrEnum):
     VISIT = "visit"
     PATH = "path"
