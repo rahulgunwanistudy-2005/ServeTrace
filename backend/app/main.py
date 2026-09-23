@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api import (
     routes_advocate,
     routes_analyze,
+    routes_documents,
     routes_extract,
     routes_geocode,
     routes_health,
@@ -48,6 +49,7 @@ def create_app() -> FastAPI:
     app.include_router(routes_geocode.router, prefix="/api")
     app.include_router(routes_analyze.router, prefix="/api")
     app.include_router(routes_advocate.router, prefix="/api")
+    app.include_router(routes_documents.router, prefix="/api")
 
     # Mounted last so that /api/* always wins over a same-named static path.
     mount_frontend(app, FRONTEND_BUILD)

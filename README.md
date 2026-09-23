@@ -131,16 +131,39 @@ correctly in 200 of 200. See [`eval/REPORT.md`](eval/REPORT.md) for the confusio
 the edge cases, the per-rule numbers and the four case-level disagreements with the reason
 each one is not an error.
 
+## Documents
+
+Two PDFs, rendered by WeasyPrint from Jinja2 templates filled with fields the user
+confirmed. No LLM touches either one (bible §15).
+
+| route | what comes back |
+|---|---|
+| `POST /api/documents/packet` | the **Evidence Packet**: verdict, every sworn moment, the findings with the provision each encodes, the location records the check ran over, the thresholds it ran under, and a SHA-256 of both inputs |
+| `POST /api/documents/affidavit` | the **Draft Supporting Affidavit**, to attach to the court's own Order to Show Cause form — numbered paragraphs built only from confirmed fields and findings, with a blank signature and notary block |
+
+Committed samples of both, for the `maria_contradicted` demo case, are in
+[`docs/samples/`](docs/samples/).
+
+Identical input renders identical bytes. WeasyPrint writes no creation date of its own,
+and the documents take their timestamp from `CaseAnalysis.generated_at` rather than from a
+clock, so a packet can be regenerated and compared.
+
 ### macOS note
 
-WeasyPrint needs the Homebrew pango stack on its library path, so PDF rendering needs:
+WeasyPrint needs the Homebrew pango stack on its library path. Without it, `import
+weasyprint` fails with a cffi traceback that mentions none of this, the fixture
+generator's PDFs cannot be built, and the PDF tests fail (loudly, and with this fix in the
+message — they do not skip):
 
 ```bash
-brew install pango gdk-pixbuf libffi
+brew install pango cairo gdk-pixbuf libffi
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib
 ```
 
-`--no-pdfs` avoids this entirely. The Docker image installs the libraries properly.
+Homebrew installs to `/opt/homebrew/lib` on Apple Silicon, which is not on macOS's default
+dyld search path — so the libraries are present and invisible. Put the `export` in your
+shell profile once. The fixture generator's `--no-pdfs` avoids it for that command only,
+and the Docker image installs the libraries where Debian's linker already looks.
 
 ## Quality gates
 

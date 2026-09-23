@@ -1,0 +1,86 @@
+{
+ "affidavit": {
+  "exhibits": [
+   {
+    "letter": "A",
+    "text": "The affidavit of service filed in this action."
+   }
+  ],
+  "paragraphs": [
+   {
+    "source": "user",
+    "text": "I am James Okonkwa, the defendant in this action. I reside at 900 BEDFORD AVENUE, Brooklyn, NY 11205. I make this affidavit in support of my application to vacate the default judgment entered against me."
+   },
+   {
+    "source": "L2",
+    "text": "An affidavit of service has been filed in this action. It states that service was made upon me by K. Aldersey on May 14, 2025 at 7:15 PM, at 900 BEDFORD AVENUE, Brooklyn, NY 11205, by delivery to a person of suitable age and discretion, and mailing, under CPLR 308(2). A copy is annexed as Exhibit A."
+   },
+   {
+    "source": "user",
+    "text": "I was not served with the summons and complaint in this action. No papers were delivered to me on May 14, 2025, and I did not learn of this action until long after that date."
+   },
+   {
+    "source": "L2",
+    "text": "900 BEDFORD AVENUE, Brooklyn, NY 11205, the address at which service is claimed, was not my dwelling place, my usual place of abode or my place of business on that date."
+   },
+   {
+    "source": "L5",
+    "text": "On these facts the court did not acquire personal jurisdiction over me, and the judgment entered against me should be vacated under CPLR 5015(a)(4)."
+   },
+   {
+    "source": "L6",
+    "text": "In the alternative, I was served, if at all, by delivery to a person of suitable age and discretion, and mailing, under CPLR 308(2), and not by personal delivery. I did not personally receive notice of this action in time to defend it. I have a meritorious defence to this action: I never opened an account with this company. I therefore ask the court to allow me to defend under CPLR 317."
+   },
+   {
+    "source": "L6",
+    "text": "That application is made within the time allowed, which runs to March 14, 2027."
+   },
+   {
+    "source": "L5",
+    "text": "Because the facts of service are disputed, I respectfully request a traverse hearing at which the process server may be examined."
+   },
+   {
+    "source": "L5",
+    "text": "I respectfully request that enforcement of the judgment, including any restraint on my bank account or wages, be stayed while this application is decided."
+   },
+   {
+    "source": "L7",
+    "text": "A process server licensed in New York City must carry a device that electronically records the location, date and time of every service and every attempt. I respectfully request that the plaintiff be directed to produce that record for the service and attempts described in the affidavit of service."
+   }
+  ]
+ },
+ "packet": {
+  "claims": [
+   {
+    "address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
+    "distance": "30 metres",
+    "label": "Service",
+    "speed": "\u2014",
+    "tier": "Consistent",
+    "when": "7:15 PM on May 14, 2025"
+   }
+  ],
+  "deadlines": {
+   "effective": "March 14, 2027",
+   "note": "If you were served in any way other than in person, and you did not personally get notice in time to defend the case, you may be able to ask the court to reopen it within one year of learning about the judgment, and no more than five years after it was entered. You also have to show you have a defence worth hearing. For you that is one year after you found out, which is March 14, 2027 and five years after the judgment was entered, which is August 1, 2030. The earlier of the two is the one that matters. A judgment can be reopened when the court did not have jurisdiction, which includes service that was not done properly. There is no stated one-year limit for that ground, but act promptly."
+  },
+  "findings": [
+   {
+    "detail": "Your location history has you in one place from 5:18 PM to 8:18 PM on May 14, 2025, within 30 metres of the address on the affidavit, and the service claimed at 7:15 PM on May 14, 2025 falls inside that stay.",
+    "legal_ref": null,
+    "severity": "Note",
+    "title": "Your phone was at that address at that time"
+   }
+  ],
+  "fixes_note": "All 14 location records used in this check are listed. They are the records close in time to the sworn moments above; the rest of your location history was never sent off the device it was read on.",
+  "intro": "This packet compares the affidavit of service filed against James Okonkwa, index number CV-044886-25/KI, with the location records you supplied. It sets out what the affidavit claims, what your records show, and where the two cannot both be true. It draws no conclusion about what happened, and it is not a finding of fact.",
+  "verdict": {
+   "claimed": "The affidavit swears that you were served at 7:15 PM on May 14, 2025 at 900 BEDFORD AVENUE, Brooklyn, NY 11205, by delivery to a person of suitable age and discretion, and mailing, under CPLR 308(2).",
+   "headline": "Your location data is consistent with the affidavit.",
+   "label": "Consistent",
+   "line": "Your nearest location record is 30 metres from that address.",
+   "meaning": "Your records put you at or near the address on the affidavit around that time. That does not mean the service was proper, but this particular check does not help you.",
+   "tier": "consistent"
+  }
+ }
+}

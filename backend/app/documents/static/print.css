@@ -1,24 +1,357 @@
-/* Print styles for the evidence packet and draft affidavit. Session 5 fills this in.
-   WeasyPrint renders these documents; nothing here may depend on a browser. */
+/* Print styles for the Evidence Packet and the Draft Supporting Affidavit. Bible §15.
+   WeasyPrint renders these; nothing here may depend on a browser.
+
+   Font stack, in order and on purpose. Liberation Serif is metric-compatible with Times
+   New Roman and is what the container has (`fonts-liberation2` in the Dockerfile); Times
+   New Roman is what a developer machine has. Putting them in this order means a page laid
+   out on a laptop and the same page laid out in production break lines in the same
+   places, so a sample committed to `docs/samples/` is a picture of what a user downloads.
+
+   Every length is in points because the output is paper. */
 
 @page {
 	size: Letter;
-	margin: 0.9in 0.85in;
+	margin: 0.9in 0.85in 1.05in 0.85in;
+
+	@bottom-left {
+		content: element(pagefooter);
+		vertical-align: top;
+	}
+
+	@bottom-right {
+		content: 'Page ' counter(page) ' of ' counter(pages);
+		font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+		font-size: 7.5pt;
+		color: #555;
+		vertical-align: top;
+		padding-top: 6pt;
+	}
+}
+
+/* The draft affidavit carries DRAFT on every page, in the margin rather than across the
+   text, so that nothing a judge has to read sits under a watermark. */
+@page draft {
+	@top-right {
+		content: 'DRAFT';
+		font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+		font-size: 9pt;
+		font-weight: bold;
+		letter-spacing: 0.18em;
+		color: #999;
+	}
 }
 
 body {
-	font-family: "DejaVu Serif", "Times New Roman", serif;
+	font-family: 'Liberation Serif', 'Times New Roman', 'DejaVu Serif', serif;
 	font-size: 11pt;
 	line-height: 1.45;
 	color: #111;
+	margin: 0;
+	hyphens: none;
 }
 
-.draft-watermark {
-	position: fixed;
-	top: 45%;
-	left: 12%;
-	font-size: 72pt;
-	color: rgba(0, 0, 0, 0.07);
-	transform: rotate(-30deg);
+body.draft {
+	page: draft;
+}
+
+.running-footer {
+	position: running(pagefooter);
+	font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+	font-size: 7.5pt;
+	line-height: 1.3;
+	color: #555;
+	padding-top: 6pt;
+	max-width: 5.6in;
+}
+
+.running-footer div + div {
+	color: #777;
+}
+
+/* --- Shared furniture ------------------------------------------------------------- */
+
+h1 {
+	font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+	font-size: 17pt;
+	line-height: 1.15;
+	letter-spacing: -0.01em;
+	margin: 0 0 2pt;
+}
+
+h2 {
+	font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+	font-size: 10pt;
 	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #333;
+	margin: 20pt 0 6pt;
+	padding-bottom: 3pt;
+	border-bottom: 0.75pt solid #111;
+	break-after: avoid;
+}
+
+p {
+	margin: 0 0 8pt;
+	orphans: 2;
+	widows: 2;
+}
+
+.lede {
+	font-size: 11.5pt;
+	margin-bottom: 12pt;
+}
+
+.subtitle {
+	font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+	font-size: 9.5pt;
+	color: #555;
+	margin: 0 0 14pt;
+}
+
+.muted {
+	color: #555;
+}
+
+.small {
+	font-size: 9pt;
+	line-height: 1.4;
+}
+
+.mono {
+	font-family: 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+	font-size: 8.5pt;
+	word-break: break-all;
+}
+
+.rule {
+	border: 0;
+	border-top: 0.75pt solid #111;
+	margin: 10pt 0;
+}
+
+/* --- Case caption ----------------------------------------------------------------- */
+
+.caption {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 12pt;
+	font-size: 10.5pt;
+}
+
+.caption td {
+	vertical-align: top;
+	padding: 2pt 0;
+}
+
+.caption .parties {
+	width: 60%;
+}
+
+.caption .index {
+	width: 40%;
+	padding-left: 14pt;
+	border-left: 0.75pt solid #111;
+}
+
+.court-line {
+	text-align: center;
+	font-size: 10.5pt;
+	letter-spacing: 0.02em;
+	margin-bottom: 8pt;
+}
+
+.label {
+	font-variant: small-caps;
+	letter-spacing: 0.04em;
+	color: #333;
+}
+
+/* --- Verdict block ---------------------------------------------------------------- */
+
+.verdict {
+	border: 1pt solid #111;
+	padding: 12pt 14pt;
+	margin-bottom: 4pt;
+	break-inside: avoid;
+}
+
+.verdict .tier {
+	font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+	font-size: 8pt;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: #333;
+	margin-bottom: 4pt;
+}
+
+.verdict .headline {
+	font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+	font-size: 14pt;
+	line-height: 1.2;
+	margin: 0 0 6pt;
+}
+
+.verdict p:last-child {
+	margin-bottom: 0;
+}
+
+.limitation {
+	font-size: 9pt;
+	font-style: italic;
+	color: #333;
+	margin: 6pt 0 0;
+}
+
+/* --- Tables ----------------------------------------------------------------------- */
+
+table.data {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 9.5pt;
+	margin-bottom: 6pt;
+}
+
+table.data th {
+	font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+	font-size: 8pt;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	text-align: left;
+	color: #333;
+	border-bottom: 0.75pt solid #111;
+	padding: 3pt 6pt 3pt 0;
+}
+
+table.data td {
+	vertical-align: top;
+	border-bottom: 0.4pt solid #bbb;
+	padding: 3pt 6pt 3pt 0;
+}
+
+table.data td:last-child,
+table.data th:last-child {
+	padding-right: 0;
+}
+
+/* `table.data th` sets the default alignment and outranks a bare `.num`, so the numeric
+   headers have to be named at the same specificity or they sit over the wrong edge. */
+table.data th.num {
+	text-align: right;
+}
+
+table.data thead {
+	display: table-header-group;
+}
+
+table.data tr {
+	break-inside: avoid;
+}
+
+.num {
+	text-align: right;
+	white-space: nowrap;
+}
+
+/* --- Findings --------------------------------------------------------------------- */
+
+.finding {
+	break-inside: avoid;
+	margin-bottom: 10pt;
+	padding-left: 10pt;
+	border-left: 2pt solid #bbb;
+}
+
+.finding.strong {
+	border-left-color: #111;
+}
+
+.finding .tag {
+	font-family: 'Liberation Sans', Helvetica, Arial, sans-serif;
+	font-size: 7.5pt;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: #333;
+}
+
+.finding .title {
+	font-weight: bold;
+	margin: 1pt 0 2pt;
+}
+
+.finding .ref {
+	font-size: 8.5pt;
+	color: #555;
+	margin: 2pt 0 0;
+}
+
+/* --- Map -------------------------------------------------------------------------- */
+
+.map {
+	width: 100%;
+	border: 0.75pt solid #111;
+	break-inside: avoid;
+}
+
+/* --- Boxes ------------------------------------------------------------------------ */
+
+.box {
+	border: 0.75pt solid #999;
+	padding: 9pt 11pt;
+	font-size: 9.5pt;
+	break-inside: avoid;
+}
+
+.box p:last-child {
+	margin-bottom: 0;
+}
+
+/* --- Numbered paragraphs of the affidavit ----------------------------------------- */
+
+ol.paragraphs {
+	margin: 14pt 0 0;
+	padding-left: 24pt;
+}
+
+ol.paragraphs > li {
+	margin-bottom: 9pt;
+	padding-left: 4pt;
+	text-align: justify;
+	orphans: 2;
+	widows: 2;
+}
+
+ol.exhibits {
+	list-style: none;
+	margin: 4pt 0 0;
+	padding-left: 0;
+}
+
+ol.exhibits li {
+	margin-bottom: 4pt;
+}
+
+.wherefore {
+	margin-top: 12pt;
+}
+
+.signature {
+	margin-top: 30pt;
+	break-inside: avoid;
+}
+
+.sigline {
+	border-bottom: 0.75pt solid #111;
+	width: 3.4in;
+	height: 26pt;
+}
+
+.notary {
+	margin-top: 22pt;
+	border-top: 0.75pt solid #111;
+	padding-top: 9pt;
+	break-inside: avoid;
+}
+
+.page-break {
+	break-before: page;
 }

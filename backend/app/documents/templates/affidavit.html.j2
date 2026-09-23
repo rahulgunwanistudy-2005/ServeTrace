@@ -1,0 +1,76 @@
+{# The Draft Supporting Affidavit. Bible §15.
+
+   Structure only. Which paragraphs appear is decided in `documents/affidavit.py`; what
+   they say comes from `documents/copy.py`. Nothing here chooses or phrases anything.
+
+   The list is a real `<ol>` rather than numbers written into the text, so that a
+   paragraph added or left out cannot leave the numbering wrong — and a court document
+   with two paragraph 6s is a document nobody trusts. #}
+{% extends "base.html.j2" %}
+
+{% block body_class %}draft{% endblock %}
+
+{% block footer_extra %}<div>{{ generated }}</div>{% endblock %}
+
+{% block content %}
+
+{% if case.court %}
+<div class="court-line">{{ case.court }}</div>
+{% endif %}
+<hr class="rule">
+<table class="caption">
+	<tr>
+		<td class="parties">
+			{% if case.plaintiff %}
+			{{ case.plaintiff }},<br>
+			<span style="padding-left:34pt">Plaintiff,</span><br>
+			<span style="padding-left:34pt"><em>- against -</em></span><br>
+			{% endif %}
+			{{ case.defendant }},<br>
+			<span style="padding-left:34pt">Defendant.</span>
+		</td>
+		<td class="index">
+			{% if case.index_number %}
+			<span class="label">Index No.</span> {{ case.index_number }}<br><br>
+			{% endif %}
+			<span class="label">{{ title }}</span>
+		</td>
+	</tr>
+</table>
+<hr class="rule">
+
+<div class="box">
+	<p class="small">{{ note }}</p>
+</div>
+
+<p class="court-line" style="margin-top:14pt">{{ state_county }}</p>
+
+<p><strong>{{ affiant_name }}</strong>, {{ preamble }}</p>
+
+<ol class="paragraphs">
+	{% for paragraph in paragraphs %}
+	<li>{{ paragraph }}</li>
+	{% endfor %}
+</ol>
+
+<p class="wherefore">{{ wherefore }}</p>
+
+<h2>Exhibits</h2>
+<ol class="exhibits">
+	{% for exhibit in exhibits %}
+	<li><span class="label">Exhibit {{ exhibit.letter }}</span> &nbsp;{{ exhibit.text }}</li>
+	{% endfor %}
+</ol>
+
+<div class="signature">
+	<div class="sigline"></div>
+	<p class="small">{{ signature_label }}<br>{{ affiant_name }}</p>
+</div>
+
+<div class="notary">
+	<p>{{ notary_block }}</p>
+	<div class="sigline" style="margin-top:14pt"></div>
+	<p class="small">{{ notary_label }}</p>
+</div>
+
+{% endblock %}

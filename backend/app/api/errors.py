@@ -64,6 +64,18 @@ class ExtractionInvalidError(ServeTraceError):
     status_code = status.HTTP_502_BAD_GATEWAY
 
 
+class DocumentsUnavailableError(ServeTraceError):
+    """WeasyPrint's native libraries are missing, so no PDF can be rendered here.
+
+    A deployment problem, never the user's. It is 503 rather than 500 because the rest of
+    the product — the verdict, the findings, the numbers — is working and on their screen;
+    only the download is gone.
+    """
+
+    code = "documents_unavailable"
+    status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+
+
 class DemoOnlyError(ServeTraceError):
     """`DEMO_ONLY=true`: this deployment serves the bundled demo cases and takes no uploads."""
 

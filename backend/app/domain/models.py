@@ -260,6 +260,50 @@ class CaseAnalysis(BaseModel):
     generated_at: AwareDatetime
 
 
+# --- Documents (bible §15) ----------------------------------------------------------------
+#
+# Both documents are built from a `CaseAnalysis` the client already holds. Nothing is
+# stored, so there is no case id to hand back for: the analysis travels with the request
+# exactly as the fixes travelled with the one that produced it.
+
+
+class AffiantStatement(BaseModel):
+    """What the person signing the draft affidavit has told us, and what they will swear to.
+
+    The three booleans are ticks, not inferences. Each one gates a paragraph that only
+    that person is in a position to state — whether papers reached them, whether an
+    address is their home, whether notice arrived in time to defend. A paragraph whose
+    tick is off is left out of the document entirely rather than hedged, because a sworn
+    statement hedged into vagueness is worse for them than a shorter affidavit.
+    """
+
+    name: str = Field(min_length=1, max_length=120)
+    residence_address: str | None = Field(default=None, max_length=200)
+    states_not_served: bool = False
+    states_not_my_address: bool = False
+    states_no_notice_in_time: bool = False
+    """CPLR 317 (L6) turns on this and cannot be offered without it."""
+    defense_summary: str | None = Field(default=None, max_length=1000)
+    """The meritorious defence L6 also requires, in the person's own words. Never ours."""
+
+
+class PacketRequest(BaseModel):
+    analysis: CaseAnalysis
+    fixes: list[LocationFix] = []
+    """The windowed fixes that were sent to `/api/analyze`, so the packet can print the
+    whole exhibit rather than only the two points the engine leaned on. A packet that
+    showed just the decisive records would invite exactly the question it exists to
+    answer."""
+    map_png_base64: str | None = None
+    """The result map, captured in the browser. Validated as a PNG before it is embedded."""
+    affiant_name: str | None = Field(default=None, max_length=120)
+
+
+class DraftAffidavitRequest(BaseModel):
+    analysis: CaseAnalysis
+    affiant: AffiantStatement
+
+
 class ServiceRecord(BaseModel):
     server_id: str
     at: AwareDatetime

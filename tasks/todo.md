@@ -679,3 +679,143 @@ made to squint.
   refuse to render in a production build, so they were left alone.
 - The MapLibre basemap is the light `liberty` style in both schemes. A dark basemap is a
   separate decision about tiles, not about tokens.
+
+---
+
+## Session 7 — Evidence packet, draft supporting affidavit
+
+Build pack `S6_documents.md`. Numbered 7 here because the repo's session 6 was the visual
+system; the build pack numbers the *feature* streams and this is its sixth. No LLM
+anywhere in this session — bible §15 is explicit, and the whole claim of the product is
+that a document handed to a court was assembled from fields a person confirmed.
+
+**Goal:** two PDFs a court help-center volunteer would take seriously. An Evidence Packet
+that shows its working, and a Draft Supporting Affidavit that attaches to the court's own
+Order to Show Cause form rather than replacing it.
+
+### Steps
+- [x] S7.1 `documents/render.py` — the one place WeasyPrint is imported. Jinja environment
+      with autoescape and `StrictUndefined`, `render_pdf()`, and a loud, instructive
+      failure when the native pango stack is missing.
+- [x] S7.2 `documents/copy.py` — every sentence in both documents, each legal statement
+      carrying its bible §5 L-id. Same discipline as `engine/copy.py`: templates hold
+      structure, this holds prose.
+- [x] S7.3 `documents/templates/` — `base.html.j2`, `packet.html.j2`, `affidavit.html.j2`,
+      and a real `static/print.css` (Letter, 11pt serif, page numbers, footer disclaimer on
+      every page, "DRAFT" on every page of the affidavit).
+- [x] S7.4 `documents/packet.py` — bible §15 sections: verdict cover, map image, claim
+      table, findings with legal refs, windowed fixes table, methodology box, both
+      SHA-256s, generation time in New York.
+- [x] S7.5 `documents/affidavit.py` — the paragraph library. Every paragraph tied to an
+      L-id or a finding code; unconfirmed paragraphs excluded, never softened; CPLR 317
+      paragraph only when eligible; exhibit list; blank signature and notary block.
+- [x] S7.6 `domain/models.py` — `PacketRequest`, `DraftAffidavitRequest`, `AffiantStatement`.
+- [x] S7.7 `POST /api/documents/packet` and `/api/documents/affidavit` → `application/pdf`,
+      behind the same rate limit and the same §16 caps as everything else.
+- [x] S7.8 Tests: renders for all three demo cases; paragraph selection; 317 eligibility;
+      pdfplumber text extraction carries the key numbers; autoescape proven on a hostile
+      field; byte-determinism; golden text snapshots of both documents.
+- [x] S7.9 Regenerate `frontend/src/lib/api/schema.d.ts` (bible §17 — the API changed).
+- [x] S7.10 Both PDFs for `maria_contradicted` into `docs/samples/`, page 1 rendered to
+      PNG and looked at.
+- [x] S7.11 Quality gates both sides; `tasks/todo.md` and `tasks/lessons.md` updated.
+
+### Risks / open questions
+- **WeasyPrint's native libraries.** Installed here via Homebrew, but `/opt/homebrew/lib`
+  is not on macOS's default dyld fallback path, so `import weasyprint` fails in a plain
+  shell with a stack trace that names none of that. Docker already installs the same stack
+  on Debian, where it is on the default path, so this is a local-shell problem only. The
+  suite must not paper over it with a silent skip: whatever it does has to name the fix.
+- **Determinism.** WeasyPrint writes no `/CreationDate` unless the HTML asks for one, so
+  identical HTML gives byte-identical PDFs. Measured before relying on it. The documents
+  therefore carry `analysis.generated_at` as their own timestamp rather than a fresh clock
+  read, which is both more honest and what makes the byte test possible.
+- **How long a fixes table may be.** §16 allows 5,000 points per analysis, which is about
+  eighty pages of table. The packet is an exhibit, so it cannot quietly truncate; it prints
+  a bounded number, says how many of how many, and hashes every one of them.
+
+### Review
+
+**Built**
+
+- **`documents/render.py`** — the one place WeasyPrint is imported, and the only place it
+  may be. Jinja with autoescape and `StrictUndefined`; a fetcher allowed exactly one
+  protocol (`data:`, how the map arrives) with `fail_on_errors` set, so a document that
+  tried to reach the network does not render at all rather than quietly losing a section;
+  and a missing native stack caught once and re-raised as a sentence with the fix in it.
+- **`documents/copy.py`** — every sentence in both documents, each legal statement
+  carrying its bible §5 L-id. `packet.py` and `affidavit.py` decide *which* paragraphs and
+  hand over numbers; templates hold structure; prose is in one file somebody can read
+  against §5 end to end.
+- **`documents/packet.py` + `packet.html.j2`** — every section bible §15 names: verdict
+  cover, map (or its text alternative), one row per sworn moment, findings with the
+  provision each encodes, the windowed records, the deadline note, the thresholds, and a
+  SHA-256 of the affidavit file and of the canonical JSON of the records.
+- **`documents/affidavit.py` + `affidavit.html.j2`** — a paragraph library where every
+  paragraph carries its source, and a `match` over finding codes that writes nothing for a
+  code it does not know. DRAFT in the margin of every page, blank signature and notary.
+- **`POST /api/documents/{packet,affidavit}`** → `application/pdf`, behind the same token
+  bucket, the same §16 caps and the same "analysis refuses an unconfirmed affidavit" rule
+  as `/api/analyze`.
+- **`docs/samples/`** — both PDFs for `maria_contradicted`, built by
+  `tests/documents/build_samples.py` through the same code path a download takes, with a
+  README saying plainly that everyone in them is invented.
+
+**Verified**
+
+- Backend: `ruff check`, `ruff format --check` (123 files), `mypy` strict over 65 files,
+  `pytest` **630 passed** (was 503).
+- Frontend: `svelte-check` 0 errors 0 warnings over 290 files, `tsc --noEmit` clean,
+  `npm run build` clean, `vitest` **264 passed**. `schema.d.ts` regenerated: +151 lines
+  for the two new routes and their request shapes.
+- Both documents rendered for all three demo cases, and every page of both looked at as a
+  PNG. Two layout bugs found that way and only that way — see below.
+- Byte-determinism asserted, not assumed: the same analysis renders the same PDF twice.
+
+**Three decisions worth recording**
+
+1. **The document's timestamp is `analysis.generated_at`, not a fresh clock read.** It is
+   the moment the numbers were computed, which is what the document reports; a second
+   time taken at download would be a different and less meaningful number. It also makes
+   the bytes a pure function of the input, which is what S6 asked for and what session 1
+   recorded as impossible — WeasyPrint 70 writes no `/CreationDate` unless the HTML asks
+   for one, so identical HTML gives identical PDFs. Measured before relying on it.
+2. **A finding code with no paragraph produces no paragraph.** The risk this is designed
+   against is a rule added in a later session quietly writing prose into a document
+   somebody signs under oath. Silence is the safe default, and a test reads the engine's
+   own source for the codes it constructs and fails when one appears in none of
+   `HANDLED_CODES`, `INFO_ONLY_CODES` or `EXCLUDED_CODES`. A new rule now fails a test
+   rather than growing a sentence.
+3. **A consistent case does not annex the records that work against it.** Bible §6 says
+   report a consistent result honestly, and the result page does. It does not follow that
+   the draft affidavit should point a judge at an exhibit placing the person at the door:
+   with no location finding, the records paragraph and Exhibit B are both left out, and
+   the affidavit rests on whatever paperwork grounds there are. Asserted for
+   `james_consistent`.
+
+**Two bugs no gate could see**
+
+- The draft affidavit ended on a third page carrying one grey sentence. The provenance
+  line and the rule above it were body elements, and after a notary block that may not be
+  split they had nowhere to go. It is in the page margin now, beside the disclaimer, and a
+  test asserts the last page is the one the signature is on.
+- `table.data th` sets the default alignment and outranks a bare `.num`, so the two
+  numeric column headers sat over the wrong edge of their columns while the numbers under
+  them were right-aligned. Both were invisible in the type-check, the lint and the tests,
+  and obvious in a rendered page.
+
+**One pre-existing failure fixed in passing**
+
+`ruff check . ../fixtures ../eval` — the command in the README — was red on HEAD: two
+lines in `fixtures/generator/advocate_demo.py` were 102 and 103 columns. Session 5 reported
+the gate green, so it was run over `backend` alone. Wrapped.
+
+**Deferred**
+
+- The packet's map section prints its text alternative: the capture comes from the result
+  map's canvas and `ResultMap.svelte` is still a placeholder. The embedding path itself is
+  covered — a real PNG goes in and comes out in the PDF, and four validation tests guard
+  what may be embedded.
+- Wiring the two downloads into `/result` is the defendant wizard's work (S8), as is the
+  advocate PDF report, which now has a print stylesheet to build on.
+- `docker build` remains unverified here for the reason recorded in session 1.

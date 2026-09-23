@@ -1,0 +1,31 @@
+{# Shared skeleton for both generated documents. Bible §15.
+
+   Structure only. Every sentence on the page arrives in the context from
+   `documents/copy.py`; nothing here may state a fact, legal or otherwise.
+
+   `.running-footer` is a running element (CSS GCPM): WeasyPrint lifts it out of the flow
+   and prints it in the bottom margin of every page. That is how the disclaimer bible §5
+   requires reaches all of them without being repeated in the CSS, where it could drift
+   out of step with the copy module.
+
+   `footer_extra` is for anything else that belongs in the margin rather than in the body.
+   The affidavit puts its "prepared by" line there: at the end of the text it was a single
+   orphaned line that pushed a fourth page after the notary block, which is not something
+   to hand to a court. #}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ title }}</title>
+<meta name="author" content="{{ product }}">
+<meta name="dcterms.created" content="{{ generated_iso }}">
+{% block meta %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<div class="running-footer">
+	<div>{{ disclaimer }}</div>
+	{% block footer_extra %}{% endblock %}
+</div>
+{% block content %}{% endblock %}
+</body>
+</html>

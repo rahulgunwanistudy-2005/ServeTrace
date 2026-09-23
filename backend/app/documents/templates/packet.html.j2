@@ -1,0 +1,154 @@
+{# The Evidence Packet. Bible §15. Structure only — every sentence comes from the context. #}
+{% extends "base.html.j2" %}
+
+{% block body_class %}packet{% endblock %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+<p class="subtitle">{{ subtitle }}</p>
+
+{% if case.court %}
+<div class="court-line">{{ case.court }}</div>
+{% endif %}
+<table class="caption">
+	<tr>
+		<td class="parties">
+			{% if case.plaintiff %}
+			{{ case.plaintiff }},<br>
+			<span style="padding-left:34pt">Plaintiff,</span><br>
+			<span style="padding-left:34pt"><em>- against -</em></span><br>
+			{% endif %}
+			{{ case.defendant }},<br>
+			<span style="padding-left:34pt">Defendant.</span>
+		</td>
+		<td class="index">
+			{% if case.index_number %}
+			<span class="label">Index No.</span> {{ case.index_number }}<br>
+			{% endif %}
+			{% if case.server_name %}
+			<span class="label">Process server</span> {{ case.server_name }}<br>
+			{% endif %}
+			{% if case.server_license %}
+			<span class="label">Licence No.</span> {{ case.server_license }}<br>
+			{% endif %}
+			{% if case.prepared_for %}
+			<span class="label">Prepared for</span> {{ case.prepared_for }}
+			{% endif %}
+		</td>
+	</tr>
+</table>
+<hr class="rule">
+
+<p class="lede">{{ intro }}</p>
+
+<h2>{{ sections.verdict }}</h2>
+<div class="verdict">
+	<div class="tier">{{ verdict.label }}</div>
+	<p class="headline">{{ verdict.headline }}</p>
+	<p>{{ verdict.claimed }}</p>
+	{% if verdict.line %}
+	<p>{{ verdict.line }}</p>
+	{% endif %}
+	<p class="muted">{{ verdict.meaning }}</p>
+</div>
+<p class="limitation">{{ limitation }}</p>
+
+<h2>{{ sections.claims }}</h2>
+<table class="data">
+	<thead>
+		<tr>
+			<th>Sworn moment</th>
+			<th>Time (New York)</th>
+			<th>Address sworn to</th>
+			<th>Result</th>
+			<th class="num">Nearest record</th>
+			<th class="num">Speed needed</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for claim in claims %}
+		<tr>
+			<td>{{ claim.label }}</td>
+			<td>{{ claim.when }}</td>
+			<td>{{ claim.address }}</td>
+			<td>{{ claim.tier }}</td>
+			<td class="num">{{ claim.distance }}</td>
+			<td class="num">{{ claim.speed }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h2>{{ sections.findings }}</h2>
+{% if findings %}
+{% for finding in findings %}
+<div class="finding {{ finding.severity_key }}">
+	<div class="tag">{{ finding.severity }}</div>
+	<p class="title">{{ finding.title }}</p>
+	<p>{{ finding.detail }}</p>
+	{% if finding.legal_ref %}
+	<p class="ref">{{ finding.legal_ref }}</p>
+	{% endif %}
+</div>
+{% endfor %}
+{% else %}
+<p>{{ findings_none }}</p>
+{% endif %}
+
+<h2>{{ sections.map }}</h2>
+{% if map_data_uri %}
+<img class="map" src="{{ map_data_uri }}" alt="{{ sections.map }}">
+{% else %}
+<p class="muted">{{ map_alt }}</p>
+{% endif %}
+
+<h2>{{ sections.fixes }}</h2>
+<p class="small muted">{{ fixes_note }}</p>
+<table class="data">
+	<thead>
+		<tr>
+			<th>Time (New York)</th>
+			<th>Kind</th>
+			<th>Latitude, longitude</th>
+			<th class="num">Accuracy</th>
+			<th>Source</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for fix in fixes %}
+		<tr>
+			<td>{{ fix.when }}</td>
+			<td>{{ fix.kind }}</td>
+			<td class="mono">{{ fix.coords }}</td>
+			<td class="num">{{ fix.accuracy }}</td>
+			<td>{{ fix.source }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h2>{{ sections.deadline }}</h2>
+<p>{{ deadlines.note }}</p>
+{% if deadlines.effective %}
+<p><span class="label">Earliest of those limits</span> {{ deadlines.effective }}</p>
+{% endif %}
+
+<h2>{{ sections.method }}</h2>
+<div class="box">
+	<p>{{ methodology }}</p>
+	<p class="muted">{{ methodology_limits }}</p>
+</div>
+
+<h2>{{ sections.integrity }}</h2>
+<div class="box">
+	<p>{{ integrity.body }}</p>
+	<p><span class="label">Affidavit file</span><br><span class="mono">{{ integrity.affidavit_sha256 }}</span></p>
+	<p><span class="label">Location records ({{ integrity.n_fixes }})</span><br><span class="mono">{{ integrity.fixes_sha256 }}</span></p>
+	<p class="small muted">{{ generated }}</p>
+</div>
+
+<hr class="rule">
+<p class="small muted">{{ not_a_law_firm }}</p>
+
+{% endblock %}

@@ -78,9 +78,13 @@ class ServerSpec:
 
 SPECS: tuple[ServerSpec, ...] = (
     ServerSpec("1387421", "Bronx", per_day=(7, 10)),
-    ServerSpec("1422908", "Brooklyn", per_day=(9, 13), impossible_hops=4, reused_description_doors=6),
+    ServerSpec(
+        "1422908", "Brooklyn", per_day=(9, 13), impossible_hops=4, reused_description_doors=6
+    ),
     ServerSpec("1390115", "Queens", per_day=(6, 9)),
-    ServerSpec("1451760", "Manhattan", per_day=(8, 12), impossible_hops=2, reused_description_doors=4),
+    ServerSpec(
+        "1451760", "Manhattan", per_day=(8, 12), impossible_hops=2, reused_description_doors=4
+    ),
 )
 
 

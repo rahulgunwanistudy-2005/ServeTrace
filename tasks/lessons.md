@@ -161,3 +161,52 @@ value of that test is that *everything* on that page is whatever the eval last s
 the new block is compared against its own scorer instead. Only the two figures that
 measure a machine rather than a decision - per-case latency and batch runtime - are
 checked for shape rather than equality, and for the same stated reason.
+
+[2026-09-23] - Session 1 recorded that "WeasyPrint stamps a creation date, so PDF bytes
+differ run to run", and S6 asked for deterministic documents, so the plan was going to be
+a fixed-timestamp parameter threaded through both renderers. WeasyPrint 70 writes no
+`/CreationDate` at all unless the HTML asks for one, which took one command to find out.
+-> A constraint inherited from an earlier session is a claim, not a fact. Check it before
+designing around it; this one was going to cost an argument in two function signatures
+and buy nothing.
+
+[2026-09-23] - A copy-discipline test asserting that no court document ever says anybody
+lied failed on "the distances and times relied on above", and the companion check for a
+lower-case meridiem failed on "I am Maria Delarmo". Both were the same mistake as the one
+already in this file about the word "lied" in `en.ts`, made again on the first draft. ->
+When a rule is about a *word*, match a word. `\blied\b` and `\d\s*[ap]m\b`. The engine's
+version of the second check could search for " am " because findings are written in the
+second person and never say "I am"; a first-person document is exactly where that
+shortcut breaks, so a check copied between modules needs its assumption re-read, not just
+its threshold.
+
+[2026-09-23] - The draft affidavit rendered as three pages: the last one carried a single
+grey "prepared by" line and nothing else, because the notary block above it has
+`break-inside: avoid` and left no room. Separately, the two numeric column headers in the
+packet sat over the left edge of their columns while the numbers under them were right
+aligned, because `table.data th` outranks a bare `.num`. Clean lint, clean types, 619
+passing tests, and both obvious in the first rendered page. -> Print layout is the same
+class of problem as the MapLibre bug in session 5: the failure is real, the tooling is
+silent, and the diagnosis costs one screenshot. Render every page of anything that goes
+on paper and look at it. The fix for the orphan is worth keeping too - content that
+belongs to the page rather than to the text belongs in the page margin, where it cannot
+be orphaned by whatever the layout does above it.
+
+[2026-09-23] - A first cut hand-wrote a WeasyPrint `url_fetcher` function that served one
+stylesheet and raised on everything else. WeasyPrint 70 calls `url_fetcher._fail_on_errors`
+on the failure path and expects a `URLFetcherResponse`, so the function worked until an
+image was actually embedded and then crashed inside the renderer - caught by the one test
+that put a real PNG through the whole route. The library already has the mechanism:
+`URLFetcher(allowed_protocols={"data"}, fail_on_errors=True)`. -> Before writing a
+security boundary against a library, look for the one it ships. A hand-rolled version has
+to be kept in step with how that library actually resolves things, and the day it falls
+out of step is the day it stops enforcing anything.
+
+[2026-09-23] - The draft affidavit for a CONSISTENT case was, on the first pass, a
+complete document: it introduced the person's location history, annexed it as Exhibit B,
+and pointed the court at records that place them at the sworn address at the sworn time.
+Every test passed, because every test was about whether paragraphs were built correctly.
+-> Bible §6 says report a consistent result honestly, and the result page does. It does
+not follow that a document meant to be *filed* should carry the same material: honest to
+the user and useful against them are different things, and the question to ask of every
+generated paragraph is not "is this true" but "does this person want a judge reading it".

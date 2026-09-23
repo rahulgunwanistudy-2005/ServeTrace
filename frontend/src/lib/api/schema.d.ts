@@ -156,6 +156,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/documents/packet": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Packet */
+        post: operations["packet_api_documents_packet_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/documents/affidavit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Affidavit */
+        post: operations["affidavit_api_documents_affidavit_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -227,6 +261,39 @@ export interface components {
              * Format: date-time
              */
             generated_at: string;
+        };
+        /**
+         * AffiantStatement
+         * @description What the person signing the draft affidavit has told us, and what they will swear to.
+         *
+         *     The three booleans are ticks, not inferences. Each one gates a paragraph that only
+         *     that person is in a position to state — whether papers reached them, whether an
+         *     address is their home, whether notice arrived in time to defend. A paragraph whose
+         *     tick is off is left out of the document entirely rather than hedged, because a sworn
+         *     statement hedged into vagueness is worse for them than a shorter affidavit.
+         */
+        AffiantStatement: {
+            /** Name */
+            name: string;
+            /** Residence Address */
+            residence_address?: string | null;
+            /**
+             * States Not Served
+             * @default false
+             */
+            states_not_served: boolean;
+            /**
+             * States Not My Address
+             * @default false
+             */
+            states_not_my_address: boolean;
+            /**
+             * States No Notice In Time
+             * @default false
+             */
+            states_no_notice_in_time: boolean;
+            /** Defense Summary */
+            defense_summary?: string | null;
         };
         /** Affidavit */
         Affidavit: {
@@ -461,6 +528,11 @@ export interface components {
             /** Note */
             note: string;
         };
+        /** DraftAffidavitRequest */
+        DraftAffidavitRequest: {
+            analysis: components["schemas"]["CaseAnalysis"];
+            affiant: components["schemas"]["AffiantStatement"];
+        };
         /**
          * ExtractionResult
          * @description The response of `POST /api/extract`.
@@ -602,6 +674,19 @@ export interface components {
             source: string;
             /** Label */
             label?: string | null;
+        };
+        /** PacketRequest */
+        PacketRequest: {
+            analysis: components["schemas"]["CaseAnalysis"];
+            /**
+             * Fixes
+             * @default []
+             */
+            fixes: components["schemas"]["LocationFix"][];
+            /** Map Png Base64 */
+            map_png_base64?: string | null;
+            /** Affiant Name */
+            affiant_name?: string | null;
         };
         /** PersonDescription */
         PersonDescription: {
@@ -972,6 +1057,72 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["ServerReport"][];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    packet_api_documents_packet_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PacketRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    affidavit_api_documents_affidavit_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DraftAffidavitRequest"];
             };
         };
         responses: {
