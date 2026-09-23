@@ -86,8 +86,8 @@ export const api = {
 			body: JSON.stringify({ address })
 		}),
 
-	/** Session 3. */
+	/** Session 4, with the engine. Only windowed fixes are ever sent here (bible §13). */
 	analyze: (_body: unknown): Promise<never> => {
-		throw new Error('Not implemented until session 3');
+		throw new Error('Not implemented until session 4');
 	}
 } as const;

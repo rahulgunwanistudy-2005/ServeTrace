@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import { dev } from '$app/environment';
 	import { nav, site } from '$copy/en';
 	import type { Snippet } from 'svelte';
 
@@ -13,6 +14,10 @@
 			<div class="flex gap-4 text-sm">
 				<a class="underline underline-offset-4" href="/methodology">{nav.methodology}</a>
 				<a class="underline underline-offset-4" href="/privacy">{nav.privacy}</a>
+				{#if dev}
+					<!-- Development only. The route itself refuses to render in a production build. -->
+					<a class="underline underline-offset-4" href="/dev/ingest">Ingest</a>
+				{/if}
 			</div>
 		</nav>
 	</header>

@@ -53,8 +53,67 @@ export const ingest = {
 		'Your location file is read on this device. We only use the few hours around the claimed time.',
 	/** Bible §13: the user is told exactly how much leaves the device, before it leaves. */
 	sending: (sent: number, total: number) =>
-		`Sending ${sent} of ${total} location points (only around the claimed times).`
+		`Sending ${sent} of ${total} location points (only around the claimed times).`,
+	reading: 'Reading your file on this device…',
+	covers: (first: string, last: string) => `Your export covers ${first} to ${last}.`,
+	points: (n: number, approximate: boolean) =>
+		`${approximate ? 'More than ' : ''}${n.toLocaleString('en-US')} location point${n === 1 ? '' : 's'}.`
 } as const;
+
+/**
+ * Everything ingest says when something is wrong with a file. Keyed by the code the
+ * pipeline raises, so a component switches on the code and never on the sentence.
+ */
+export const ingestErrors = {
+	unsupported_format:
+		'We could not recognise that file. ServeTrace reads Google Timeline exports (the Timeline.json or location-history.json from your phone) and card statements saved as CSV.',
+	file_too_large: 'That file is too large to read in the browser.',
+	empty_file: 'That file is empty.',
+	malformed_json: 'We could not read that file. It may be damaged or only partly downloaded.',
+	no_fixes:
+		'We recognised that as a Timeline export, but could not read any locations out of it.',
+	cancelled: 'Reading that file was stopped.',
+	truncated: 'That file ends in the middle of a record, so we could not finish reading it.',
+	oversizedRecord:
+		'One entry in that file is far larger than any location record should be, so we stopped reading it.',
+	unreadableRecord:
+		'One entry in that file was not readable, so we stopped rather than guess at it.'
+} as const;
+
+/**
+ * What ingest tells the user about a file it *could* read. Every one of these is a thing
+ * left out or assumed, said plainly: a check that silently drops data is worse than no
+ * check, because the user cannot tell the difference.
+ */
+export const ingestWarnings = {
+	missingDays: (days: string[]) =>
+		days.length === 1
+			? `Your export does not include ${days[0]}, which is the day on the affidavit.`
+			: `Your export does not include these days from the affidavit: ${days.join(', ')}.`,
+	unreadableEntries: (n: number) =>
+		`${n.toLocaleString('en-US')} entr${n === 1 ? 'y' : 'ies'} in that file could not be read and ${n === 1 ? 'was' : 'were'} left out.`,
+	tooManyPoints: (kept: number) =>
+		`That file holds more location points than we can show at once, so we kept the first ${kept.toLocaleString('en-US')}.`,
+	tooManyNearClaim: (kept: number) =>
+		`There were more points around the claimed times than we send in one go, so we kept the ${kept.toLocaleString('en-US')} closest to them.`,
+	csvNeedsAddress:
+		'Without an address column we cannot tell where a purchase happened, so none of these rows can be used.',
+	csvRowsSkipped: (n: number) =>
+		`${n} row${n === 1 ? '' : 's'} had no date, time or address we could read, so ${n === 1 ? 'it was' : 'they were'} left out.`,
+	csvMisshapenLines:
+		'Some lines in that file were not laid out like the rest and were skipped.',
+	manualIncomplete: (n: number) =>
+		`${n} entr${n === 1 ? 'y needs' : 'ies need'} a date, a start and end time, and an address.`,
+	/** The autumn fold: the same wall clock happens twice, and we say which one we used. */
+	clocksChanged: (n: number) =>
+		n === 1
+			? 'One of those times falls on the night the clocks change, where the same time happens twice. We used the earlier one.'
+			: `${n} of those times fall on the night the clocks change, where the same time happens twice. We used the earlier one.`,
+	addressesNotFound: (n: number) =>
+		`We could not find ${n} of those addresses on the map, so ${n === 1 ? 'it was' : 'they were'} left out. ServeTrace only knows New York City addresses.`
+} as const;
+
+export type IngestErrorKey = keyof typeof ingestErrors;
 
 /** Bible §6. The headline for each tier, and the honest framing of each. */
 export const tiers = {

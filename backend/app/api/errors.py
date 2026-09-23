@@ -15,9 +15,11 @@ class ServeTraceError(Exception):
     code = "internal_error"
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
 
-    def __init__(self, message: str) -> None:
+    def __init__(self, message: str, headers: dict[str, str] | None = None) -> None:
         super().__init__(message)
         self.message = message
+        self.headers = headers
+        """Response headers this error needs to be actionable, e.g. `retry-after`."""
 
 
 class BadInputError(ServeTraceError):
@@ -78,7 +80,11 @@ def envelope(code: str, message: str) -> dict[str, dict[str, str]]:
 def install_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(ServeTraceError)
     async def _handled(_: Request, exc: ServeTraceError) -> JSONResponse:
-        return JSONResponse(status_code=exc.status_code, content=envelope(exc.code, exc.message))
+        return JSONResponse(
+            status_code=exc.status_code,
+            content=envelope(exc.code, exc.message),
+            headers=exc.headers,
+        )
 
     @app.exception_handler(RequestValidationError)
     async def _validation(_: Request, exc: RequestValidationError) -> JSONResponse:

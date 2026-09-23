@@ -11,6 +11,8 @@ from typing import Any
 import httpx
 import pytest
 
+from app.api.rate_limit import get_limiter
+
 
 @pytest.fixture(autouse=True)
 def no_network(monkeypatch: pytest.MonkeyPatch) -> Iterator[None]:
@@ -22,3 +24,15 @@ def no_network(monkeypatch: pytest.MonkeyPatch) -> Iterator[None]:
     monkeypatch.setattr(httpx.AsyncHTTPTransport, "handle_async_request", refuse)
     monkeypatch.setattr(httpx.HTTPTransport, "handle_request", refuse)
     yield
+
+
+@pytest.fixture(autouse=True)
+def fresh_rate_limiter() -> Iterator[None]:
+    """One test's requests must never spend another test's budget.
+
+    The limiter is a process-wide singleton, which is the point of it in production and a
+    source of order-dependent failures in a suite, so every test starts with empty buckets.
+    """
+    get_limiter.cache_clear()
+    yield
+    get_limiter.cache_clear()

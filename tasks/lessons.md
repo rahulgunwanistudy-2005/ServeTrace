@@ -40,3 +40,35 @@ The first run produced demo cases with amber warnings on fields that are plainly
 -> When a fixture cannot find its own evidence, fix what is being searched for. Lowering
 the grounding bar to make a fixture pass would have weakened the check that protects every
 real user.
+
+[2026-09-23] - The rate limiter bounded its bucket map by dropping the least recently used
+client. A test written to assert that a spray of fresh addresses cannot clear someone's
+bucket failed, and it was right to: a client that has just been refused stops making
+requests, so it is *precisely* the least recently used, and a hundred junk addresses would
+hand it a fresh bucket. -> When bounding a security-relevant cache, evict by what the entry
+*protects*, not by when it was touched. Buckets are now dropped in order of how many tokens
+they have left, so the client at zero is the last one forgotten.
+
+[2026-09-23] - The streaming JSON scanner kept one `returnTo` field for both "where to go
+when this array ends" and "where to go when this skipped value ends". A skipped value
+inside an array overwrote the array's own return, and the scanner read the rest of the
+document as though it were still inside that array - silently, on files that parsed fine
+until they contained a scalar. -> A state machine needs one return slot per kind of nesting
+it can be in. The bug was found by a test that cuts the same document at every position and
+asserts the same answer; that test is worth more than any number of hand-picked inputs.
+
+[2026-09-23] - `stats.total` counted Android's `rawSignals` as separate points, so a day
+holding 19 distinct fixes was reported to the user as 35. The duplicate is by design: the
+export writes every journey point in `timelinePath` and again as a raw signal. -> A count
+shown to a user has to mean what they would mean by it. Stats and dedupe now share one
+`fixKey`, so the number on screen and the list that is sent can never disagree.
+
+[2026-09-23] - Appending to a string one character at a time cost more than the rest of the
+scan put together: 11.5 MB parsed in 1056 ms, of which the actual state machine was 181 ms
+and `JSON.parse` 150 ms. Collecting into an array and joining once per item took it to
+687 ms. -> Measure before optimising, and measure the parts separately. The obvious suspect
+(the character loop) was not the expensive one.
+
+[2026-09-23] - A test asserted on the wording of an error message, and broke when that
+message moved into `copy/en.ts` and changed tense. -> Tests assert on the code, never on the
+sentence. The sentence belongs to the copy module and has to stay free to change.

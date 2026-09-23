@@ -90,6 +90,56 @@ from disk with no upstream call — that is what makes bible §17's "the demo mu
 true rather than hopeful. At runtime, misses are kept in a bounded in-memory LRU; the file
 is never written by the server.
 
+## Location ingest
+
+Everything under `frontend/src/lib/ingest/` runs on the user's device, in a Web Worker.
+
+```
+File ─► file.stream() ─► streamJson.ts ─► one record at a time ─► parsers/ ─► LocationFix
+                          (state machine)                          android/ios
+                                                                       │
+                                            stats (whole file) ◄───────┤
+                                                                       ▼
+                                                     window ±3h of each claim  ── dropped
+                                                                       │
+                                                        dedupe, cap 5,000
+                                                                       ▼
+                                                            what may be sent
+```
+
+**Why a hand-written scanner.** A Timeline export can be hundreds of megabytes. Reading it
+into a string and calling `JSON.parse` needs the file, the string and the object graph in
+memory at once, and a streaming JSON parser is a dependency bible §8 does not list.
+`streamJson.ts` is a character-fed state machine that yields one element of the interesting
+array at a time and hands each to `JSON.parse` on its own: peak memory is one record, and
+the browser's parser still does the parsing. It runs at roughly 17 MB/s, so a 150 MB export
+is about ten seconds in the worker with progress reported throughout. Because it holds all
+its state in fields, a chunk boundary anywhere — mid-key, mid-string, mid-number, or
+between the two bytes of a degree sign — cannot change the result, and a test asserts that
+by cutting the same document at every position.
+
+**Why windowing happens during the parse.** `window.ts` is still the definition of the
+privacy boundary and still has its own tests. But the worker is also given the claimed
+times, and drops out-of-window fixes as it reads. A multi-year history is millions of
+points; collecting them all to discard most afterwards is both a memory problem and an
+unnecessary risk. What the worker holds is bounded by the window, not by the file.
+Statistics are accumulated over every fix, including the discarded ones, so the user is
+still told what their whole export covers.
+
+**Why the parsers are pure.** Nothing in `ingest/` can reach the network. Card statements
+and typed-in entries produce a `PendingFix` that carries an address rather than a point;
+`resolve.ts` turns those into points using a geocoder handed to it by the caller
+(`geocoder.ts`, which posts the address and nothing else). Every parser test is therefore
+offline by construction rather than by mocking.
+
+**Shape detection.** The scanner tags each record with the array it came from, so the
+format decides itself: records from `semanticSegments` or `rawSignals` are an Android
+export, records from a top-level array are an iOS one. An Android export writes every
+journey point twice — in `timelinePath` and again in `rawSignals`, where the accuracy
+figure is — so duplicates are merged rather than chosen between, and `dedupe.ts` and
+`stats.ts` share one key function so the count on screen and the list that is sent cannot
+disagree.
+
 ## Layering
 
 ```
@@ -118,4 +168,10 @@ The full location history is parsed in a Web Worker and never transmitted. Only 
 within ±3h of a claimed time are posted to `/api/analyze`, and the UI states how many of
 how many points that is before sending. Uploads are processed in memory. Logs carry a
 request id, route, status and latency, and never a name, an address, a coordinate or
-document text.
+document text. `/api/extract` and `/api/geocode` are behind a per-client token bucket
+(`api/rate_limit.py`), which is the only place the server keeps anything between requests —
+a count and a timestamp per address, and nothing that says who anyone is.
+
+One thing this boundary does **not** cover: the result map pans to the user's own points,
+so the tile host can infer roughly where those points are from which tiles are requested.
+No location data is sent, but the inference is real, and the privacy page says so.

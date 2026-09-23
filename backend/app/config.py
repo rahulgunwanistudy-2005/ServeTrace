@@ -19,6 +19,12 @@ class Settings(BaseSettings):
     demo_only: bool = False
     max_upload_mb: int = 15
     cors_origins: str = ""
+    rate_limit_per_minute: int = 30
+    """Sustained requests per minute per client on the routes that cost money. 0 disables."""
+    rate_limit_burst: int = 10
+    """How many of that minute's budget may be spent at once."""
+    rate_limit_trusted_hops: int = 0
+    """Proxies in front of this app whose `X-Forwarded-For` entries can be believed."""
     geosearch_url: str = "https://geosearch.planninglabs.nyc/v2/search"
 
     @property

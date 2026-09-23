@@ -203,3 +203,141 @@ by `tests/eval/test_extraction_eval.py` and the command is in `eval/REPORT.md`.
 
 **Still deferred:** the §16 rate limiter. `/api/extract` and `/api/geocode` are the first
 routes that cost money on each call, so it is the first job of the next session.
+
+---
+
+## Session 3 — Location ingest in the browser (Web Worker)
+
+**Goal:** a location export is parsed entirely on the device into `LocationFix[]`, windowed
+around the claimed times, and only the windowed fixes ever reach the server. A 150 MB file
+must not freeze the tab.
+
+### Steps
+- [x] S3.0 Carry-over from session 2: `api/rate_limit.py` in-memory token bucket per IP
+      (bible §16), applied to `/api/extract` and `/api/geocode`, settings-driven, tests
+- [x] S3.1 `ingest/types.ts`: the whole protocol in one place — `IngestRequest`,
+      `IngestResponse`, `IngestStats`, `IngestErrorCode`, `PendingFix`
+- [x] S3.2 `ingest/tz.ts`: ISO-with-offset → epoch ms, NY day key, NY display formatting
+- [x] S3.3 `ingest/streamJson.ts`: chunked scanner that yields one top-level item at a time
+      from an array document or from a named array inside an object document, so a 150 MB
+      export is never one 150 MB string and never one giant `JSON.parse`
+- [x] S3.4 `parsers/googleAndroid.ts`, `parsers/googleIos.ts`, `parsers/detect.ts` —
+      per-item pure functions plus whole-document wrappers; unknown shape →
+      `UNSUPPORTED_FORMAT` with a human message
+- [x] S3.5 `parsers/cardCsv.ts` (papaparse + column map) and `parsers/manual.ts` produce
+      `PendingFix[]` carrying an address; `ingest/resolve.ts` fills locations through an
+      injected geocoder (address only, bounded concurrency, per-address memo)
+- [x] S3.6 `ingest/dedupe.ts`; `window.ts` gains dedupe + the 5,000 cap with a stated
+      priority rule, still returning `{kept, total}`
+- [x] S3.7 `ingest/stats.ts`: point count, covered date range, per-day coverage, and the
+      early warning when a claimed date is not in the export at all
+- [x] S3.8 `ingest/worker.ts` module worker (`{type:"parse"}` → progress → done/error) and
+      `ingest/client.ts`, the typed main-thread wrapper
+- [x] S3.9 `/dev/ingest`: drop a file, see counts, coverage and a raw-point map preview.
+      Not linked in production and refuses to render there
+- [x] S3.10 Tests: both Timeline shapes against the committed demo fixtures, Android/iOS
+      parity for visits (1 m / 1 s), a DST day, malformed coordinates, empty file,
+      windowing boundaries, dedupe, the streaming scanner, CSV column mapping, resolve
+- [x] S3.11 Copy strings in `lib/copy/en.ts`; quality gates both sides
+
+### Risks / open questions
+- **150 MB without a streaming JSON dependency.** Bible §8 pins the stack and a streaming
+  JSON parser is not in it. The scanner in S3.3 is the answer: decode the file in chunks,
+  track string/escape/depth state, and hand each top-level item to `JSON.parse` on its own.
+  Peak memory is then one item, not one document.
+- **Memory after parsing, not just during.** A multi-year export is millions of points. The
+  worker therefore accepts the claim times and windows *as it parses*, so what it retains is
+  bounded by the window and not by the file. Stats are accumulated incrementally, so the
+  date-coverage warning still describes the whole file.
+- **Android duplicates itself.** `timelinePath` points and `rawSignals.position` are the
+  same points; only the raw signals carry accuracy. Dedupe must merge rather than pick, or
+  every path point is either doubled or loses its accuracy.
+- **Android and iOS are not the same information.** iOS renders a whole commute as one
+  activity with a start and an end point; Android renders it as every sampled point. Parity
+  can therefore only be asserted for visits, which is what the brief asks for.
+- **Geocoding belongs to the main thread.** CSV and manual entries need `/api/geocode`.
+  Parsers stay pure and return `PendingFix[]`; `resolve.ts` takes the geocoder as an
+  argument, so every test of them is offline by construction.
+- **A dev route in a static build.** adapter-static prerenders every page, so the honest
+  option is `prerender = false` plus a load that 404s outside dev, and a nav link that only
+  exists in dev. The code ships inert rather than being silently reachable.
+
+### Outcome
+
+**Built**
+
+- **Rate limiter (§16, carried over from session 2).** `api/rate_limit.py`: a token bucket
+  per client on `/api/extract` and `/api/geocode`, the two routes that cost money per call.
+  One budget covers both, because the reason for the limit is the cost and not the path.
+  Monotonic clock, a `retry-after` header on the 429 (which meant giving `ServeTraceError`
+  a headers slot), settings for the rate, the burst and how many proxies may be believed.
+- **`streamJson.ts`** — the piece that makes a 150 MB export possible without a dependency
+  the bible does not list. A character-fed state machine yields one array element at a time
+  and hands each to `JSON.parse` on its own, so peak memory is one record rather than one
+  document. Measured at ~17 MB/s.
+- **Parsers** for both Timeline shapes, each a pure function over one record, plus
+  whole-document wrappers for tests. Android's `durationMinutesOffsetFromStartTime` paths
+  and `activity` segments are handled as well as the documented shapes, because real
+  exports contain them.
+- **Format detection by what the file contains**, not by sniffing: the scanner tags each
+  item with the array it came from, so `semanticSegments` means Android and a top-level
+  array means iOS, decided by the first record that actually yields a location.
+- **`cardCsv.ts`** (papaparse, column mapping, `7:42 PM` as well as `19:42`) and
+  **`manual.ts`** (typed intervals, overnight shifts). Both produce `PendingFix[]` carrying
+  an address; **`resolve.ts`** turns those into points through a geocoder passed in as an
+  argument, four at a time, once per distinct address.
+- **`dedupe.ts`, `window.ts`, `stats.ts`, `pipeline.ts`, `worker.ts`, `client.ts`** — the
+  assembled ingest, windowing *as it reads* so what the worker holds is bounded by the
+  window and not by the file.
+- **`/dev/ingest`**: drop a file, see counts, coverage, warnings, a map and a point table.
+- Every user-facing sentence ingest can produce now lives in `lib/copy/en.ts`.
+
+**Verified**
+
+- Backend: `ruff check`, `ruff format --check`, `mypy` strict over 59 files, `pytest` 234
+  passed (was 218). Frontend: `svelte-check` 0 errors 0 warnings over 263 files,
+  `tsc --noEmit` clean, `npm run build` clean, `vitest` 223 passed (was 41).
+- The three committed demo cases parse from their Android export into exactly the fixes
+  `fixes.json` records — same count, same kinds, every instant equal and every point within
+  10 cm. That file was written by the S1 generator before any of this code existed.
+- Android and iOS renderings of the same history agree on every visit within a metre and a
+  second, and on the labels.
+- The scanner gives the same answer wherever the document is cut in two — asserted at every
+  one of 69 positions — and across every chunk size from 1 to 12 bytes on a string
+  containing a two-byte degree sign.
+- Live in a real browser at `/dev/ingest`: a 906-point synthetic export parsed in the
+  worker, 1 fix kept for a 19:42 claim (the work visit spanning it), coverage across three
+  days reported, map drawn. Every network request in the tab was to the dev server; the
+  location data never left the page.
+- Live against the running API: ten geocodes pass, the eleventh returns 429 with
+  `retry-after: 2`, and the log lines carry route, status and latency and no address.
+- In a production build `/dev/ingest` renders "404 Not found", the nav link is absent from
+  the built HTML, and no `build/dev/` directory is emitted.
+- `npm run gen:types` produces a byte-identical `schema.d.ts`: the limiter changes no
+  contract.
+
+**Three things worth knowing**
+
+1. **Windowing moved into the parse.** The brief has `window.ts` filter a finished list.
+   That is still there and still tested, but the worker now also takes the claim times and
+   drops out-of-window fixes as it reads. A multi-year export is millions of points, and
+   holding all of them to throw most away afterwards is both a memory problem and a privacy
+   one. Statistics are still accumulated over the whole file, so the coverage warning is
+   unaffected.
+2. **papaparse ships no types**, and `@types/papaparse` would be a dependency outside §8.
+   The slice actually used is declared in `src/types/papaparse.d.ts` instead — narrow on
+   purpose, so reaching for more of papaparse is a decision rather than an autocomplete.
+3. **The map pans to the user's own points**, which means the tile host (OpenFreeMap) can
+   infer roughly where those points are from the tiles requested. No location data is
+   *sent*, but this is a real inference and the privacy page must say so plainly in session
+   7. The alternative is self-hosted tiles, which is a deploy cost, not a code change.
+
+**Deferred, deliberately**
+
+- The dev route's chunk carries maplibre (~780 KB) into the deployed bundle even though the
+  page 404s there. It is route-lazy, so no user ever downloads it, and session 7 pulls
+  maplibre in for `ResultMap` anyway. Not worth a build plugin today.
+- `client.ts` (the worker wrapper) has no test: driving a real `Worker` from vitest needs a
+  browser environment the project does not have. It is kept to the minimum that cannot be
+  tested any other way, and the whole of `pipeline.ts` underneath it is covered. It was
+  exercised by hand at `/dev/ingest`, which is what that page is for.

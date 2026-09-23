@@ -6,9 +6,10 @@ response is the only copy of anything read off them.
 
 from typing import Annotated
 
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile
 
 from app.api.errors import BadInputError, DemoOnlyError, UploadTooLargeError
+from app.api.rate_limit import enforce_rate_limit
 from app.config import get_settings
 from app.domain.models import ExtractionResult, LatLng
 from app.extraction.vision import extract_affidavit
@@ -69,7 +70,9 @@ async def _attach_locations(result: ExtractionResult) -> ExtractionResult:
     return result.model_copy(update={"draft": updated})
 
 
-@router.post("/extract", response_model=ExtractionResult)
+@router.post(
+    "/extract", response_model=ExtractionResult, dependencies=[Depends(enforce_rate_limit)]
+)
 async def extract(file: Annotated[UploadFile, File()]) -> ExtractionResult:
     settings = get_settings()
     if settings.demo_only:
