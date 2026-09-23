@@ -587,3 +587,95 @@ service is a dispute, and six sequences nobody could have driven is a pattern.
   are still styled placeholders; the advocate PDF report waits for S6's print stylesheet,
   so batch mode exports CSV today.
 - `docker build` remains unverified here for the reason recorded in session 1.
+
+---
+
+## Session 6 — Visual system: the "editorial monochrome" reskin
+
+**Reference.** `dribbble.com/shots/27621487` (LAIN, "NS — Modern Creative Branding
+Agency"). What is actually being borrowed, stated precisely so it can be argued with:
+
+| Move in the reference | What it becomes here |
+|---|---|
+| Near-monochrome page; the only colour is the artwork | Chrome goes achromatic. Red/amber/green are reserved for **verdicts and severities only** — which is bible §6's rule, now enforced by the palette instead of by discipline |
+| Cards *recede* (light grey inset on near-white), no borders, no shadow | `surface` becomes quieter than `canvas`; depth from tone, not elevation |
+| One black "featured" card with iridescent artwork | The dark panel: hero, the demo case, the impossible-pair callout |
+| Huge display type against 11px eyebrows | A display scale with tight tracking, plus `.st-eyebrow`; all small text raised to ≥12.5px so it still clears AA (the reference does not) |
+| Lead clause black, remainder grey, in one paragraph | `.st-statement` — used for the impossible-travel angle on the landing page |
+| Label-left / arrow-right CTA row | `Button` gains the arrow affordance; `ActionRow` for card footers |
+| Giant stat numbers under an image strip | `StatTile` — carries the Pew and New York Focus numbers from bible §2 |
+
+**Deliberately not borrowed:** the reference is a marketing site and leans on a licensed
+grotesk, 10px grey-on-grey, and motion. Bible §8 pins system fonts (a web font is a
+network dependency the privacy page would have to disclose), §14 asks for AA and grade-7
+reading, and §16 wants a demo that never fails. So: dark and cinematic on the *marketing*
+surfaces (landing, demo, advocate intro), calm paper on the *working* surfaces (wizard,
+result, methodology, privacy). Someone reading about a frozen bank account should not be
+made to squint.
+
+**Plan**
+1. `app.css` — retune every token (warm paper light scheme, true near-black dark scheme),
+   add the display/eyebrow/statement/iridescent/panel component layer.
+2. `app.html` — theme-colour to match.
+3. Primitives — `Button`, `Card`, `Callout`, `StepHeader`, `TierBadge`, `SeverityTag`,
+   `DemoChip`, `FileDrop`, `VerdictCard`, `FindingList`, `ClaimTable`, `DeadlineCard`.
+   New: `Eyebrow`, `Section`, `StatTile`, `ActionRow`, `Iridescent`.
+4. `+layout.svelte` — editorial header, dark footer with the big underlined link.
+5. Pages — landing (full rebuild), check, demo, result, methodology, privacy, advocate.
+6. Map palette fallbacks follow the tokens.
+7. Gates: `svelte-check`, `tsc --noEmit`, `vitest`, `npm run build`; verify live in both
+   schemes at 375 px and desktop.
+
+**Built**
+
+- `app.css` rewritten end to end: warm-paper light scheme, true near-black dark scheme,
+  achromatic chrome, `--st-raised` / `--st-faint` / `--st-on-accent` / the four
+  `--st-panel-*` tokens, and a component layer carrying `.st-display`, `.st-display-sm`,
+  `.st-eyebrow`, `.st-statement`, `.st-panel`, `.st-iridescent`, `.st-rule`, `.st-shell`.
+- Four new primitives — `Eyebrow`, `Section`, `StatTile`, `ActionRow` — and twelve
+  restyled: `Button` (pill, ink/inverting, optional arrow), `Card`, `Callout`,
+  `StepHeader`, `TierBadge`, `SeverityTag`, `DemoChip`, `FileDrop`, `LimitationNote`,
+  `VerdictCard`, `FindingList`, `ClaimTable`, `DeadlineCard`.
+- `+layout.svelte`: full-bleed `main`, editorial header with a scrollable nav and a pill
+  CTA, and the dark closing footer with the cropped wordmark.
+- Landing page rebuilt: iridescent hero, the provisions strip in place of a logo wall,
+  numbered steps, the statement paragraph, three sourced stat tiles, the "what this is
+  not" list, and a closing panel. Copy for the strip, the stats and the closing panel
+  added to `en.ts`.
+- `check`, `demo`, `result`, `privacy`, `methodology`, `advocate` and the three advocate
+  components moved onto the shell and the new primitives. Map token fallbacks follow the
+  new palette.
+
+**Verified**
+
+- `svelte-check` 0 errors 0 warnings over 290 files, `tsc --noEmit` clean, `vitest`
+  **264 passed**, `npm run build` clean.
+- Live in a browser against a real backend, both colour schemes, 375 px and 1280 px:
+  landing, check, demo, methodology, privacy, advocate. The advocate demo file goes all
+  the way through — mapping, ranked table, map with red impossible edges and speed
+  labels, pair cards — in both schemes. No horizontal overflow at 375 px on either the
+  landing or the advocate page.
+
+**Three decisions worth recording**
+
+1. **The chrome is achromatic so that a verdict is the only colour on the page.** Bible §6
+   asks for tiers that read at a glance and are never carried by hue alone. The old
+   palette put a blue accent on every button, link, progress bar and focus ring, so a
+   verdict had to shout over the furniture. Now red, amber and green appear nowhere
+   except a tier or a severity, and the rule is enforced by the palette rather than by
+   remembering.
+2. **Cards recede instead of floating.** `surface` is now quieter than `canvas`, with no
+   border and no shadow — depth is tonal. The one raised element in the product is the
+   verdict card, which means "this is the thing you came for" is said by elevation and
+   costs no colour.
+3. **The iridescent field is CSS, and the panel bottom-aligns its copy into the flat
+   part of the scrim.** No image asset: the privacy page has nothing new to disclose, the
+   demo still works with the network off (bible §16), and contrast under the headline is
+   a property of the layout rather than of wherever the gradient landed.
+
+**Deferred**
+
+- The dev-only routes (`/dev/ingest`, `/dev/analyze`) still use raw Tailwind slate. They
+  refuse to render in a production build, so they were left alone.
+- The MapLibre basemap is the light `liberty` style in both schemes. A dark basemap is a
+  separate decision about tiles, not about tokens.

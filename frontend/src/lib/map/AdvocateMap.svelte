@@ -52,10 +52,10 @@
 	 * readable map rather than an empty one.
 	 */
 	const TOKENS = {
-		ink: { name: '--st-muted', fallback: '#64748b' },
-		surface: { name: '--st-surface', fallback: '#ffffff' },
-		alarm: { name: '--st-contradicted', fallback: '#c2410c' },
-		accent: { name: '--st-accent', fallback: '#1d4ed8' }
+		ink: { name: '--st-muted', fallback: '#6d6a65' },
+		surface: { name: '--st-surface', fallback: '#f0efec' },
+		alarm: { name: '--st-contradicted', fallback: '#b42318' },
+		accent: { name: '--st-accent', fallback: '#211f1c' }
 	} as const;
 
 	type Palette = Record<keyof typeof TOKENS, string>;
@@ -320,7 +320,7 @@
 	});
 </script>
 
-<figure class="overflow-hidden rounded-card border border-line bg-surface shadow-card">
+<figure class="overflow-hidden rounded-card bg-surface">
 	<div
 		bind:this={container}
 		class="h-[22rem] w-full sm:h-[28rem]"

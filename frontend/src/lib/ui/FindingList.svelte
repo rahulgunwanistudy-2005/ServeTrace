@@ -13,24 +13,24 @@
 </script>
 
 <section aria-labelledby="findings-heading">
-	<h2 id="findings-heading" class="text-xl font-semibold">{result.findings}</h2>
+	<h2 id="findings-heading" class="st-display-sm text-xl sm:text-2xl">{result.findings}</h2>
 
 	{#if ordered.length === 0}
 		<p class="mt-3 text-muted">{result.noFindings}</p>
 	{:else}
-		<ul class="mt-4 space-y-3">
+		<ul class="mt-5 space-y-3">
 			{#each ordered as finding (finding.code + finding.title)}
 				<li
-					class="rounded-card border border-l-4 border-line bg-surface p-4 shadow-card sm:p-5
+					class="rounded-card border-l-2 bg-surface p-5 sm:p-6
 					       {toneEdge[severityTone(finding.severity)]}"
 				>
 					<div class="flex flex-wrap items-baseline gap-x-3 gap-y-2">
-						<h3 class="grow text-base font-semibold">{finding.title}</h3>
+						<h3 class="grow text-base font-semibold tracking-[-0.015em]">{finding.title}</h3>
 						<SeverityTag severity={finding.severity} />
 					</div>
-					<p class="mt-2 leading-relaxed text-muted">{finding.detail}</p>
+					<p class="mt-2.5 leading-relaxed text-muted">{finding.detail}</p>
 					{#if finding.legal_ref && finding.legal_ref in legalRefs}
-						<p class="mt-3 border-t border-line pt-3 text-sm text-muted">
+						<p class="mt-4 border-t border-line pt-3 text-sm text-faint">
 							<span class="font-medium text-ink">{result.basedOn}</span>
 							{legalRefs[finding.legal_ref as keyof typeof legalRefs]}
 						</p>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import published from '$lib/eval/published.json';
 	import Callout from '$lib/ui/Callout.svelte';
+	import Eyebrow from '$lib/ui/Eyebrow.svelte';
 	import { deadlines, methodology as copy, nav, tiers, tierLabels } from '$copy/en';
 	import { toneInk, type Tone } from '$lib/ui/tone';
 
@@ -30,13 +31,14 @@
 
 <svelte:head><title>{nav.methodology} — ServeTrace</title></svelte:head>
 
-<article class="prose-st max-w-3xl">
-	<h1 class="text-3xl font-semibold sm:text-4xl">{nav.methodology}</h1>
-	<p class="text-lg">{copy.intro}</p>
+<div class="st-shell st-shell-prose">
+	<Eyebrow>{nav.methodology}</Eyebrow>
+	<h1 class="st-display mt-5 text-3xl sm:text-5xl">{copy.intro}</h1>
 
-	<Callout tone="accent" title={copy.headlineTitle}>
-		{copy.headlineBody(published.n_cases, published.false_accusations, pct(published.claim_accuracy))}
-	</Callout>
+	<article class="prose-st mt-10">
+		<Callout tone="neutral" title={copy.headlineTitle}>
+			{copy.headlineBody(published.n_cases, published.false_accusations, pct(published.claim_accuracy))}
+		</Callout>
 
 	<h2>{copy.howTitle}</h2>
 	<p>{copy.howBody}</p>
@@ -47,7 +49,7 @@
 	<h2>{copy.tiersTitle}</h2>
 	<dl class="grid gap-3 sm:grid-cols-2">
 		{#each TIERS as tier (tier)}
-			<div class="rounded-card border border-line bg-surface p-4">
+			<div class="rounded-card bg-surface p-5">
 				<dt class="font-semibold">{tierLabels[tier]}</dt>
 				<dd class="mt-1 text-sm leading-relaxed text-muted">{tiers[tier].meaning}</dd>
 			</div>
@@ -56,10 +58,10 @@
 
 	<h2>{copy.thresholdsTitle}</h2>
 	<p>{copy.thresholdsBody(published.params_version)}</p>
-	<div class="overflow-x-auto rounded-card border border-line bg-surface">
+	<div class="overflow-x-auto rounded-card bg-surface">
 		<table class="w-full border-collapse text-left text-sm">
-			<thead class="border-b border-line bg-sunken">
-				<tr class="text-xs tracking-wide text-muted uppercase">
+			<thead class="border-b border-line-strong">
+				<tr class="st-eyebrow">
 					<th scope="col" class="px-4 py-3 font-semibold">{copy.colThreshold}</th>
 					<th scope="col" class="px-4 py-3 font-semibold">{copy.colValue}</th>
 					<th scope="col" class="px-4 py-3 font-semibold">{copy.colWhy}</th>
@@ -86,19 +88,19 @@
 			{ label: copy.statClaim, value: pct(published.claim_accuracy), tone: 'accent' },
 			{ label: copy.statOverall, value: pct(published.overall_accuracy), tone: 'accent' }
 		] as stat (stat.label)}
-			<div class="rounded-card border border-line bg-surface p-4">
-				<p class="text-3xl font-semibold tabular-nums">{stat.value}</p>
-				<p class="mt-1 text-sm text-muted">{stat.label}</p>
+			<div class="rounded-card bg-surface p-5">
+				<p class="st-display text-4xl tabular-nums">{stat.value}</p>
+				<p class="mt-2 text-sm leading-relaxed text-muted">{stat.label}</p>
 			</div>
 		{/each}
 	</div>
 
 	<h3>{copy.matrixTitle}</h3>
 	<p>{copy.matrixBody}</p>
-	<div class="overflow-x-auto rounded-card border border-line bg-surface">
+	<div class="overflow-x-auto rounded-card bg-surface">
 		<table class="w-full border-collapse text-center text-sm">
-			<thead class="border-b border-line bg-sunken">
-				<tr class="text-xs tracking-wide text-muted uppercase">
+			<thead class="border-b border-line-strong">
+				<tr class="st-eyebrow">
 					<th scope="col" class="px-3 py-3 text-left font-semibold">{copy.colTruth}</th>
 					{#each TIERS as tier (tier)}
 						<th scope="col" class="px-3 py-3 font-semibold">{tierLabels[tier]}</th>
@@ -170,9 +172,11 @@
 			{ label: copy.advocateStatPrecision, value: pct(advocate.precision), tone: 'accent' },
 			{ label: copy.advocateStatRecall, value: pct(advocate.recall), tone: 'accent' }
 		] as stat (stat.label)}
-			<div class="rounded-card border border-line bg-surface p-4 shadow-card">
-				<dt class="text-sm text-muted">{stat.label}</dt>
-				<dd class="mt-1 text-2xl font-semibold {toneInk[stat.tone as Tone]}">{stat.value}</dd>
+			<div class="rounded-card bg-surface p-5">
+				<dt class="text-sm leading-relaxed text-muted">{stat.label}</dt>
+				<dd class="st-display mt-2 text-3xl tabular-nums {toneInk[stat.tone as Tone]}">
+					{stat.value}
+				</dd>
 			</div>
 		{/each}
 	</dl>
@@ -190,10 +194,11 @@
 	<p>{deadlines.cplr317}</p>
 	<p>{deadlines.traverse}</p>
 
-	<h2>{copy.sourcesTitle}</h2>
-	<ul>
-		{#each copy.sources as source (source.url)}
-			<li><a href={source.url} rel="noreferrer noopener" target="_blank">{source.title}</a></li>
-		{/each}
-	</ul>
-</article>
+		<h2>{copy.sourcesTitle}</h2>
+		<ul>
+			{#each copy.sources as source (source.url)}
+				<li><a href={source.url} rel="noreferrer noopener" target="_blank">{source.title}</a></li>
+			{/each}
+		</ul>
+	</article>
+</div>

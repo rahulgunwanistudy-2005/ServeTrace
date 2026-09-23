@@ -18,6 +18,7 @@
 	import { guessColumns, isComplete } from '$lib/advocate/mapping';
 	import { loadDemoFile } from '$lib/advocate/demoFile';
 	import Button from '$lib/ui/Button.svelte';
+	import Eyebrow from '$lib/ui/Eyebrow.svelte';
 	import Callout from '$lib/ui/Callout.svelte';
 	import Card from '$lib/ui/Card.svelte';
 	import DemoChip from '$lib/ui/DemoChip.svelte';
@@ -129,12 +130,15 @@
 
 <svelte:head><title>{advocate.title} — ServeTrace</title></svelte:head>
 
-<div class="space-y-8">
-	<header class="max-w-3xl">
-		{#if isDemo}<div class="mb-3"><DemoChip /></div>{/if}
-		<h1 class="text-3xl font-semibold sm:text-4xl">{advocate.title}</h1>
-		<p class="mt-3 text-lg leading-relaxed text-muted">{advocate.sub}</p>
-	</header>
+<section class="st-panel st-iridescent rounded-none">
+	<div class="st-shell py-12 sm:py-16">
+		{#if isDemo}<div class="mb-5"><DemoChip invert /></div>{:else}<Eyebrow>For legal advocates</Eyebrow>{/if}
+		<h1 class="st-display mt-4 max-w-3xl text-3xl text-panel-ink sm:text-5xl">{advocate.title}</h1>
+		<p class="mt-5 max-w-2xl text-lg leading-relaxed text-panel-muted">{advocate.sub}</p>
+	</div>
+</section>
+
+<div class="st-shell space-y-8 py-12 sm:py-16">
 
 	{#if failure}
 		<Callout tone="contradicted" title="That did not work">{failure}</Callout>
@@ -163,9 +167,9 @@
 			</div>
 
 			<aside class="space-y-4">
-				<Card tone="accent">
-					<h2 class="font-semibold">{advocate.premiseTitle}</h2>
-					<p class="mt-2 text-sm leading-relaxed text-muted">{advocate.premiseBody}</p>
+				<Card>
+					<Eyebrow>{advocate.premiseTitle}</Eyebrow>
+					<p class="mt-3 text-sm leading-relaxed text-muted">{advocate.premiseBody}</p>
 				</Card>
 				<Callout tone="neutral" title={advocate.gpsTitle}>
 					{advocate.gpsBody}
@@ -176,8 +180,8 @@
 		<Card>
 			<div class="flex flex-wrap items-baseline justify-between gap-3">
 				<div>
-					<h2 class="text-xl font-semibold">{advocate.mapColumns}</h2>
-					<p class="mt-1 text-sm text-muted">{advocate.mapColumnsHint}</p>
+					<h2 class="st-display-sm text-xl sm:text-2xl">{advocate.mapColumns}</h2>
+					<p class="mt-1.5 text-sm text-muted">{advocate.mapColumnsHint}</p>
 				</div>
 				<p class="text-sm text-muted">{file?.name}</p>
 			</div>
@@ -197,8 +201,8 @@
 		<div class="space-y-4">
 			<div class="flex flex-wrap items-center justify-between gap-3">
 				<div>
-					<h2 class="text-xl font-semibold sm:text-2xl">{advocate.riskTable}</h2>
-					<p class="mt-1 text-sm text-muted">{advocate.riskTableHint}</p>
+					<h2 class="st-display-sm text-xl sm:text-2xl">{advocate.riskTable}</h2>
+					<p class="mt-1.5 text-sm text-muted">{advocate.riskTableHint}</p>
 				</div>
 				<div class="flex flex-wrap gap-2">
 					<Button variant="secondary" onclick={() => download('pairs')}>
@@ -233,7 +237,7 @@
 			{/if}
 
 			{#if analysis.rejected.length}
-				<details class="rounded-card border border-caution/30 bg-caution-quiet p-4 text-sm">
+				<details class="rounded-card border border-caution/30 bg-caution-quiet p-4 text-sm sm:p-5">
 					<summary class="cursor-pointer font-semibold text-caution">
 						{advocate.rejectedTitle(analysis.rejected.length)}
 					</summary>
@@ -258,15 +262,15 @@
 			<p class="text-muted">{advocate.selectServer}</p>
 		{/if}
 
-		<Card tone="neutral">
-			<h2 class="font-semibold">{advocate.gpsTitle}</h2>
-			<p class="mt-2 text-sm leading-relaxed text-muted">{advocate.gpsBody}</p>
+		<Card>
+			<Eyebrow>{advocate.gpsTitle}</Eyebrow>
+			<p class="mt-3 text-sm leading-relaxed text-muted">{advocate.gpsBody}</p>
 			<p class="mt-3 text-sm leading-relaxed text-muted">{advocate.dcwpNote}</p>
 		</Card>
 
 		<p class="text-sm leading-relaxed text-muted">{advocate.limitation}</p>
 
-		<p class="text-xs text-muted">
+		<p class="border-t border-line pt-5 text-xs text-faint">
 			engine {analysis.stats.engine_version} · params {analysis.stats.params_version}
 		</p>
 	{/if}

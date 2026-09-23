@@ -23,10 +23,10 @@
 
 <div class="space-y-6">
 	<div>
-		<h2 class="text-xl font-semibold sm:text-2xl">
+		<h2 class="st-display-sm text-xl sm:text-2xl">
 			{advocate.mapTitle} — {report.server_id}
 		</h2>
-		<p class="mt-1 text-sm text-muted">
+		<p class="mt-1.5 text-sm text-muted">
 			{report.n_records} filings ·
 			{report.impossible_pairs.length} sequences that do not add up ·
 			rank {report.risk_rank}
@@ -44,7 +44,7 @@
 
 	{#if report.impossible_pairs.length}
 		<section>
-			<h3 class="text-lg font-semibold">{advocate.impossiblePairs}</h3>
+			<h3 class="st-display-sm text-lg">{advocate.impossiblePairs}</h3>
 			<ol class="mt-3 space-y-3">
 				{#each report.impossible_pairs as pair, index (index)}
 					<li>
@@ -58,8 +58,8 @@
 							</p>
 							<dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
 								{#each [pair.a, pair.b] as record, position (position)}
-									<div class="rounded-lg bg-sunken p-3">
-										<dt class="text-xs tracking-wide text-muted uppercase">
+									<div class="rounded-control bg-sunken p-3.5">
+										<dt class="st-eyebrow">
 											{position === 0 ? 'First filing' : 'Next filing'}
 										</dt>
 										<dd class="mt-1 font-medium">{formatDateTime(record.at)}</dd>
@@ -81,7 +81,7 @@
 
 	{#if report.repeated_descriptions.length}
 		<section>
-			<h3 class="text-lg font-semibold">{advocate.repeatedTitle}</h3>
+			<h3 class="st-display-sm text-lg">{advocate.repeatedTitle}</h3>
 			<ul class="mt-3 space-y-3">
 				{#each report.repeated_descriptions as [description, doors] (description)}
 					<li>
@@ -97,21 +97,21 @@
 	{/if}
 
 	<section>
-		<h3 class="text-lg font-semibold">{advocate.busiestHourTitle}</h3>
+		<h3 class="st-display-sm text-lg">{advocate.busiestHourTitle}</h3>
 		<p class="mt-2 text-muted">
 			{busy ? advocate.busiestHour(report.max_services_per_hour) : advocate.busiestHourOk}
 		</p>
 	</section>
 
 	{#if ordered.length}
-		<details class="rounded-card border border-line bg-surface shadow-card">
+		<details class="rounded-card bg-surface">
 			<summary class="cursor-pointer px-5 py-4 font-medium">
 				{advocate.mapAlternative}
 			</summary>
 			<div class="max-h-96 overflow-auto border-t border-line">
 				<table class="w-full border-collapse text-sm">
 					<thead class="sticky top-0 bg-surface">
-						<tr class="border-b border-line text-left text-xs tracking-wide text-muted uppercase">
+						<tr class="st-eyebrow border-b border-line-strong text-left">
 							<th scope="col" class="px-4 py-2 font-semibold">When</th>
 							<th scope="col" class="px-4 py-2 font-semibold">Address</th>
 							<th scope="col" class="px-4 py-2 font-semibold">Outcome</th>
@@ -120,7 +120,7 @@
 					</thead>
 					<tbody>
 						{#each ordered as record, index (index)}
-							<tr class="border-b border-line/60 last:border-0">
+							<tr class="border-b border-line last:border-0">
 								<td class="px-4 py-2 whitespace-nowrap">{formatDateTime(record.at)}</td>
 								<td class="px-4 py-2 text-muted">{record.address ?? '—'}</td>
 								<td class="px-4 py-2 text-muted">{record.outcome ?? '—'}</td>

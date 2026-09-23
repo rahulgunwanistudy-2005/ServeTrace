@@ -8,7 +8,7 @@
 
 <span
 	class="inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-[0.6875rem]
-	       font-semibold tracking-wide uppercase {toneClasses[severityTone(severity)]}"
+	       font-semibold tracking-[0.07em] uppercase {toneClasses[severityTone(severity)]}"
 >
 	{severityLabels[severity]}
 </span>

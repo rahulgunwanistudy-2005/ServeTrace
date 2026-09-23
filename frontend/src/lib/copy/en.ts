@@ -43,6 +43,47 @@ export const landing = {
 	angleTitle: 'The check a bank runs on your card, run on an affidavit',
 	angleBody:
 		"When a card is used in two cities twenty minutes apart, a bank\u2019s fraud checks flag it: nobody travels that fast. ServeTrace asks the same question of a sworn statement. If an affidavit puts a server at your door at 7:42 PM and your phone was fourteen kilometres away at 7:39, getting there would have taken about 171 km/h. That is the whole idea, and as far as we can tell nobody had pointed it at an affidavit of service before.",
+	/**
+	 * The strip under the hero. Where a marketing site puts customer logos, this puts the
+	 * provisions the engine actually encodes — bible §5, nothing else. A logo wall is a
+	 * claim about who trusts us; this is a claim anyone can go and check.
+	 */
+	groundedTitle: 'What this checks against',
+	grounded: [
+		'CPLR 308(1)',
+		'CPLR 308(2)',
+		'CPLR 308(4)',
+		'CPLR 5015(a)(4)',
+		'CPLR 317',
+		'NYC Admin Code § 20-410'
+	],
+	/**
+	 * Bible §2's impact numbers. Every one carries its source in the tile, because a
+	 * statistic without one is exactly the kind of claim this product exists to check.
+	 */
+	statsTitle: 'Why this happens so often',
+	statsBody:
+		'A default judgment is what a court enters when the person being sued never answers. Most people never answer because most people never learn they were sued.',
+	stats: [
+		{
+			value: 'Over 70%',
+			label: 'of debt collection lawsuits across state courts end in a default judgment rather than a decision on the facts.',
+			source: 'Pew Charitable Trusts, 2020'
+		},
+		{
+			value: '17%',
+			label: 'of the 366,000 consumer credit cases filed in New York City between 2019 and 2023 got any answer at all from the person being sued.',
+			source: 'New York Focus, 2025'
+		},
+		{
+			value: '152,000',
+			label: 'default judgments were entered in New York City consumer credit cases between 2019 and 2024.',
+			source: 'New York Focus, 2025'
+		}
+	],
+	demoTitle: 'Rather see it work first?',
+	demoBody:
+		'Three synthetic cases — one where the data conflicts with the affidavit, one where it supports it, and one where it settles nothing. No file to upload, and nothing about them is real.',
 	trustTitle: 'What this is, and what it is not',
 	trustPoints: [
 		'It is a way to see whether your own records line up with what was sworn.',

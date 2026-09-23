@@ -17,54 +17,126 @@
  *     `dark:` class on every element, and a palette change is one edit rather than
  *     hundreds.
  *
+ * ## The look
+ *
+ * Editorial monochrome. The chrome — page, cards, rules, buttons, links, focus rings —
+ * is entirely achromatic: warm paper and ink in the light scheme, true near-black and
+ * bone in the dark one. Every drop of colour in the product is spent on a verdict tier
+ * or a finding severity.
+ *
+ * That is not only a style. Bible §6 says the result tiers must be legible at a glance
+ * and must never be encoded in hue alone, and it says a CONSISTENT result is shown as
+ * honestly as a CONTRADICTED one. A page where red, amber and green appear nowhere else
+ * makes the first of those true by construction: there is nothing for a verdict to
+ * compete with. The previous palette had a blue accent on every button, link, progress
+ * bar and focus ring, and a verdict had to shout over all of it.
+ *
+ * Depth comes from tone rather than elevation: a card is a slightly quieter rectangle of
+ * the same paper, not a white slab floating on grey. Shadows are reserved for things
+ * that genuinely float (the sticky header's underline, a drop target being dragged onto).
+ *
  * System fonts on purpose: bible §8 pins the stack, a web font is a network dependency
  * the privacy page would have to disclose, and the first paint of a page someone is
- * anxiously waiting on should not wait for a download.
+ * anxiously waiting on should not wait for a download. The grotesk feel is bought with
+ * tracking and leading instead — see `.st-display` below.
  */
 
 :root {
-	--st-canvas: oklch(0.985 0.003 250);
-	--st-surface: oklch(1 0 0);
-	--st-surface-sunken: oklch(0.968 0.005 250);
-	--st-line: oklch(0.905 0.008 250);
-	--st-line-strong: oklch(0.82 0.012 250);
-	--st-text: oklch(0.24 0.02 260);
-	--st-muted: oklch(0.47 0.018 260);
-	--st-accent: oklch(0.45 0.13 250);
-	--st-accent-hover: oklch(0.38 0.13 250);
-	--st-accent-quiet: oklch(0.95 0.025 250);
-	--st-contradicted: oklch(0.51 0.18 25);
-	--st-contradicted-quiet: oklch(0.955 0.03 25);
-	--st-consistent: oklch(0.45 0.11 160);
+	color-scheme: light dark;
+
+	/* Paper, warmed very slightly off the blue-grey default. Neutral greys photograph as
+	   clinical; a hint of warmth reads as a document. */
+	--st-canvas: oklch(0.982 0.0025 85);
+	--st-surface: oklch(0.955 0.003 85);
+	--st-surface-sunken: oklch(0.928 0.004 85);
+	/* The one genuinely white surface, for the things that must sit on top of paper:
+	   the verdict card, a menu, an input. */
+	--st-raised: oklch(1 0 0);
+
+	--st-line: oklch(0.895 0.004 85);
+	--st-line-strong: oklch(0.78 0.006 85);
+
+	--st-text: oklch(0.19 0.004 85);
+	--st-muted: oklch(0.455 0.006 85);
+	/* Third-level text: an eyebrow, a caption, a units suffix. Still AA at 12.5px+. */
+	--st-faint: oklch(0.545 0.006 85);
+
+	/* "Accent" is ink. Every primary action is a black pill; every link is underlined
+	   rather than coloured. The token stays so components keep one name for "the
+	   emphatic neutral", and so the dark scheme can invert it in one place. */
+	--st-accent: oklch(0.19 0.004 85);
+	--st-accent-hover: oklch(0.33 0.005 85);
+	--st-accent-quiet: oklch(0.928 0.004 85);
+	/* What sits *on* an accent surface. Inverts with the scheme, which is what lets a
+	   black pill become a white pill in the dark without a single `dark:` class. */
+	--st-on-accent: oklch(0.985 0.002 85);
+
+	/* Bible §6's four tiers and §11's three severities. The only chroma in the product. */
+	--st-contradicted: oklch(0.505 0.185 25);
+	--st-contradicted-quiet: oklch(0.955 0.028 25);
+	--st-consistent: oklch(0.44 0.115 160);
 	--st-consistent-quiet: oklch(0.955 0.03 160);
-	--st-caution: oklch(0.52 0.12 70);
-	--st-caution-quiet: oklch(0.96 0.045 85);
-	--st-neutral: oklch(0.47 0.018 260);
-	--st-neutral-quiet: oklch(0.955 0.006 250);
-	--st-shadow: 0 1px 2px oklch(0.24 0.02 260 / 0.05), 0 8px 24px -12px oklch(0.24 0.02 260 / 0.18);
+	--st-caution: oklch(0.505 0.115 68);
+	--st-caution-quiet: oklch(0.955 0.04 80);
+	--st-neutral: oklch(0.455 0.006 85);
+	--st-neutral-quiet: oklch(0.935 0.003 85);
+
+	--st-shadow: 0 1px 2px oklch(0.19 0.004 85 / 0.06), 0 12px 32px -20px oklch(0.19 0.004 85 / 0.35);
+
+	/* The dark panel's own scheme. These do *not* flip with the colour scheme: a panel is
+	   dark in both, the way the reference's featured card is. Components that live on it
+	   read these directly through `.st-panel`. */
+	--st-panel-bg: oklch(0.145 0.004 260);
+	--st-panel-ink: oklch(0.975 0.002 85);
+	--st-panel-muted: oklch(0.785 0.006 85);
+	--st-panel-line: oklch(0.29 0.006 260);
+	/* The scrim's stops. Spelled out rather than derived from `--st-panel-bg` with
+	   `oklch(from …)`: relative colour syntax is recent, and a browser that drops the
+	   declaration would drop the whole scrim and leave copy on bare gradient. */
+	--st-panel-fade-3: oklch(0.145 0.004 260 / 0.88);
+	--st-panel-fade-2: oklch(0.145 0.004 260 / 0.64);
+	--st-panel-fade-1: oklch(0.145 0.004 260 / 0.26);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--st-canvas: oklch(0.19 0.014 260);
-		--st-surface: oklch(0.235 0.016 260);
-		--st-surface-sunken: oklch(0.21 0.015 260);
-		--st-line: oklch(0.32 0.018 260);
-		--st-line-strong: oklch(0.42 0.02 260);
-		--st-text: oklch(0.95 0.006 260);
-		--st-muted: oklch(0.75 0.014 260);
-		--st-accent: oklch(0.78 0.11 250);
-		--st-accent-hover: oklch(0.86 0.09 250);
-		--st-accent-quiet: oklch(0.3 0.045 250);
-		--st-contradicted: oklch(0.76 0.15 28);
-		--st-contradicted-quiet: oklch(0.29 0.06 28);
-		--st-consistent: oklch(0.79 0.12 160);
-		--st-consistent-quiet: oklch(0.28 0.05 160);
-		--st-caution: oklch(0.83 0.12 85);
-		--st-caution-quiet: oklch(0.3 0.05 85);
-		--st-neutral: oklch(0.75 0.014 260);
-		--st-neutral-quiet: oklch(0.28 0.016 260);
-		--st-shadow: 0 1px 2px oklch(0 0 0 / 0.3), 0 8px 24px -12px oklch(0 0 0 / 0.5);
+		/* True near-black rather than the blue-grey it was. The reference's dark sections
+		   are nearly #060606, and the iridescent artwork only reads against that. */
+		--st-canvas: oklch(0.145 0.004 260);
+		--st-surface: oklch(0.185 0.005 260);
+		--st-surface-sunken: oklch(0.225 0.006 260);
+		--st-raised: oklch(0.205 0.006 260);
+
+		--st-line: oklch(0.285 0.006 260);
+		--st-line-strong: oklch(0.42 0.008 260);
+
+		--st-text: oklch(0.965 0.002 85);
+		--st-muted: oklch(0.745 0.006 85);
+		--st-faint: oklch(0.655 0.006 85);
+
+		--st-accent: oklch(0.965 0.002 85);
+		--st-accent-hover: oklch(0.85 0.004 85);
+		--st-accent-quiet: oklch(0.255 0.006 260);
+		--st-on-accent: oklch(0.155 0.004 260);
+
+		--st-contradicted: oklch(0.755 0.155 28);
+		--st-contradicted-quiet: oklch(0.285 0.062 28);
+		--st-consistent: oklch(0.79 0.125 160);
+		--st-consistent-quiet: oklch(0.275 0.05 160);
+		--st-caution: oklch(0.835 0.125 85);
+		--st-caution-quiet: oklch(0.295 0.05 85);
+		--st-neutral: oklch(0.745 0.006 85);
+		--st-neutral-quiet: oklch(0.245 0.006 260);
+
+		--st-shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 12px 32px -20px oklch(0 0 0 / 0.7);
+
+		/* In the dark the panel lifts slightly off the page instead of sinking into it,
+		   or it would disappear entirely. */
+		--st-panel-bg: oklch(0.205 0.006 260);
+		--st-panel-line: oklch(0.335 0.007 260);
+		--st-panel-fade-3: oklch(0.205 0.006 260 / 0.88);
+		--st-panel-fade-2: oklch(0.205 0.006 260 / 0.64);
+		--st-panel-fade-1: oklch(0.205 0.006 260 / 0.26);
 	}
 }
 
@@ -76,13 +148,21 @@
 	--color-canvas: var(--st-canvas);
 	--color-surface: var(--st-surface);
 	--color-sunken: var(--st-surface-sunken);
+	--color-raised: var(--st-raised);
 	--color-line: var(--st-line);
 	--color-line-strong: var(--st-line-strong);
 	--color-ink: var(--st-text);
 	--color-muted: var(--st-muted);
+	--color-faint: var(--st-faint);
 	--color-accent: var(--st-accent);
 	--color-accent-hover: var(--st-accent-hover);
 	--color-accent-quiet: var(--st-accent-quiet);
+	--color-on-accent: var(--st-on-accent);
+
+	--color-panel: var(--st-panel-bg);
+	--color-panel-ink: var(--st-panel-ink);
+	--color-panel-muted: var(--st-panel-muted);
+	--color-panel-line: var(--st-panel-line);
 
 	/* Bible §6's four tiers, and the three severities that sort a findings list. */
 	--color-contradicted: var(--st-contradicted);
@@ -95,7 +175,10 @@
 	--color-neutral-quiet: var(--st-neutral-quiet);
 
 	--shadow-card: var(--st-shadow);
-	--radius-card: 0.875rem;
+
+	/* Two radii, not five. Large for panels and cards, small for controls inside them. */
+	--radius-card: 1.125rem;
+	--radius-control: 0.625rem;
 }
 
 @layer base {
@@ -108,25 +191,30 @@
 		background-color: var(--color-canvas);
 		color: var(--color-ink);
 		text-wrap: pretty;
+		font-feature-settings: 'cv05' 1; /* Straight-legged l where the face offers it. */
 	}
 
 	h1,
 	h2,
-	h3 {
+	h3,
+	h4 {
 		text-wrap: balance;
-		letter-spacing: -0.015em;
+		letter-spacing: -0.021em;
+		font-weight: 600;
 	}
 
-	/* A focus ring that survives both schemes and never relies on colour alone. */
+	/* A focus ring that survives both schemes and never relies on colour alone. Ink on
+	   paper is ~17:1, well past the 3:1 non-text minimum, and the offset keeps it legible
+	   on a dark panel too. */
 	:focus-visible {
-		outline: 3px solid var(--color-accent);
+		outline: 2px solid var(--color-accent);
 		outline-offset: 2px;
 		border-radius: 0.375rem;
 	}
 
 	::selection {
-		background: var(--color-accent-quiet);
-		color: var(--color-ink);
+		background: var(--color-ink);
+		color: var(--color-canvas);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -141,29 +229,225 @@
 }
 
 @layer components {
-	/* Long-form pages (Methodology, Privacy) are mostly prose, and repeating the same
-	   six utilities on every paragraph is how copy drifts out of rhythm. */
+	/*
+	 * ## Display type
+	 *
+	 * The reference's headlines are a licensed grotesk at a tight optical setting. What
+	 * actually carries that impression is not the face: it is the ratio between a very
+	 * large heading and a very small label, negative tracking, and leading under 1.1.
+	 * All three are available on the system stack, so the look survives without the
+	 * network request bible §8 forbids.
+	 */
+	.st-display {
+		font-weight: 600;
+		letter-spacing: -0.033em;
+		line-height: 1.04;
+	}
+
+	.st-display-sm {
+		font-weight: 600;
+		letter-spacing: -0.026em;
+		line-height: 1.12;
+	}
+
+	/*
+	 * The tiny label that sits above or beside a section. Uppercase at this size needs
+	 * the tracking opened back up or it sets as a single word-shape.
+	 *
+	 * 0.75rem, not the reference's ~10px: at 10px this is unreadable for the person most
+	 * likely to be using the product on a cracked phone screen in a hurry.
+	 */
+	.st-eyebrow {
+		font-size: 0.75rem;
+		line-height: 1rem;
+		font-weight: 600;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+		color: var(--color-faint);
+	}
+
+	/*
+	 * The statement paragraph: lead clause in ink, the rest falling away to grey, set
+	 * large. One per page at most — it is the page's thesis, and a second one makes the
+	 * first mean nothing.
+	 */
+	.st-statement {
+		font-size: 1.375rem;
+		line-height: 1.32;
+		letter-spacing: -0.018em;
+		color: var(--color-muted);
+		text-wrap: pretty;
+	}
+
+	.st-statement strong,
+	.st-statement b {
+		color: var(--color-ink);
+		font-weight: 600;
+	}
+
+	@media (min-width: 640px) {
+		.st-statement {
+			font-size: 1.75rem;
+		}
+	}
+
+	/*
+	 * ## The dark panel
+	 *
+	 * The reference's one black card. Here it carries the hero, the demo invitation and
+	 * the advocate premise. It sets its own scheme so its contents do not have to know
+	 * which page they are on.
+	 */
+	.st-panel {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		border-radius: var(--radius-card);
+		background-color: var(--color-panel);
+		color: var(--color-panel-ink);
+	}
+
+	.st-panel :where(.st-eyebrow) {
+		color: var(--color-panel-muted);
+	}
+
+	.st-panel :where(hr) {
+		border-color: var(--color-panel-line);
+	}
+
+	/*
+	 * ## The iridescent field
+	 *
+	 * The reference's signature is a photograph of anodised metal — warm gold bleeding
+	 * into steel blue over black. Reproducing it as CSS rather than an asset keeps the
+	 * privacy page honest (no third-party image, nothing to cache, nothing to fetch) and
+	 * keeps the demo working with the network off, which bible §16 requires.
+	 *
+	 * It is drawn as swept bands rather than a blob on purpose: a trail crossing a dark
+	 * field is what the product is about.
+	 *
+	 * It is decoration and never information. Nothing is ever printed on top of it
+	 * without the scrim below, and no meaning is attached to a colour inside it.
+	 */
+	.st-iridescent::before {
+		content: '';
+		position: absolute;
+		inset: -20% -15% auto -15%;
+		height: min(92%, 26rem);
+		z-index: -2;
+		background:
+			/* Two tints only, and both low. The reference reads as anodised metal rather
+			   than as a gradient because almost all of its variation is tonal and only a
+			   little of it is hue — a saturated wash here looks like every other hero on
+			   the internet. */
+			radial-gradient(52% 48% at 22% 34%, oklch(0.7 0.09 68 / 0.5), transparent 68%),
+			radial-gradient(48% 46% at 72% 24%, oklch(0.64 0.075 248 / 0.45), transparent 68%),
+			/* The ribbon. The light edges are thin and the dark body is wide, which is what
+			   makes a swept metal surface read as swept rather than as striped. */
+			repeating-linear-gradient(
+				114deg,
+				oklch(0.1 0.004 260) 0 2.6%,
+				oklch(0.16 0.008 250) 3.6%,
+				oklch(0.43 0.022 245) 4.1%,
+				oklch(0.2 0.01 250) 4.8%,
+				oklch(0.1 0.004 260) 6.4%,
+				oklch(0.12 0.006 70) 8.2%,
+				oklch(0.5 0.045 72) 8.7%,
+				oklch(0.14 0.008 70) 9.6%,
+				oklch(0.1 0.004 260) 12%
+			);
+		filter: blur(11px) saturate(112%);
+		transform: rotate(-6deg) scale(1.15);
+	}
+
+	/*
+	 * The scrim, and the reason the artwork is safe to use behind copy.
+	 *
+	 * It fades top-to-bottom to the flat panel colour, and every panel in the product
+	 * bottom-aligns its text into that flat region. So contrast is a property of the
+	 * layout rather than of wherever the gradient happened to land — which is the only
+	 * way a decorative image can sit under type and still be defensible at AA.
+	 */
+	.st-iridescent::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(
+			to top,
+			var(--st-panel-bg) 0%,
+			var(--st-panel-bg) 34%,
+			var(--st-panel-fade-3) 58%,
+			var(--st-panel-fade-2) 80%,
+			var(--st-panel-fade-1) 100%
+		);
+	}
+
+	/*
+	 * ## The shell
+	 *
+	 * `main` is edge-to-edge so a hero can bleed to the window, and every page puts its
+	 * own content back inside this. One width for the whole product, wider than the old
+	 * 896px because the reference's proportions need room to breathe and the advocate
+	 * table needs it outright.
+	 */
+	.st-shell {
+		margin-inline: auto;
+		width: 100%;
+		max-width: 68rem;
+		padding-inline: 1.25rem;
+	}
+
+	@media (min-width: 640px) {
+		.st-shell {
+			padding-inline: 2rem;
+		}
+	}
+
+	/* Reading measure, for the pages that are mostly sentences. */
+	.st-shell-prose {
+		max-width: 52rem;
+	}
+
+	/*
+	 * ## Rules
+	 *
+	 * The reference separates sections with a hairline and a label rather than with
+	 * whitespace alone. It is what makes a long page feel indexed.
+	 */
+	.st-rule {
+		border: 0;
+		border-top: 1px solid var(--color-line);
+	}
+
+	/*
+	 * ## Long-form prose
+	 *
+	 * Methodology and Privacy are mostly prose, and repeating the same six utilities on
+	 * every paragraph is how copy drifts out of rhythm.
+	 */
 	.prose-st > * + * {
-		margin-top: 1rem;
+		margin-top: 1.125rem;
 	}
 
 	.prose-st h2 {
-		margin-top: 2.5rem;
-		font-size: 1.25rem;
+		margin-top: 3rem;
+		padding-top: 1.75rem;
+		border-top: 1px solid var(--color-line);
+		font-size: 1.375rem;
 		line-height: 1.75rem;
-		font-weight: 600;
+		letter-spacing: -0.024em;
 	}
 
 	.prose-st h3 {
-		margin-top: 1.75rem;
+		margin-top: 2rem;
 		font-size: 1.0625rem;
-		font-weight: 600;
 	}
 
 	.prose-st p,
 	.prose-st li {
 		color: var(--color-muted);
-		line-height: 1.7;
+		line-height: 1.72;
 	}
 
 	.prose-st ul {
@@ -175,10 +459,19 @@
 		margin-top: 0.5rem;
 	}
 
+	/* Links are underlined ink, not coloured text. The underline is the affordance, which
+	   is the one that survives a colour-blind reader and a black-and-white printout — and
+	   this page gets printed and handed to a judge. */
 	.prose-st a {
-		color: var(--color-accent);
+		color: var(--color-ink);
 		text-decoration: underline;
+		text-decoration-thickness: 1px;
 		text-underline-offset: 3px;
+		text-decoration-color: var(--color-line-strong);
+	}
+
+	.prose-st a:hover {
+		text-decoration-color: var(--color-ink);
 	}
 
 	.prose-st strong {

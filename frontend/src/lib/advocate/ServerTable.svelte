@@ -32,11 +32,11 @@
 	}
 </script>
 
-<div class="overflow-x-auto rounded-card border border-line bg-surface shadow-card">
+<div class="overflow-x-auto rounded-card bg-surface">
 	<table class="w-full border-collapse text-sm">
 		<caption class="sr-only">{advocate.riskTable}. {advocate.riskTableHint}</caption>
 		<thead>
-			<tr class="border-b border-line text-left text-xs tracking-wide text-muted uppercase">
+			<tr class="st-eyebrow border-b border-line-strong text-left">
 				<th scope="col" class="px-4 py-3 font-semibold">{advocate.columns.rank}</th>
 				<th scope="col" class="px-4 py-3 font-semibold">{advocate.columns.server}</th>
 				<th scope="col" class="px-4 py-3 text-right font-semibold">
@@ -56,9 +56,7 @@
 		<tbody>
 			{#each reports as report (report.server_id)}
 				{@const isSelected = report.server_id === selected}
-				<tr
-					class="border-b border-line/60 last:border-0 {isSelected ? 'bg-accent-quiet' : ''}"
-				>
+				<tr class="border-b border-line last:border-0 {isSelected ? 'bg-accent-quiet' : ''}">
 					<td class="px-4 py-0">
 						<button
 							type="button"
@@ -75,12 +73,12 @@
 							type="button"
 							onclick={() => onselect(report.server_id)}
 							class="text-left font-medium text-ink underline decoration-line-strong
-							       underline-offset-4 hover:decoration-accent"
+							       underline-offset-4 hover:decoration-ink"
 						>
 							{report.server_id}
 						</button>
 						{#if !mappable.has(report.server_id)}
-							<span class="block text-xs text-muted">not on the map</span>
+							<span class="block text-xs text-faint">not on the map</span>
 						{/if}
 					</td>
 					<td class="px-4 py-3 text-right tabular-nums text-muted">{report.n_records}</td>

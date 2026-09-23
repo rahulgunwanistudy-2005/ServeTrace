@@ -46,7 +46,7 @@
 			id="map-{name}"
 			value={mapping[name] ?? ''}
 			onchange={(event) => set(name, event.currentTarget.value)}
-			class="mt-1 min-h-11 w-full rounded-lg border border-line-strong bg-surface px-3
+			class="mt-1.5 min-h-11 w-full rounded-control border border-line-strong bg-raised px-3
 			       text-sm text-ink"
 		>
 			<option value="">{advocate.notMapped}</option>
@@ -54,24 +54,20 @@
 				<option value={header}>{header}</option>
 			{/each}
 		</select>
-		{#if hint}<p class="mt-1 text-xs leading-relaxed text-muted">{hint}</p>{/if}
+		{#if hint}<p class="mt-1.5 text-xs leading-relaxed text-faint">{hint}</p>{/if}
 	</div>
 {/snippet}
 
 <div class="space-y-6">
 	<div>
-		<h3 class="text-sm font-semibold tracking-wide text-muted uppercase">
-			{advocate.mapRequired}
-		</h3>
+		<h3 class="st-eyebrow">{advocate.mapRequired}</h3>
 		<div class="mt-3 grid gap-4 sm:grid-cols-2">
 			{#each REQUIRED as name (name)}{@render field(name)}{/each}
 		</div>
 	</div>
 
 	<div>
-		<h3 class="text-sm font-semibold tracking-wide text-muted uppercase">
-			{advocate.mapOptional}
-		</h3>
+		<h3 class="st-eyebrow">{advocate.mapOptional}</h3>
 		<div class="mt-3 grid gap-4 sm:grid-cols-2">
 			{#each OPTIONAL as name (name)}{@render field(name)}{/each}
 		</div>
