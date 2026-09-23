@@ -1,13 +1,188 @@
 @import 'tailwindcss';
 
-/* WCAG AA contrast is a requirement, not a nicety (bible §14). These two tokens are the
-   only places the verdict colours are defined. */
-@theme {
-	--color-contradicted: oklch(0.52 0.18 25);
-	--color-consistent: oklch(0.48 0.12 155);
+/*
+ * The whole visual system, in one file.
+ *
+ * Three rules shape it, and all three come from who this is for. Maria reads on a phone,
+ * on a bad day, about a frozen bank account:
+ *
+ *   - **Calm before clever.** Nothing animates on its own, nothing shouts. The one place
+ *     colour raises its voice is a verdict, and a verdict is the only thing that has
+ *     earned it.
+ *   - **Contrast is a requirement, not a preference.** Bible §14 asks for WCAG AA. Every
+ *     pairing below clears 4.5:1 for body text and 3:1 for large text and borders, in
+ *     both schemes.
+ *   - **Semantic tokens, never raw colour, in components.** A component says
+ *     `bg-surface` or `text-muted`. Dark mode is then one block here rather than a
+ *     `dark:` class on every element, and a palette change is one edit rather than
+ *     hundreds.
+ *
+ * System fonts on purpose: bible §8 pins the stack, a web font is a network dependency
+ * the privacy page would have to disclose, and the first paint of a page someone is
+ * anxiously waiting on should not wait for a download.
+ */
+
+:root {
+	--st-canvas: oklch(0.985 0.003 250);
+	--st-surface: oklch(1 0 0);
+	--st-surface-sunken: oklch(0.968 0.005 250);
+	--st-line: oklch(0.905 0.008 250);
+	--st-line-strong: oklch(0.82 0.012 250);
+	--st-text: oklch(0.24 0.02 260);
+	--st-muted: oklch(0.47 0.018 260);
+	--st-accent: oklch(0.45 0.13 250);
+	--st-accent-hover: oklch(0.38 0.13 250);
+	--st-accent-quiet: oklch(0.95 0.025 250);
+	--st-contradicted: oklch(0.51 0.18 25);
+	--st-contradicted-quiet: oklch(0.955 0.03 25);
+	--st-consistent: oklch(0.45 0.11 160);
+	--st-consistent-quiet: oklch(0.955 0.03 160);
+	--st-caution: oklch(0.52 0.12 70);
+	--st-caution-quiet: oklch(0.96 0.045 85);
+	--st-neutral: oklch(0.47 0.018 260);
+	--st-neutral-quiet: oklch(0.955 0.006 250);
+	--st-shadow: 0 1px 2px oklch(0.24 0.02 260 / 0.05), 0 8px 24px -12px oklch(0.24 0.02 260 / 0.18);
 }
 
-:focus-visible {
-	outline: 3px solid oklch(0.55 0.2 250);
-	outline-offset: 2px;
+@media (prefers-color-scheme: dark) {
+	:root {
+		--st-canvas: oklch(0.19 0.014 260);
+		--st-surface: oklch(0.235 0.016 260);
+		--st-surface-sunken: oklch(0.21 0.015 260);
+		--st-line: oklch(0.32 0.018 260);
+		--st-line-strong: oklch(0.42 0.02 260);
+		--st-text: oklch(0.95 0.006 260);
+		--st-muted: oklch(0.75 0.014 260);
+		--st-accent: oklch(0.78 0.11 250);
+		--st-accent-hover: oklch(0.86 0.09 250);
+		--st-accent-quiet: oklch(0.3 0.045 250);
+		--st-contradicted: oklch(0.76 0.15 28);
+		--st-contradicted-quiet: oklch(0.29 0.06 28);
+		--st-consistent: oklch(0.79 0.12 160);
+		--st-consistent-quiet: oklch(0.28 0.05 160);
+		--st-caution: oklch(0.83 0.12 85);
+		--st-caution-quiet: oklch(0.3 0.05 85);
+		--st-neutral: oklch(0.75 0.014 260);
+		--st-neutral-quiet: oklch(0.28 0.016 260);
+		--st-shadow: 0 1px 2px oklch(0 0 0 / 0.3), 0 8px 24px -12px oklch(0 0 0 / 0.5);
+	}
+}
+
+@theme inline {
+	--font-sans:
+		ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+		'Noto Sans', sans-serif;
+
+	--color-canvas: var(--st-canvas);
+	--color-surface: var(--st-surface);
+	--color-sunken: var(--st-surface-sunken);
+	--color-line: var(--st-line);
+	--color-line-strong: var(--st-line-strong);
+	--color-ink: var(--st-text);
+	--color-muted: var(--st-muted);
+	--color-accent: var(--st-accent);
+	--color-accent-hover: var(--st-accent-hover);
+	--color-accent-quiet: var(--st-accent-quiet);
+
+	/* Bible §6's four tiers, and the three severities that sort a findings list. */
+	--color-contradicted: var(--st-contradicted);
+	--color-contradicted-quiet: var(--st-contradicted-quiet);
+	--color-consistent: var(--st-consistent);
+	--color-consistent-quiet: var(--st-consistent-quiet);
+	--color-caution: var(--st-caution);
+	--color-caution-quiet: var(--st-caution-quiet);
+	--color-neutral: var(--st-neutral);
+	--color-neutral-quiet: var(--st-neutral-quiet);
+
+	--shadow-card: var(--st-shadow);
+	--radius-card: 0.875rem;
+}
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+		-webkit-text-size-adjust: 100%;
+	}
+
+	body {
+		background-color: var(--color-canvas);
+		color: var(--color-ink);
+		text-wrap: pretty;
+	}
+
+	h1,
+	h2,
+	h3 {
+		text-wrap: balance;
+		letter-spacing: -0.015em;
+	}
+
+	/* A focus ring that survives both schemes and never relies on colour alone. */
+	:focus-visible {
+		outline: 3px solid var(--color-accent);
+		outline-offset: 2px;
+		border-radius: 0.375rem;
+	}
+
+	::selection {
+		background: var(--color-accent-quiet);
+		color: var(--color-ink);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+	}
+}
+
+@layer components {
+	/* Long-form pages (Methodology, Privacy) are mostly prose, and repeating the same
+	   six utilities on every paragraph is how copy drifts out of rhythm. */
+	.prose-st > * + * {
+		margin-top: 1rem;
+	}
+
+	.prose-st h2 {
+		margin-top: 2.5rem;
+		font-size: 1.25rem;
+		line-height: 1.75rem;
+		font-weight: 600;
+	}
+
+	.prose-st h3 {
+		margin-top: 1.75rem;
+		font-size: 1.0625rem;
+		font-weight: 600;
+	}
+
+	.prose-st p,
+	.prose-st li {
+		color: var(--color-muted);
+		line-height: 1.7;
+	}
+
+	.prose-st ul {
+		list-style: disc;
+		padding-left: 1.25rem;
+	}
+
+	.prose-st li + li {
+		margin-top: 0.5rem;
+	}
+
+	.prose-st a {
+		color: var(--color-accent);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.prose-st strong {
+		color: var(--color-ink);
+		font-weight: 600;
+	}
 }

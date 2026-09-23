@@ -9,9 +9,9 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from eval import extraction_eval as ev
 
 from app.domain.models import AffidavitDraft, GeocodeResult, LatLng, PersonDescription
+from eval import extraction_eval as ev
 
 DEMO = Path(__file__).resolve().parents[3] / "fixtures" / "demo_cases" / "maria_contradicted"
 

@@ -5,7 +5,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import routes_extract, routes_geocode, routes_health
+from app.api import routes_analyze, routes_extract, routes_geocode, routes_health
 from app.api.errors import install_error_handlers
 from app.api.static_site import mount_frontend
 from app.config import get_settings
@@ -40,6 +40,7 @@ def create_app() -> FastAPI:
     app.include_router(routes_health.router, prefix="/api")
     app.include_router(routes_extract.router, prefix="/api")
     app.include_router(routes_geocode.router, prefix="/api")
+    app.include_router(routes_analyze.router, prefix="/api")
 
     # Mounted last so that /api/* always wins over a same-named static path.
     mount_frontend(app, FRONTEND_BUILD)

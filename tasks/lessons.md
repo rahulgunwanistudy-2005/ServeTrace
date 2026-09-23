@@ -72,3 +72,60 @@ and `JSON.parse` 150 ms. Collecting into an array and joining once per item took
 [2026-09-23] - A test asserted on the wording of an error message, and broke when that
 message moved into `copy/en.ts` and changed tense. -> Tests assert on the code, never on the
 sentence. The sentence belongs to the copy module and has to stay free to change.
+
+[2026-09-23] - Bible §11.1.3 guards sub-minute gaps with an infinite required speed
+whenever the fix is outside the match radius. Implemented literally, that called a phone
+450 m from a door at the claimed minute a STRONG contradiction of a sworn statement - a
+two-minute walk, and the width of a geocoding error. The S1 generator had independently
+labelled that exact case INCONCLUSIVE and was right. -> When the spec and the fixtures
+disagree, work out which one is describing reality before changing either. The guard is
+now a floor on elapsed time, which is continuous, monotone, uses the same thresholds and
+needs no special case. A threshold that produces a cliff at the radius was the tell.
+
+[2026-09-23] - The confusion matrix looked like the engine was wrong about four `no_data`
+and `inconclusive` cases. It was not: the engine's verdict on the *claimed moment* was
+right in all 200, and the disagreement was entirely about what `overall` should say when a
+prior attempt is contradicted but the service claim is not. -> Score like against like.
+The generator labels one moment, so the headline number compares the engine's verdict on
+that moment. A second, product-level number is reported beside it rather than blended in,
+because an average would have hidden which of the two actually moved.
+
+[2026-09-23] - The eval reported R-T3 as "6 missed". Every one was a 308(1) affidavit: the
+generator seeds a late proof-of-service date on personal service, and bible §11.3 scopes
+R-T3 to 308(2) and 308(4) because §5 gives no authority for a filing deadline on personal
+delivery. -> A miss is only a miss inside the rule's own scope. Counting those would have
+penalised the engine for obeying §5, and silently dropping them would have been the other
+kind of lie, so `rule_recall` carries an `out_of_scope` column that names them.
+
+[2026-09-23] - `str.capitalize()` lower-cases everything after the first letter, so a
+finding read "The service claimed at 7:42 pm on 12 june 2025" in a document meant for a
+court. It was caught by a golden snapshot, not by anyone reading the template. -> Snapshot
+the rendered output of anything a user will read. The bug is invisible in the f-string and
+obvious in the file.
+
+[2026-09-23] - The deadline card showed "June 1, 2027" from the browser and "1 June 2027"
+from the server in the same paragraph. Two date conventions on one card is what makes a
+document look machine-made. -> Any value that can be rendered on both sides of the wire
+needs one agreed format, chosen for the reader. This is a product for people in New York,
+so both are month-first now.
+
+[2026-09-23] - A body element carrying `bg-white text-slate-900` from the original app
+shell beat the base-layer tokens in `app.css`, so the page rendered dark cards on a white
+background with dark text on them. Separately, `` `border-${tone}` `` in a component
+produced a class Tailwind never generated, because Tailwind scans source text. -> Neither
+was visible in a type-check, a lint or a test; both were obvious in one screenshot. Look at
+the page.
+
+[2026-09-23] - A first cut of the copy-discipline test forbade the word "lied" anywhere in
+`en.ts`, and immediately failed on "It never says anyone lied" - the disclaimer that same
+rule requires. -> A rule about what a product claims has to read the sentence, not the
+phrase. The test now asserts these words only ever appear inside a sentence that denies
+them, and the source list is exempt because a citation is a quotation and misquoting an
+article title to satisfy our own copy rule would be worse than the word.
+
+[2026-09-23] - A performance test asserting one claim was sublinear in the number of fixes
+failed, and was measuring the wrong thing: the index was rebuilt on every call, so the
+bisect saved nothing. -> A performance assertion that fails should be read as a question
+about the design, not the bound. The index is now built once per request and shared by
+every claim, which is what makes four claims cost less than four passes - and the test now
+asserts that, which is the property that was actually wanted.

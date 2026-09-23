@@ -14,15 +14,15 @@ from datetime import timedelta
 from pathlib import Path
 
 import pytest
+
+from app.domain.models import Affidavit, LocationFix
+from app.engine.params import PARAMS
+from app.geo.distance import haversine_km
 from fixtures.generator.__main__ import case_kinds, generate_corpus
 from fixtures.generator.addresses import boroughs, load_addresses
 from fixtures.generator.advocate import generate_advocate
 from fixtures.generator.cases import make_case
 from fixtures.generator.timeline import to_android_timeline, to_ios_timeline
-
-from app.domain.models import Affidavit, LocationFix
-from app.engine.params import PARAMS
-from app.geo.distance import haversine_km
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEMO_DIR = REPO_ROOT / "fixtures" / "demo_cases"

@@ -48,6 +48,10 @@ extend-exclude = ["../fixtures/out"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
 
+[tool.ruff.lint.isort]
+# `eval` and `fixtures` live above this package but are part of this repo, not the world.
+known-first-party = ["app", "eval", "fixtures", "tests"]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true

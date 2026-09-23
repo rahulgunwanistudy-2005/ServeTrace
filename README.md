@@ -114,12 +114,22 @@ files stay in step with what they were derived from.
 
 ```bash
 cd backend
+# the engine, against the corpus' independent ground truth
+PYTHONPATH=.. uv run python ../eval/run_eval.py --corpus ../fixtures/out --out ../eval/results
+
 # the extractor, per field, clean and scanned separately. Needs a provider and a key.
 PYTHONPATH=.. LLM_PROVIDER=gemini GEMINI_API_KEY=... \
     uv run python ../eval/extraction_eval.py --corpus ../fixtures/out --out ../eval/results
 ```
 
-See [`eval/REPORT.md`](eval/REPORT.md) for what is measured and which numbers exist yet.
+The engine eval also rewrites `frontend/src/lib/eval/published.json`, which is what the
+Methodology page reads — so the published figures cannot drift from the run that produced
+them, and a test fails if they do.
+
+Current headline: **0 false contradictions across 200 cases**, and the claimed moment read
+correctly in 200 of 200. See [`eval/REPORT.md`](eval/REPORT.md) for the confusion matrix,
+the edge cases, the per-rule numbers and the four case-level disagreements with the reason
+each one is not an error.
 
 ### macOS note
 
@@ -147,3 +157,13 @@ uv run pytest
 ```bash
 cd frontend && npm run check && npm run typecheck && npm run build && npx vitest run
 ```
+
+## Development-only routes
+
+Two pages exist to exercise a slice end to end by hand. Both refuse to render outside
+`npm run dev` and neither appears in a production build.
+
+| route | what it does |
+|---|---|
+| `/dev/ingest` | drop a location export, see what the worker parsed, windowed and kept |
+| `/dev/analyze` | run a committed demo case through the real `POST /api/analyze` |

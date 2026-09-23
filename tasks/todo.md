@@ -341,3 +341,134 @@ must not freeze the tab.
   browser environment the project does not have. It is kept to the minimum that cannot be
   tested any other way, and the whole of `pipeline.ts` underneath it is covered. It was
   exercised by hand at `/dev/ingest`, which is what that page is for.
+
+---
+
+## Session 4 — Feasibility engine, description check, NY rules, verdict
+
+**Goal:** `POST /api/analyze` takes a confirmed affidavit, windowed fixes, an optional
+household and the two dates, and returns a `CaseAnalysis` that is deterministic,
+explainable and conservative. This is the core of the product. Precision over features.
+
+### Steps
+- [x] S4.1 `engine/copy.py` — every sentence the engine can emit, as templates with numbers
+      interpolated. No free text anywhere else in `engine/`; every legal claim carries its
+      L-id from bible §5
+- [x] S4.2 `engine/feasibility.py` — bible §11.1 as pure functions: DST dual interpretation,
+      visit test, Hagerstrand prism test, no-data fallback, precedence
+- [x] S4.3 `engine/description.py` — bible §11.2, tolerances, missing fields ignored
+- [x] S4.4 `engine/rules_ny.py` — R-T1, R-T2, R-T3, R-D1, R-D2, R-M1 as an ordered registry
+      of small functions, each returning `Finding | None`
+- [x] S4.5 `documents/deadlines.py` — CPLR 317 arithmetic (L6), note text from `engine/copy.py`
+- [x] S4.6 `engine/verdict.py` — assemble claims, run feasibility/rules/description, overall
+      tier, sorted findings, version stamps
+- [x] S4.7 `POST /api/analyze` — refuse unconfirmed affidavits (422), enforce the §16 caps,
+      rate limit, wire into `main.py`
+- [x] S4.8 Unit tests: every tier path, precedence, one-sided prism, the 60 s guard, radius
+      plus accuracy, each rule R-T1..R-M1, description tolerances, deadline arithmetic
+- [x] S4.9 Property tests (hypothesis, >= 500 examples each) for the four invariants in §11.1
+- [x] S4.10 Golden tests: the three demo cases produce exactly their expected tiers and
+      findings, snapshot JSON committed
+- [x] S4.11 Fixture sweep over all 200 generated cases: the no-false-accusation gate, plus
+      the confusion matrix
+- [x] S4.12 Performance: 5,000 fixes x 4 claims under 200 ms, asserted by a test
+- [x] S4.13 `eval/run_eval.py` + `eval/REPORT.md` with the real numbers
+- [x] S4.14 Frontend: regenerate `schema.d.ts`, wire `api.analyze`, verdict copy in `en.ts`
+- [x] S4.15 Design pass: tokens, UI primitives, every existing page, Methodology filled with
+      the real thresholds and eval numbers the engine now produces
+- [x] S4.16 Quality gates both sides
+
+### Risks / open questions
+- **`overall` when an attempt is contradicted but the service claim is not.** Bible §11.1.6
+  reads "strongest CONTRADICTED across claims", but bible §6 defines CONTRADICTED as being
+  far from *the claimed service point at the claimed time*. A 308(4) case has attempts on
+  other days, and a person who was home at 7 PM was very likely at work during a 10:30 AM
+  attempt three weeks earlier. Taking the literal reading would headline "your data
+  conflicts with the affidavit" for someone whose data *supports* the service claim, which
+  is the one thing §6 forbids. Resolution below in the outcome; it has to be decided before
+  the eval, because it decides what the eval is measuring.
+- **DST is the engine's problem, not only the extractor's.** `Affidavit.served_at` is aware
+  by the time it arrives, so the fold has already been resolved to one instant. The engine
+  must still ask whether that local wall time is ambiguous and evaluate both readings,
+  because the document itself only ever said "7:42 PM".
+- **A claim with no coordinates.** `served_location` can be null when GeoSearch could not
+  resolve the address. The location check cannot run, but the timing rules still can, so
+  this must degrade to a stated INFO finding rather than a 4xx.
+- **The no-false-accusation gate is the real acceptance test.** Zero cases where ground
+  truth is CONSISTENT and the engine says CONTRADICTED with STRONG severity. Thresholds
+  move before that number does.
+- **Golden files are only worth what their provenance is.** The three demo snapshots are
+  written by the engine, so they catch *change*, not correctness. Correctness comes from
+  the generator's independent labels in the sweep. Both are needed and they are not the
+  same test.
+
+### Outcome
+
+**Built**
+
+- **`engine/feasibility.py`** — bible §11.1 as pure functions. Visit test, Hagerstrand
+  prism test, no-data fallback, both readings of an ambiguous clock, and one `FixIndex`
+  built per request and bisected per claim.
+- **`engine/copy.py`** — every sentence the engine can put in front of a user, in one
+  file. Nothing else under `engine/` holds a user-facing string, which is what makes "no
+  legal statement outside bible §5" checkable by reading one module.
+- **`engine/description.py`** (§11.2), **`engine/rules_ny.py`** (§11.3 as an ordered
+  registry of six small functions), **`documents/deadlines.py`** (CPLR 317),
+  **`engine/verdict.py`** (assembly, overall tier, sorted findings, version stamps).
+- **`POST /api/analyze`** — refuses unconfirmed affidavits, enforces the §16 caps, behind
+  the same token bucket as the other routes.
+- **`eval/run_eval.py`** — scores the engine against the corpus, writes
+  `eval/results/engine.json`, and generates the figures the Methodology page reads.
+- **Frontend:** regenerated types, `api.analyze`, a semantic colour system with dark mode,
+  ten UI primitives, components that render a real `CaseAnalysis`, and every page
+  rewritten. The Methodology page now carries the actual thresholds and eval numbers.
+- **`/dev/analyze`** — runs a committed demo case through the real API and renders it with
+  the components the result screen will use. Dev-only, like `/dev/ingest`.
+
+**Verified**
+
+- Backend: `ruff check`, `ruff format --check`, `mypy` strict over 60 files across `app`,
+  `fixtures` and `eval`, `pytest` **405 passed** (was 234).
+- Frontend: `svelte-check` 0 errors 0 warnings over 277 files, `tsc --noEmit` clean,
+  `npm run build` clean, `vitest` **244 passed** (was 223).
+- Hypothesis runs 500 examples on each of the four §11.1 invariants, plus a fifth on order
+  independence.
+- **The no-false-accusation gate passes: 0 of 200.** The engine reads the claimed moment
+  correctly in 200 of 200. Full numbers, including the four case-level disagreements and
+  why they are not errors, are in `eval/REPORT.md`.
+- 5,000 fixes x 4 claims analyse in 4 ms against a 200 ms budget.
+- `curl` against a running server returns byte-identical golden output for all three demo
+  cases.
+- Live in a browser: `/dev/analyze` runs Maria's case through the real API and renders the
+  verdict, the claims table, both findings with their CPLR citation and the deadline card.
+  Checked in light and dark, at 375 px with no horizontal scroll.
+- The production build serves from FastAPI, and `/dev/analyze` renders "404 Not found"
+  with no dev link in any built HTML and no `build/dev/` directory.
+
+**Three places the code is deliberately more conservative than a literal §11**
+
+All in the same direction, all written up in `docs/ARCHITECTURE.md` and the module
+docstrings, and all reached by following a fixture rather than an opinion.
+
+1. **Evidence at the claimed time wins over everything.** §11.1.5 says CONSISTENT overrides
+   a MODERATE contradiction and is silent on STRONG, while §11.1 separately requires a fix
+   exactly at the claimed point at the claimed time to always yield CONSISTENT. One rule
+   satisfies both. The competing finding is still reported, and a third says plainly that
+   the user's own data disagrees with itself.
+2. **Sub-minute gaps floor the elapsed time rather than jumping to infinity.** The literal
+   guard called a phone 450 m from a door at the claimed minute a STRONG contradiction.
+   The corpus' own edge case at that distance is independently labelled INCONCLUSIVE, and
+   it is right.
+3. **A consistent service claim is never overridden by a contradicted attempt**, because
+   §6 defines the headline as being about the claimed service point at the claimed time.
+   Where the service claim is *unsettled*, a contradicted attempt does set the verdict.
+
+**Deferred, deliberately**
+
+- Advocate mode, documents and the wizard are the next sessions. `/check`, `/result`,
+  `/demo` and `/advocate` are styled, honest placeholders that say what is coming.
+- The two dev routes carry maplibre (~780 KB) and the demo fixtures (~100 KB) into the
+  deployed bundle as route-lazy chunks that 404 and are never requested. Session 3's
+  position stands; session 7 pulls maplibre in for `ResultMap` anyway.
+- `docker build` remains unverified in this environment for the reason recorded in
+  session 1.

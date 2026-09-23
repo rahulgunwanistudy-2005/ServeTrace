@@ -4,8 +4,9 @@
 </script>
 
 <p
-	class="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-900"
+	class="inline-flex items-center gap-2 rounded-full border border-caution/30 bg-caution-quiet
+	       px-3 py-1 text-xs font-semibold tracking-wide text-caution uppercase"
 >
-	<span aria-hidden="true">●</span>
+	<span aria-hidden="true" class="size-1.5 rounded-full bg-caution"></span>
 	{demo.chip}
 </p>

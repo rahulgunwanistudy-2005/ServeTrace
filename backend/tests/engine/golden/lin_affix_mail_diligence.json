@@ -1,0 +1,124 @@
+{
+ "deadlines": {
+  "cplr_317_deadline": null,
+  "cplr_317_outer_limit": null,
+  "judgment_entry_date": null,
+  "knowledge_date": null,
+  "note": "If you were served in any way other than in person, and you did not personally get notice in time to defend the case, you may be able to ask the court to reopen it within one year of learning about the judgment, and no more than five years after it was entered. You also have to show you have a defence worth hearing. Tell us when you first found out about the judgment, and the date it was entered, and we can work out this deadline for you. A judgment can be reopened when the court did not have jurisdiction, which includes service that was not done properly. There is no stated one-year limit for that ground, but act promptly."
+ },
+ "engine_version": "0.1.0",
+ "findings": [
+  {
+   "code": "F-VISIT",
+   "detail": "Your location history has you in one place from 2:00 PM to 10:00 PM on September 9, 2025, and that place is 12.8 km from the address on the affidavit. The service claimed at 4:30 PM on September 9, 2025 falls inside that stay.",
+   "legal_ref": null,
+   "numbers": {
+    "claim": "served_at",
+    "distance_km": 12.789
+   },
+   "severity": "strong",
+   "title": "Your phone was somewhere else at that time"
+  },
+  {
+   "code": "R-T2",
+   "detail": "The delivery and the mailing have to be within 20 days of each other. This affidavit shows 34 days between them.",
+   "legal_ref": "L3",
+   "numbers": {
+    "days": 34.0,
+    "limit_days": 20.0
+   },
+   "severity": "strong",
+   "title": "The mailing is 34 days from the delivery"
+  },
+  {
+   "code": "R-D1",
+   "detail": "Papers may only be taped to a door and mailed when the server could not serve you in person or leave them with someone at your address, after trying with due diligence. Courts commonly expect three attempts, on at least two different days, at different times of day. Here, the affidavit shows 2 attempts and all of them fall on a weekday between 9 AM and 5 PM. This is worth asking a lawyer or the Court Help Center about.",
+   "legal_ref": "L4",
+   "numbers": {
+    "attempts": 2.0,
+    "distinct_days": 2.0
+   },
+   "severity": "moderate",
+   "title": "The attempts before the papers were taped to the door look thin"
+  }
+ ],
+ "overall": "contradicted",
+ "params_version": "2026.09-v1",
+ "verdicts": [
+  {
+   "claim_ref": "served_at",
+   "claimed_at": "2025-09-09T16:30:00-04:00",
+   "claimed_location": {
+    "lat": 40.56648,
+    "lng": -73.89113
+   },
+   "fixes_used": [
+    {
+     "accuracy_m": 42.4,
+     "kind": "visit",
+     "label": "Timeline visit: WORK",
+     "loc": {
+      "lat": 40.6771698,
+      "lng": -73.9323105
+     },
+     "source": "timeline_android",
+     "t": "2025-09-09T14:00:00-04:00",
+     "t_end": "2025-09-09T22:00:00-04:00"
+    }
+   ],
+   "nearest_fix_km": 12.789,
+   "required_speed_kmh": null,
+   "tier": "contradicted"
+  },
+  {
+   "claim_ref": "attempt[0]",
+   "claimed_at": "2025-09-02T10:30:00-04:00",
+   "claimed_location": {
+    "lat": 40.56648,
+    "lng": -73.89113
+   },
+   "fixes_used": [
+    {
+     "accuracy_m": 31.7,
+     "kind": "visit",
+     "label": "Timeline visit: HOME",
+     "loc": {
+      "lat": 40.5668818,
+      "lng": -73.8908975
+     },
+     "source": "timeline_android",
+     "t": "2025-09-02T00:00:00-04:00",
+     "t_end": "2025-09-02T13:22:00-04:00"
+    }
+   ],
+   "nearest_fix_km": 0.049,
+   "required_speed_kmh": null,
+   "tier": "consistent"
+  },
+  {
+   "claim_ref": "attempt[1]",
+   "claimed_at": "2025-08-26T11:00:00-04:00",
+   "claimed_location": {
+    "lat": 40.56648,
+    "lng": -73.89113
+   },
+   "fixes_used": [
+    {
+     "accuracy_m": 22.8,
+     "kind": "visit",
+     "label": "Timeline visit: HOME",
+     "loc": {
+      "lat": 40.5664739,
+      "lng": -73.8912569
+     },
+     "source": "timeline_android",
+     "t": "2025-08-26T00:00:00-04:00",
+     "t_end": "2025-08-26T13:22:00-04:00"
+    }
+   ],
+   "nearest_fix_km": 0.011,
+   "required_speed_kmh": null,
+   "tier": "consistent"
+  }
+ ]
+}

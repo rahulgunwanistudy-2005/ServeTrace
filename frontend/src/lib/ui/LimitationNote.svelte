@@ -3,4 +3,6 @@
 	import { LIMITATION_LINE } from '$copy/en';
 </script>
 
-<p class="mt-4 border-t border-slate-200 pt-3 text-sm text-slate-600">{LIMITATION_LINE}</p>
+<p class="mt-5 border-t border-line pt-4 text-sm leading-relaxed text-muted">
+	{LIMITATION_LINE}
+</p>

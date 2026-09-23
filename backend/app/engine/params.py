@@ -29,6 +29,19 @@ class EngineParams:
 
     v_moderate_kmh: float = 40.0
 
+    consistent_window_min: int = 15
+    """A fix inside the match radius this close to the claimed time makes it CONSISTENT.
+
+    Bible §11.1.3. Separate from `visit_tolerance_min`: that one extends an interval the
+    export already asserts, this one is how much slack a single instantaneous point gets.
+    """
+
+    desc_age_tolerance_y: int = 5
+    """Bible §11.2. A described age range is widened by this much at both ends before it is
+    called a mismatch, because a stranger's estimate of an age is exactly that."""
+
+    desc_height_tolerance_in: int = 2
+
     adv_simultaneous_min: float = 5.0
     adv_simultaneous_km: float = 2.0
     adv_max_per_hour: int = 12

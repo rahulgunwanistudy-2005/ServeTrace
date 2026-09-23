@@ -18,6 +18,10 @@ class Settings(BaseSettings):
     anthropic_model: str = "claude-sonnet-5"
     demo_only: bool = False
     max_upload_mb: int = 15
+    max_fixes: int = 5_000
+    """Bible §16: location points accepted in one analyse request."""
+    max_advocate_rows: int = 50_000
+    max_household: int = 25
     cors_origins: str = ""
     rate_limit_per_minute: int = 30
     """Sustained requests per minute per client on the routes that cost money. 0 disables."""

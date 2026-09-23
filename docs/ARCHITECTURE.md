@@ -81,6 +81,78 @@ against, so everything read off a scan is capped at 0.6.
 still runs, so the service method comes off the affidavit's own wording and the user types
 the rest.
 
+## The engine
+
+Everything in `backend/app/engine/` is pure: no I/O, no wall clock, no FastAPI. One
+request in, one `CaseAnalysis` out, and the same input always gives the same answer.
+
+```
+AnalyzeRequest ─► verdict.analyze
+                    │
+                    ├─ build_index(fixes)          one sorted index, shared by every claim
+                    │
+                    ├─ for each claim (served_at, attempt[0..n]):
+                    │     feasibility.evaluate_prepared
+                    │        ├─ interpretations()   1 instant, or 2 on the DST fold
+                    │        ├─ near evidence at T? ───────────────► CONSISTENT
+                    │        ├─ a stay covering T, too far away? ──► CONTRADICTED (strong)
+                    │        ├─ prism: speed from the nearest fix each side
+                    │        │     > 80 km/h ─► strong · > 40 km/h ─► moderate
+                    │        └─ nothing in the window ─────────────► NO_DATA
+                    │
+                    ├─ rules_ny.check_rules        R-T1, R-T2, R-T3, R-D1, R-D2, R-M1
+                    ├─ description.check_description
+                    └─ deadlines.compute_deadlines  CPLR 317
+```
+
+**Copy lives in one module.** `engine/copy.py` holds every sentence the engine can put in
+front of a user. A rule decides *whether* it fires and hands its numbers to a template
+there. Nothing else under `engine/` contains a user-facing string, which is what makes
+"no legal statement outside bible §5" a thing you can check by reading one file. Every
+finding that states law carries the L-id it came from.
+
+**Statute is not a threshold.** The 20-day windows in `rules_ny.py` are named constants in
+that module, not entries in `params.py`. Twenty days is twenty days because CPLR 308 says
+so; moving it would not tune the engine, it would make the engine wrong. What does live in
+`params.py` are the judgement calls — the match radius, the speeds, the description
+tolerances — and each is stamped on every verdict as `PARAMS_VERSION`.
+
+**Three places where the code is deliberately more conservative than a literal reading of
+bible §11**, all in the same direction, all so the product never accuses anyone on
+ambiguous data:
+
+1. *Evidence at the claimed time wins over everything.* §11.1.5 says a `CONSISTENT`
+   reading overrides a MODERATE contradiction and is silent on a STRONG one, while §11.1
+   separately requires that a fix exactly at the claimed point at the claimed time always
+   yields `CONSISTENT`. One rule satisfies both: a fix inside the match radius within the
+   consistency window settles the claim. The competing finding is still reported, and a
+   third finding says plainly that the user's own data disagrees with itself.
+2. *Sub-minute gaps floor the elapsed time instead of jumping to infinity.* The literal
+   guard called a phone 450 m from a door at the claimed minute a STRONG contradiction.
+   Affidavit times are written to the minute and phone timestamps are rounded to it, so a
+   gap under a minute is not a measurement and a distance divided by rounding noise is not
+   a speed. The corpus' own edge case at that distance is independently labelled
+   `INCONCLUSIVE`, and it is right.
+3. *A consistent service claim is never overridden by a contradicted attempt.* §11.1.6
+   reads "strongest CONTRADICTED across claims", but §6 defines CONTRADICTED as being far
+   from *the claimed service point at the claimed time*. A 308(4) affidavit carries
+   attempts on other days, and someone demonstrably home at 7 PM was very likely at work
+   during a 10:30 AM attempt three weeks earlier. The attempt still produces its own STRONG
+   finding and R-D2; it just does not rewrite the headline. Where the service claim is
+   *unsettled*, a contradicted attempt does set the case verdict — burying a strong
+   conflict under "we have no data for that time" would be its own dishonesty.
+
+**Ambiguous clocks are evaluated twice.** On the night the clocks go back, a stated local
+time names two instants an hour apart, and the affidavit only ever said "1:30 AM". Both
+readings are evaluated and the weaker one is kept; when they disagree, the user is told the
+choice was made.
+
+**Performance.** 5,000 fixes across four claims analyse in about 4 ms against a 200 ms
+budget. Fixes are sorted and indexed once per request and bisected per claim, so an
+affidavit with three prior attempts asks four questions of one export rather than making
+four passes over it. Interval fixes are bounded on the right and scanned on the left,
+because a ten-hour stay can start long before a six-hour window and still cover it.
+
 ## Geocoding
 
 `geo/geocode.py` asks NYC GeoSearch and nothing else, sends only the address, and drops any
@@ -172,6 +244,25 @@ document text. `/api/extract` and `/api/geocode` are behind a per-client token b
 (`api/rate_limit.py`), which is the only place the server keeps anything between requests —
 a count and a timestamp per address, and nothing that says who anyone is.
 
+`/api/analyze` is behind the same bucket. It costs no upstream quota, but it does cost CPU,
+and one unauthenticated client should not be able to spend all of it.
+
 One thing this boundary does **not** cover: the result map pans to the user's own points,
 so the tile host can infer roughly where those points are from which tiles are requested.
 No location data is sent, but the inference is real, and the privacy page says so.
+
+## The visual system
+
+`frontend/src/app.css` is the whole of it. Colours are semantic tokens — `bg-surface`,
+`text-muted`, `border-contradicted` — defined once as CSS custom properties and redefined
+in one block under `prefers-color-scheme: dark`. Components never name a raw colour, so
+dark mode is one edit rather than a `dark:` variant on every element, and the rule that a
+`CONSISTENT` verdict is never rendered in the colour of a conflict lives in
+`lib/ui/tone.ts` where a test can hold us to it.
+
+Two consequences worth stating, because both were bugs first:
+
+- **No colour utilities in `app.html`.** A `bg-white` on `<body>` beats a base-layer rule
+  and pins the whole app to one scheme regardless of the reader's setting.
+- **No class names built by interpolation.** Tailwind scans source text, so `` `border-${tone}` ``
+  is a class it never generates. Tones are looked up in a map with every name written out.

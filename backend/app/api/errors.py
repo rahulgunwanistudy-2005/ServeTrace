@@ -38,8 +38,16 @@ class UnsupportedFileError(ServeTraceError):
 
 
 class AffidavitNotConfirmedError(ServeTraceError):
+    """The affidavit is well-formed but not yet the user's own account of their papers.
+
+    422 rather than 409: nothing about the server's state conflicts, the request is simply
+    not something that may be processed yet. The envelope's `code` is what the client
+    switches on, so this shares a status with schema failures without being confusable
+    with them.
+    """
+
     code = "affidavit_not_confirmed"
-    status_code = status.HTTP_409_CONFLICT
+    status_code = status.HTTP_422_UNPROCESSABLE_CONTENT
 
 
 class ExtractionUnavailableError(ServeTraceError):

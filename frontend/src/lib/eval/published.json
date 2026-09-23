@@ -1,0 +1,142 @@
+{
+ "by_edge_kind": {
+  "dst_fold": {
+   "claim_accuracy": 1.0,
+   "n": 5,
+   "overall_accuracy": 1.0
+  },
+  "radius_inside": {
+   "claim_accuracy": 1.0,
+   "n": 4,
+   "overall_accuracy": 1.0
+  },
+  "radius_outside_walkable": {
+   "claim_accuracy": 1.0,
+   "n": 7,
+   "overall_accuracy": 0.8571
+  },
+  "visit_boundary": {
+   "claim_accuracy": 1.0,
+   "n": 4,
+   "overall_accuracy": 1.0
+  }
+ },
+ "by_kind": {
+  "consistent": {
+   "claim_accuracy": 1.0,
+   "n": 70,
+   "overall_accuracy": 1.0
+  },
+  "contradicted": {
+   "claim_accuracy": 1.0,
+   "n": 80,
+   "overall_accuracy": 1.0
+  },
+  "edge": {
+   "claim_accuracy": 1.0,
+   "n": 20,
+   "overall_accuracy": 0.95
+  },
+  "no_data": {
+   "claim_accuracy": 1.0,
+   "n": 30,
+   "overall_accuracy": 0.9
+  }
+ },
+ "claim_accuracy": 1.0,
+ "claim_matrix": {
+  "consistent": {
+   "consistent": 83,
+   "contradicted": 0,
+   "inconclusive": 0,
+   "no_data": 0
+  },
+  "contradicted": {
+   "consistent": 0,
+   "contradicted": 80,
+   "inconclusive": 0,
+   "no_data": 0
+  },
+  "inconclusive": {
+   "consistent": 0,
+   "contradicted": 0,
+   "inconclusive": 7,
+   "no_data": 0
+  },
+  "no_data": {
+   "consistent": 0,
+   "contradicted": 0,
+   "inconclusive": 0,
+   "no_data": 30
+  }
+ },
+ "description": {
+  "false_flags": 0,
+  "matches_total": 44,
+  "mismatches_caught": 104,
+  "mismatches_total": 105,
+  "n_scored": 149,
+  "n_skipped_by_method": 51,
+  "recall": 0.9905
+ },
+ "engine_params": {
+  "adv_max_per_hour": 12,
+  "adv_simultaneous_km": 2.0,
+  "adv_simultaneous_min": 5.0,
+  "consistent_window_min": 15,
+  "desc_age_tolerance_y": 5,
+  "desc_height_tolerance_in": 2,
+  "match_radius_km": 0.3,
+  "search_window_h": 3,
+  "v_moderate_kmh": 40.0,
+  "v_strong_kmh": 80.0,
+  "visit_tolerance_min": 10
+ },
+ "false_accusations": 0,
+ "latency_ms": {
+  "max": 2.22,
+  "median": 0.15,
+  "p95": 0.81
+ },
+ "n_cases": 200,
+ "n_disagreements": 4,
+ "overall_accuracy": 0.98,
+ "params_version": "2026.09-v1",
+ "rule_recall": {
+  "R-D1": {
+   "extra": 0,
+   "found": 17,
+   "missed": 0,
+   "out_of_scope": 0,
+   "seeded": 17
+  },
+  "R-D2": {
+   "extra": 31,
+   "found": 0,
+   "missed": 0,
+   "out_of_scope": 0,
+   "seeded": 0
+  },
+  "R-T1": {
+   "extra": 0,
+   "found": 28,
+   "missed": 0,
+   "out_of_scope": 0,
+   "seeded": 28
+  },
+  "R-T2": {
+   "extra": 0,
+   "found": 24,
+   "missed": 0,
+   "out_of_scope": 0,
+   "seeded": 24
+  },
+  "R-T3": {
+   "extra": 0,
+   "found": 32,
+   "missed": 0,
+   "out_of_scope": 6,
+   "seeded": 32
+  }
+ }
+}

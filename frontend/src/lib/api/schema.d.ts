@@ -55,10 +55,83 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/analyze": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Analyze Case */
+        post: operations["analyze_case_api_analyze_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** Affidavit */
+        Affidavit: {
+            /** Index Number */
+            index_number?: string | null;
+            /** Court */
+            court?: string | null;
+            /** Plaintiff */
+            plaintiff?: string | null;
+            /** Defendant Name */
+            defendant_name: string;
+            /** Server Name */
+            server_name?: string | null;
+            /** Server License */
+            server_license?: string | null;
+            /** Agency License */
+            agency_license?: string | null;
+            method: components["schemas"]["ServiceMethod"];
+            /**
+             * Served At
+             * Format: date-time
+             */
+            served_at: string;
+            /** Served Address */
+            served_address: string;
+            served_location?: components["schemas"]["LatLng"] | null;
+            /** Recipient Name */
+            recipient_name?: string | null;
+            /** Recipient Relationship */
+            recipient_relationship?: string | null;
+            recipient_description?: components["schemas"]["PersonDescription"] | null;
+            /**
+             * Attempts
+             * @default []
+             */
+            attempts: components["schemas"]["ServiceAttempt"][];
+            /** Mailing Date */
+            mailing_date?: string | null;
+            /** Mailing Address */
+            mailing_address?: string | null;
+            /** Proof Filed Date */
+            proof_filed_date?: string | null;
+            /** Source Sha256 */
+            source_sha256: string;
+            /**
+             * Field Confidence
+             * @default {}
+             */
+            field_confidence: {
+                [key: string]: number;
+            };
+            /**
+             * User Confirmed
+             * @default false
+             */
+            user_confirmed: boolean;
+        };
         /**
          * AffidavitDraft
          * @description What came off the document. Nothing here is trusted until the user confirms it.
@@ -129,6 +202,21 @@ export interface components {
                 [key: string]: string;
             };
         };
+        /** AnalyzeRequest */
+        AnalyzeRequest: {
+            affidavit: components["schemas"]["Affidavit"];
+            /** Fixes */
+            fixes: components["schemas"]["LocationFix"][];
+            /**
+             * Household
+             * @default []
+             */
+            household: components["schemas"]["HouseholdMember"][];
+            /** Knowledge Date */
+            knowledge_date?: string | null;
+            /** Judgment Entry Date */
+            judgment_entry_date?: string | null;
+        };
         /**
          * AttemptDraft
          * @description A prior service attempt as extracted, before normalisation.
@@ -150,6 +238,64 @@ export interface components {
         Body_extract_api_extract_post: {
             /** File */
             file: string;
+        };
+        /** CaseAnalysis */
+        CaseAnalysis: {
+            affidavit: components["schemas"]["Affidavit"];
+            /** Verdicts */
+            verdicts: components["schemas"]["ClaimVerdict"][];
+            /** Findings */
+            findings: components["schemas"]["Finding"][];
+            overall: components["schemas"]["ClaimTier"];
+            deadlines: components["schemas"]["Deadlines"];
+            /** Params Version */
+            params_version: string;
+            /** Engine Version */
+            engine_version: string;
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+        };
+        /**
+         * ClaimTier
+         * @enum {string}
+         */
+        ClaimTier: "contradicted" | "consistent" | "no_data" | "inconclusive";
+        /** ClaimVerdict */
+        ClaimVerdict: {
+            /** Claim Ref */
+            claim_ref: string;
+            /**
+             * Claimed At
+             * Format: date-time
+             */
+            claimed_at: string;
+            claimed_location: components["schemas"]["LatLng"];
+            tier: components["schemas"]["ClaimTier"];
+            /** Nearest Fix Km */
+            nearest_fix_km?: number | null;
+            /** Required Speed Kmh */
+            required_speed_kmh?: number | null;
+            /**
+             * Fixes Used
+             * @default []
+             */
+            fixes_used: components["schemas"]["LocationFix"][];
+        };
+        /** Deadlines */
+        Deadlines: {
+            /** Knowledge Date */
+            knowledge_date?: string | null;
+            /** Judgment Entry Date */
+            judgment_entry_date?: string | null;
+            /** Cplr 317 Deadline */
+            cplr_317_deadline?: string | null;
+            /** Cplr 317 Outer Limit */
+            cplr_317_outer_limit?: string | null;
+            /** Note */
+            note: string;
         };
         /**
          * ExtractionResult
@@ -173,6 +319,30 @@ export interface components {
             /** Used Vision */
             used_vision: boolean;
         };
+        /** Finding */
+        Finding: {
+            /** Code */
+            code: string;
+            severity: components["schemas"]["Severity"];
+            /** Title */
+            title: string;
+            /** Detail */
+            detail: string;
+            /**
+             * Numbers
+             * @default {}
+             */
+            numbers: {
+                [key: string]: number | string;
+            };
+            /** Legal Ref */
+            legal_ref?: string | null;
+        };
+        /**
+         * FixKind
+         * @enum {string}
+         */
+        FixKind: "visit" | "path" | "transaction" | "manual";
         /** GeocodeRequest */
         GeocodeRequest: {
             /** Address */
@@ -217,12 +387,46 @@ export interface components {
             /** Llm Provider */
             llm_provider: string;
         };
+        /** HouseholdMember */
+        HouseholdMember: {
+            /** Label */
+            label: string;
+            /** Sex */
+            sex?: ("male" | "female" | "other") | null;
+            /** Age */
+            age?: number | null;
+            /** Height In */
+            height_in?: number | null;
+            /**
+             * Is Defendant
+             * @default false
+             */
+            is_defendant: boolean;
+        };
         /** LatLng */
         LatLng: {
             /** Lat */
             lat: number;
             /** Lng */
             lng: number;
+        };
+        /** LocationFix */
+        LocationFix: {
+            /**
+             * T
+             * Format: date-time
+             */
+            t: string;
+            /** T End */
+            t_end?: string | null;
+            loc: components["schemas"]["LatLng"];
+            /** Accuracy M */
+            accuracy_m?: number | null;
+            kind: components["schemas"]["FixKind"];
+            /** Source */
+            source: string;
+            /** Label */
+            label?: string | null;
         };
         /** PersonDescription */
         PersonDescription: {
@@ -245,6 +449,32 @@ export interface components {
             /** Raw Text */
             raw_text?: string | null;
         };
+        /** ServiceAttempt */
+        ServiceAttempt: {
+            /**
+             * At
+             * Format: date-time
+             */
+            at: string;
+            /** Address */
+            address: string;
+            location?: components["schemas"]["LatLng"] | null;
+            /**
+             * Outcome
+             * @enum {string}
+             */
+            outcome: "served" | "affixed" | "not_home" | "refused" | "other";
+        };
+        /**
+         * ServiceMethod
+         * @enum {string}
+         */
+        ServiceMethod: "308_1" | "308_2" | "308_4" | "unknown";
+        /**
+         * Severity
+         * @enum {string}
+         */
+        Severity: "strong" | "moderate" | "info";
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -355,6 +585,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GeocodeResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    analyze_case_api_analyze_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AnalyzeRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CaseAnalysis"];
                 };
             };
             /** @description Validation Error */

@@ -1,0 +1,52 @@
+{
+ "deadlines": {
+  "cplr_317_deadline": null,
+  "cplr_317_outer_limit": null,
+  "judgment_entry_date": null,
+  "knowledge_date": null,
+  "note": "If you were served in any way other than in person, and you did not personally get notice in time to defend the case, you may be able to ask the court to reopen it within one year of learning about the judgment, and no more than five years after it was entered. You also have to show you have a defence worth hearing. Tell us when you first found out about the judgment, and the date it was entered, and we can work out this deadline for you. A judgment can be reopened when the court did not have jurisdiction, which includes service that was not done properly. There is no stated one-year limit for that ground, but act promptly."
+ },
+ "engine_version": "0.1.0",
+ "findings": [
+  {
+   "code": "F-NEAR",
+   "detail": "Your location history has you in one place from 5:18 PM to 8:18 PM on May 14, 2025, within 30 metres of the address on the affidavit, and the service claimed at 7:15 PM on May 14, 2025 falls inside that stay.",
+   "legal_ref": null,
+   "numbers": {
+    "claim": "served_at",
+    "distance_km": 0.03
+   },
+   "severity": "info",
+   "title": "Your phone was at that address at that time"
+  }
+ ],
+ "overall": "consistent",
+ "params_version": "2026.09-v1",
+ "verdicts": [
+  {
+   "claim_ref": "served_at",
+   "claimed_at": "2025-05-14T19:15:00-04:00",
+   "claimed_location": {
+    "lat": 40.69391,
+    "lng": -73.956285
+   },
+   "fixes_used": [
+    {
+     "accuracy_m": 21.7,
+     "kind": "visit",
+     "label": "Timeline visit: HOME",
+     "loc": {
+      "lat": 40.6941701,
+      "lng": -73.9561709
+     },
+     "source": "timeline_android",
+     "t": "2025-05-14T17:18:00-04:00",
+     "t_end": "2025-05-14T20:18:00-04:00"
+    }
+   ],
+   "nearest_fix_km": 0.03,
+   "required_speed_kmh": null,
+   "tier": "consistent"
+  }
+ ]
+}

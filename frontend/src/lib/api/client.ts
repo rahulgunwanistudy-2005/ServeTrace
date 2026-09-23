@@ -58,6 +58,16 @@ export type AffidavitDraft = components['schemas']['AffidavitDraft'];
 export type ValidationNote = components['schemas']['ValidationNote'];
 export type GeocodeResponse = components['schemas']['GeocodeResponse'];
 export type GeocodeResult = components['schemas']['GeocodeResult'];
+export type Affidavit = components['schemas']['Affidavit'];
+export type LocationFix = components['schemas']['LocationFix'];
+export type HouseholdMember = components['schemas']['HouseholdMember'];
+export type AnalyzeRequest = components['schemas']['AnalyzeRequest'];
+export type CaseAnalysis = components['schemas']['CaseAnalysis'];
+export type ClaimVerdict = components['schemas']['ClaimVerdict'];
+export type ClaimTier = components['schemas']['ClaimTier'];
+export type Finding = components['schemas']['Finding'];
+export type Severity = components['schemas']['Severity'];
+export type Deadlines = components['schemas']['Deadlines'];
 
 const JSON_HEADERS = { 'content-type': 'application/json' } as const;
 
@@ -86,8 +96,19 @@ export const api = {
 			body: JSON.stringify({ address })
 		}),
 
-	/** Session 4, with the engine. Only windowed fixes are ever sent here (bible §13). */
-	analyze: (_body: unknown): Promise<never> => {
-		throw new Error('Not implemented until session 4');
-	}
+	/**
+	 * Run the engine. The request carries everything the verdict depends on and the
+	 * response carries the whole analysis back: there is no case id, because there is
+	 * nothing stored to come back for (bible §16).
+	 *
+	 * Only fixes already windowed to the hours around the claimed times are sent
+	 * (bible §13). `lib/ingest/window.ts` is what makes that true; this function
+	 * trusts its caller and the server caps the count either way.
+	 */
+	analyze: (body: AnalyzeRequest) =>
+		request<CaseAnalysis>('/analyze', {
+			method: 'POST',
+			headers: JSON_HEADERS,
+			body: JSON.stringify(body)
+		})
 } as const;

@@ -1,0 +1,63 @@
+{
+ "deadlines": {
+  "cplr_317_deadline": null,
+  "cplr_317_outer_limit": null,
+  "judgment_entry_date": null,
+  "knowledge_date": null,
+  "note": "If you were served in any way other than in person, and you did not personally get notice in time to defend the case, you may be able to ask the court to reopen it within one year of learning about the judgment, and no more than five years after it was entered. You also have to show you have a defence worth hearing. Tell us when you first found out about the judgment, and the date it was entered, and we can work out this deadline for you. A judgment can be reopened when the court did not have jurisdiction, which includes service that was not done properly. There is no stated one-year limit for that ground, but act promptly."
+ },
+ "engine_version": "0.1.0",
+ "findings": [
+  {
+   "code": "F-VISIT",
+   "detail": "Your location history has you in one place from 8:00 AM to 8:00 PM on June 12, 2025, and that place is 10.6 km from the address on the affidavit. The service claimed at 7:42 PM on June 12, 2025 falls inside that stay.",
+   "legal_ref": null,
+   "numbers": {
+    "claim": "served_at",
+    "distance_km": 10.578
+   },
+   "severity": "strong",
+   "title": "Your phone was somewhere else at that time"
+  },
+  {
+   "code": "F-DESC",
+   "detail": "The affidavit says the papers were left with someone else at your address, and describes that person as male, aged 56 to 66 and 5'11\" to 6'3\". That does not match any of the 2 people you listed.",
+   "legal_ref": "L2",
+   "numbers": {
+    "described": "male, aged 56 to 66 and 5'11\" to 6'3\"",
+    "household_size": 2.0
+   },
+   "severity": "moderate",
+   "title": "Nobody in your household matches that description"
+  }
+ ],
+ "overall": "contradicted",
+ "params_version": "2026.09-v1",
+ "verdicts": [
+  {
+   "claim_ref": "served_at",
+   "claimed_at": "2025-06-12T19:42:00-04:00",
+   "claimed_location": {
+    "lat": 40.853454,
+    "lng": -73.867397
+   },
+   "fixes_used": [
+    {
+     "accuracy_m": 25.1,
+     "kind": "visit",
+     "label": "Timeline visit: WORK",
+     "loc": {
+      "lat": 40.7836227,
+      "lng": -73.9527563
+     },
+     "source": "timeline_android",
+     "t": "2025-06-12T08:00:00-04:00",
+     "t_end": "2025-06-12T20:00:00-04:00"
+    }
+   ],
+   "nearest_fix_km": 10.578,
+   "required_speed_kmh": null,
+   "tier": "contradicted"
+  }
+ ]
+}

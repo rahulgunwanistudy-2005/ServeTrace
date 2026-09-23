@@ -1,15 +1,17 @@
 <script lang="ts">
+	import Callout from '$lib/ui/Callout.svelte';
 	import { advocate } from '$copy/en';
-	import AdvocateMap from '$lib/map/AdvocateMap.svelte';
 </script>
 
-<svelte:head><title>{advocate.title}</title></svelte:head>
+<svelte:head><title>{advocate.title} — ServeTrace</title></svelte:head>
 
-<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl">{advocate.title}</h1>
-<p class="mt-3 text-slate-700">{advocate.sub}</p>
-<p class="mt-2 text-slate-700">{advocate.upload}</p>
+<div class="max-w-2xl">
+	<h1 class="text-3xl font-semibold sm:text-4xl">{advocate.title}</h1>
+	<p class="mt-3 text-lg text-muted">{advocate.sub}</p>
+	<p class="mt-3 text-muted">{advocate.upload}</p>
 
-<div class="mt-6"><AdvocateMap /></div>
-
-<p class="mt-6 rounded-lg bg-slate-50 p-4 text-sm text-slate-700">{advocate.dcwpNote}</p>
-<p class="mt-8 text-sm text-slate-500">Batch analysis arrives in session 4.</p>
+	<div class="mt-8 space-y-4">
+		<Callout tone="accent" title={advocate.gpsTitle}>{advocate.dcwpNote}</Callout>
+		<Callout tone="neutral">{advocate.comingSoon}</Callout>
+	</div>
+</div>
