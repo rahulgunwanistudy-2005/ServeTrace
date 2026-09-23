@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+/* WCAG AA contrast is a requirement, not a nicety (bible §14). These two tokens are the
+   only places the verdict colours are defined. */
+@theme {
+	--color-contradicted: oklch(0.52 0.18 25);
+	--color-consistent: oklch(0.48 0.12 155);
+}
+
+:focus-visible {
+	outline: 3px solid oklch(0.55 0.2 250);
+	outline-offset: 2px;
+}

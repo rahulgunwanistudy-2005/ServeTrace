@@ -1,0 +1,16 @@
+.git
+.gitignore
+**/__pycache__
+**/.venv
+**/node_modules
+**/.svelte-kit
+frontend/build
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+fixtures/out
+eval/results
+tasks
+.env
+.env.local
+**/.DS_Store

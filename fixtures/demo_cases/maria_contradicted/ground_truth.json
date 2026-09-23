@@ -1,0 +1,20 @@
+{
+ "case_id": "maria_contradicted",
+ "claimed_address": "2100 WHITE PLAINS ROAD, Bronx, NY 10462",
+ "claimed_at": "2025-06-12T19:42:00-04:00",
+ "dates_covered": [
+  "2025-06-12"
+ ],
+ "description_matches_household": false,
+ "edge_kind": null,
+ "home_address": "2100 WHITE PLAINS ROAD, Bronx, NY 10462",
+ "kind": "demo",
+ "method": "308_2",
+ "n_fixes": 19,
+ "person_name": "Maria Delarmo",
+ "reason": "The affidavit claims substituted service at Maria's Bronx door at 7:42 PM. Her phone puts her at her client's Manhattan address across that whole evening, and the only other person in the household is a nine-year-old.",
+ "seeded_rule_codes": [],
+ "true_distance_km_at_claim": 10.585,
+ "true_tier": "contradicted",
+ "work_address": "1400 LEXINGTON AVENUE, Manhattan, NY 10128"
+}

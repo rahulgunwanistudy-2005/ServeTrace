@@ -1,0 +1,36 @@
+{
+ "agency_license": "8871386",
+ "attempts": [],
+ "court": "Civil Court of the City of New York, County of Bronx",
+ "defendant_name": "Maria Delarmo",
+ "field_confidence": {},
+ "index_number": "CV-025236-25/BX",
+ "mailing_address": "2100 WHITE PLAINS ROAD, Bronx, NY 10462",
+ "mailing_date": "2025-06-14",
+ "method": "308_2",
+ "plaintiff": "Atlas Bay Funding LLC",
+ "proof_filed_date": "2025-06-23",
+ "recipient_description": {
+  "age_max": 66,
+  "age_min": 56,
+  "hair": "Brown",
+  "height_in_max": 75,
+  "height_in_min": 71,
+  "raw_text": "Sex: Male  Skin: Light  Hair: Brown  Age: 56-66  Height: 5'11\"-6'3\"  Weight: 180-200 lbs",
+  "sex": "male",
+  "weight_lb_max": 200,
+  "weight_lb_min": 180
+ },
+ "recipient_name": "Jane Doe (refused name)",
+ "recipient_relationship": "Person in Charge",
+ "served_address": "2100 WHITE PLAINS ROAD, Bronx, NY 10462",
+ "served_at": "2025-06-12T19:42:00-04:00",
+ "served_location": {
+  "lat": 40.853454,
+  "lng": -73.867397
+ },
+ "server_license": "1401648",
+ "server_name": "T. Ockham-Doyle",
+ "source_sha256": "87c88b5cbcb341efb5eeafc76f90e2093c31127380149d420eed152d48df3d8f",
+ "user_confirmed": false
+}

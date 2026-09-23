@@ -1,0 +1,24 @@
+/* Print styles for the evidence packet and draft affidavit. Session 5 fills this in.
+   WeasyPrint renders these documents; nothing here may depend on a browser. */
+
+@page {
+	size: Letter;
+	margin: 0.9in 0.85in;
+}
+
+body {
+	font-family: "DejaVu Serif", "Times New Roman", serif;
+	font-size: 11pt;
+	line-height: 1.45;
+	color: #111;
+}
+
+.draft-watermark {
+	position: fixed;
+	top: 45%;
+	left: 12%;
+	font-size: 72pt;
+	color: rgba(0, 0, 0, 0.07);
+	transform: rotate(-30deg);
+	letter-spacing: 0.1em;
+}

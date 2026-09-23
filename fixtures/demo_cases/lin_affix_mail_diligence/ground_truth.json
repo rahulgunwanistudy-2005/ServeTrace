@@ -1,0 +1,25 @@
+{
+ "case_id": "lin_affix_mail_diligence",
+ "claimed_address": "104 HILLSIDE AVENUE, Queens, NY 11697",
+ "claimed_at": "2025-09-09T16:30:00-04:00",
+ "dates_covered": [
+  "2025-08-26",
+  "2025-09-02",
+  "2025-09-09"
+ ],
+ "description_matches_household": false,
+ "edge_kind": null,
+ "home_address": "104 HILLSIDE AVENUE, Queens, NY 11697",
+ "kind": "demo",
+ "method": "308_4",
+ "n_fixes": 98,
+ "person_name": "Lin Quintaro",
+ "reason": "The papers were taped to Lin's Queens door at 4:30 PM on a shift day, while Lin's phone was at work in Brooklyn. Both prior attempts fall on the same weekday inside office hours, which is not the pattern courts expect before affix-and-mail is allowed.",
+ "seeded_rule_codes": [
+  "R-D1",
+  "R-T2"
+ ],
+ "true_distance_km_at_claim": 12.7955,
+ "true_tier": "contradicted",
+ "work_address": "1750 ATLANTIC AVENUE, Brooklyn, NY 11213"
+}

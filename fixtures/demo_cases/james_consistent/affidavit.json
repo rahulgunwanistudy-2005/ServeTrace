@@ -1,0 +1,36 @@
+{
+ "agency_license": "4818635",
+ "attempts": [],
+ "court": "Civil Court of the City of New York, County of Kings",
+ "defendant_name": "James Okonkwa",
+ "field_confidence": {},
+ "index_number": "CV-044886-25/KI",
+ "mailing_address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
+ "mailing_date": "2025-05-15",
+ "method": "308_2",
+ "plaintiff": "Meridian Portfolio Recovery LLC",
+ "proof_filed_date": "2025-05-26",
+ "recipient_description": {
+  "age_max": 44,
+  "age_min": 34,
+  "hair": "Black",
+  "height_in_max": 67,
+  "height_in_min": 63,
+  "raw_text": "Sex: Female  Skin: Dark  Hair: Black  Age: 34-44  Height: 5'3\"-5'7\"  Weight: 120-140 lbs",
+  "sex": "female",
+  "weight_lb_max": 140,
+  "weight_lb_min": 120
+ },
+ "recipient_name": null,
+ "recipient_relationship": "Partner",
+ "served_address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
+ "served_at": "2025-05-14T19:15:00-04:00",
+ "served_location": {
+  "lat": 40.69391,
+  "lng": -73.956285
+ },
+ "server_license": "1693873",
+ "server_name": "K. Aldersey",
+ "source_sha256": "0e8083e96421ffcc6530018527161b611ffa7b26ebabcc46a59a8876ffb1dd42",
+ "user_confirmed": false
+}

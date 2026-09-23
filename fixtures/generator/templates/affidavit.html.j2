@@ -1,0 +1,177 @@
+{# Synthetic affidavit of service. Imitates the NYC Civil Court layout. No real case. #}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: Letter; margin: 0.9in 0.85in; }
+  body { font-family: "Times New Roman", Times, serif; font-size: 11.5pt; line-height: 1.45;
+         color: #111; }
+  .court { text-align: center; font-size: 11pt; letter-spacing: .02em; }
+  .court strong { display: block; font-size: 12pt; }
+  hr { border: 0; border-top: 1px solid #111; margin: 10px 0; }
+  table.caption { width: 100%; border-collapse: collapse; margin-top: 6px; }
+  table.caption td { vertical-align: top; padding: 2px 0; }
+  td.parties { width: 62%; }
+  td.index { width: 38%; padding-left: 14px; border-left: 1px solid #111; }
+  .vs { padding-left: 46px; font-style: italic; }
+  h1 { font-size: 12.5pt; text-align: center; text-transform: uppercase;
+       letter-spacing: .06em; margin: 22px 0 4px; }
+  .sworn { font-size: 10.5pt; text-align: center; margin-bottom: 16px; }
+  p.body { margin: 0 0 10px; text-align: justify; }
+  .label { font-variant: small-caps; letter-spacing: .04em; }
+  table.desc { width: 100%; border-collapse: collapse; margin: 6px 0 12px;
+               font-size: 10.5pt; }
+  table.desc th, table.desc td { border: 1px solid #111; padding: 3px 6px; text-align: left; }
+  table.desc th { background: #eee; font-weight: normal; font-variant: small-caps; }
+  table.attempts { width: 100%; border-collapse: collapse; margin: 4px 0 12px; font-size: 10.5pt; }
+  table.attempts th, table.attempts td { border: 1px solid #111; padding: 3px 6px;
+                                         text-align: left; }
+  table.attempts th { background: #eee; font-weight: normal; font-variant: small-caps; }
+  .sig { margin-top: 26px; }
+  .sigline { border-bottom: 1px solid #111; width: 58%; height: 26px; }
+  .cap { font-size: 9.5pt; }
+  .notary { margin-top: 20px; border-top: 1px solid #111; padding-top: 10px; font-size: 10.5pt; }
+  .fineprint { font-size: 9pt; color: #444; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<div class="court">
+  <strong>CIVIL COURT OF THE CITY OF NEW YORK</strong>
+  COUNTY OF {{ county }}
+</div>
+<hr>
+
+<table class="caption">
+  <tr>
+    <td class="parties">
+      {{ aff.plaintiff }},<br>
+      <span style="padding-left:46px">Plaintiff,</span><br>
+      <span class="vs">- against -</span><br>
+      {{ aff.defendant_name }},<br>
+      <span style="padding-left:46px">Defendant.</span>
+    </td>
+    <td class="index">
+      <span class="label">Index No.</span> {{ aff.index_number }}<br><br>
+      <span class="label">Affidavit of Service</span>
+    </td>
+  </tr>
+</table>
+<hr>
+
+<h1>Affidavit of Service</h1>
+<div class="sworn">STATE OF NEW YORK, COUNTY OF {{ county }}, ss.:</div>
+
+<p class="body">
+  {{ aff.server_name }}, being duly sworn, deposes and says: that deponent is not a party to
+  this action, is over 18 years of age, and resides in the State of New York. Deponent is a
+  process server duly licensed by the New York City Department of Consumer and Worker
+  Protection, License No. {{ aff.server_license }}, employed by {{ agency }},
+  Agency License No. {{ aff.agency_license }}.
+</p>
+
+<p class="body">
+  That on <strong>{{ aff.served_at.strftime('%B %-d, %Y') }}</strong> at
+  <strong>{{ aff.served_at.strftime('%-I:%M %p') }}</strong>, at
+  <strong>{{ aff.served_address }}</strong>, deponent served the within Summons and
+  Endorsed Complaint upon {{ aff.defendant_name }}, the Defendant therein named, in the
+  following manner:
+</p>
+
+{% if aff.method.value == '308_1' %}
+<p class="body">
+  <span class="label">Personal Service (CPLR &sect; 308(1)).</span>
+  By delivering a true copy of each to said Defendant personally. Deponent knew the person
+  so served to be the person described as said Defendant therein.
+</p>
+{% elif aff.method.value == '308_2' %}
+<p class="body">
+  <span class="label">Substituted Service (CPLR &sect; 308(2)).</span>
+  By delivering a true copy of each to
+  {{ aff.recipient_name or 'a person of suitable age and discretion' }}{% if aff.recipient_relationship %},
+  {{ aff.recipient_relationship }}{% endif %}, a person of suitable age and discretion. Said
+  premises is the Defendant's dwelling place within the State of New York. The person served
+  refused to state whether the Defendant was in the military service of the United States.
+</p>
+{% else %}
+<p class="body">
+  <span class="label">Affix and Mail (CPLR &sect; 308(4)).</span>
+  By affixing a true copy of each to the door of said premises, the same being the
+  Defendant's dwelling place within the State of New York. Deponent was unable with due
+  diligence to find the Defendant or a person of suitable age and discretion thereat, having
+  previously attempted service as set forth below.
+</p>
+{% endif %}
+
+{% if aff.recipient_description and aff.recipient_description.raw_text %}
+<p class="body"><span class="label">Description of person served:</span></p>
+<table class="desc">
+  <tr>
+    <th>Sex</th><th>Skin</th><th>Hair</th><th>Age</th><th>Height</th><th>Weight</th>
+  </tr>
+  <tr>
+    {% for cell in description_lines %}
+    <td>{{ cell.split(': ')[1] if ': ' in cell else cell }}</td>
+    {% endfor %}
+  </tr>
+</table>
+{% endif %}
+
+{% if aff.attempts %}
+<p class="body"><span class="label">Prior attempts at service:</span></p>
+<table class="attempts">
+  <tr><th>Date</th><th>Time</th><th>Address</th><th>Result</th></tr>
+  {% for attempt in aff.attempts %}
+  <tr>
+    <td>{{ attempt.at.strftime('%m/%d/%Y') }}</td>
+    <td>{{ attempt.at.strftime('%-I:%M %p') }}</td>
+    <td>{{ attempt.address }}</td>
+    <td>No answer at door</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if aff.mailing_date %}
+<p class="body">
+  <span class="label">Mailing.</span>
+  That on {{ aff.mailing_date.strftime('%B %-d, %Y') }}, deponent enclosed a true copy of
+  each in a postpaid, properly addressed envelope marked &ldquo;Personal and
+  Confidential&rdquo; and bearing no indication that the communication was from an attorney
+  or concerned an action against the Defendant, and deposited said envelope in an official
+  depository of the United States Postal Service within the State of New York, addressed to
+  the Defendant at {{ aff.mailing_address }}.
+</p>
+{% endif %}
+
+<div class="sig">
+  <div class="sigline"></div>
+  <div class="cap">{{ aff.server_name }} &mdash; Process Server License No. {{ aff.server_license }}</div>
+</div>
+
+<div class="notary">
+  Sworn to before me on this ______ day of ____________, 20____.
+  <div class="sig">
+    <div class="sigline"></div>
+    <div class="cap">
+      {{ notary_name }}, Notary Public, State of New York<br>
+      Qualified in {{ notary_county }} County &mdash; Commission expires
+      {{ commission_expiry.strftime('%B %-d, %Y') }}
+    </div>
+  </div>
+</div>
+
+{% if aff.proof_filed_date %}
+<p class="fineprint">
+  Proof of service filed with the Clerk of the Court on
+  {{ aff.proof_filed_date.strftime('%B %-d, %Y') }}.
+</p>
+{% endif %}
+<p class="fineprint">
+  SYNTHETIC DOCUMENT &mdash; generated for ServeTrace testing. Not a real affidavit. All
+  parties, servers, licence numbers and index numbers are fictitious.
+</p>
+
+</body>
+</html>

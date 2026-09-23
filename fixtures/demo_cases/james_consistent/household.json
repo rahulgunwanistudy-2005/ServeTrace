@@ -1,0 +1,16 @@
+[
+ {
+  "age": 41,
+  "height_in": 71,
+  "is_defendant": true,
+  "label": "James Okonkwa",
+  "sex": "male"
+ },
+ {
+  "age": 39,
+  "height_in": 65,
+  "is_defendant": false,
+  "label": "Partner",
+  "sex": "female"
+ }
+]

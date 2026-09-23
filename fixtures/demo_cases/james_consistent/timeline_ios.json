@@ -1,0 +1,67 @@
+[
+ {
+  "endTime": "2025-05-14T08:42:00.000-04:00",
+  "startTime": "2025-05-14T00:00:00.000-04:00",
+  "visit": {
+   "hierarchyLevel": 0,
+   "probability": 0.9,
+   "topCandidate": {
+    "placeLocation": "geo:40.6939768,-73.9564697",
+    "probability": 0.84,
+    "semanticType": "HOME"
+   }
+  }
+ },
+ {
+  "activity": {
+   "distanceMeters": 6191.4,
+   "end": "geo:40.7443794,-73.9860544",
+   "start": "geo:40.6935116,-73.9561756",
+   "topCandidate": {
+    "probability": 0.79,
+    "type": "IN_PASSENGER_VEHICLE"
+   }
+  },
+  "endTime": "2025-05-14T08:57:00.000-04:00",
+  "startTime": "2025-05-14T08:42:00.000-04:00"
+ },
+ {
+  "endTime": "2025-05-14T17:00:00.000-04:00",
+  "startTime": "2025-05-14T09:00:00.000-04:00",
+  "visit": {
+   "hierarchyLevel": 0,
+   "probability": 0.9,
+   "topCandidate": {
+    "placeLocation": "geo:40.7539046,-73.9914593",
+    "probability": 0.84,
+    "semanticType": "WORK"
+   }
+  }
+ },
+ {
+  "activity": {
+   "distanceMeters": 7328.4,
+   "end": "geo:40.6940052,-73.9570653",
+   "start": "geo:40.7544708,-73.9916637",
+   "topCandidate": {
+    "probability": 0.79,
+    "type": "IN_PASSENGER_VEHICLE"
+   }
+  },
+  "endTime": "2025-05-14T17:18:00.000-04:00",
+  "startTime": "2025-05-14T17:00:00.000-04:00"
+ },
+ {
+  "endTime": "2025-05-14T20:18:00.000-04:00",
+  "startTime": "2025-05-14T17:18:00.000-04:00",
+  "visit": {
+   "hierarchyLevel": 0,
+   "probability": 0.9,
+   "topCandidate": {
+    "placeLocation": "geo:40.6941701,-73.9561709",
+    "probability": 0.84,
+    "semanticType": "HOME"
+   }
+  }
+ }
+]

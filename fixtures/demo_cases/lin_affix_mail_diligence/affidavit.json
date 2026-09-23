@@ -1,0 +1,55 @@
+{
+ "agency_license": "6518630",
+ "attempts": [
+  {
+   "address": "104 HILLSIDE AVENUE, Queens, NY 11697",
+   "at": "2025-09-02T10:30:00-04:00",
+   "location": {
+    "lat": 40.56648,
+    "lng": -73.89113
+   },
+   "outcome": "not_home"
+  },
+  {
+   "address": "104 HILLSIDE AVENUE, Queens, NY 11697",
+   "at": "2025-08-26T11:00:00-04:00",
+   "location": {
+    "lat": 40.56648,
+    "lng": -73.89113
+   },
+   "outcome": "not_home"
+  }
+ ],
+ "court": "Civil Court of the City of New York, County of Queens",
+ "defendant_name": "Lin Quintaro",
+ "field_confidence": {},
+ "index_number": "CV-055084-25/QU",
+ "mailing_address": "104 HILLSIDE AVENUE, Queens, NY 11697",
+ "mailing_date": "2025-10-13",
+ "method": "308_4",
+ "plaintiff": "Ridgeline Receivables Partners LP",
+ "proof_filed_date": "2025-10-27",
+ "recipient_description": {
+  "age_max": 84,
+  "age_min": 74,
+  "hair": "Gray",
+  "height_in_max": 78,
+  "height_in_min": 74,
+  "raw_text": "Sex: Male  Skin: Dark  Hair: Gray  Age: 74-84  Height: 6'2\"-6'6\"  Weight: 140-160 lbs",
+  "sex": "male",
+  "weight_lb_max": 160,
+  "weight_lb_min": 140
+ },
+ "recipient_name": null,
+ "recipient_relationship": null,
+ "served_address": "104 HILLSIDE AVENUE, Queens, NY 11697",
+ "served_at": "2025-09-09T16:30:00-04:00",
+ "served_location": {
+  "lat": 40.56648,
+  "lng": -73.89113
+ },
+ "server_license": "7085037",
+ "server_name": "M. Grisholm",
+ "source_sha256": "3d68a2891809f44ae5c2745329fc6c8c0fb03da974127f1611383d7ed6bca997",
+ "user_confirmed": false
+}

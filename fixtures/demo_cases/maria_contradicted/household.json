@@ -1,0 +1,16 @@
+[
+ {
+  "age": 34,
+  "height_in": 63,
+  "is_defendant": true,
+  "label": "Maria Delarmo",
+  "sex": "female"
+ },
+ {
+  "age": 9,
+  "height_in": 52,
+  "is_defendant": false,
+  "label": "Daughter",
+  "sex": "female"
+ }
+]

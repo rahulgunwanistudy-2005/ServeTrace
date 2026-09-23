@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node
+node_modules/
+.svelte-kit/
+frontend/build/
+frontend/.vite/
+
+# Env
+.env
+.env.local
+
+# Generated fixtures (demo_cases/ IS committed)
+fixtures/out/
+
+# Eval runs
+eval/results/*
+!eval/results/.gitkeep
+
+# OS
+.DS_Store

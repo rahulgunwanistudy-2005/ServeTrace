@@ -1,0 +1,1178 @@
+[
+ {
+  "accuracy_m": 22.8,
+  "kind": "visit",
+  "label": "Timeline visit: HOME",
+  "loc": {
+   "lat": 40.5664739,
+   "lng": -73.8912569
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T00:00:00-04:00",
+  "t_end": "2025-08-26T13:22:00-04:00"
+ },
+ {
+  "accuracy_m": 78.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5665789,
+   "lng": -73.891649
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:22:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 37.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5751696,
+   "lng": -73.8947009
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:25:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 29.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.584345,
+   "lng": -73.8976692
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:28:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 40.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5927983,
+   "lng": -73.9009862
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:31:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 40.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6015951,
+   "lng": -73.9040388
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:34:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 51.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6097743,
+   "lng": -73.9073324
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:37:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 76.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6189477,
+   "lng": -73.9111405
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:40:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 83.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6273802,
+   "lng": -73.9138013
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:43:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 42.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6365168,
+   "lng": -73.9170861
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:46:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 50.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.645686,
+   "lng": -73.9210989
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:49:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 70.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6541794,
+   "lng": -73.9238191
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:52:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 30.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.663483,
+   "lng": -73.9273479
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:55:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 43.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6713555,
+   "lng": -73.9298821
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T13:58:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 24.8,
+  "kind": "visit",
+  "label": "Timeline visit: WORK",
+  "loc": {
+   "lat": 40.6773894,
+   "lng": -73.9322807
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T14:00:00-04:00",
+  "t_end": "2025-08-26T22:00:00-04:00"
+ },
+ {
+  "accuracy_m": 26.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6769993,
+   "lng": -73.9319867
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:00:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 42.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6656699,
+   "lng": -73.9282604
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:04:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 35.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6540782,
+   "lng": -73.9245946
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:08:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 75.9,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6424234,
+   "lng": -73.919532
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:12:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 69.2,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6308021,
+   "lng": -73.9146659
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:16:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 74.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6189369,
+   "lng": -73.9100414
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:20:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 35.2,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6071007,
+   "lng": -73.9065828
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:24:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 49.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5963537,
+   "lng": -73.9016844
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:28:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 26.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5837727,
+   "lng": -73.897634
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:32:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 62.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.572509,
+   "lng": -73.8931836
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:36:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 23.2,
+  "kind": "visit",
+  "label": "Timeline visit: HOME",
+  "loc": {
+   "lat": 40.566527,
+   "lng": -73.8910633
+  },
+  "source": "timeline_android",
+  "t": "2025-08-26T22:38:00-04:00",
+  "t_end": "2025-08-27T01:38:00-04:00"
+ },
+ {
+  "accuracy_m": 31.7,
+  "kind": "visit",
+  "label": "Timeline visit: HOME",
+  "loc": {
+   "lat": 40.5668818,
+   "lng": -73.8908975
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T00:00:00-04:00",
+  "t_end": "2025-09-02T13:22:00-04:00"
+ },
+ {
+  "accuracy_m": 51.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5666245,
+   "lng": -73.8908954
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:22:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 66.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5727645,
+   "lng": -73.8925233
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:24:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 85.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5781181,
+   "lng": -73.8948849
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:26:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 66.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5835868,
+   "lng": -73.8977201
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:28:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 79.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5897955,
+   "lng": -73.8995853
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:30:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 47.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5952917,
+   "lng": -73.9024319
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:32:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 73.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6015683,
+   "lng": -73.9044108
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:34:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 28.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6075182,
+   "lng": -73.9056884
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:36:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 56.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6132345,
+   "lng": -73.9089261
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:38:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 71.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6195372,
+   "lng": -73.9103454
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:40:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 23.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6245462,
+   "lng": -73.9129858
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:42:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 53.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6309238,
+   "lng": -73.914971
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:44:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 41.9,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6363139,
+   "lng": -73.917119
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:46:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 40.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6417618,
+   "lng": -73.9193697
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:48:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 64.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6479611,
+   "lng": -73.9217763
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:50:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 49.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6535978,
+   "lng": -73.9232797
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:52:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 78.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6597972,
+   "lng": -73.9257629
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:54:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 27.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.665223,
+   "lng": -73.927713
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:56:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 31.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6712667,
+   "lng": -73.9301718
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T13:58:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 64.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6772526,
+   "lng": -73.9317318
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T14:00:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 28.2,
+  "kind": "visit",
+  "label": "Timeline visit: WORK",
+  "loc": {
+   "lat": 40.6775728,
+   "lng": -73.9320947
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T14:00:00-04:00",
+  "t_end": "2025-09-02T22:00:00-04:00"
+ },
+ {
+  "accuracy_m": 67.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6773377,
+   "lng": -73.9329504
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:00:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 71.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6713036,
+   "lng": -73.9307881
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:02:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 78.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6656715,
+   "lng": -73.9285057
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:04:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 20.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.659646,
+   "lng": -73.9250513
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:06:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 48.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6537485,
+   "lng": -73.923887
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:08:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 41.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6475883,
+   "lng": -73.9210237
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:10:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 63.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6425261,
+   "lng": -73.9193942
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:12:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 83.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6363628,
+   "lng": -73.917107
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:14:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 62.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6298684,
+   "lng": -73.9150457
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:16:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 85.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6252313,
+   "lng": -73.9128779
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:18:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 75.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6187978,
+   "lng": -73.9106237
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:20:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 25.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6131004,
+   "lng": -73.9080611
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:22:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 63.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.606973,
+   "lng": -73.9063494
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:24:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 63.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6013521,
+   "lng": -73.904404
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:26:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 46.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5954346,
+   "lng": -73.9019244
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:28:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 23.9,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5902036,
+   "lng": -73.8987442
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:30:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 66.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5833512,
+   "lng": -73.8986848
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:32:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 82.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5779629,
+   "lng": -73.8956414
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:34:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 49.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5724724,
+   "lng": -73.8937022
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:36:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 52.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5664013,
+   "lng": -73.8912525
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:38:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 35.5,
+  "kind": "visit",
+  "label": "Timeline visit: HOME",
+  "loc": {
+   "lat": 40.5664063,
+   "lng": -73.8909544
+  },
+  "source": "timeline_android",
+  "t": "2025-09-02T22:38:00-04:00",
+  "t_end": "2025-09-03T01:38:00-04:00"
+ },
+ {
+  "accuracy_m": 22.0,
+  "kind": "visit",
+  "label": "Timeline visit: HOME",
+  "loc": {
+   "lat": 40.566339,
+   "lng": -73.8910562
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T00:00:00-04:00",
+  "t_end": "2025-09-09T13:22:00-04:00"
+ },
+ {
+  "accuracy_m": 55.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.566621,
+   "lng": -73.8915716
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:22:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 21.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5749675,
+   "lng": -73.8935097
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:25:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 49.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5841271,
+   "lng": -73.8967483
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:28:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 25.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5930859,
+   "lng": -73.9004668
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:31:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 37.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6015251,
+   "lng": -73.9035794
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:34:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 71.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6097804,
+   "lng": -73.9078792
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:37:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 67.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6188795,
+   "lng": -73.9101183
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:40:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 26.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6280781,
+   "lng": -73.9133966
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:43:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 30.9,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6369526,
+   "lng": -73.9176983
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:46:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 83.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6452758,
+   "lng": -73.9206233
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:49:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 66.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6538985,
+   "lng": -73.9239174
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:52:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 21.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6629568,
+   "lng": -73.9270578
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:55:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 50.2,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6716205,
+   "lng": -73.9297644
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T13:58:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 42.4,
+  "kind": "visit",
+  "label": "Timeline visit: WORK",
+  "loc": {
+   "lat": 40.6771698,
+   "lng": -73.9323105
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T14:00:00-04:00",
+  "t_end": "2025-09-09T22:00:00-04:00"
+ },
+ {
+  "accuracy_m": 37.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6771404,
+   "lng": -73.9325612
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:00:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 80.9,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6687914,
+   "lng": -73.9291792
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:03:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 86.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6595416,
+   "lng": -73.9257497
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:06:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 47.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6510599,
+   "lng": -73.9225294
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:09:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 80.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6422547,
+   "lng": -73.9192145
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:12:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 89.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6334384,
+   "lng": -73.9157854
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:15:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 74.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6246362,
+   "lng": -73.9126177
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:18:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 56.2,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.6163862,
+   "lng": -73.9090897
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:21:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 27.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.607593,
+   "lng": -73.9065425
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:24:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 40.4,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5983598,
+   "lng": -73.903528
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:27:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 51.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5898765,
+   "lng": -73.9002317
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:30:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 45.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5811062,
+   "lng": -73.8963133
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:33:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 60.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.5724749,
+   "lng": -73.8941188
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:36:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 35.1,
+  "kind": "visit",
+  "label": "Timeline visit: HOME",
+  "loc": {
+   "lat": 40.5664813,
+   "lng": -73.8908711
+  },
+  "source": "timeline_android",
+  "t": "2025-09-09T22:38:00-04:00",
+  "t_end": "2025-09-10T01:38:00-04:00"
+ }
+]

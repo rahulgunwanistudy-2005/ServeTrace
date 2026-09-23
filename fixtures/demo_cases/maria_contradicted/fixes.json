@@ -1,0 +1,230 @@
+[
+ {
+  "accuracy_m": 18.6,
+  "kind": "visit",
+  "label": "Timeline visit: HOME",
+  "loc": {
+   "lat": 40.8532963,
+   "lng": -73.8675013
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T00:00:00-04:00",
+  "t_end": "2025-06-12T07:31:00-04:00"
+ },
+ {
+  "accuracy_m": 39.2,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8535243,
+   "lng": -73.8674573
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:31:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 56.2,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8467227,
+   "lng": -73.876217
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:34:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 48.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8388449,
+   "lng": -73.885447
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:37:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 44.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8317374,
+   "lng": -73.8944541
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:40:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 25.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8243658,
+   "lng": -73.902834
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:43:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 38.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.817643,
+   "lng": -73.9119929
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:46:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 39.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8102228,
+   "lng": -73.9204456
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:49:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 27.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8028362,
+   "lng": -73.9291245
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:52:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 86.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.7954444,
+   "lng": -73.9378604
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:55:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 27.3,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.7881244,
+   "lng": -73.9468632
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T07:58:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 25.1,
+  "kind": "visit",
+  "label": "Timeline visit: WORK",
+  "loc": {
+   "lat": 40.7836227,
+   "lng": -73.9527563
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T08:00:00-04:00",
+  "t_end": "2025-06-12T20:00:00-04:00"
+ },
+ {
+  "accuracy_m": 35.5,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.7831691,
+   "lng": -73.9524989
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T20:00:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 57.0,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.7956291,
+   "lng": -73.9375965
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T20:05:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 75.1,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8078479,
+   "lng": -73.9232267
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T20:10:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 20.6,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8196137,
+   "lng": -73.9086657
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T20:15:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 61.8,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.8320654,
+   "lng": -73.8938486
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T20:20:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 37.7,
+  "kind": "path",
+  "label": null,
+  "loc": {
+   "lat": 40.843445,
+   "lng": -73.8794382
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T20:25:00-04:00",
+  "t_end": null
+ },
+ {
+  "accuracy_m": 35.7,
+  "kind": "visit",
+  "label": "Timeline visit: HOME",
+  "loc": {
+   "lat": 40.8534952,
+   "lng": -73.8672957
+  },
+  "source": "timeline_android",
+  "t": "2025-06-12T20:29:00-04:00",
+  "t_end": "2025-06-12T23:29:00-04:00"
+ }
+]

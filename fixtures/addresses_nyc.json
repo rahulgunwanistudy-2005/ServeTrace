@@ -1,0 +1,2809 @@
+[
+ {
+  "address": "100 EAST FORDHAM ROAD, Bronx, NY 10468",
+  "borough": "Bronx",
+  "zip": "10468",
+  "lat": 40.861821,
+  "lng": -73.89938
+ },
+ {
+  "address": "100 EAST TREMONT AVENUE, Bronx, NY 10453",
+  "borough": "Bronx",
+  "zip": "10453",
+  "lat": 40.850456,
+  "lng": -73.907497
+ },
+ {
+  "address": "100 WHITE PLAINS ROAD, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.80797,
+  "lng": -73.85421
+ },
+ {
+  "address": "1051 CASTLE HILL AVENUE, Bronx, NY 10472",
+  "borough": "Bronx",
+  "zip": "10472",
+  "lat": 40.82879,
+  "lng": -73.85067
+ },
+ {
+  "address": "1400 BOSTON ROAD, Bronx, NY 10456",
+  "borough": "Bronx",
+  "zip": "10456",
+  "lat": 40.832794,
+  "lng": -73.897314
+ },
+ {
+  "address": "1400 BRUCKNER BOULEVARD, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.82255,
+  "lng": -73.88365
+ },
+ {
+  "address": "1400 CASTLE HILL AVENUE, Bronx, NY 10462",
+  "borough": "Bronx",
+  "zip": "10462",
+  "lat": 40.835776,
+  "lng": -73.851733
+ },
+ {
+  "address": "1400 EAST TREMONT AVENUE, Bronx, NY 10461",
+  "borough": "Bronx",
+  "zip": "10461",
+  "lat": 40.840675,
+  "lng": -73.842543
+ },
+ {
+  "address": "1400 GRAND CONCOURSE, Bronx, NY 10456",
+  "borough": "Bronx",
+  "zip": "10456",
+  "lat": 40.838794,
+  "lng": -73.91327
+ },
+ {
+  "address": "1400 JEROME AVENUE, Bronx, NY 10452",
+  "borough": "Bronx",
+  "zip": "10452",
+  "lat": 40.840333,
+  "lng": -73.917207
+ },
+ {
+  "address": "1400 MORRIS AVENUE, Bronx, NY 10456",
+  "borough": "Bronx",
+  "zip": "10456",
+  "lat": 40.838163,
+  "lng": -73.91095
+ },
+ {
+  "address": "1750 CASTLE HILL AVENUE, Bronx, NY 10462",
+  "borough": "Bronx",
+  "zip": "10462",
+  "lat": 40.841444,
+  "lng": -73.852836
+ },
+ {
+  "address": "1750 EAST TREMONT AVENUE, Bronx, NY 10460",
+  "borough": "Bronx",
+  "zip": "10460",
+  "lat": 40.839378,
+  "lng": -73.869416
+ },
+ {
+  "address": "1750 GRAND CONCOURSE, Bronx, NY 10457",
+  "borough": "Bronx",
+  "zip": "10457",
+  "lat": 40.845378,
+  "lng": -73.910083
+ },
+ {
+  "address": "1750 JEROME AVENUE, Bronx, NY 10453",
+  "borough": "Bronx",
+  "zip": "10453",
+  "lat": 40.847719,
+  "lng": -73.911935
+ },
+ {
+  "address": "1750 MORRIS AVENUE, Bronx, NY 10457",
+  "borough": "Bronx",
+  "zip": "10457",
+  "lat": 40.845528,
+  "lng": -73.909016
+ },
+ {
+  "address": "1750 WESTCHESTER AVENUE, Bronx, NY 10472",
+  "borough": "Bronx",
+  "zip": "10472",
+  "lat": 40.831081,
+  "lng": -73.868364
+ },
+ {
+  "address": "2056 MORRIS AVENUE, Bronx, NY 10453",
+  "borough": "Bronx",
+  "zip": "10453",
+  "lat": 40.853386,
+  "lng": -73.90524
+ },
+ {
+  "address": "2100 BOSTON ROAD, Bronx, NY 10460",
+  "borough": "Bronx",
+  "zip": "10460",
+  "lat": 40.842,
+  "lng": -73.87778
+ },
+ {
+  "address": "2100 BRUCKNER BOULEVARD, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.826341,
+  "lng": -73.852582
+ },
+ {
+  "address": "2100 EAST TREMONT AVENUE, Bronx, NY 10462",
+  "borough": "Bronx",
+  "zip": "10462",
+  "lat": 40.841287,
+  "lng": -73.857516
+ },
+ {
+  "address": "2100 GRAND CONCOURSE, Bronx, NY 10457",
+  "borough": "Bronx",
+  "zip": "10457",
+  "lat": 40.853897,
+  "lng": -73.901804
+ },
+ {
+  "address": "2100 JEROME AVENUE, Bronx, NY 10453",
+  "borough": "Bronx",
+  "zip": "10453",
+  "lat": 40.85494,
+  "lng": -73.905919
+ },
+ {
+  "address": "2100 WESTCHESTER AVENUE, Bronx, NY 10462",
+  "borough": "Bronx",
+  "zip": "10462",
+  "lat": 40.83371,
+  "lng": -73.85422
+ },
+ {
+  "address": "2100 WHITE PLAINS ROAD, Bronx, NY 10462",
+  "borough": "Bronx",
+  "zip": "10462",
+  "lat": 40.853454,
+  "lng": -73.867397
+ },
+ {
+  "address": "2191 BOSTON ROAD, Bronx, NY 10462",
+  "borough": "Bronx",
+  "zip": "10462",
+  "lat": 40.856077,
+  "lng": -73.870112
+ },
+ {
+  "address": "2324 SOUTHERN BOULEVARD, Bronx, NY 10460",
+  "borough": "Bronx",
+  "zip": "10460",
+  "lat": 40.85,
+  "lng": -73.8783
+ },
+ {
+  "address": "2384 GRAND CONCOURSE, Bronx, NY 10458",
+  "borough": "Bronx",
+  "zip": "10458",
+  "lat": 40.859424,
+  "lng": -73.898287
+ },
+ {
+  "address": "250 EAST FORDHAM ROAD, Bronx, NY 10458",
+  "borough": "Bronx",
+  "zip": "10458",
+  "lat": 40.861972,
+  "lng": -73.895749
+ },
+ {
+  "address": "250 EAST TREMONT AVENUE, Bronx, NY 10457",
+  "borough": "Bronx",
+  "zip": "10457",
+  "lat": 40.84838,
+  "lng": -73.90381
+ },
+ {
+  "address": "250 GRAND CONCOURSE, Bronx, NY 10451",
+  "borough": "Bronx",
+  "zip": "10451",
+  "lat": 40.813342,
+  "lng": -73.929341
+ },
+ {
+  "address": "250 WHITE PLAINS ROAD, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.810741,
+  "lng": -73.855359
+ },
+ {
+  "address": "2641 JEROME AVENUE, Bronx, NY 10468",
+  "borough": "Bronx",
+  "zip": "10468",
+  "lat": 40.867022,
+  "lng": -73.898142
+ },
+ {
+  "address": "2684 WESTCHESTER AVENUE, Bronx, NY 10461",
+  "borough": "Bronx",
+  "zip": "10461",
+  "lat": 40.841875,
+  "lng": -73.839069
+ },
+ {
+  "address": "2833 BRUCKNER BOULEVARD, Bronx, NY 10465",
+  "borough": "Bronx",
+  "zip": "10465",
+  "lat": 40.832025,
+  "lng": -73.830839
+ },
+ {
+  "address": "3100 EAST TREMONT AVENUE, Bronx, NY 10461",
+  "borough": "Bronx",
+  "zip": "10461",
+  "lat": 40.838499,
+  "lng": -73.835965
+ },
+ {
+  "address": "3100 WEBSTER AVENUE, Bronx, NY 10467",
+  "borough": "Bronx",
+  "zip": "10467",
+  "lat": 40.870767,
+  "lng": -73.876903
+ },
+ {
+  "address": "3100 WESTCHESTER AVENUE, Bronx, NY 10461",
+  "borough": "Bronx",
+  "zip": "10461",
+  "lat": 40.849458,
+  "lng": -73.830007
+ },
+ {
+  "address": "3390 EAST TREMONT AVENUE, Bronx, NY 10461",
+  "borough": "Bronx",
+  "zip": "10461",
+  "lat": 40.833504,
+  "lng": -73.828813
+ },
+ {
+  "address": "3450 WEBSTER AVENUE, Bronx, NY 10467",
+  "borough": "Bronx",
+  "zip": "10467",
+  "lat": 40.87509,
+  "lng": -73.87271
+ },
+ {
+  "address": "4012 WHITE PLAINS ROAD, Bronx, NY 10466",
+  "borough": "Bronx",
+  "zip": "10466",
+  "lat": 40.888818,
+  "lng": -73.859592
+ },
+ {
+  "address": "450 CASTLE HILL AVENUE, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.81672,
+  "lng": -73.847106
+ },
+ {
+  "address": "450 EAST FORDHAM ROAD, Bronx, NY 10458",
+  "borough": "Bronx",
+  "zip": "10458",
+  "lat": 40.860381,
+  "lng": -73.889582
+ },
+ {
+  "address": "450 EAST TREMONT AVENUE, Bronx, NY 10457",
+  "borough": "Bronx",
+  "zip": "10457",
+  "lat": 40.846939,
+  "lng": -73.898946
+ },
+ {
+  "address": "450 GRAND CONCOURSE, Bronx, NY 10451",
+  "borough": "Bronx",
+  "zip": "10451",
+  "lat": 40.817413,
+  "lng": -73.927211
+ },
+ {
+  "address": "450 SOUTHERN BOULEVARD, Bronx, NY 10455",
+  "borough": "Bronx",
+  "zip": "10455",
+  "lat": 40.810047,
+  "lng": -73.906539
+ },
+ {
+  "address": "450 WHITE PLNS ROAD, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.815013,
+  "lng": -73.856052
+ },
+ {
+  "address": "488 EAST FORDHAM ROAD, Bronx, NY 10458",
+  "borough": "Bronx",
+  "zip": "10458",
+  "lat": 40.859521,
+  "lng": -73.888904
+ },
+ {
+  "address": "550 EAST FORDHAM ROAD, Bronx, NY 10458",
+  "borough": "Bronx",
+  "zip": "10458",
+  "lat": 40.858851,
+  "lng": -73.886509
+ },
+ {
+  "address": "550 EAST TREMONT AVENUE, Bronx, NY 10457",
+  "borough": "Bronx",
+  "zip": "10457",
+  "lat": 40.84527,
+  "lng": -73.89524
+ },
+ {
+  "address": "550 MORRIS PARK AVENUE, Bronx, NY 10460",
+  "borough": "Bronx",
+  "zip": "10460",
+  "lat": 40.842994,
+  "lng": -73.870702
+ },
+ {
+  "address": "550 SOUTHERN BOULEVARD, Bronx, NY 10455",
+  "borough": "Bronx",
+  "zip": "10455",
+  "lat": 40.812039,
+  "lng": -73.903759
+ },
+ {
+  "address": "620 CASTLE HILL AVENUE, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.819795,
+  "lng": -73.847687
+ },
+ {
+  "address": "620 EAST FORDHAM ROAD, Bronx, NY 10458",
+  "borough": "Bronx",
+  "zip": "10458",
+  "lat": 40.85781,
+  "lng": -73.88417
+ },
+ {
+  "address": "620 GRAND CONCOURSE, Bronx, NY 10451",
+  "borough": "Bronx",
+  "zip": "10451",
+  "lat": 40.81956,
+  "lng": -73.92509
+ },
+ {
+  "address": "620 MORRIS PARK AVENUE, Bronx, NY 10460",
+  "borough": "Bronx",
+  "zip": "10460",
+  "lat": 40.844155,
+  "lng": -73.868921
+ },
+ {
+  "address": "620 WESTCHESTER AVENUE, Bronx, NY 10455",
+  "borough": "Bronx",
+  "zip": "10455",
+  "lat": 40.815218,
+  "lng": -73.909814
+ },
+ {
+  "address": "620 WHITE PLNS ROAD, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.81886,
+  "lng": -73.856902
+ },
+ {
+  "address": "900 CASTLE HILL AVENUE, Bronx, NY 10473",
+  "borough": "Bronx",
+  "zip": "10473",
+  "lat": 40.825637,
+  "lng": -73.849266
+ },
+ {
+  "address": "900 EAST TREMONT AVENUE, Bronx, NY 10460",
+  "borough": "Bronx",
+  "zip": "10460",
+  "lat": 40.84187,
+  "lng": -73.88452
+ },
+ {
+  "address": "900 GRAND CONCOURSE, Bronx, NY 10451",
+  "borough": "Bronx",
+  "zip": "10451",
+  "lat": 40.827024,
+  "lng": -73.921911
+ },
+ {
+  "address": "900 MORRIS PARK AVENUE, Bronx, NY 10462",
+  "borough": "Bronx",
+  "zip": "10462",
+  "lat": 40.846606,
+  "lng": -73.858996
+ },
+ {
+  "address": "900 SOUTHERN BOULEVARD, Bronx, NY 10459",
+  "borough": "Bronx",
+  "zip": "10459",
+  "lat": 40.819377,
+  "lng": -73.892613
+ },
+ {
+  "address": "100 5 AVENUE, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.680001,
+  "lng": -73.97838
+ },
+ {
+  "address": "100 ATLANTIC AVENUE, Brooklyn, NY 11201",
+  "borough": "Brooklyn",
+  "zip": "11201",
+  "lat": 40.690655,
+  "lng": -73.996741
+ },
+ {
+  "address": "100 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "borough": "Brooklyn",
+  "zip": "11249",
+  "lat": 40.72046,
+  "lng": -73.955196
+ },
+ {
+  "address": "100 BUSHWICK AVENUE, Brooklyn, NY 11206",
+  "borough": "Brooklyn",
+  "zip": "11206",
+  "lat": 40.711732,
+  "lng": -73.940792
+ },
+ {
+  "address": "100 FLATBUSH AVENUE, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.68567,
+  "lng": -73.97899
+ },
+ {
+  "address": "100 MYRTLE AVENUE, Brooklyn, NY 11201",
+  "borough": "Brooklyn",
+  "zip": "11201",
+  "lat": 40.693296,
+  "lng": -73.985724
+ },
+ {
+  "address": "100 NOSTRAND AVENUE, Brooklyn, NY 11205",
+  "borough": "Brooklyn",
+  "zip": "11205",
+  "lat": 40.696677,
+  "lng": -73.953328
+ },
+ {
+  "address": "100 OCEAN AVENUE, Brooklyn, NY 11225",
+  "borough": "Brooklyn",
+  "zip": "11225",
+  "lat": 40.660476,
+  "lng": -73.9636
+ },
+ {
+  "address": "107 MYRTLE AVENUE, Brooklyn, NY 11201",
+  "borough": "Brooklyn",
+  "zip": "11201",
+  "lat": 40.69413,
+  "lng": -73.98567
+ },
+ {
+  "address": "13 CHURCH AVENUE, Brooklyn, NY 11218",
+  "borough": "Brooklyn",
+  "zip": "11218",
+  "lat": 40.641675,
+  "lng": -73.982814
+ },
+ {
+  "address": "1311 BEDFORD AVENUE, Brooklyn, NY 11216",
+  "borough": "Brooklyn",
+  "zip": "11216",
+  "lat": 40.678235,
+  "lng": -73.952604
+ },
+ {
+  "address": "1400 ATLANTIC AVENUE, Brooklyn, NY 11216",
+  "borough": "Brooklyn",
+  "zip": "11216",
+  "lat": 40.67795,
+  "lng": -73.94585
+ },
+ {
+  "address": "1400 BEDFORD AVENUE, Brooklyn, NY 11216",
+  "borough": "Brooklyn",
+  "zip": "11216",
+  "lat": 40.675271,
+  "lng": -73.953623
+ },
+ {
+  "address": "1400 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "borough": "Brooklyn",
+  "zip": "11207",
+  "lat": 40.684444,
+  "lng": -73.909998
+ },
+ {
+  "address": "1400 CONEY IS AVENUE, Brooklyn, NY 11230",
+  "borough": "Brooklyn",
+  "zip": "11230",
+  "lat": 40.62335,
+  "lng": -73.965265
+ },
+ {
+  "address": "1400 FLATBUSH AVENUE, Brooklyn, NY 11210",
+  "borough": "Brooklyn",
+  "zip": "11210",
+  "lat": 40.636258,
+  "lng": -73.951649
+ },
+ {
+  "address": "1400 FULTON STREET, Brooklyn, NY 11216",
+  "borough": "Brooklyn",
+  "zip": "11216",
+  "lat": 40.679896,
+  "lng": -73.944899
+ },
+ {
+  "address": "1400 MYRTLE AVENUE, Brooklyn, NY 11237",
+  "borough": "Brooklyn",
+  "zip": "11237",
+  "lat": 40.698482,
+  "lng": -73.919544
+ },
+ {
+  "address": "1400 NOSTRAND AVENUE, Brooklyn, NY 11226",
+  "borough": "Brooklyn",
+  "zip": "11226",
+  "lat": 40.652334,
+  "lng": -73.949931
+ },
+ {
+  "address": "1400 OCEAN AVENUE, Brooklyn, NY 11230",
+  "borough": "Brooklyn",
+  "zip": "11230",
+  "lat": 40.627886,
+  "lng": -73.957123
+ },
+ {
+  "address": "1462 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "borough": "Brooklyn",
+  "zip": "11207",
+  "lat": 40.683364,
+  "lng": -73.90787
+ },
+ {
+  "address": "1750 ATLANTIC AVENUE, Brooklyn, NY 11213",
+  "borough": "Brooklyn",
+  "zip": "11213",
+  "lat": 40.67722,
+  "lng": -73.93234
+ },
+ {
+  "address": "1750 BEDFORD AVENUE, Brooklyn, NY 11225",
+  "borough": "Brooklyn",
+  "zip": "11225",
+  "lat": 40.6639,
+  "lng": -73.95764
+ },
+ {
+  "address": "1750 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "borough": "Brooklyn",
+  "zip": "11207",
+  "lat": 40.678158,
+  "lng": -73.899808
+ },
+ {
+  "address": "1750 CONEY IS AVENUE, Brooklyn, NY 11230",
+  "borough": "Brooklyn",
+  "zip": "11230",
+  "lat": 40.614355,
+  "lng": -73.963563
+ },
+ {
+  "address": "1750 FLATBUSH AVENUE, Brooklyn, NY 11210",
+  "borough": "Brooklyn",
+  "zip": "11210",
+  "lat": 40.627535,
+  "lng": -73.942379
+ },
+ {
+  "address": "1750 FULTON STREET, Brooklyn, NY 11213",
+  "borough": "Brooklyn",
+  "zip": "11213",
+  "lat": 40.67892,
+  "lng": -73.931664
+ },
+ {
+  "address": "1750 NOSTRAND AVENUE, Brooklyn, NY 11226",
+  "borough": "Brooklyn",
+  "zip": "11226",
+  "lat": 40.643074,
+  "lng": -73.948989
+ },
+ {
+  "address": "1750 OCEAN PARKWAY, Brooklyn, NY 11223",
+  "borough": "Brooklyn",
+  "zip": "11223",
+  "lat": 40.605826,
+  "lng": -73.967658
+ },
+ {
+  "address": "1750 WEST 5 STREET, Brooklyn, NY 11223",
+  "borough": "Brooklyn",
+  "zip": "11223",
+  "lat": 40.604733,
+  "lng": -73.978335
+ },
+ {
+  "address": "2100 ATLANTIC AVENUE, Brooklyn, NY 11233",
+  "borough": "Brooklyn",
+  "zip": "11233",
+  "lat": 40.67642,
+  "lng": -73.91788
+ },
+ {
+  "address": "2100 BEDFORD AVENUE, Brooklyn, NY 11226",
+  "borough": "Brooklyn",
+  "zip": "11226",
+  "lat": 40.653169,
+  "lng": -73.956456
+ },
+ {
+  "address": "2100 CONEY IS AVENUE, Brooklyn, NY 11223",
+  "borough": "Brooklyn",
+  "zip": "11223",
+  "lat": 40.606042,
+  "lng": -73.962088
+ },
+ {
+  "address": "2100 FLATBUSH AVENUE, Brooklyn, NY 11234",
+  "borough": "Brooklyn",
+  "zip": "11234",
+  "lat": 40.618513,
+  "lng": -73.932841
+ },
+ {
+  "address": "2100 FULTON STREET, Brooklyn, NY 11233",
+  "borough": "Brooklyn",
+  "zip": "11233",
+  "lat": 40.678218,
+  "lng": -73.913246
+ },
+ {
+  "address": "2100 KINGS HIGHWAY, Brooklyn, NY 11229",
+  "borough": "Brooklyn",
+  "zip": "11229",
+  "lat": 40.61081,
+  "lng": -73.95234
+ },
+ {
+  "address": "2100 NOSTRAND AVENUE, Brooklyn, NY 11210",
+  "borough": "Brooklyn",
+  "zip": "11210",
+  "lat": 40.63431,
+  "lng": -73.947988
+ },
+ {
+  "address": "250 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "borough": "Brooklyn",
+  "zip": "11249",
+  "lat": 40.715866,
+  "lng": -73.960201
+ },
+ {
+  "address": "250 BUSHWICK AVENUE, Brooklyn, NY 11206",
+  "borough": "Brooklyn",
+  "zip": "11206",
+  "lat": 40.707398,
+  "lng": -73.939985
+ },
+ {
+  "address": "250 FLATBUSH AVENUE, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.67941,
+  "lng": -73.974437
+ },
+ {
+  "address": "250 FULTON STREET, Brooklyn, NY 11201",
+  "borough": "Brooklyn",
+  "zip": "11201",
+  "lat": 40.696305,
+  "lng": -73.991834
+ },
+ {
+  "address": "250 KINGS HIGHWAY, Brooklyn, NY 11223",
+  "borough": "Brooklyn",
+  "zip": "11223",
+  "lat": 40.605134,
+  "lng": -73.981475
+ },
+ {
+  "address": "250 NOSTRAND AVENUE, Brooklyn, NY 11205",
+  "borough": "Brooklyn",
+  "zip": "11205",
+  "lat": 40.691708,
+  "lng": -73.952779
+ },
+ {
+  "address": "250 OCEAN VIEW AVENUE, Brooklyn, NY 11235",
+  "borough": "Brooklyn",
+  "zip": "11235",
+  "lat": 40.578784,
+  "lng": -73.96514
+ },
+ {
+  "address": "3100 ATLANTIC AVENUE, Brooklyn, NY 11208",
+  "borough": "Brooklyn",
+  "zip": "11208",
+  "lat": 40.678844,
+  "lng": -73.880594
+ },
+ {
+  "address": "3100 BRIGHTON 5 STREET, Brooklyn, NY 11235",
+  "borough": "Brooklyn",
+  "zip": "11235",
+  "lat": 40.576771,
+  "lng": -73.962503
+ },
+ {
+  "address": "3100 FULTON STREET, Brooklyn, NY 11208",
+  "borough": "Brooklyn",
+  "zip": "11208",
+  "lat": 40.681092,
+  "lng": -73.880515
+ },
+ {
+  "address": "3100 NOSTRAND AVENUE, Brooklyn, NY 11229",
+  "borough": "Brooklyn",
+  "zip": "11229",
+  "lat": 40.608671,
+  "lng": -73.943765
+ },
+ {
+  "address": "3100 OCEAN AVENUE, Brooklyn, NY 11235",
+  "borough": "Brooklyn",
+  "zip": "11235",
+  "lat": 40.585219,
+  "lng": -73.949622
+ },
+ {
+  "address": "450 5 AVENUE, Brooklyn, NY 11215",
+  "borough": "Brooklyn",
+  "zip": "11215",
+  "lat": 40.66913,
+  "lng": -73.986836
+ },
+ {
+  "address": "450 ATLANTIC AVENUE, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.686151,
+  "lng": -73.983382
+ },
+ {
+  "address": "450 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "borough": "Brooklyn",
+  "zip": "11249",
+  "lat": 40.708517,
+  "lng": -73.964457
+ },
+ {
+  "address": "450 BUSHWICK AVENUE, Brooklyn, NY 11206",
+  "borough": "Brooklyn",
+  "zip": "11206",
+  "lat": 40.702296,
+  "lng": -73.937513
+ },
+ {
+  "address": "450 CONEY IS AVENUE, Brooklyn, NY 11218",
+  "borough": "Brooklyn",
+  "zip": "11218",
+  "lat": 40.646809,
+  "lng": -73.971344
+ },
+ {
+  "address": "450 FLATBUSH AVENUE, Brooklyn, NY 11225",
+  "borough": "Brooklyn",
+  "zip": "11225",
+  "lat": 40.665633,
+  "lng": -73.9655
+ },
+ {
+  "address": "450 FULTON STREET, Brooklyn, NY 11201",
+  "borough": "Brooklyn",
+  "zip": "11201",
+  "lat": 40.690265,
+  "lng": -73.984985
+ },
+ {
+  "address": "450 KINGS HIGHWAY, Brooklyn, NY 11223",
+  "borough": "Brooklyn",
+  "zip": "11223",
+  "lat": 40.604097,
+  "lng": -73.973616
+ },
+ {
+  "address": "450 MYRTLE AVENUE, Brooklyn, NY 11205",
+  "borough": "Brooklyn",
+  "zip": "11205",
+  "lat": 40.693104,
+  "lng": -73.967447
+ },
+ {
+  "address": "450 NOSTRAND AVENUE, Brooklyn, NY 11216",
+  "borough": "Brooklyn",
+  "zip": "11216",
+  "lat": 40.683589,
+  "lng": -73.950437
+ },
+ {
+  "address": "450 OCEAN PARKWAY, Brooklyn, NY 11218",
+  "borough": "Brooklyn",
+  "zip": "11218",
+  "lat": 40.637433,
+  "lng": -73.973711
+ },
+ {
+  "address": "550 5 AVENUE, Brooklyn, NY 11215",
+  "borough": "Brooklyn",
+  "zip": "11215",
+  "lat": 40.666016,
+  "lng": -73.989767
+ },
+ {
+  "address": "550 ATLANTIC AVENUE, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.68465,
+  "lng": -73.97979
+ },
+ {
+  "address": "550 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "borough": "Brooklyn",
+  "zip": "11249",
+  "lat": 40.704846,
+  "lng": -73.962302
+ },
+ {
+  "address": "550 BUSHWICK AVENUE, Brooklyn, NY 11206",
+  "borough": "Brooklyn",
+  "zip": "11206",
+  "lat": 40.69967,
+  "lng": -73.93619
+ },
+ {
+  "address": "550 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+  "borough": "Brooklyn",
+  "zip": "11218",
+  "lat": 40.643979,
+  "lng": -73.970573
+ },
+ {
+  "address": "550 FLATBUSH AVENUE, Brooklyn, NY 11225",
+  "borough": "Brooklyn",
+  "zip": "11225",
+  "lat": 40.660613,
+  "lng": -73.96107
+ },
+ {
+  "address": "550 FULTON STREET, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.688298,
+  "lng": -73.980182
+ },
+ {
+  "address": "550 KINGS HIGHWAY, Brooklyn, NY 11223",
+  "borough": "Brooklyn",
+  "zip": "11223",
+  "lat": 40.604359,
+  "lng": -73.969356
+ },
+ {
+  "address": "550 MYRTLE AVENUE, Brooklyn, NY 11205",
+  "borough": "Brooklyn",
+  "zip": "11205",
+  "lat": 40.69347,
+  "lng": -73.962475
+ },
+ {
+  "address": "550 NOSTRAND AVENUE, Brooklyn, NY 11216",
+  "borough": "Brooklyn",
+  "zip": "11216",
+  "lat": 40.679891,
+  "lng": -73.949796
+ },
+ {
+  "address": "550 OCEAN AVENUE, Brooklyn, NY 11226",
+  "borough": "Brooklyn",
+  "zip": "11226",
+  "lat": 40.649157,
+  "lng": -73.961116
+ },
+ {
+  "address": "6 FLATBUSH AVENUE, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.688724,
+  "lng": -73.981179
+ },
+ {
+  "address": "619 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+  "borough": "Brooklyn",
+  "zip": "11218",
+  "lat": 40.642289,
+  "lng": -73.969372
+ },
+ {
+  "address": "620 5 AVENUE, Brooklyn, NY 11215",
+  "borough": "Brooklyn",
+  "zip": "11215",
+  "lat": 40.663504,
+  "lng": -73.991504
+ },
+ {
+  "address": "620 ATLANTIC AVENUE, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.682579,
+  "lng": -73.975263
+ },
+ {
+  "address": "620 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "borough": "Brooklyn",
+  "zip": "11249",
+  "lat": 40.702507,
+  "lng": -73.95978
+ },
+ {
+  "address": "620 BUSHWICK AVENUE, Brooklyn, NY 11206",
+  "borough": "Brooklyn",
+  "zip": "11206",
+  "lat": 40.697873,
+  "lng": -73.934002
+ },
+ {
+  "address": "620 CHURCH AVENUE, Brooklyn, NY 11218",
+  "borough": "Brooklyn",
+  "zip": "11218",
+  "lat": 40.645031,
+  "lng": -73.973281
+ },
+ {
+  "address": "620 CONEY IS AVENUE, Brooklyn, NY 11218",
+  "borough": "Brooklyn",
+  "zip": "11218",
+  "lat": 40.642192,
+  "lng": -73.969916
+ },
+ {
+  "address": "620 FLATBUSH AVENUE, Brooklyn, NY 11225",
+  "borough": "Brooklyn",
+  "zip": "11225",
+  "lat": 40.658177,
+  "lng": -73.960656
+ },
+ {
+  "address": "620 FULTON STREET, Brooklyn, NY 11217",
+  "borough": "Brooklyn",
+  "zip": "11217",
+  "lat": 40.687423,
+  "lng": -73.977937
+ },
+ {
+  "address": "620 MYRTLE AVENUE, Brooklyn, NY 11205",
+  "borough": "Brooklyn",
+  "zip": "11205",
+  "lat": 40.693988,
+  "lng": -73.959112
+ },
+ {
+  "address": "620 NOSTRAND AVENUE, Brooklyn, NY 11216",
+  "borough": "Brooklyn",
+  "zip": "11216",
+  "lat": 40.677427,
+  "lng": -73.949972
+ },
+ {
+  "address": "620 OCEAN VIEW AVENUE, Brooklyn, NY 11235",
+  "borough": "Brooklyn",
+  "zip": "11235",
+  "lat": 40.579507,
+  "lng": -73.961597
+ },
+ {
+  "address": "71 ATLANTIC AVENUE, Brooklyn, NY 11201",
+  "borough": "Brooklyn",
+  "zip": "11201",
+  "lat": 40.691484,
+  "lng": -73.997956
+ },
+ {
+  "address": "784 OCEAN AVENUE, Brooklyn, NY 11226",
+  "borough": "Brooklyn",
+  "zip": "11226",
+  "lat": 40.643403,
+  "lng": -73.9601
+ },
+ {
+  "address": "79 KINGS HIGHWAY, Brooklyn, NY 11214",
+  "borough": "Brooklyn",
+  "zip": "11214",
+  "lat": 40.606571,
+  "lng": -73.988519
+ },
+ {
+  "address": "900 ATLANTIC AVENUE, Brooklyn, NY 11238",
+  "borough": "Brooklyn",
+  "zip": "11238",
+  "lat": 40.680951,
+  "lng": -73.964897
+ },
+ {
+  "address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
+  "borough": "Brooklyn",
+  "zip": "11205",
+  "lat": 40.69391,
+  "lng": -73.956285
+ },
+ {
+  "address": "900 BUSHWICK AVENUE, Brooklyn, NY 11221",
+  "borough": "Brooklyn",
+  "zip": "11221",
+  "lat": 40.693249,
+  "lng": -73.925254
+ },
+ {
+  "address": "900 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+  "borough": "Brooklyn",
+  "zip": "11218",
+  "lat": 40.63542,
+  "lng": -73.96817
+ },
+ {
+  "address": "900 FLATBUSH AVENUE, Brooklyn, NY 11226",
+  "borough": "Brooklyn",
+  "zip": "11226",
+  "lat": 40.649691,
+  "lng": -73.958863
+ },
+ {
+  "address": "900 FULTON STREET, Brooklyn, NY 11238",
+  "borough": "Brooklyn",
+  "zip": "11238",
+  "lat": 40.68286,
+  "lng": -73.965163
+ },
+ {
+  "address": "900 MYRTLE AVENUE, Brooklyn, NY 11206",
+  "borough": "Brooklyn",
+  "zip": "11206",
+  "lat": 40.695569,
+  "lng": -73.945697
+ },
+ {
+  "address": "900 NOSTRAND AVENUE, Brooklyn, NY 11225",
+  "borough": "Brooklyn",
+  "zip": "11225",
+  "lat": 40.667335,
+  "lng": -73.951029
+ },
+ {
+  "address": "900 OCEAN AVENUE, Brooklyn, NY 11226",
+  "borough": "Brooklyn",
+  "zip": "11226",
+  "lat": 40.640477,
+  "lng": -73.959561
+ },
+ {
+  "address": "1 1 AVENUE, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.72352,
+  "lng": -73.98964
+ },
+ {
+  "address": "100 1 AVENUE, Manhattan, NY 10009",
+  "borough": "Manhattan",
+  "zip": "10009",
+  "lat": 40.726389,
+  "lng": -73.98584
+ },
+ {
+  "address": "100 2 AVENUE, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.72712,
+  "lng": -73.988361
+ },
+ {
+  "address": "100 3 AVENUE, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.732516,
+  "lng": -73.988162
+ },
+ {
+  "address": "100 8 AVENUE, Manhattan, NY 10011",
+  "borough": "Manhattan",
+  "zip": "10011",
+  "lat": 40.740256,
+  "lng": -74.001854
+ },
+ {
+  "address": "100 AMSTERDAM AVENUE, Manhattan, NY 10023",
+  "borough": "Manhattan",
+  "zip": "10023",
+  "lat": 40.774194,
+  "lng": -73.985976
+ },
+ {
+  "address": "100 B'WAY, Manhattan, NY 10005",
+  "borough": "Manhattan",
+  "zip": "10005",
+  "lat": 40.707978,
+  "lng": -74.011102
+ },
+ {
+  "address": "100 COLUMBUS AVENUE, Manhattan, NY 10023",
+  "borough": "Manhattan",
+  "zip": "10023",
+  "lat": 40.772826,
+  "lng": -73.983019
+ },
+ {
+  "address": "100 EAST 14 STREET, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.733848,
+  "lng": -73.989483
+ },
+ {
+  "address": "100 LEXINGTON AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.74223,
+  "lng": -73.98308
+ },
+ {
+  "address": "100 MADISON AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.744934,
+  "lng": -73.985374
+ },
+ {
+  "address": "100 SAINT NICHOLAS' AVENUE, Manhattan, NY 10026",
+  "borough": "Manhattan",
+  "zip": "10026",
+  "lat": 40.802417,
+  "lng": -73.95228
+ },
+ {
+  "address": "100 WEST 145 STREET, Manhattan, NY 10039",
+  "borough": "Manhattan",
+  "zip": "10039",
+  "lat": 40.82061,
+  "lng": -73.93748
+ },
+ {
+  "address": "13 3 AVENUE, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.729248,
+  "lng": -73.989775
+ },
+ {
+  "address": "131 SAINT NICHOLAS AVENUE, Manhattan, NY 10026",
+  "borough": "Manhattan",
+  "zip": "10026",
+  "lat": 40.804094,
+  "lng": -73.953087
+ },
+ {
+  "address": "14 EAST 14 STREET, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.735344,
+  "lng": -73.993067
+ },
+ {
+  "address": "1400 1 AVENUE, Manhattan, NY 10021",
+  "borough": "Manhattan",
+  "zip": "10021",
+  "lat": 40.769264,
+  "lng": -73.954554
+ },
+ {
+  "address": "1400 2 AVENUE, Manhattan, NY 10021",
+  "borough": "Manhattan",
+  "zip": "10021",
+  "lat": 40.769188,
+  "lng": -73.957674
+ },
+ {
+  "address": "1400 3 AVENUE, Manhattan, NY 10075",
+  "borough": "Manhattan",
+  "zip": "10075",
+  "lat": 40.774914,
+  "lng": -73.957395
+ },
+ {
+  "address": "1400 AMSTERDAM AVENUE, Manhattan, NY 10027",
+  "borough": "Manhattan",
+  "zip": "10027",
+  "lat": 40.81573,
+  "lng": -73.955938
+ },
+ {
+  "address": "1400 B'WAY, Manhattan, NY 10018",
+  "borough": "Manhattan",
+  "zip": "10018",
+  "lat": 40.752961,
+  "lng": -73.986759
+ },
+ {
+  "address": "1400 LEXINGTON AVENUE, Manhattan, NY 10128",
+  "borough": "Manhattan",
+  "zip": "10128",
+  "lat": 40.783577,
+  "lng": -73.952818
+ },
+ {
+  "address": "1400 MADISON AVENUE, Manhattan, NY 10029",
+  "borough": "Manhattan",
+  "zip": "10029",
+  "lat": 40.788201,
+  "lng": -73.953712
+ },
+ {
+  "address": "1400 ST NICHOLAS AVENUE, Manhattan, NY 10033",
+  "borough": "Manhattan",
+  "zip": "10033",
+  "lat": 40.848801,
+  "lng": -73.933819
+ },
+ {
+  "address": "145 WEST 145 STREET, Manhattan, NY 10039",
+  "borough": "Manhattan",
+  "zip": "10039",
+  "lat": 40.821314,
+  "lng": -73.937671
+ },
+ {
+  "address": "1537 AMSTERDAM AVENUE, Manhattan, NY 10031",
+  "borough": "Manhattan",
+  "zip": "10031",
+  "lat": 40.819839,
+  "lng": -73.950866
+ },
+ {
+  "address": "1750 1 AVENUE, Manhattan, NY 10128",
+  "borough": "Manhattan",
+  "zip": "10128",
+  "lat": 40.779734,
+  "lng": -73.946946
+ },
+ {
+  "address": "1750 2 AVENUE, Manhattan, NY 10128",
+  "borough": "Manhattan",
+  "zip": "10128",
+  "lat": 40.781128,
+  "lng": -73.949045
+ },
+ {
+  "address": "1750 AMSTERDAM AVENUE, Manhattan, NY 10031",
+  "borough": "Manhattan",
+  "zip": "10031",
+  "lat": 40.826464,
+  "lng": -73.947465
+ },
+ {
+  "address": "1750 B'WAY, Manhattan, NY 10019",
+  "borough": "Manhattan",
+  "zip": "10019",
+  "lat": 40.764922,
+  "lng": -73.981653
+ },
+ {
+  "address": "2100 1 AVENUE, Manhattan, NY 10029",
+  "borough": "Manhattan",
+  "zip": "10029",
+  "lat": 40.790709,
+  "lng": -73.937569
+ },
+ {
+  "address": "2100 2 AVENUE, Manhattan, NY 10029",
+  "borough": "Manhattan",
+  "zip": "10029",
+  "lat": 40.791939,
+  "lng": -73.941164
+ },
+ {
+  "address": "2100 8 AVENUE, Manhattan, NY 10026",
+  "borough": "Manhattan",
+  "zip": "10026",
+  "lat": 40.802755,
+  "lng": -73.956193
+ },
+ {
+  "address": "2100 AMSTERDAM AVENUE, Manhattan, NY 10032",
+  "borough": "Manhattan",
+  "zip": "10032",
+  "lat": 40.837467,
+  "lng": -73.939071
+ },
+ {
+  "address": "2100 B'WAY, Manhattan, NY 10023",
+  "borough": "Manhattan",
+  "zip": "10023",
+  "lat": 40.779794,
+  "lng": -73.981172
+ },
+ {
+  "address": "2100 LEXINGTON AVENUE, Manhattan, NY 10035",
+  "borough": "Manhattan",
+  "zip": "10035",
+  "lat": 40.805607,
+  "lng": -73.937558
+ },
+ {
+  "address": "250 1 AVENUE, Manhattan, NY 10009",
+  "borough": "Manhattan",
+  "zip": "10009",
+  "lat": 40.731562,
+  "lng": -73.98191
+ },
+ {
+  "address": "250 2 AVENUE, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.733068,
+  "lng": -73.984181
+ },
+ {
+  "address": "250 3 AVENUE, Manhattan, NY 10010",
+  "borough": "Manhattan",
+  "zip": "10010",
+  "lat": 40.737351,
+  "lng": -73.984591
+ },
+ {
+  "address": "250 8 AVENUE, Manhattan, NY 10011",
+  "borough": "Manhattan",
+  "zip": "10011",
+  "lat": 40.744981,
+  "lng": -73.998391
+ },
+ {
+  "address": "250 B'WAY, Manhattan, NY 10007",
+  "borough": "Manhattan",
+  "zip": "10007",
+  "lat": 40.712988,
+  "lng": -74.007842
+ },
+ {
+  "address": "250 COLUMBUS AVENUE, Manhattan, NY 10023",
+  "borough": "Manhattan",
+  "zip": "10023",
+  "lat": 40.777267,
+  "lng": -73.979216
+ },
+ {
+  "address": "250 EAST 14 STREET, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.732299,
+  "lng": -73.98547
+ },
+ {
+  "address": "250 LEXINGTON AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.746893,
+  "lng": -73.97971
+ },
+ {
+  "address": "250 MADISON AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.750751,
+  "lng": -73.981253
+ },
+ {
+  "address": "250 SAINT NICHOLAS AVENUE, Manhattan, NY 10027",
+  "borough": "Manhattan",
+  "zip": "10027",
+  "lat": 40.80881,
+  "lng": -73.952574
+ },
+ {
+  "address": "250 WEST 145 STREET, Manhattan, NY 10039",
+  "borough": "Manhattan",
+  "zip": "10039",
+  "lat": 40.822099,
+  "lng": -73.940896
+ },
+ {
+  "address": "26 MADISON AVENUE, Manhattan, NY 10010",
+  "borough": "Manhattan",
+  "zip": "10010",
+  "lat": 40.741519,
+  "lng": -73.988175
+ },
+ {
+  "address": "29 COLUMBUS AVENUE, Manhattan, NY 10023",
+  "borough": "Manhattan",
+  "zip": "10023",
+  "lat": 40.769922,
+  "lng": -73.983777
+ },
+ {
+  "address": "3100 B'WAY, Manhattan, NY 10027",
+  "borough": "Manhattan",
+  "zip": "10027",
+  "lat": 40.812989,
+  "lng": -73.959838
+ },
+ {
+  "address": "450 1 AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.73875,
+  "lng": -73.97534
+ },
+ {
+  "address": "450 3 AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.744547,
+  "lng": -73.980283
+ },
+ {
+  "address": "450 8 AVENUE, Manhattan, NY 10001",
+  "borough": "Manhattan",
+  "zip": "10001",
+  "lat": 40.750518,
+  "lng": -73.993527
+ },
+ {
+  "address": "450 AMSTERDAM AVENUE, Manhattan, NY 10024",
+  "borough": "Manhattan",
+  "zip": "10024",
+  "lat": 40.784992,
+  "lng": -73.977328
+ },
+ {
+  "address": "450 B'WAY, Manhattan, NY 10013",
+  "borough": "Manhattan",
+  "zip": "10013",
+  "lat": 40.720345,
+  "lng": -74.000699
+ },
+ {
+  "address": "450 COLUMBUS AVENUE, Manhattan, NY 10024",
+  "borough": "Manhattan",
+  "zip": "10024",
+  "lat": 40.783741,
+  "lng": -73.974652
+ },
+ {
+  "address": "450 LEXINGTON AVENUE, Manhattan, NY 10017",
+  "borough": "Manhattan",
+  "zip": "10017",
+  "lat": 40.753267,
+  "lng": -73.975445
+ },
+ {
+  "address": "450 MADISON AVENUE, Manhattan, NY 10017",
+  "borough": "Manhattan",
+  "zip": "10017",
+  "lat": 40.757601,
+  "lng": -73.976097
+ },
+ {
+  "address": "450 SAINT NICHOLAS' AVENUE, Manhattan, NY 10027",
+  "borough": "Manhattan",
+  "zip": "10027",
+  "lat": 40.81517,
+  "lng": -73.948512
+ },
+ {
+  "address": "450 WEST 145 STREET, Manhattan, NY 10031",
+  "borough": "Manhattan",
+  "zip": "10031",
+  "lat": 40.824651,
+  "lng": -73.946807
+ },
+ {
+  "address": "5 LEXINGTON AVENUE, Manhattan, NY 10010",
+  "borough": "Manhattan",
+  "zip": "10010",
+  "lat": 40.738348,
+  "lng": -73.98533
+ },
+ {
+  "address": "550 1 AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.741501,
+  "lng": -73.973471
+ },
+ {
+  "address": "550 2 AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.74271,
+  "lng": -73.97677
+ },
+ {
+  "address": "550 3 AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.747433,
+  "lng": -73.977253
+ },
+ {
+  "address": "550 8 AVENUE, Manhattan, NY 10018",
+  "borough": "Manhattan",
+  "zip": "10018",
+  "lat": 40.754158,
+  "lng": -73.991624
+ },
+ {
+  "address": "550 AMSTERDAM AVENUE, Manhattan, NY 10024",
+  "borough": "Manhattan",
+  "zip": "10024",
+  "lat": 40.788339,
+  "lng": -73.975977
+ },
+ {
+  "address": "550 B'WAY, Manhattan, NY 10012",
+  "borough": "Manhattan",
+  "zip": "10012",
+  "lat": 40.72356,
+  "lng": -73.998015
+ },
+ {
+  "address": "550 COLUMBUS AVENUE, Manhattan, NY 10024",
+  "borough": "Manhattan",
+  "zip": "10024",
+  "lat": 40.78707,
+  "lng": -73.972023
+ },
+ {
+  "address": "550 LEXINGTON AVENUE, Manhattan, NY 10022",
+  "borough": "Manhattan",
+  "zip": "10022",
+  "lat": 40.756511,
+  "lng": -73.973347
+ },
+ {
+  "address": "550 MADISON AVENUE, Manhattan, NY 10022",
+  "borough": "Manhattan",
+  "zip": "10022",
+  "lat": 40.761483,
+  "lng": -73.973504
+ },
+ {
+  "address": "550 ST NICHOLAS AVENUE, Manhattan, NY 10030",
+  "borough": "Manhattan",
+  "zip": "10030",
+  "lat": 40.818866,
+  "lng": -73.946927
+ },
+ {
+  "address": "550 WEST 145 STREET, Manhattan, NY 10031",
+  "borough": "Manhattan",
+  "zip": "10031",
+  "lat": 40.826033,
+  "lng": -73.950231
+ },
+ {
+  "address": "620 2 AVENUE, Manhattan, NY 10016",
+  "borough": "Manhattan",
+  "zip": "10016",
+  "lat": 40.744308,
+  "lng": -73.975523
+ },
+ {
+  "address": "620 8 AVENUE, Manhattan, NY 10018",
+  "borough": "Manhattan",
+  "zip": "10018",
+  "lat": 40.755913,
+  "lng": -73.989658
+ },
+ {
+  "address": "620 AMSTERDAM AVENUE, Manhattan, NY 10024",
+  "borough": "Manhattan",
+  "zip": "10024",
+  "lat": 40.790592,
+  "lng": -73.973407
+ },
+ {
+  "address": "620 BROADWAY, Manhattan, NY 10012",
+  "borough": "Manhattan",
+  "zip": "10012",
+  "lat": 40.725655,
+  "lng": -73.995998
+ },
+ {
+  "address": "620 COLUMBUS AVENUE, Manhattan, NY 10024",
+  "borough": "Manhattan",
+  "zip": "10024",
+  "lat": 40.789393,
+  "lng": -73.970394
+ },
+ {
+  "address": "620 EAST 14 STREET, Manhattan, NY 10009",
+  "borough": "Manhattan",
+  "zip": "10009",
+  "lat": 40.728849,
+  "lng": -73.977525
+ },
+ {
+  "address": "620 LEXINGTON AVENUE, Manhattan, NY 10022",
+  "borough": "Manhattan",
+  "zip": "10022",
+  "lat": 40.758996,
+  "lng": -73.971479
+ },
+ {
+  "address": "620 MADISON AVENUE, Manhattan, NY 10022",
+  "borough": "Manhattan",
+  "zip": "10022",
+  "lat": 40.76354,
+  "lng": -73.972249
+ },
+ {
+  "address": "620 ST NICHOLAS AVENUE, Manhattan, NY 10030",
+  "borough": "Manhattan",
+  "zip": "10030",
+  "lat": 40.820996,
+  "lng": -73.945873
+ },
+ {
+  "address": "620 WEST 145 STREET, Manhattan, NY 10031",
+  "borough": "Manhattan",
+  "zip": "10031",
+  "lat": 40.826736,
+  "lng": -73.951697
+ },
+ {
+  "address": "8 8 AVENUE, Manhattan, NY 10014",
+  "borough": "Manhattan",
+  "zip": "10014",
+  "lat": 40.737168,
+  "lng": -74.00492
+ },
+ {
+  "address": "900 1 AVENUE, Manhattan, NY 10022",
+  "borough": "Manhattan",
+  "zip": "10022",
+  "lat": 40.754229,
+  "lng": -73.965624
+ },
+ {
+  "address": "900 2 AVENUE, Manhattan, NY 10017",
+  "borough": "Manhattan",
+  "zip": "10017",
+  "lat": 40.753165,
+  "lng": -73.969364
+ },
+ {
+  "address": "900 3 AVENUE, Manhattan, NY 10022",
+  "borough": "Manhattan",
+  "zip": "10022",
+  "lat": 40.758725,
+  "lng": -73.969109
+ },
+ {
+  "address": "900 8 AVENUE, Manhattan, NY 10019",
+  "borough": "Manhattan",
+  "zip": "10019",
+  "lat": 40.764335,
+  "lng": -73.984141
+ },
+ {
+  "address": "900 AMSTERDAM AVENUE, Manhattan, NY 10025",
+  "borough": "Manhattan",
+  "zip": "10025",
+  "lat": 40.799375,
+  "lng": -73.966897
+ },
+ {
+  "address": "900 B'WAY, Manhattan, NY 10003",
+  "borough": "Manhattan",
+  "zip": "10003",
+  "lat": 40.738857,
+  "lng": -73.989514
+ },
+ {
+  "address": "900 COLUMBUS AVENUE, Manhattan, NY 10025",
+  "borough": "Manhattan",
+  "zip": "10025",
+  "lat": 40.798226,
+  "lng": -73.963899
+ },
+ {
+  "address": "900 MADISON AVENUE, Manhattan, NY 10021",
+  "borough": "Manhattan",
+  "zip": "10021",
+  "lat": 40.772375,
+  "lng": -73.965284
+ },
+ {
+  "address": "900 SAINT NICHOLAS' AVENUE, Manhattan, NY 10032",
+  "borough": "Manhattan",
+  "zip": "10032",
+  "lat": 40.831061,
+  "lng": -73.941054
+ },
+ {
+  "address": "1-05 ASTORIA BOULEVARD, Queens, NY 11102",
+  "borough": "Queens",
+  "zip": "11102",
+  "lat": 40.77419,
+  "lng": -73.936466
+ },
+ {
+  "address": "104 ASTORIA BOULEVARD, Queens, NY 11102",
+  "borough": "Queens",
+  "zip": "11102",
+  "lat": 40.773724,
+  "lng": -73.937387
+ },
+ {
+  "address": "104 HILLSIDE AVENUE, Queens, NY 11697",
+  "borough": "Queens",
+  "zip": "11697",
+  "lat": 40.56648,
+  "lng": -73.89113
+ },
+ {
+  "address": "104-07 UNION TURNPIKE, Queens, NY 11375",
+  "borough": "Queens",
+  "zip": "11375",
+  "lat": 40.708761,
+  "lng": -73.849085
+ },
+ {
+  "address": "104-12 SPRINGFIELD BOULEVARD, Queens, NY 11429",
+  "borough": "Queens",
+  "zip": "11429",
+  "lat": 40.711031,
+  "lng": -73.73766
+ },
+ {
+  "address": "104-20 37 DRIVE, Queens, NY 11368",
+  "borough": "Queens",
+  "zip": "11368",
+  "lat": 40.752289,
+  "lng": -73.862099
+ },
+ {
+  "address": "104-20 JAMAICA AVENUE, Queens, NY 11418",
+  "borough": "Queens",
+  "zip": "11418",
+  "lat": 40.695041,
+  "lng": -73.842637
+ },
+ {
+  "address": "104-20 LIBERTY AVENUE, Queens, NY 11417",
+  "borough": "Queens",
+  "zip": "11417",
+  "lat": 40.682122,
+  "lng": -73.836245
+ },
+ {
+  "address": "104-20 MERRICK BOULEVARD, Queens, NY 11433",
+  "borough": "Queens",
+  "zip": "11433",
+  "lat": 40.70108,
+  "lng": -73.79035
+ },
+ {
+  "address": "104-20 NORTHERN BOULEVARD, Queens, NY 11368",
+  "borough": "Queens",
+  "zip": "11368",
+  "lat": 40.757452,
+  "lng": -73.863865
+ },
+ {
+  "address": "104-20 QUEENS BOULEVARD, Queens, NY 11375",
+  "borough": "Queens",
+  "zip": "11375",
+  "lat": 40.723907,
+  "lng": -73.850086
+ },
+ {
+  "address": "104-20 ROOSEVELT AVENUE, Queens, NY 11368",
+  "borough": "Queens",
+  "zip": "11368",
+  "lat": 40.74989,
+  "lng": -73.860862
+ },
+ {
+  "address": "107-05 MERRICK BOULEVARD, Queens, NY 11433",
+  "borough": "Queens",
+  "zip": "11433",
+  "lat": 40.700019,
+  "lng": -73.788159
+ },
+ {
+  "address": "108-45 MERRICK BOULEVARD, Queens, NY 11433",
+  "borough": "Queens",
+  "zip": "11433",
+  "lat": 40.698033,
+  "lng": -73.785178
+ },
+ {
+  "address": "12-12 37 AVENUE, Queens, NY 11101",
+  "borough": "Queens",
+  "zip": "11101",
+  "lat": 40.759085,
+  "lng": -73.939638
+ },
+ {
+  "address": "12-12 ASTORIA BOULEVARD, Queens, NY 11102",
+  "borough": "Queens",
+  "zip": "11102",
+  "lat": 40.771749,
+  "lng": -73.92956
+ },
+ {
+  "address": "132-12 HILLSIDE AVENUE, Queens, NY 11418",
+  "borough": "Queens",
+  "zip": "11418",
+  "lat": 40.703648,
+  "lng": -73.82013
+ },
+ {
+  "address": "132-12 JAMAICA AVENUE, Queens, NY 11418",
+  "borough": "Queens",
+  "zip": "11418",
+  "lat": 40.701954,
+  "lng": -73.819952
+ },
+ {
+  "address": "132-12 MERRICK BOULEVARD, Queens, NY 11434",
+  "borough": "Queens",
+  "zip": "11434",
+  "lat": 40.677056,
+  "lng": -73.757607
+ },
+ {
+  "address": "132-17 LIBERTY AVENUE, Queens, NY 11419",
+  "borough": "Queens",
+  "zip": "11419",
+  "lat": 40.691022,
+  "lng": -73.813718
+ },
+ {
+  "address": "132-45 SPRINGFIELD BOULEVARD, Queens, NY 11413",
+  "borough": "Queens",
+  "zip": "11413",
+  "lat": 40.681577,
+  "lng": -73.751734
+ },
+ {
+  "address": "141-45 UNION TURNPIKE, Queens, NY 11367",
+  "borough": "Queens",
+  "zip": "11367",
+  "lat": 40.718037,
+  "lng": -73.817885
+ },
+ {
+  "address": "150-30 HILLSIDE AVENUE, Queens, NY 11432",
+  "borough": "Queens",
+  "zip": "11432",
+  "lat": 40.706699,
+  "lng": -73.805396
+ },
+ {
+  "address": "150-30 JAMAICA AVENUE, Queens, NY 11432",
+  "borough": "Queens",
+  "zip": "11432",
+  "lat": 40.70197,
+  "lng": -73.803713
+ },
+ {
+  "address": "150-30 LIBERTY AVENUE, Queens, NY 11433",
+  "borough": "Queens",
+  "zip": "11433",
+  "lat": 40.69805,
+  "lng": -73.80138
+ },
+ {
+  "address": "150-30 NORTHERN BOULEVARD, Queens, NY 11354",
+  "borough": "Queens",
+  "zip": "11354",
+  "lat": 40.764928,
+  "lng": -73.813653
+ },
+ {
+  "address": "150-30 ROOSEVELT AVENUE, Queens, NY 11354",
+  "borough": "Queens",
+  "zip": "11354",
+  "lat": 40.763756,
+  "lng": -73.813288
+ },
+ {
+  "address": "150-30 UNION TURNPIKE, Queens, NY 11367",
+  "borough": "Queens",
+  "zip": "11367",
+  "lat": 40.718714,
+  "lng": -73.811379
+ },
+ {
+  "address": "171-45 LIBERTY AVENUE, Queens, NY 11433",
+  "borough": "Queens",
+  "zip": "11433",
+  "lat": 40.704389,
+  "lng": -73.786126
+ },
+ {
+  "address": "18-22 ASTORIA BOULEVARD, Queens, NY 11102",
+  "borough": "Queens",
+  "zip": "11102",
+  "lat": 40.772137,
+  "lng": -73.926572
+ },
+ {
+  "address": "18-30 ASTORIA BOULEVARD, Queens, NY 11102",
+  "borough": "Queens",
+  "zip": "11102",
+  "lat": 40.77211,
+  "lng": -73.92645
+ },
+ {
+  "address": "180-68 UNION TURNPIKE, Queens, NY 11366",
+  "borough": "Queens",
+  "zip": "11366",
+  "lat": 40.727064,
+  "lng": -73.786959
+ },
+ {
+  "address": "186-37 MERRICK BOULEVARD, Queens, NY 11413",
+  "borough": "Queens",
+  "zip": "11413",
+  "lat": 40.680507,
+  "lng": -73.75429
+ },
+ {
+  "address": "188-00 NORTHERN BOULEVARD, Queens, NY 11358",
+  "borough": "Queens",
+  "zip": "11358",
+  "lat": 40.757519,
+  "lng": -73.792762
+ },
+ {
+  "address": "188-04 LIBERTY AVENUE, Queens, NY 11412",
+  "borough": "Queens",
+  "zip": "11412",
+  "lat": 40.703633,
+  "lng": -73.768711
+ },
+ {
+  "address": "188-11 MERRICK BOULEVARD, Queens, NY 11413",
+  "borough": "Queens",
+  "zip": "11413",
+  "lat": 40.680485,
+  "lng": -73.753427
+ },
+ {
+  "address": "188-22 JAMAICA AVENUE, Queens, NY 11423",
+  "borough": "Queens",
+  "zip": "11423",
+  "lat": 40.71117,
+  "lng": -73.7699
+ },
+ {
+  "address": "188-22 UNION TURNPIKE, Queens, NY 11366",
+  "borough": "Queens",
+  "zip": "11366",
+  "lat": 40.729121,
+  "lng": -73.780587
+ },
+ {
+  "address": "206-10 HILLSIDE AVENUE, Queens, NY 11427",
+  "borough": "Queens",
+  "zip": "11427",
+  "lat": 40.721157,
+  "lng": -73.75888
+ },
+ {
+  "address": "211-45 JAMAICA AVENUE, Queens, NY 11428",
+  "borough": "Queens",
+  "zip": "11428",
+  "lat": 40.715686,
+  "lng": -73.74786
+ },
+ {
+  "address": "212-45 HILLSIDE AVENUE, Queens, NY 11427",
+  "borough": "Queens",
+  "zip": "11427",
+  "lat": 40.725814,
+  "lng": -73.752979
+ },
+ {
+  "address": "215-05 HILLSIDE AVENUE, Queens, NY 11427",
+  "borough": "Queens",
+  "zip": "11427",
+  "lat": 40.727159,
+  "lng": -73.749806
+ },
+ {
+  "address": "215-05 JAMAICA AVENUE, Queens, NY 11428",
+  "borough": "Queens",
+  "zip": "11428",
+  "lat": 40.717358,
+  "lng": -73.740608
+ },
+ {
+  "address": "215-05 NORTHERN BOULEVARD, Queens, NY 11361",
+  "borough": "Queens",
+  "zip": "11361",
+  "lat": 40.760866,
+  "lng": -73.767331
+ },
+ {
+  "address": "215-05 SPRINGFIELD BOULEVARD, Queens, NY 11411",
+  "borough": "Queens",
+  "zip": "11411",
+  "lat": 40.69866,
+  "lng": -73.742314
+ },
+ {
+  "address": "215-18 UNION TURNPIKE, Queens, NY 11364",
+  "borough": "Queens",
+  "zip": "11364",
+  "lat": 40.734029,
+  "lng": -73.755457
+ },
+ {
+  "address": "215-37 HILLSIDE AVENUE, Queens, NY 11427",
+  "borough": "Queens",
+  "zip": "11427",
+  "lat": 40.727608,
+  "lng": -73.748939
+ },
+ {
+  "address": "215-40 JAMAICA AVENUE, Queens, NY 11428",
+  "borough": "Queens",
+  "zip": "11428",
+  "lat": 40.71711,
+  "lng": -73.73924
+ },
+ {
+  "address": "218-97 MERRICK BOULEVARD, Queens, NY 11413",
+  "borough": "Queens",
+  "zip": "11413",
+  "lat": 40.679753,
+  "lng": -73.750366
+ },
+ {
+  "address": "223-12 UNION TURNPIKE, Queens, NY 11364",
+  "borough": "Queens",
+  "zip": "11364",
+  "lat": 40.73536,
+  "lng": -73.74731
+ },
+ {
+  "address": "25-25 37 AVENUE, Queens, NY 11101",
+  "borough": "Queens",
+  "zip": "11101",
+  "lat": 40.75711,
+  "lng": -73.93311
+ },
+ {
+  "address": "25-25 ASTORIA BOULEVARD, Queens, NY 11102",
+  "borough": "Queens",
+  "zip": "11102",
+  "lat": 40.771359,
+  "lng": -73.921786
+ },
+ {
+  "address": "257-37 UNION TURNPIKE, Queens, NY 11004",
+  "borough": "Queens",
+  "zip": "11004",
+  "lat": 40.746454,
+  "lng": -73.713957
+ },
+ {
+  "address": "30-09 37 AVENUE, Queens, NY 11101",
+  "borough": "Queens",
+  "zip": "11101",
+  "lat": 40.755453,
+  "lng": -73.931269
+ },
+ {
+  "address": "30-30 NORTHERN BOULEVARD, Queens, NY 11101",
+  "borough": "Queens",
+  "zip": "11101",
+  "lat": 40.751031,
+  "lng": -73.933428
+ },
+ {
+  "address": "30-68 37 STREET, Queens, NY 11103",
+  "borough": "Queens",
+  "zip": "11103",
+  "lat": 40.763051,
+  "lng": -73.918146
+ },
+ {
+  "address": "37-000 QUEENS BOULEVARD, Queens, NY 11374",
+  "borough": "Queens",
+  "zip": "11374",
+  "lat": 40.727077,
+  "lng": -73.855153
+ },
+ {
+  "address": "37-000 WOODHAVEN BOULEVARD, Queens, NY 11374",
+  "borough": "Queens",
+  "zip": "11374",
+  "lat": 40.721615,
+  "lng": -73.867178
+ },
+ {
+  "address": "37-05 37 AVENUE, Queens, NY 11101",
+  "borough": "Queens",
+  "zip": "11101",
+  "lat": 40.75252,
+  "lng": -73.92614
+ },
+ {
+  "address": "40-40 NORTHERN BOULEVARD, Queens, NY 11101",
+  "borough": "Queens",
+  "zip": "11101",
+  "lat": 40.752187,
+  "lng": -73.92307
+ },
+ {
+  "address": "45-06 ASTORIA BOULEVARD, Queens, NY 11103",
+  "borough": "Queens",
+  "zip": "11103",
+  "lat": 40.767739,
+  "lng": -73.905945
+ },
+ {
+  "address": "45-15 37 STREET, Queens, NY 11101",
+  "borough": "Queens",
+  "zip": "11101",
+  "lat": 40.74371,
+  "lng": -73.92776
+ },
+ {
+  "address": "45-15 NORTHERN BOULEVARD, Queens, NY 11101",
+  "borough": "Queens",
+  "zip": "11101",
+  "lat": 40.754232,
+  "lng": -73.916931
+ },
+ {
+  "address": "45-15 QUEENS BOULEVARD, Queens, NY 11104",
+  "borough": "Queens",
+  "zip": "11104",
+  "lat": 40.743602,
+  "lng": -73.918815
+ },
+ {
+  "address": "54-05 QUEENS BOULEVARD, Queens, NY 11377",
+  "borough": "Queens",
+  "zip": "11377",
+  "lat": 40.74256,
+  "lng": -73.91071
+ },
+ {
+  "address": "68 HILLSIDE AVENUE, Queens, NY 11697",
+  "borough": "Queens",
+  "zip": "11697",
+  "lat": 40.566697,
+  "lng": -73.88841
+ },
+ {
+  "address": "68-05 WOODHAVEN BOULEVARD, Queens, NY 11374",
+  "borough": "Queens",
+  "zip": "11374",
+  "lat": 40.715446,
+  "lng": -73.860098
+ },
+ {
+  "address": "68-30 ROOSEVELT AVENUE, Queens, NY 11377",
+  "borough": "Queens",
+  "zip": "11377",
+  "lat": 40.746081,
+  "lng": -73.89653
+ },
+ {
+  "address": "68-30 SPRINGFIELD BOULEVARD, Queens, NY 11364",
+  "borough": "Queens",
+  "zip": "11364",
+  "lat": 40.743679,
+  "lng": -73.754971
+ },
+ {
+  "address": "78-05 ROOSEVELT AVENUE, Queens, NY 11372",
+  "borough": "Queens",
+  "zip": "11372",
+  "lat": 40.747518,
+  "lng": -73.887403
+ },
+ {
+  "address": "80-22 37 AVENUE, Queens, NY 11372",
+  "borough": "Queens",
+  "zip": "11372",
+  "lat": 40.749411,
+  "lng": -73.885485
+ },
+ {
+  "address": "88-10 37 AVENUE, Queens, NY 11372",
+  "borough": "Queens",
+  "zip": "11372",
+  "lat": 40.750168,
+  "lng": -73.878063
+ },
+ {
+  "address": "88-10 JAMAICA AVENUE, Queens, NY 11421",
+  "borough": "Queens",
+  "zip": "11421",
+  "lat": 40.692433,
+  "lng": -73.855983
+ },
+ {
+  "address": "88-10 LIBERTY AVENUE, Queens, NY 11417",
+  "borough": "Queens",
+  "zip": "11417",
+  "lat": 40.679708,
+  "lng": -73.850123
+ },
+ {
+  "address": "88-10 MERRICK BOULEVARD, Queens, NY 11432",
+  "borough": "Queens",
+  "zip": "11432",
+  "lat": 40.708569,
+  "lng": -73.796319
+ },
+ {
+  "address": "88-10 NORTHERN BOULEVARD, Queens, NY 11372",
+  "borough": "Queens",
+  "zip": "11372",
+  "lat": 40.75593,
+  "lng": -73.879395
+ },
+ {
+  "address": "88-10 QUEENS BOULEVARD, Queens, NY 11373",
+  "borough": "Queens",
+  "zip": "11373",
+  "lat": 40.734709,
+  "lng": -73.875394
+ },
+ {
+  "address": "88-10 ROOSEVELT AVENUE, Queens, NY 11372",
+  "borough": "Queens",
+  "zip": "11372",
+  "lat": 40.748016,
+  "lng": -73.878182
+ },
+ {
+  "address": "88-10 SPRINGFIELD BOULEVARD, Queens, NY 11427",
+  "borough": "Queens",
+  "zip": "11427",
+  "lat": 40.729242,
+  "lng": -73.744396
+ },
+ {
+  "address": "88-15 ASTORIA BOULEVARD, Queens, NY 11369",
+  "borough": "Queens",
+  "zip": "11369",
+  "lat": 40.76422,
+  "lng": -73.88061
+ },
+ {
+  "address": "88-41 UNION TURNPIKE, Queens, NY 11385",
+  "borough": "Queens",
+  "zip": "11385",
+  "lat": 40.705615,
+  "lng": -73.858909
+ },
+ {
+  "address": "89-37 SPRINGFIELD BOULEVARD, Queens, NY 11427",
+  "borough": "Queens",
+  "zip": "11427",
+  "lat": 40.728265,
+  "lng": -73.742687
+ },
+ {
+  "address": "92-30 MERRICK BOULEVARD, Queens, NY 11433",
+  "borough": "Queens",
+  "zip": "11433",
+  "lat": 40.704716,
+  "lng": -73.79378
+ },
+ {
+  "address": "93-30 SPRINGFIELD BOULEVARD, Queens, NY 11428",
+  "borough": "Queens",
+  "zip": "11428",
+  "lat": 40.721535,
+  "lng": -73.736727
+ },
+ {
+  "address": "94-37 JAMAICA AVENUE, Queens, NY 11421",
+  "borough": "Queens",
+  "zip": "11421",
+  "lat": 40.71541,
+  "lng": -73.749325
+ },
+ {
+  "address": "94-45 SPRINGFIELD BOULEVARD, Queens, NY 11428",
+  "borough": "Queens",
+  "zip": "11428",
+  "lat": 40.72006,
+  "lng": -73.735556
+ },
+ {
+  "address": "97 HILLSIDE AVENUE, Queens, NY 11697",
+  "borough": "Queens",
+  "zip": "11697",
+  "lat": 40.56703,
+  "lng": -73.890817
+ },
+ {
+  "address": "97-03 SPRINGFIELD BOULEVARD, Queens, NY 11429",
+  "borough": "Queens",
+  "zip": "11429",
+  "lat": 40.717027,
+  "lng": -73.735191
+ },
+ {
+  "address": "97-11 ASTORIA BOULEVARD, Queens, NY 11369",
+  "borough": "Queens",
+  "zip": "11369",
+  "lat": 40.762663,
+  "lng": -73.871702
+ },
+ {
+  "address": "97-14 ROOSEVELT AVENUE, Queens, NY 11368",
+  "borough": "Queens",
+  "zip": "11368",
+  "lat": 40.749151,
+  "lng": -73.867933
+ },
+ {
+  "address": "97-19 37 AVENUE, Queens, NY 11368",
+  "borough": "Queens",
+  "zip": "11368",
+  "lat": 40.752197,
+  "lng": -73.869323
+ },
+ {
+  "address": "97-40 QUEENS BOULEVARD, Queens, NY 11374",
+  "borough": "Queens",
+  "zip": "11374",
+  "lat": 40.72851,
+  "lng": -73.859389
+ },
+ {
+  "address": "100 CASTLETON AVENUE, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.634145,
+  "lng": -74.087456
+ },
+ {
+  "address": "100 NEW DORP LANE, Staten Island, NY 10306",
+  "borough": "Staten Island",
+  "zip": "10306",
+  "lat": 40.57418,
+  "lng": -74.117045
+ },
+ {
+  "address": "100 OLD AMBOY ROAD, Staten Island, NY 10312",
+  "borough": "Staten Island",
+  "zip": "10312",
+  "lat": 40.54383,
+  "lng": -74.161551
+ },
+ {
+  "address": "100 RICHMOND HILL ROAD, Staten Island, NY 10314",
+  "borough": "Staten Island",
+  "zip": "10314",
+  "lat": 40.583749,
+  "lng": -74.165273
+ },
+ {
+  "address": "100 RICHMOND TERRACE, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.645062,
+  "lng": -74.077804
+ },
+ {
+  "address": "100 TARGEE STREET, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.62462,
+  "lng": -74.083868
+ },
+ {
+  "address": "100 VICTORY BOULEVARD, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.637607,
+  "lng": -74.079731
+ },
+ {
+  "address": "1400 BAY STREET, Staten Island, NY 10305",
+  "borough": "Staten Island",
+  "zip": "10305",
+  "lat": 40.60944,
+  "lng": -74.063063
+ },
+ {
+  "address": "1400 CASTLETON AVENUE, Staten Island, NY 10302",
+  "borough": "Staten Island",
+  "zip": "10302",
+  "lat": 40.633697,
+  "lng": -74.129805
+ },
+ {
+  "address": "1400 CLOVE ROAD, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.613354,
+  "lng": -74.100732
+ },
+ {
+  "address": "1400 FOREST AVENUE, Staten Island, NY 10302",
+  "borough": "Staten Island",
+  "zip": "10302",
+  "lat": 40.625035,
+  "lng": -74.135515
+ },
+ {
+  "address": "1400 HYLAN BOULEVARD, Staten Island, NY 10305",
+  "borough": "Staten Island",
+  "zip": "10305",
+  "lat": 40.594252,
+  "lng": -74.086204
+ },
+ {
+  "address": "1400 RICHMOND AVENUE, Staten Island, NY 10314",
+  "borough": "Staten Island",
+  "zip": "10314",
+  "lat": 40.61426,
+  "lng": -74.158101
+ },
+ {
+  "address": "1400 RICHMOND ROAD, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.59474,
+  "lng": -74.097968
+ },
+ {
+  "address": "1750 FOREST HIL ROAD, Staten Island, NY 10314",
+  "borough": "Staten Island",
+  "zip": "10314",
+  "lat": 40.578677,
+  "lng": -74.157207
+ },
+ {
+  "address": "1750 HYLAN BOULEVARD, Staten Island, NY 10305",
+  "borough": "Staten Island",
+  "zip": "10305",
+  "lat": 40.586065,
+  "lng": -74.092067
+ },
+ {
+  "address": "1750 RICHMOND AVENUE, Staten Island, NY 10314",
+  "borough": "Staten Island",
+  "zip": "10314",
+  "lat": 40.605713,
+  "lng": -74.162717
+ },
+ {
+  "address": "1750 RICHMOND ROAD, Staten Island, NY 10306",
+  "borough": "Staten Island",
+  "zip": "10306",
+  "lat": 40.587267,
+  "lng": -74.103198
+ },
+ {
+  "address": "1937 FOREST AVENUE, Staten Island, NY 10303",
+  "borough": "Staten Island",
+  "zip": "10303",
+  "lat": 40.62611,
+  "lng": -74.15383
+ },
+ {
+  "address": "2100 CLOVE ROAD, Staten Island, NY 10305",
+  "borough": "Staten Island",
+  "zip": "10305",
+  "lat": 40.60337,
+  "lng": -74.083443
+ },
+ {
+  "address": "2100 HYLAN BOULEVARD, Staten Island, NY 10306",
+  "borough": "Staten Island",
+  "zip": "10306",
+  "lat": 40.578844,
+  "lng": -74.100952
+ },
+ {
+  "address": "2100 RICHMOND ROAD, Staten Island, NY 10306",
+  "borough": "Staten Island",
+  "zip": "10306",
+  "lat": 40.581582,
+  "lng": -74.111161
+ },
+ {
+  "address": "2100 RICHMOND TERRACE, Staten Island, NY 10302",
+  "borough": "Staten Island",
+  "zip": "10302",
+  "lat": 40.64007,
+  "lng": -74.1333
+ },
+ {
+  "address": "2100 VICTORY BOULEVARD, Staten Island, NY 10314",
+  "borough": "Staten Island",
+  "zip": "10314",
+  "lat": 40.61214,
+  "lng": -74.133712
+ },
+ {
+  "address": "2246 CLOVE ROAD, Staten Island, NY 10305",
+  "borough": "Staten Island",
+  "zip": "10305",
+  "lat": 40.599609,
+  "lng": -74.081503
+ },
+ {
+  "address": "2411 RICHMOND ROAD, Staten Island, NY 10306",
+  "borough": "Staten Island",
+  "zip": "10306",
+  "lat": 40.57662,
+  "lng": -74.118955
+ },
+ {
+  "address": "250 CLOVE ROAD, Staten Island, NY 10310",
+  "borough": "Staten Island",
+  "zip": "10310",
+  "lat": 40.633995,
+  "lng": -74.126171
+ },
+ {
+  "address": "250 PORT RICHMOND AVENUE, Staten Island, NY 10302",
+  "borough": "Staten Island",
+  "zip": "10302",
+  "lat": 40.635232,
+  "lng": -74.135557
+ },
+ {
+  "address": "250 VICTORY BOULEVARD, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.635488,
+  "lng": -74.0839
+ },
+ {
+  "address": "2535 VICTORY BOULEVARD, Staten Island, NY 10314",
+  "borough": "Staten Island",
+  "zip": "10314",
+  "lat": 40.6103,
+  "lng": -74.147706
+ },
+ {
+  "address": "31 NEW DORP LANE, Staten Island, NY 10306",
+  "borough": "Staten Island",
+  "zip": "10306",
+  "lat": 40.575535,
+  "lng": -74.118792
+ },
+ {
+  "address": "3100 RICHMOND TERRACE, Staten Island, NY 10303",
+  "borough": "Staten Island",
+  "zip": "10303",
+  "lat": 40.638076,
+  "lng": -74.162756
+ },
+ {
+  "address": "3457 HYLAN BOULEVARD, Staten Island, NY 10306",
+  "borough": "Staten Island",
+  "zip": "10306",
+  "lat": 40.552791,
+  "lng": -74.133169
+ },
+ {
+  "address": "35 TARGEE STREET, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.626377,
+  "lng": -74.083042
+ },
+ {
+  "address": "3737 AMBOY ROAD, Staten Island, NY 10308",
+  "borough": "Staten Island",
+  "zip": "10308",
+  "lat": 40.552394,
+  "lng": -74.14414
+ },
+ {
+  "address": "450 ARTHUR KILL ROAD, Staten Island, NY 10308",
+  "borough": "Staten Island",
+  "zip": "10308",
+  "lat": 40.563256,
+  "lng": -74.155999
+ },
+ {
+  "address": "450 BAY STREET, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.631129,
+  "lng": -74.076868
+ },
+ {
+  "address": "450 CASTLETON AVENUE, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.633805,
+  "lng": -74.097427
+ },
+ {
+  "address": "450 CLOVE ROAD, Staten Island, NY 10310",
+  "borough": "Staten Island",
+  "zip": "10310",
+  "lat": 40.629284,
+  "lng": -74.12344
+ },
+ {
+  "address": "450 FOREST AVENUE, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.630498,
+  "lng": -74.104206
+ },
+ {
+  "address": "450 NEW DORP LANE, Staten Island, NY 10306",
+  "borough": "Staten Island",
+  "zip": "10306",
+  "lat": 40.56828,
+  "lng": -74.10828
+ },
+ {
+  "address": "450 RICHMOND HILL ROAD, Staten Island, NY 10314",
+  "borough": "Staten Island",
+  "zip": "10314",
+  "lat": 40.581717,
+  "lng": -74.154964
+ },
+ {
+  "address": "450 RICHMOND TERRACE, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.647138,
+  "lng": -74.08773
+ },
+ {
+  "address": "450 TARGEE STREET, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.616052,
+  "lng": -74.084931
+ },
+ {
+  "address": "450 VICTORY BOULEVARD, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.631285,
+  "lng": -74.087578
+ },
+ {
+  "address": "550 BAY STREET, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.62845,
+  "lng": -74.076738
+ },
+ {
+  "address": "550 PORT RICHMOND AVENUE, Staten Island, NY 10302",
+  "borough": "Staten Island",
+  "zip": "10302",
+  "lat": 40.629638,
+  "lng": -74.140943
+ },
+ {
+  "address": "550 RICHMOND TERRACE, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.64578,
+  "lng": -74.090524
+ },
+ {
+  "address": "550 TARGEE STREET, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.613669,
+  "lng": -74.085094
+ },
+ {
+  "address": "620 FOREST AVENUE, Staten Island, NY 10310",
+  "borough": "Staten Island",
+  "zip": "10310",
+  "lat": 40.629676,
+  "lng": -74.109683
+ },
+ {
+  "address": "620 PORT RICHMOND AVENUE, Staten Island, NY 10302",
+  "borough": "Staten Island",
+  "zip": "10302",
+  "lat": 40.62802,
+  "lng": -74.142402
+ },
+ {
+  "address": "620 RICHMOND TERRACE, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.64516,
+  "lng": -74.09226
+ },
+ {
+  "address": "650 ARTHUR KILL ROAD, Staten Island, NY 10308",
+  "borough": "Staten Island",
+  "zip": "10308",
+  "lat": 40.559446,
+  "lng": -74.164063
+ },
+ {
+  "address": "9 CASTLETON AVENUE, Staten Island, NY 10301",
+  "borough": "Staten Island",
+  "zip": "10301",
+  "lat": 40.636163,
+  "lng": -74.085484
+ },
+ {
+  "address": "900 HYLAN BOULEVARD, Staten Island, NY 10305",
+  "borough": "Staten Island",
+  "zip": "10305",
+  "lat": 40.59814,
+  "lng": -74.072341
+ },
+ {
+  "address": "900 RICHMOND AVENUE, Staten Island, NY 10303",
+  "borough": "Staten Island",
+  "zip": "10303",
+  "lat": 40.625527,
+  "lng": -74.149369
+ },
+ {
+  "address": "900 RICHMOND ROAD, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.604852,
+  "lng": -74.092011
+ },
+ {
+  "address": "900 TARGEE STREET, Staten Island, NY 10304",
+  "borough": "Staten Island",
+  "zip": "10304",
+  "lat": 40.606465,
+  "lng": -74.091052
+ }
+]

@@ -1,0 +1,20 @@
+{
+ "case_id": "james_consistent",
+ "claimed_address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
+ "claimed_at": "2025-05-14T19:15:00-04:00",
+ "dates_covered": [
+  "2025-05-14"
+ ],
+ "description_matches_household": true,
+ "edge_kind": null,
+ "home_address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
+ "kind": "demo",
+ "method": "308_2",
+ "n_fixes": 14,
+ "person_name": "James Okonkwa",
+ "reason": "James was home when the papers were left with his partner, and his partner matches the description on the affidavit. His own data supports the server's account, and the product has to say so.",
+ "seeded_rule_codes": [],
+ "true_distance_km_at_claim": 0.0,
+ "true_tier": "consistent",
+ "work_address": "550 8 AVENUE, Manhattan, NY 10018"
+}
