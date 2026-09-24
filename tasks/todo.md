@@ -819,3 +819,440 @@ the gate green, so it was run over `backend` alone. Wrapped.
 - Wiring the two downloads into `/result` is the defendant wizard's work (S8), as is the
   advocate PDF report, which now has a print stylesheet to build on.
 - `docker build` remains unverified here for the reason recorded in session 1.
+
+---
+
+## Session 8 — The iridescent field, moving
+
+**Reference.** The same shot session 6 worked from — `dribbble.com/shots/27621487` — plus a
+10s screen recording of it playing. What the recording shows that a still cannot: the field
+*flows*. Curved arcs at 0s flatten to hard diagonals by 3s and dissolve to near-black by 9s.
+Everything else on that page is static; all of the motion is in the background.
+
+Session 6 listed motion under "deliberately not borrowed", for a stated reason: bible §16
+wants a demo that never fails. That reason is answered here rather than dropped — the CSS
+field is the floor and always paints, and the shader is an enhancement that can fail down
+to it silently. Nothing that can fail is load-bearing.
+
+**What is actually wrong with the field today**, stated so it can be argued with:
+
+| | Today | Reference |
+|---|---|---|
+| Presence | A band across the top ~26rem, `inset: auto` below | Fills the panel |
+| Structure | `blur(11px)` over a 12%-period ribbon — the edges are gone | Wide dark bodies, thin bright specular edges, readable |
+| Motion | None | ~10s loop, sweeping and re-forming |
+
+### Steps
+- [x] S8.1 Promote the field's colours out of the `::before` rule into `--st-iris-*` tokens,
+      so the CSS and the shader cannot disagree about what the field is made of. (Session 5's
+      lesson: one source, or two surfaces drift invisibly.)
+- [x] S8.2 `.st-iridescent::before` — fill the panel, tighten the blur so the ribbon edges
+      survive, and add a `@keyframes` sweep gated behind `prefers-reduced-motion:
+      no-preference`. Reduced motion renders exactly today's static frame.
+- [x] S8.3 `lib/ui/iridescent.ts` — the pure parts, so they can be tested under vitest's node
+      environment: the "should this run at all" decision, and the palette packing.
+- [x] S8.4 `lib/ui/IridescentField.svelte` — a WebGL2 canvas, no new dependency (bible §8):
+      `getContext('webgl2')` and a fragment shader string. Domain-warped ribbons with
+      chromatic dispersion at the edges. Colours resolved through `lib/map/color.ts`, the
+      bridge session 5 built for exactly this problem.
+- [x] S8.5 Fail-down paths, each one silent: no WebGL2, shader will not compile, context
+      lost, `prefers-reduced-motion`, SSR. Every one of them leaves the CSS field visible.
+- [x] S8.6 Cost: cap DPR (the field is blurred, so half resolution is free), pause on
+      `visibilitychange` and when scrolled out of view. Maria is on a phone.
+- [x] S8.7 Mount in the five panels that carry `.st-iridescent`. `StatTile` keeps the CSS
+      floor — a WebGL context per stat tile buys nothing.
+- [x] S8.8 Tests for S8.3; gates both sides; look at every panel in both schemes, at 375 px
+      and desktop, with motion on and with `prefers-reduced-motion` forced.
+
+### Risks / open questions
+- **A background that moves under type.** The scrim (`::after`) is what makes the field safe
+  to put copy on, and it does not move. Contrast stays a property of the layout, which is
+  what session 6 made it. The animation must not touch the scrim.
+- **`vitest` runs in `environment: node`.** No canvas, no WebGL. So the shader itself is
+  verified by looking at it, and only the decision logic is unit-tested. Said plainly rather
+  than papered over with a mock that proves nothing.
+- **Battery.** A full-screen fragment shader at 60fps on a phone is the kind of thing that
+  makes a person close a tab. Half resolution, paused when hidden, paused when off-screen.
+
+### Review
+
+**Built**
+
+- **`app.css`** — the field's colours promoted to `--st-iris-*` tokens, so the CSS and the
+  shader read one source rather than two copies of the same six hues. The two `-wash`
+  variants carry their alpha spelled out longhand, matching the convention
+  `--st-panel-fade-*` already set and for the same reason: a `color-mix()` a browser does
+  not understand takes the whole `background` shorthand with it.
+- **`.st-iridescent::before`** — fills the panel instead of banding its top 26rem, blur
+  down from 11px to 6px so the ribbon edges survive, and an 11s sweep gated on
+  `prefers-reduced-motion: no-preference`. The translation is a little over one ribbon
+  period, so the loop closes with no seam.
+- **`lib/ui/iridescent.ts`** — both shader sources and every decision around them that is
+  pure enough to test under vitest's node environment: `shouldRun`, `renderSize`,
+  `hexToVec3`, the token table and `UNIFORM_NAMES`.
+- **`lib/ui/IridescentField.svelte`** — a WebGL2 canvas and no new dependency (bible §8):
+  `getContext('webgl2')` and a fragment shader string. Warped bands with a specular line
+  down each lit face and per-channel dispersion across it. Colours resolved through
+  `lib/map/color.ts`, the bridge session 5 built for exactly this problem.
+- Mounted in the five panels carrying `.st-iridescent`. `StatTile` keeps the CSS floor: a
+  WebGL context per stat tile buys nothing.
+
+**Verified**
+
+- Frontend: `svelte-check` 0 errors 0 warnings over 293 files, `tsc --noEmit` clean,
+  `vitest` **283 passed** (was 264), `npm run build` clean.
+- Backend, untouched but run per bible §17: `ruff check` and `ruff format --check` clean
+  over 124 files, `mypy` clean over 65, `pytest` **630 passed**.
+- Every panel looked at on the landing page, `/demo` and `/advocate`, at 1280 px and
+  375 px, at the top and the bottom of the breath. No horizontal overflow at 375 px.
+- **Contrast measured rather than assumed.** A script reads the live drawing buffer behind
+  every piece of text on a panel, composites the scrim over it with the scrim's own
+  gradient stops, and computes the ratio — sampled every 180 ms across a full 22-second
+  breath so the number is the worst frame and not a frame. Tightest is the 12px eyebrow at
+  **6.32:1** against a 4.5 requirement; nothing fails. Elements with an opaque background
+  of their own (the pills) are excluded and checked against that background instead:
+  "Start check" is 16.7:1, "See a demo" 19.6:1.
+
+**Three decisions worth recording**
+
+1. **The CSS field was kept, not replaced.** It is the floor and it always paints; the
+   canvas is an enhancement at z −2 that fades in only once it has produced a frame. No
+   WebGL2, a shader that will not compile, a lost context, reduced motion, SSR — each one
+   leaves the product looking exactly as it did before this session, and says nothing to
+   the user. Session 6 declined the reference's motion because bible §16 wants a demo that
+   never fails; the answer was to keep the motion off the critical path, not to do without
+   it.
+2. **The shader has a ceiling, and the ceiling is a contrast guarantee.** See
+   `lessons.md`: a specular peak clipping to white took a 12px eyebrow to 3.88:1. The fix
+   is a soft rolloff to 0.66 rather than a dimmer field, because it bounds the brightest
+   pixel the field can ever emit. That is what makes the measurement above hold for every
+   frame rather than for the one that was checked. It also looks more like the reference,
+   where the brightest points still carry their hue.
+3. **The cost is bounded three ways.** Drawn at 0.6 of CSS resolution with a ceiling of
+   1.2M pixels (the field is all Gaussians and smoothed noise — there is no detail to
+   lose), paused on `visibilitychange`, and paused by an `IntersectionObserver` when the
+   panel is off screen. On the landing page at 375 px the hero canvas is 225×352. The
+   footer's canvas never draws a frame until it is scrolled to.
+
+**On verifying an animation in this pane**
+
+The browser pane reports `document.visibilityState === "hidden"` and suspends
+`requestAnimationFrame`, which is precisely what the renderer pauses on — so the component
+mounted, sized itself, compiled, and sat at opacity 0, which looks exactly like a broken
+renderer. It was exercised end to end by overriding the `visibilityState` getter and
+backing `rAF` with `setTimeout` before the component mounted. Everything reported above
+was measured through the real component on that footing, not through a stand-in.
+
+**Deferred**
+
+- The `/check` and `/result` panels do not carry the field, because those screens are
+  still the placeholders S7_ui replaces. Bible §14 puts calm paper on the working surfaces
+  and keeps the cinematic treatment for the marketing ones, so whether `/result` gets a
+  field at all is a decision for that session rather than a default.
+
+### Correction — the field was animating and was not moving
+
+Rahul looked at the first cut and saw a still image. He was right, and the evidence in the
+review above says so: two samples a second and a half apart reading 53,54,53 and 49,51,50.
+That was quoted as proof the loop was running, which it is, and taken as proof the thing
+worked, which it is not. Nothing was broken — every drift rate was roughly a twelfth of
+what it needed to be, and every check that had been run asked whether pixels changed rather
+than how much.
+
+**Measured, both sides.** Frames sampled out of the reference recording at 8fps, cropped to
+its background and reduced to grey, differ from their neighbours by 7.58 levels of 255 and
+by 36.27 over a full second; mean frame brightness runs 10.6 to 72.4 across the ten
+seconds, a factor of 6.8. The same measurement now runs against the shader through a
+1×1-normalised probe, per frame to zero mean and unit variance so it compares pattern
+change and not brightness — an unnormalised first attempt read the field's darkness as
+stillness and overstated the gap by 40%.
+
+| | Reference | Before | After |
+|---|---|---|---|
+| Pattern change per 1/8 s | 0.1778 | 0.0589 | **0.1906** |
+| Pattern change per 1.0 s | 0.7721 | 0.3726 | **0.7728** |
+| Pattern change per 2.0 s | 0.9158 | 0.5901 | **0.8570** |
+| Brightness swing over the loop | 6.80× | 1.61× | **4.35×** |
+
+Every `uTime` rate except the breath is multiplied by 3.5, found by sweeping the factor
+against the metric rather than by eye; the bands also now drift as well as reshape, which
+the reference does and warping alone does not. The breath keeps its ~20s period, which
+already matched, and got a deeper floor: only the trough moves, because the peak is what
+the contrast ceiling guards. The CSS fallback's sweep went 34s → 11s for the same reason.
+
+The brightness swing stays under the reference's because the rolloff compresses the top of
+the range. That is the contrast guarantee and it stays.
+
+**Re-verified after retuning** — faster motion sweeps far more configurations under the
+copy, so the contrast audit is not inherited: 70 samples over 25 seconds, zero failures,
+tightest **6.27:1** against a 4.5 requirement. `vitest` 283 passed, `svelte-check` 0/0 over
+293 files, `tsc` and `npm run build` clean.
+
+---
+
+## Session 9 — Real licence data, and saying precisely what the demo is
+
+**Why.** Rahul asked for real data instead of synthetic, or else the "Synthetic demo data"
+chip gone. Neither branch applies cleanly, and the reasons are worth writing down.
+
+**The demo cannot be real, structurally.** The defendant flow joins a court affidavit about
+a named person to *that person's phone location history for the same evening*. The second
+is private personal data by definition: there is no free public source, and bible §18.7
+forbids real personal data in this repo. Advocate mode is the same — NYC does require a
+server to record GPS for every service (§5 L7, 6 RCNY § 2-233b), but those logs sit with
+the server and are not published anywhere.
+
+**The chip stays, because of what the demo actually contains.** Index `CV-025236-25/BX`,
+"Civil Court of the City of New York, County of Bronx", server "T. Ockham-Doyle", licence
+`1401648`. Checked against the live DCWP register: no collision today, but real licences
+are six or seven digits, so the format is indistinguishable from a real one. Unlabelled,
+that screen is a fabricated court record naming a licensed professional and asserting their
+sworn statement conflicts with the evidence. For a product whose subject is exactly that
+accusation, it is the one thing it cannot be caught doing.
+
+**But there is real free data worth having.** NYC DCWP publishes its licence register:
+899 `Process Server Individual` and 146 `Process Serving Agency` licences, no key, no cost.
+So ServeTrace can check the number on the affidavit against it — a server whose licence
+was not in force on the day they swore they served is a real, checkable problem, and it
+sits under an L-id §5 already carries (L7).
+
+### Steps
+- [x] S9.1 `fixtures/generator/build_licences.py` → `backend/app/licences/cache.json`,
+      following `build_geocache.py`. **Numbers, category, status and dates only.** The
+      register also carries each licensee's name and home ZIP; those are real people at
+      mostly residential addresses, the check does not need them, and §18.7 says they do
+      not belong in this repo.
+- [x] S9.2 `app/licences/registry.py` — load once (`lru_cache`), normalise a licence number
+      to bare digits, look up by number and category.
+- [x] S9.3 R-L1..R-L3 in `engine/rules_ny.py` + copy in `engine/copy.py`, every one
+      carrying L7.
+- [x] S9.4 Tests: the three rules, the normaliser, absent/unknown handling, and that the
+      committed cache holds no name or address field.
+- [x] S9.5 The demo label: a precise provenance line in place of the vague chip.
+- [x] S9.6 Gates both sides; `todo.md` and `lessons.md`.
+
+### Risks / open questions
+- **The register is a snapshot of *now*, not a history.** `license_status` is today's
+  status and `lic_expir_dd` today's expiry. So "revoked on the day they served" is not a
+  claim this data can support, and R-L3 must not make it — it says the licence is revoked
+  *today* and leaves the inference to the reader. The selected plan had R-L3 as STRONG for
+  "revoked that day"; it ships MODERATE and differently worded, because the data does not
+  reach. Same asymmetry on expiry: an expiry *before* the service date is meaningful, an
+  expiry after it is not evidence the licence was in force then, so only one direction
+  produces a finding.
+- **A number absent from the register is not proof of anything.** Records get corrected,
+  and an affidavit can carry a typo. R-L1 is MODERATE and worded as something to check.
+- **Never the name.** Matching the *name* against the register would be a stronger finding
+  and would mean shipping 899 real people's names and accusing a real person of a
+  mismatch. Not built, deliberately.
+
+### Review
+
+**Built**
+
+- **`app/licences/registry.py` + `cache.json`** — 1045 licences (899 individual, 146
+  agency) from NYC Open Data, committed so nothing on the analysis path touches the
+  network. `normalise` reduces `0745503-DCA` and `745503` to one key so the register and
+  an affidavit can meet. `in_force_on` is deliberately one-sided.
+- **`fixtures/generator/build_licences.py`** — the one-off refresh, following
+  `build_geocache.py`. Four fields, sorted, so a refresh is a reviewable diff.
+- **R-L1..R-L3 in `engine/rules_ny.py`** — number not in the register; licence not in
+  force on the date sworn; licence currently revoked or suspended. All three carry L7.
+  They share one walker because the server's number and the agency's ask the register the
+  same question, and they are registered in a new `MULTI_RULES` list because an affidavit
+  carries two numbers and the register can object to both.
+- **The demo label** — `Demo · Real NYC addresses and real CPLR rules. The people and
+  cases are invented.` in place of `Synthetic demo data`.
+
+**Verified**
+
+- Backend `pytest` **656 passed** (was 630), `ruff check` and `ruff format --check` clean
+  over 129 files, `mypy` clean over 68.
+- Frontend `svelte-check` 0/0 over 293 files, `tsc` clean, `vitest` 283 passed, build clean.
+- The engine goldens regenerated to **byte-identical** content, and the only lines that
+  moved in `published.json` were `runtime_ms` and the three latency figures. The new rules
+  add nothing to any existing case, which is what they should do.
+
+**The decision this session actually turned on**
+
+Giving the engine a real register immediately broke the fixtures, and it was right to.
+Every synthetic affidavit carried an invented seven-digit licence number, so every demo
+case grew two `R-L1` findings — including `james_consistent`, whose whole job is to report
+honestly that the data supports the affidavit, and which suddenly led with two licence
+complaints. Those findings were true of the fixture and false of the scenario.
+
+The tempting fixes were both wrong. Giving the fixtures real licence numbers would tie a
+real licensee to an invented server accused of a sworn statement that does not hold up.
+Suppressing the rules for demo cases would put a special case in production code to make a
+fixture look better. So the generator stopped inventing the numbers: a fixture may not
+assert something checkable that it cannot back.
+
+Removing them re-rolled every downstream value, because the generator is a pure function
+of its seed — a two-field change arrived as an unreviewable diff across every committed
+fixture. The two draws are still made and thrown away, in the same position, so the diff
+is the two fields and the hashes that follow them.
+
+**Deferred**
+
+- The methodology page does not yet publish the register's counts or describe the licence
+  check. It is real, free, citable data and exactly the kind of number bible §2 rewards
+  publishing; it needs either an endpoint or a build-time constant, and belongs with the
+  other page work in S7_ui.
+- Nothing matches the server's **name** against the register. It would be a stronger
+  finding and would mean shipping 899 real people's names and accusing one of a mismatch.
+  Not built, deliberately, and recorded here so the omission reads as a decision.
+
+### Follow-up — the badge goes, the sentence stays
+
+Rahul asked for the `DEMO` tag itself to go. It has: `DemoChip` is now `DemoNote` and
+renders one muted line and no pill. The disclosure is untouched, because the pill was never
+the part carrying it — beside a sentence reading "The people and cases are invented", a
+badge reading `DEMO` said the same word twice and only one of them was informative.
+
+Two things fell out of doing it:
+
+- **`/demo` no longer renders the note at all.** Its own `demo.note` — "Every name, case
+  and document on these screens is invented for demonstration. The addresses are real New
+  York City streets, used as geography and nothing else." — already says everything the
+  shared note says and says it better. Bible §16 asks each demo screen to disclose, not to
+  disclose twice. `DemoNote` is now for the screens with no sentence of their own, which is
+  `/advocate` once a demo file is loaded, and `/dev/analyze`.
+- **The component was renamed**, because `DemoChip` that renders no chip is a name that
+  lies to the next person who greps for it.
+
+Verified: `svelte-check` 0/0 over 293 files, `tsc` clean, `vitest` 283 passed, build clean.
+Looked at on `/demo` and on `/advocate` all the way through to the ranked table — 194 rows,
+four servers, the same figures as before.
+
+---
+
+## Session 10 — S7_ui: the wizard, the result screen, the map moment
+
+**Constraint, stated first because it governs every choice below.** Rahul asked for the
+aesthetics not to change: the S6 visual system stands, and this session builds *on* it.
+No new colours, no new type scale, no new component vocabulary. Everything here composes
+the primitives that already exist — `VerdictCard`, `ClaimTable`, `FindingList`,
+`DeadlineCard`, `Callout`, `StepHeader`, `FileDrop`, `ActionRow`, `Button`, `Eyebrow`,
+`Section`, `Card` — and the tokens in `app.css`. If something needs a colour that is not
+already a token, that is a signal the design is wrong, not that the palette is short.
+
+**Where the work already is.** The two dev routes are working prototypes of exactly this
+session's two halves: `/dev/ingest` drives the worker and shows what came out, and
+`/dev/analyze` renders a real `CaseAnalysis` through the real primitives. This session is
+substantially about moving that logic into the product and giving it a wizard around it.
+Both dev routes are deleted at the end, because once `/check` and `/result` exist they are
+duplicate code that can rot.
+
+### Steps
+- [x] S10.1 `lib/case/store.svelte.ts` — the `Case` store in runes: affidavit draft,
+      confirmed flag, fixes, household, knowledge and judgment dates, analysis. Persisted
+      to IndexedDB **only** when the user ticks "Save on this device", cleared on demand.
+- [x] S10.2 `lib/demo/cases.ts` — the three committed demo cases, lazily imported so a
+      case only costs its own chunk. This is the first time fixture data reaches the
+      production bundle, and the existing `ingest/demoFixtures.ts` stays test-only.
+- [x] S10.3 `/result` — verdict card, claim table, findings, "what this means / what it
+      does not", deadline clock, next steps. Reads the store; redirects to `/check` when
+      there is nothing to show.
+- [x] S10.4 `lib/map/ResultMap.svelte` — MapLibre, red claim pin, the user's fixes as a
+      trail, a dashed line from the nearest fix to the claim labelled with the distance and
+      the required speed, a time scrubber, `preserveDrawingBuffer` so the packet can
+      capture it. Palette through `lib/map/color.ts` — session 5's lesson. Text-alternative
+      table beside it, which `ClaimTable` already is.
+- [x] S10.5 `/demo` — the three cases become clickable and land on `/result`. Must work
+      with `LLM_PROVIDER=none` and make no call but `/api/analyze` and `/api/documents/*`.
+- [x] S10.6 `/check` step 1 — upload, extract, the review card: every field editable, amber
+      and the source quote under anything below 0.8 confidence, validation notes inline,
+      and the confirmation tick that `user_confirmed` depends on.
+- [x] S10.7 `/check` step 2 — three tiles (Timeline · card statement · type it in), per-OS
+      export instructions, worker progress, coverage warning, and the "sending N of M
+      points" line that makes §13's windowing visible.
+- [x] S10.8 `/check` step 3 — the household roster, optional, and the two dates.
+- [x] S10.9 Downloads on `/result`: evidence packet (with the map PNG from the canvas) and
+      the draft affidavit, both already served by `/api/documents/*`.
+- [x] S10.10 Delete `/dev/ingest` and `/dev/analyze` and their nav links.
+- [x] S10.11 Responsive at 375 / 768 / 1280, keyboard path through the whole wizard, and
+      the gates both sides.
+
+### Risks / open questions
+- **The store is the one piece of real state in the product.** Everything so far has been
+  a pure function of its input. A wizard that loses your work on a back button is worse
+  than no wizard, and IndexedDB that saves without being asked breaks the promise the
+  privacy page makes. Save is opt-in, and refusing it has to be the default that works.
+- **`/result` with no case.** Reachable from the nav and from a bookmark. It cannot throw
+  and it cannot show an empty verdict card; it sends the person to `/check`.
+- **The map is where session 5's lesson bites again.** Tokens are `oklch`, MapLibre parses
+  its own colours and understands none of it, and a symbol layer with no `text-font` takes
+  down every other layer sharing its source. `lib/map/color.ts` and an explicit font on
+  every symbol layer.
+- **Bundling fixtures.** `/demo` needs real case data in the production build for the first
+  time. Lazily, so the landing page does not carry three cases it may never show.
+
+### Review
+
+**Built**
+
+- **`lib/case/store.svelte.ts`** — the first real state in the product. Runes, with every
+  wizard field written straight into it so Back preserves everything by construction
+  rather than by remembering to. IndexedDB is gated on one flag that defaults to off.
+- **`lib/demo/cases.ts`** — the three committed cases, lazily imported so each is its own
+  chunk and the landing page carries none of them.
+- **`/result`** — verdict card, map, claim table, findings, "what this means / what it does
+  not", deadline clock, next steps, both downloads. Composed entirely from S6 primitives.
+- **`lib/map/ResultMap.svelte`** — the map moment. Red claim pin, the person's trail, a
+  dashed line between them labelled with the distance and the required speed, a ±15-to-90
+  minute scrubber, and the canvas the evidence packet embeds.
+- **`/check`** — three steps on one route. Upload → extract → an editable review card with
+  amber and the source quote under anything below 0.8 → the tick that `user_confirmed`
+  depends on; then three location doors; then the optional roster.
+- **`lib/ui/TextField.svelte`, `CheckBox.svelte`, `AffiantForm.svelte`** — field styling
+  extracted from `ColumnMapper` rather than invented, so the wizard cannot drift from the
+  advocate side of the product.
+- **`/demo`** — the three cases are now buttons that load a case and land on `/result`,
+  where the engine runs for real.
+- **`/dev/ingest` and `/dev/analyze` deleted**, with their nav links.
+
+**Verified**
+
+- Frontend: `svelte-check` 0/0 over 295 files, `tsc` clean, `vitest` **294 passed** (was
+  283), build clean. Backend, untouched: `ruff` clean over 129, `mypy` clean over 68,
+  `pytest` **656 passed**.
+- The whole wizard walked end to end against a live backend: papers → geocode → typed
+  location → roster → verdict, and separately all three demo cases.
+- Evidence packet downloaded with the map embedded — 866 KB against 77 KB without it,
+  which is how the embedding was confirmed rather than assumed. Draft affidavit downloaded
+  carrying exactly the ticks that were made and omitting the paragraph for the one that
+  was not.
+- 375 px: no horizontal scroll, nothing overflowing outside the two deliberate scrollers,
+  every input labelled.
+
+**Three bugs worth recording**
+
+1. **The affidavit time was read in the browser's timezone.** `new Date('2025-06-12T19:42')`
+   is browser-local, and on this machine — set to IST — a service typed as 19:42 reached
+   the engine as 10:12 AM. Nine and a half hours, in the one number the whole verdict turns
+   on, and it would have been silently wrong for every user outside New York while looking
+   perfectly plausible. `lib/ingest/tz.ts` has had `nyLocalToInstant` since session 3; the
+   wizard now uses it, and so does the manual location entry, which had the same bug.
+2. **The map filtered out the very stay that proves the case.** A `VISIT` is an interval,
+   and the window test measured from its start — so a recorded stay from 8:00 AM to 8:00 PM
+   was eleven hours from a 7:42 PM claim and fell outside ±90 minutes. The scrubber read
+   "0 of 1" on the demo case built to be contradicted. Distance is measured to the interval
+   now, which is what the engine's own visit test does.
+3. **A `map.on('error')` handler was deleting every successful capture.** MapLibre fires
+   `error` for any survivable thing — one missing tile, one glyph range — so the packet
+   printed its text alternative every time. Removed, and the capture became a pull rather
+   than a push: the packet asks the map for its canvas at the moment it is built, so it
+   cannot depend on an event having fired earlier and cannot hand over a frame from before
+   the person moved the scrubber.
+
+**Deferred**
+
+- **The map capture is downscaled to 1400 px** before it is sent, because the raw canvas is
+  the viewport times the device pixel ratio and the server refuses anything over 3 MB. At
+  1280 px it was 1.5 MB; on a 2560 px display the untouched capture would have crossed the
+  limit and failed on exactly the screens most likely to be showing this to a court.
+- The `/check` upload path is exercised through the manual and demo routes; a real PDF
+  through `POST /api/extract` needs `LLM_PROVIDER` configured, which this machine does not
+  have. The route handles `provider === 'none'` by saying so and showing the manual form.
+- `docs/screens/` for the Devpost gallery, and a Lighthouse run. The structural half of
+  §14's accessibility ask is checked — labels, no overflow, keyboard-reachable controls.

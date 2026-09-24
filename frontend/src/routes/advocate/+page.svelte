@@ -21,8 +21,9 @@
 	import Eyebrow from '$lib/ui/Eyebrow.svelte';
 	import Callout from '$lib/ui/Callout.svelte';
 	import Card from '$lib/ui/Card.svelte';
-	import DemoChip from '$lib/ui/DemoChip.svelte';
+	import DemoNote from '$lib/ui/DemoNote.svelte';
 	import FileDrop from '$lib/ui/FileDrop.svelte';
+	import IridescentField from '$lib/ui/IridescentField.svelte';
 
 	type Stage = 'choose' | 'map' | 'report';
 
@@ -131,8 +132,9 @@
 <svelte:head><title>{advocate.title} — ServeTrace</title></svelte:head>
 
 <section class="st-panel st-iridescent rounded-none">
+	<IridescentField />
 	<div class="st-shell py-12 sm:py-16">
-		{#if isDemo}<div class="mb-5"><DemoChip invert /></div>{:else}<Eyebrow>For legal advocates</Eyebrow>{/if}
+		{#if isDemo}<div class="mb-5"><DemoNote invert /></div>{:else}<Eyebrow>For legal advocates</Eyebrow>{/if}
 		<h1 class="st-display mt-4 max-w-3xl text-3xl text-panel-ink sm:text-5xl">{advocate.title}</h1>
 		<p class="mt-5 max-w-2xl text-lg leading-relaxed text-panel-muted">{advocate.sub}</p>
 	</div>

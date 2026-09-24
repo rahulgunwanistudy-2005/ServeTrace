@@ -210,3 +210,114 @@ Every test passed, because every test was about whether paragraphs were built co
 not follow that a document meant to be *filed* should carry the same material: honest to
 the user and useful against them are different things, and the question to ask of every
 generated paragraph is not "is this true" but "does this person want a judge reading it".
+
+[2026-09-23] - Session 6 made contrast "a property of the layout rather than of wherever
+the gradient happened to land", by bottom-aligning copy into the flat part of a static
+scrim. Session 8 made the field underneath move and did not re-examine that sentence. The
+12px eyebrow on the landing hero measured 5.29:1 on the frame it was first checked on and
+3.88:1 fourteen seconds later, under a specular peak that had clipped to white - a real AA
+failure that a screenshot, a type-check, a lint and 283 passing tests all agreed was fine.
+-> When a decoration starts animating, every guarantee that was measured against it has to
+be re-measured *across time*, not on a frame. And the fix belongs at the cause: the peaks
+were clipping, so the shader now rolls its top end off to a ceiling. Dimming the whole
+field would have cost the effect to buy the same number; bounding the brightest pixel it
+can ever emit is what turns "this frame passes" back into "every frame passes".
+
+[2026-09-23] - A GLSL comment inside the fragment shader said `fract` with backticks, and
+the shader is a JavaScript template literal, so the string ended there and the module
+stopped parsing. Loud, and fixed in a minute. Its sibling is not loud: `${` inside the
+same string interpolates silently and compiles a shader nobody wrote. -> A template
+literal holding another language is a quoting boundary, and the test file now asserts the
+quiet half of it. The loud half needs no test - running `vitest` at all would have caught
+it, and the reason it did not was that the shader was edited after the tests were run.
+
+[2026-09-23] - The iridescent canvas mounted, sized itself, compiled its shader, and
+stayed at opacity 0 in the browser pane. The cause was the component working exactly as
+designed: the pane reports `document.visibilityState === "hidden"` and suspends
+`requestAnimationFrame` outright, which is the condition the renderer pauses on. The
+symptom - a canvas that never draws - is indistinguishable from a renderer that is broken.
+-> Before debugging an animation that will not start, check whether the environment is
+running the clock. Overriding the `visibilityState` getter and backing `rAF` with
+`setTimeout` before the component mounts exercises the real component end to end, which is
+worth more than reading the code and declaring it correct.
+
+[2026-09-23] - The iridescent field was reported as working on the strength of a boolean:
+pixels read from the drawing buffer differed between two samples, so the loop was running,
+so it was animating. Rahul looked at it and saw a still image. Read back, the evidence had
+said so too - 53,54,53 to 49,51,50 over a second and a half - and that number was quoted
+in the report without anyone asking whether it was a lot. It was about a twelfth of what
+the reference does. -> "Is it moving" is the wrong question when the answer wanted is "does
+it look like that". Frames sampled out of the reference recording at 8fps differ from their
+neighbours by 7.6 grey levels of 255, and by 36 over a second; the same measurement now
+runs against the shader, normalised per frame so it compares pattern change rather than
+brightness, and the drift rates are whatever makes the two agree. A reference video is not
+only a picture of the target, it is a measurement of it.
+
+[2026-09-23] - Comparing the shader to the reference by mean absolute pixel difference
+said it was five times too slow. Normalising each frame to zero mean and unit variance
+first said three times. The first number was measuring darkness as much as stillness: a
+darker field has smaller absolute differences at identical motion. -> Before tuning
+against a metric, check the metric is not reading a second property. The fix was two lines
+and it changed the answer by 40%.
+
+[2026-09-24] - The engine got the City's real licence register, and every demo case
+immediately grew two findings saying the licence number was not in it. They were: the
+generator invents a seven-digit number. The findings were true of the fixture and false of
+the scenario, and the worst of them landed on the consistent case, whose entire purpose is
+to report honestly that the data supports the affidavit. -> The moment a product starts
+checking a field against reality, every fixture that fills that field with plausible noise
+becomes a fixture that lies. The fix is not to give the fixture real data, which here would
+tie a real licensee to an invented accusation, and not to special-case the rule for demo
+data, which puts a fixture's convenience into production code. It is for the fixture to
+stop asserting what it cannot back: the generator now leaves the licence numbers absent.
+
+[2026-09-24] - Deleting the two `rng.randint` calls that produced those licence numbers
+re-rolled every value drawn after them, because the generator is a pure function of its
+seed. A two-field change arrived as an 800-line diff across every committed fixture, with
+the real change buried in coordinate noise. -> In a seeded generator, removing a draw is a
+change to every later draw. Keep the call and throw the result away, in the same position,
+with a comment saying why. The diff is the point: a reviewer who cannot see what changed
+cannot check it.
+
+[2026-09-24] - A first cut asserted `licence.expires.isoformat() in found[0].detail` and
+failed, because `detail` reads "it expired on April 3, 2023" - the product's own date
+format, for a person to read. The same mistake is already in this file from session 4, and
+the rule it produced was written down: tests assert on the code, never on the sentence.
+-> The finding carries the ISO date in `numbers`, which exists for exactly this. Re-read
+the lesson before writing the assertion, not after the failure.
+
+[2026-09-24] - A `DEMO` pill sat directly beside a sentence reading "The people and cases
+are invented", and the pill was defended on the grounds that bible §16 requires a chip.
+§16 requires the screen to disclose; the chip was how one session chose to do it. -> Read a
+rule for what it protects before defending its wording. The sentence was the disclosure and
+the badge was decoration on top of it, so removing the badge cost nothing and removing the
+sentence would have cost everything. The same reading is what said no to deleting the
+label outright an hour earlier - it is one test, not two positions.
+
+[2026-09-24] - `new Date('2025-06-12T19:42').toISOString()` reads a wall clock in the
+*browser's* zone. The wizard built the claimed moment that way, and on a machine set to IST
+a service typed as 19:42 reached the engine as 10:12 AM - nine and a half hours of error in
+the single number every verdict turns on, producing a confident wrong answer for any user
+outside New York. It was caught only because the result page printed the time back and it
+did not match what had been typed. -> A wall clock without a zone is not a time. Session 3
+had already built `nyLocalToInstant` for exactly this, handling both DST edges, and the
+wizard reimplemented the problem instead of importing the answer. Before writing a date
+conversion, look for the one this repo already made.
+
+[2026-09-24] - The result map filtered its points by distance from a fix's *start* time, so
+a recorded stay from 8:00 AM to 8:00 PM measured as eleven hours from a 7:42 PM claim and
+was dropped from a ±90 minute window. The scrubber read "0 of 1" on the demo case built
+specifically to be contradicted by that stay. -> A VISIT is an interval and the engine's
+own visit test turns on whether it *covers* the claimed moment (bible §11.1.2). Any second
+implementation of "is this fix near that time" has to answer it the same way the engine
+does, or the picture disagrees with the verdict printed above it.
+
+[2026-09-24] - A `map.on('error', () => onCapture(null))` handler was added so a half-drawn
+basemap could not reach an evidence packet. MapLibre fires `error` for every survivable
+thing - a tile that did not arrive, a glyph range that 404'd - so in practice it overwrote
+every good capture and every packet printed its text alternative. The bug looked like the
+capture failing. -> A defensive handler that fires on a broad event is not defensive, it is
+a race with the success path. The fix was to stop pushing a captured frame and let the
+caller pull one when it needs it, which removed the timing question entirely and also fixed
+a second bug nobody had noticed: the pushed frame predated anything the user did with the
+scrubber.

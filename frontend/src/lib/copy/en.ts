@@ -108,7 +108,45 @@ export const upload = {
 	comingSoon:
 		'Uploading and reading your papers arrives with the wizard. The engine behind this check already works — the Methodology page shows exactly what it does and how it scores.',
 	lowConfidence: 'Please check this one — we were not sure we read it correctly.',
-	knowledgeQuestion: 'When did you first find out about the judgment?'
+	knowledgeQuestion: 'When did you first find out about the judgment?',
+	knowledgeHint:
+		'The day your account was frozen, or the day a letter arrived. An approximate date is fine.',
+	judgmentQuestion: 'If you know it, the date the judgment was entered',
+	judgmentHint: 'It is on the papers from the court. Leave it blank if you are not sure.',
+	reading: 'Reading your papers…',
+	readFailed: 'We could not read that file.',
+	noLlm:
+		'This copy of ServeTrace has no document reader configured, so nothing was read off the file. You can type the details in below — the check works exactly the same either way.',
+	reviewTitle: 'Check what we read',
+	reviewIntro:
+		'These came off your document. Change anything that is wrong. Nothing is compared until you confirm them.',
+	quotedAs: 'On the page:',
+	fields: {
+		index_number: 'Index number',
+		court: 'Court',
+		plaintiff: 'Who sued you',
+		defendant_name: 'Your name, as written on the papers',
+		server_name: 'Process server',
+		method: 'How they say they served you',
+		served_date: 'Date of the service',
+		served_time: 'Time of the service',
+		served_address: 'Address they say they served you at',
+		recipient_name: 'Who they say took the papers',
+		recipient_relationship: 'That person\u2019s relationship to you',
+		mailing_date: 'Date they say they mailed a copy',
+		proof_filed_date: 'Date the proof was filed with the court'
+	},
+	methodOptions: {
+		'308_1': 'Handed to me in person',
+		'308_2': 'Left with someone else, and mailed',
+		'308_4': 'Taped to the door, and mailed',
+		unknown: 'The papers do not say clearly'
+	},
+	addressNeeded: 'The check needs the address they say they served you at.',
+	timeNeeded: 'The check needs the date and time they say they served you.',
+	resolving: 'Finding that address…',
+	addressNotFound:
+		'We could not find that address in New York City. Check the spelling — the check needs a point on the map to measure from.'
 } as const;
 
 export const ingest = {
@@ -125,7 +163,40 @@ export const ingest = {
 	reading: 'Reading your file on this device…',
 	covers: (first: string, last: string) => `Your export covers ${first} to ${last}.`,
 	points: (n: number, approximate: boolean) =>
-		`${approximate ? 'More than ' : ''}${n.toLocaleString('en-US')} location point${n === 1 ? '' : 's'}.`
+		`${approximate ? 'More than ' : ''}${n.toLocaleString('en-US')} location point${n === 1 ? '' : 's'}.`,
+
+	title: 'Where were you?',
+	hint: 'Bring whatever record you already have. It is read on this device.',
+	tileHints: {
+		timeline: 'A Google Timeline export, if you had Location History on.',
+		card: 'A CSV from your bank or card, if you paid for something that evening.',
+		manual: 'No file at all — just tell us where you were.'
+	},
+	howAndroid: 'On Android',
+	howAndroidBody:
+		'Settings → Location → Location services → Timeline → Export Timeline data. You get a file called Timeline.json.',
+	howIphone: 'On an iPhone',
+	howIphoneBody:
+		'Google Maps → your profile picture → Settings → Personal content → Export Timeline data.',
+	chooseFile: 'Choose your Timeline file',
+	chooseFileHint: 'A .json file, up to about 200 MB. It is never uploaded.',
+	chooseCsv: 'Choose your statement',
+	chooseCsvHint:
+		'A .csv from your bank. Only the address of a transaction is ever looked up \u2014 never the merchant or the amount.',
+	manualTitle: 'Tell us where you were',
+	manualWhere: 'Address or place',
+	manualDay: 'Which day',
+	manualFrom: 'From (New York time)',
+	manualTo: 'Until (New York time)',
+	manualBadTime: 'Check the day and the times \u2014 we could not read them.',
+	manualAdd: 'Add this',
+	manualNone: 'Nothing added yet.',
+	manualRemove: 'Remove',
+	resolving: 'Finding that address\u2026',
+	noneNearClaim:
+		'None of your points fall near the time on the affidavit. The check can still run, and it will say it has no data for that moment.',
+	coverageOk: (n: number) => `${n} point${n === 1 ? '' : 's'} fall in the hours around the service.`,
+	cancel: 'Stop reading'
 } as const;
 
 /**
@@ -184,6 +255,41 @@ export const ingestWarnings = {
 export type IngestErrorKey = keyof typeof ingestErrors;
 
 /** Bible §6. The headline for each tier, and the honest framing of each. */
+export const household = {
+	title: 'Who lives with you?',
+	intro:
+		'Optional, and only used for one thing: if the affidavit says the papers were left with somebody, we compare that description to the people you list. We never ask for a photograph and never will.',
+	label: 'What to call them',
+	labelHint: 'A first name or "my daughter" \u2014 whatever you like. It goes in your packet.',
+	sex: 'Sex',
+	sexOptions: { unknown: 'Prefer not to say', male: 'Male', female: 'Female', other: 'Other' },
+	age: 'Age',
+	height: 'Height in inches',
+	heightHint: "5'6\" is 66 inches.",
+	isDefendant: 'This is me',
+	add: 'Add this person',
+	remove: 'Remove',
+	none: 'Nobody added. You can skip this step.',
+	skip: 'Skip this step'
+} as const;
+
+export const wizard = {
+	back: 'Back',
+	next: 'Continue',
+	run: 'See what we found',
+	running: 'Working it out\u2026',
+	saveHere: 'Save this on my device so I can come back to it',
+	saveHint:
+		'Kept in this browser only, never sent anywhere. Clearing it removes it for good.',
+	saved: 'Saved on this device.',
+	saveFailed: 'This browser would not let us save. Everything still works \u2014 just do not close the tab.',
+	restore: 'Pick up where you left off',
+	restoreFound: 'There is a saved check on this device.',
+	discard: 'Start fresh instead',
+	needAffidavit: 'Fill in the details from your papers and tick the box to continue.',
+	needFixes: 'Add at least one record of where you were, or go back and use a different source.'
+} as const;
+
 export const tiers = {
 	contradicted: {
 		headline: 'Your location data conflicts with the affidavit.',
@@ -290,6 +396,55 @@ export const result = {
 	/** Bible §5 L7. */
 	askForGpsWhy:
 		'Licensed New York City process servers must carry a device that electronically records the GPS location, date and time of every service and attempt.',
+	/**
+	 * The two halves of bible §6's honesty requirement, as prose rather than as a tier.
+	 * A person who has just been told their data conflicts with a sworn statement needs
+	 * both: what it is worth, and what it is not.
+	 */
+	whatThisMeansBody:
+		'You have a record of where your phone was, made at the time, that does not fit what the process server swore. That is the kind of thing a court can be asked to look at, and it is the reason a judge may order a hearing about whether you were served.',
+	whatItDoesNotBody:
+		'It does not prove what happened, and nothing here decides your case. A phone shows where a phone was. Someone else may have had it, and a court may hear an explanation nobody has given yet. It also does not touch whether you owe the money — only whether you were told you were being sued.',
+	consistentMeansBody:
+		'Your own records put you at or near that address at the time the server swore. That is worth knowing before you spend money on a motion, and it is why this check shows you the answer either way.',
+	inconclusiveMeansBody:
+		'Your data neither backs the affidavit nor conflicts with it under the thresholds this check uses. That is not the same as nothing being wrong — the papers themselves may still have problems, and any findings below stand on their own.',
+	noDataMeansBody:
+		'There are no usable location points near the time the server swore, so this check cannot say anything about that moment. Anything found in the papers themselves still stands.',
+	/**
+	 * The draft affidavit's ticks. Bible §15: every paragraph it writes is gated on one of
+	 * these, and each is something only the person signing is in a position to state. The
+	 * wording is first person because that is how it will read in the document.
+	 */
+	affiantTitle: 'Before we draft the affidavit',
+	affiantIntro:
+		'A draft supporting affidavit is written in your own voice and you sign it in front of a notary. We only write a paragraph you tell us is true. Anything you leave unticked is left out of the document rather than softened.',
+	affiantName: 'Your full name, as it appears on the court papers',
+	affiantAddress: 'Your home address at the time of the service',
+	affiantAddressHint: 'Only used if you tick the box below about the address.',
+	affiantNotServed: 'Nobody handed me these papers and I did not find them at my door.',
+	affiantNotMyAddress: 'The address on the affidavit was not my home or my workplace.',
+	affiantNoNotice:
+		'I did not learn about this case in time to defend it.',
+	affiantNoNoticeHint:
+		'CPLR 317 turns on this, and the alternative paragraph it allows cannot be offered without it.',
+	affiantDefense: 'If you have a defence to the debt itself, say it in your own words',
+	affiantDefenseHint:
+		'Optional, and never written for you. CPLR 317 asks for a defence with merit; a judge reads this as yours.',
+	affiantCancel: 'Cancel',
+	affiantSubmit: 'Draft the affidavit',
+	affiantNameNeeded: 'The document needs a name to put on it.',
+	nextTitle: 'What you can do next',
+	startOver: 'Start a different check',
+	emptyTitle: 'There is no case on this device yet',
+	emptyBody:
+		'This page shows the result of a check. Nothing is stored on our server, so there is nothing to load — start a check, or open a worked example.',
+	mapLoading: 'Drawing the map…',
+	mapUnavailable:
+		'The map could not be drawn on this device. The table below carries the same information.',
+	scrubberLabel: 'Time',
+	scrubberHint: 'Drag to move through the hours around the claimed service.',
+	sourceHint: 'Where these numbers come from',
 	comingSoon: 'Your result will appear here once you have finished the three steps.',
 	comingSoonDetail:
 		'The verdict card, the map with a time scrubber, the findings list and the downloads arrive with the wizard. The engine that decides all of it is built and tested.'
@@ -633,27 +788,43 @@ export const errors = {
 export type ErrorCode = keyof typeof errors;
 
 export const demo = {
-	chip: 'Synthetic demo data',
+	/**
+	 * Bible §16 requires every demo screen to say it is a demo. It has said so three ways
+	 * now, and the trend is the point: "Synthetic demo data" satisfied the letter and read
+	 * as an apology; a `DEMO` pill beside this sentence said the same word twice, once in
+	 * a badge and once in prose. What actually discloses anything is the sentence, so the
+	 * badge is gone and the sentence is the whole of it.
+	 *
+	 * It names what is real as well as what is not, because that is the more useful half:
+	 * the addresses are real NYC streets, the provisions are real CPLR, the licence
+	 * register is the City's own, and the only invented things are the people and their
+	 * cases.
+	 */
+	provenance: 'Real NYC addresses and real CPLR rules. The people and cases are invented.',
 	title: 'Three cases, end to end',
 	note: 'Every name, case and document on these screens is invented for demonstration. The addresses are real New York City streets, used as geography and nothing else.',
-	comingSoon: 'The full walkthrough, with the map and the downloadable packet, arrives with the result screen.',
+	open: 'Open this case',
+	opening: 'Loading…',
+	runNote:
+		'Each case runs through the same engine and the same screens a real check uses. Nothing is pre-recorded: the verdict you see is computed when you open it.',
+	failed: 'That case could not be loaded.',
 	cases: [
 		{
-			id: 'maria',
+			id: 'maria_contradicted',
 			name: 'Maria — substituted service',
 			tier: 'contradicted',
 			summary:
 				'The affidavit says papers were left at her Bronx door at 7:42 PM. Her phone puts her at a client\u2019s Manhattan address across that whole evening, and the only other person at home is nine years old.'
 		},
 		{
-			id: 'james',
+			id: 'james_consistent',
 			name: 'James — substituted service',
 			tier: 'consistent',
 			summary:
 				'James was home when the papers were left with his partner, and his partner matches the description. His own data supports the server\u2019s account, and ServeTrace says so.'
 		},
 		{
-			id: 'lin',
+			id: 'lin_affix_mail_diligence',
 			name: 'Lin — affix and mail',
 			tier: 'contradicted',
 			summary:

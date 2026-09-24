@@ -75,8 +75,26 @@ export type ServerReport = components['schemas']['ServerReport'];
 export type ImpossiblePair = components['schemas']['ImpossiblePair'];
 export type ServiceRecord = components['schemas']['ServiceRecord'];
 export type RejectedRow = components['schemas']['RejectedRow'];
+export type AffiantStatement = components['schemas']['AffiantStatement'];
+export type PacketRequest = components['schemas']['PacketRequest'];
 
 const JSON_HEADERS = { 'content-type': 'application/json' } as const;
+
+/** POST JSON, get a PDF back. Shares `toError` so a refusal reads the same everywhere. */
+async function pdf(path: string, body: unknown): Promise<Blob> {
+	let response: Response;
+	try {
+		response = await fetch(`/api${path}`, {
+			method: 'POST',
+			headers: JSON_HEADERS,
+			body: JSON.stringify(body)
+		});
+	} catch {
+		throw new ApiError('network', 0);
+	}
+	if (!response.ok) throw await toError(response);
+	return await response.blob();
+}
 
 export const api = {
 	health: () => request<Health>('/health'),
@@ -118,6 +136,30 @@ export const api = {
 			headers: JSON_HEADERS,
 			body: JSON.stringify(body)
 		}),
+
+	/**
+	 * The two documents, both `application/pdf`. Bible §15.
+	 *
+	 * The client posts the analysis it already holds rather than a case id, for the same
+	 * reason the advocate CSV export does: nothing is stored, so there is no id to post.
+	 */
+	documents: {
+		packet: (analysis: CaseAnalysis, mapPngBase64: string | null, fixes: LocationFix[] = []) =>
+			pdf('/documents/packet', {
+				analysis,
+				fixes,
+				map_png_base64: mapPngBase64,
+				affiant_name: analysis.affidavit.defendant_name
+			}),
+
+		/**
+		 * The draft supporting affidavit. `affiant` is not optional and is not inferred:
+		 * every boolean on it gates a paragraph somebody is going to swear to, and the only
+		 * person who can set one is the person signing.
+		 */
+		affidavit: (analysis: CaseAnalysis, affiant: AffiantStatement) =>
+			pdf('/documents/affidavit', { analysis, affiant })
+	},
 
 	advocate: {
 		/**
