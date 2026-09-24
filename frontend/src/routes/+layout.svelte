@@ -1,10 +1,10 @@
 <script lang="ts">
 	import '../app.css';
-	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
 	import { DRAFT_BANNER, nav, site } from '$copy/en';
 	import Button from '$lib/ui/Button.svelte';
 	import Eyebrow from '$lib/ui/Eyebrow.svelte';
+	import IridescentField from '$lib/ui/IridescentField.svelte';
 	import type { Snippet } from 'svelte';
 
 	let { children }: { children: Snippet } = $props();
@@ -66,11 +66,7 @@
 						{link.label}
 					</a>
 				{/each}
-				{#if dev}
-					<!-- Development only. Both routes refuse to render in a production build. -->
-					<a class="shrink-0 py-1 text-faint" href="/dev/ingest">Ingest</a>
-					<a class="shrink-0 py-1 text-faint" href="/dev/analyze">Analyze</a>
-				{/if}
+
 			</div>
 
 			<div class="hidden shrink-0 sm:block">
@@ -93,6 +89,7 @@
 		needs to carry away from this page is that nothing here is legal advice.
 	-->
 	<footer class="st-panel st-iridescent mt-20 rounded-none">
+		<IridescentField />
 		<div class="st-shell py-14 sm:py-16">
 			<p class="st-display max-w-3xl text-2xl text-panel-ink sm:text-4xl">
 				{site.tagline}

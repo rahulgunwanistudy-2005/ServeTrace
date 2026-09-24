@@ -6,6 +6,15 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "frontend"],
       "port": 5173
+    },
+    {
+      "name": "backend",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib && exec uv run --project backend uvicorn app.main:app --port 8000 --app-dir backend"
+      ],
+      "port": 8000
     }
   ]
 }

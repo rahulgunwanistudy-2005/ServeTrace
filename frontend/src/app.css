@@ -96,6 +96,34 @@
 	--st-panel-fade-3: oklch(0.145 0.004 260 / 0.88);
 	--st-panel-fade-2: oklch(0.145 0.004 260 / 0.64);
 	--st-panel-fade-1: oklch(0.145 0.004 260 / 0.26);
+
+	/* The iridescent field's own colours, named rather than spelled inline in the rule
+	   that draws it, because two things draw it now: the CSS below and the WebGL shader
+	   in `lib/ui/IridescentField.svelte`. Session 5's lesson was that a surface which
+	   reimplements a token drifts from it invisibly, so the shader reads these through
+	   `lib/map/color.ts` rather than carrying its own numbers.
+
+	   Two tints only, and both low. The field reads as anodised metal rather than as a
+	   gradient because almost all of its variation is tonal and only a little of it is
+	   hue; a saturated wash here looks like every other hero on the internet.
+
+	   `-edge` is the thin specular line down a ribbon's lit side, `-body` the wide dark
+	   face between them, and `-deep` the trough.
+
+	   The two `-wash` variants are the same hues at the weight the CSS radials want, with
+	   the alpha spelled out for the same reason `--st-panel-fade-*` above spells it out:
+	   deriving it with `color-mix()` or relative colour syntax would mean a browser that
+	   does not understand the function drops the whole `background` shorthand and the
+	   field disappears entirely. The shader ignores the washes — it reads the solid hues
+	   and applies its own intensity, which is what a shader wants anyway. */
+	--st-iris-warm: oklch(0.7 0.09 68);
+	--st-iris-cool: oklch(0.64 0.075 248);
+	--st-iris-warm-wash: oklch(0.7 0.09 68 / 0.5);
+	--st-iris-cool-wash: oklch(0.64 0.075 248 / 0.45);
+	--st-iris-edge-warm: oklch(0.5 0.045 72);
+	--st-iris-edge-cool: oklch(0.43 0.022 245);
+	--st-iris-body: oklch(0.16 0.008 250);
+	--st-iris-deep: oklch(0.1 0.004 260);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -328,36 +356,90 @@
 	 *
 	 * It is decoration and never information. Nothing is ever printed on top of it
 	 * without the scrim below, and no meaning is attached to a colour inside it.
+	 *
+	 * ### Three layers, and which of them is load-bearing
+	 *
+	 * `::before` (z −3) is this CSS field. It always paints.
+	 * `IridescentField.svelte` (z −2) is an optional WebGL canvas that paints a richer
+	 * version of the same thing over the top and fades in only once it has produced a
+	 * frame. `::after` (z −1) is the scrim, and it is what makes any of this safe to put
+	 * copy on.
+	 *
+	 * Only the first and the last are load-bearing. Everything the canvas needs can be
+	 * missing — no WebGL2, a shader that will not compile, a lost context, a person who
+	 * asked for reduced motion — and the result is this rule, which is what the product
+	 * looked like before the canvas existed. Session 6 declined to borrow the reference's
+	 * motion because bible §16 wants a demo that never fails; the answer to that is not to
+	 * avoid motion but to keep it off the critical path.
 	 */
 	.st-iridescent::before {
 		content: '';
 		position: absolute;
-		inset: -20% -15% auto -15%;
-		height: min(92%, 26rem);
-		z-index: -2;
+		/* Fills the panel. The earlier version banded the top 26rem and left the rest flat,
+		   which read as a gradient stuck to the header rather than as a lit surface the
+		   panel was cut from. */
+		inset: -18% -15%;
+		z-index: -3;
 		background:
-			/* Two tints only, and both low. The reference reads as anodised metal rather
-			   than as a gradient because almost all of its variation is tonal and only a
-			   little of it is hue — a saturated wash here looks like every other hero on
-			   the internet. */
-			radial-gradient(52% 48% at 22% 34%, oklch(0.7 0.09 68 / 0.5), transparent 68%),
-			radial-gradient(48% 46% at 72% 24%, oklch(0.64 0.075 248 / 0.45), transparent 68%),
+			radial-gradient(52% 48% at 22% 34%, var(--st-iris-warm-wash), transparent 68%),
+			radial-gradient(48% 46% at 72% 24%, var(--st-iris-cool-wash), transparent 68%),
 			/* The ribbon. The light edges are thin and the dark body is wide, which is what
 			   makes a swept metal surface read as swept rather than as striped. */
 			repeating-linear-gradient(
 				114deg,
-				oklch(0.1 0.004 260) 0 2.6%,
-				oklch(0.16 0.008 250) 3.6%,
-				oklch(0.43 0.022 245) 4.1%,
+				var(--st-iris-deep) 0 2.6%,
+				var(--st-iris-body) 3.6%,
+				var(--st-iris-edge-cool) 4.1%,
 				oklch(0.2 0.01 250) 4.8%,
-				oklch(0.1 0.004 260) 6.4%,
+				var(--st-iris-deep) 6.4%,
 				oklch(0.12 0.006 70) 8.2%,
-				oklch(0.5 0.045 72) 8.7%,
+				var(--st-iris-edge-warm) 8.7%,
 				oklch(0.14 0.008 70) 9.6%,
-				oklch(0.1 0.004 260) 12%
+				var(--st-iris-deep) 12%
 			);
-		filter: blur(11px) saturate(112%);
-		transform: rotate(-6deg) scale(1.15);
+		/* Down from 11px. At 11 the ribbon edges were gone and what was left was a smear;
+		   the reference's bands stay legible as bands. The two radial tints are wide enough
+		   that 6px still keeps them soft. */
+		filter: blur(6px) saturate(112%);
+		transform: rotate(-6deg) scale(1.2);
+	}
+
+	/*
+	 * The sweep.
+	 *
+	 * One transform on one element, which the compositor can run without laying anything
+	 * out again. It travels a little over one ribbon period (12% of the element at 114°)
+	 * so the loop closes on itself with no visible seam.
+	 *
+	 * 11s, down from the 34s this started at, for the reason recorded against the shader's
+	 * drift rates: 34s is a rate at which the pixels are provably changing and nothing is
+	 * visibly moving. This is the fallback layer, so it should read as the same artwork at
+	 * the same tempo as the canvas that usually covers it.
+	 *
+	 * Gated on `no-preference` rather than switched off under `reduce`: a browser that
+	 * does not support the query at all gets the static field, which is the safer default
+	 * of the two. Under reduced motion this rule simply never applies and `::before` above
+	 * renders the frame the product had before this session.
+	 *
+	 * The base layer already carries a blanket `animation-duration: 0.01ms !important`
+	 * under `reduce`, so this gate is not what stops the animation — but it is what stops
+	 * it in the right place. That blanket rule does not cancel an animation, it runs it
+	 * instantly, which would leave the field parked on the keyframe's *end* transform
+	 * rather than its start. Gating here means there is no animation to finish.
+	 */
+	@media (prefers-reduced-motion: no-preference) {
+		.st-iridescent::before {
+			animation: st-iris-sweep 11s linear infinite;
+		}
+	}
+
+	@keyframes st-iris-sweep {
+		from {
+			transform: rotate(-6deg) scale(1.2) translate3d(0, 0, 0);
+		}
+		to {
+			transform: rotate(-6deg) scale(1.2) translate3d(-12.8%, 6.4%, 0);
+		}
 	}
 
 	/*
