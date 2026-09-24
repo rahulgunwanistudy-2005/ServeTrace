@@ -1404,6 +1404,25 @@ where those four `..` mean something else. One import failed loudly; the other t
   console error. The negative control for the log-privacy test was run too: a deliberate
   `logger.info(f"...{defendant_name}...")` fails it with the exact leaked values.
 
+**Deployed**
+
+Four commits pushed to `github.com/rahulgunwanistudy-2005/ServeTrace`, plus a fifth for
+the one thing the deploy itself found. Live at **https://servetrace.onrender.com** — one
+Render web service from the Dockerfile, free plan, Oregon, auto-deploy on commit.
+
+Verified against the public URL rather than assumed: health 200 in 0.31 s warm, the Maria
+demo case through the real engine with the map drawn and no console error, the evidence
+packet 34,644 bytes — *byte-identical to the local container*, which is the determinism
+claim holding across two machines — and the full header set including HSTS, which only
+appears over real TLS.
+
+**What the deploy found.** Render's own probe logged `HEAD / → 405`. FastAPI, unlike bare
+Starlette, does not derive a HEAD route from a GET one, so the health path and every page
+refused the method a platform probe, an uptime monitor and a link-preview fetch all send.
+Health takes a separate HEAD handler rather than `methods=["GET", "HEAD"]`, because one
+decorator for both emits two OpenAPI operations with the same id — and that schema is what
+generates the frontend's types.
+
 **Deferred**
 
 - **`docs/screens/` for the Devpost gallery.** The browser pane returns screenshots to the

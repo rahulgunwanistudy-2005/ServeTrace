@@ -364,3 +364,12 @@ to collect the case ids behind the false-accusation count, doubling the runtime 
 slowest thing in the eval to produce a list. -> The scorer already had every answer in
 hand; it just was not carrying the identifier alongside. When a second pass exists only to
 recover something the first pass saw, widen what the first pass records.
+
+[2026-09-24] - The first Render deploy logged `HEAD / -> 405` from the platform's own
+probe. FastAPI does not derive a HEAD route from a GET one the way bare Starlette does, so
+the health path and every page in the product refused the method that a platform probe, an
+uptime monitor and a chat client generating a link preview all send. Every test in the
+suite used GET, so nothing objected. -> A framework that adds a convenience is a claim
+worth checking, and so is one that doesn't. The wider point is where the bug came from:
+it was not visible in any test, any gate or any local run, and it appeared in the first
+thirty seconds of real logs. Reading the logs of the first deploy is part of deploying.
