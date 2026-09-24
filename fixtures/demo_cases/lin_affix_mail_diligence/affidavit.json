@@ -1,5 +1,5 @@
 {
- "agency_license": "6518630",
+ "agency_license": null,
  "attempts": [
   {
    "address": "104 HILLSIDE AVENUE, Queens, NY 11697",
@@ -48,8 +48,8 @@
   "lat": 40.56648,
   "lng": -73.89113
  },
- "server_license": "7085037",
+ "server_license": null,
  "server_name": "M. Grisholm",
- "source_sha256": "3d68a2891809f44ae5c2745329fc6c8c0fb03da974127f1611383d7ed6bca997",
+ "source_sha256": "02694305c2f9e25ae2728b24a349aafcc864f8ba4f8d2f584809658ed526b4a0",
  "user_confirmed": false
 }

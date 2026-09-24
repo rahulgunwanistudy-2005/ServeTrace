@@ -67,8 +67,9 @@
   {{ aff.server_name }}, being duly sworn, deposes and says: that deponent is not a party to
   this action, is over 18 years of age, and resides in the State of New York. Deponent is a
   process server duly licensed by the New York City Department of Consumer and Worker
-  Protection, License No. {{ aff.server_license }}, employed by {{ agency }},
-  Agency License No. {{ aff.agency_license }}.
+  Protection{% if aff.server_license %}, License No. {{ aff.server_license }}{% endif %},
+  employed by {{ agency }}{% if aff.agency_license %}, Agency License No.
+  {{ aff.agency_license }}{% endif %}.
 </p>
 
 <p class="body">
@@ -147,7 +148,8 @@
 
 <div class="sig">
   <div class="sigline"></div>
-  <div class="cap">{{ aff.server_name }} &mdash; Process Server License No. {{ aff.server_license }}</div>
+  <div class="cap">{{ aff.server_name }}{% if aff.server_license %} &mdash; Process Server
+  License No. {{ aff.server_license }}{% endif %}</div>
 </div>
 
 <div class="notary">

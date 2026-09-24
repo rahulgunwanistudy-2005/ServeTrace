@@ -403,3 +403,50 @@ def deadline_note(knowledge_deadline: date | None, outer_limit: date | None) -> 
         dates.append(f"five years after the judgment was entered, which is {fmt_date(outer_limit)}")
     whichever = " The earlier of the two is the one that matters." if len(dates) == 2 else ""
     return f"{DEADLINE_NOTE_L6} For you that is {fmt_list(dates)}.{whichever} {DEADLINE_NOTE_L5}"
+
+
+def licence_not_found(kind: str) -> tuple[str, str]:
+    """L7: NYC licenses its process servers, and DCWP publishes the register."""
+    return (
+        f"The {kind} licence number is not in the City's register",
+        f"New York City licenses process servers, and publishes the list. The {kind} licence "
+        f"number written on this affidavit is not on it. That can happen because a number "
+        f"was mistyped or a record was corrected, so it is something to check rather than "
+        f"something settled — but an unlicensed process server is a separate problem with "
+        f"the service, on top of anything your location data shows.",
+    )
+
+
+def licence_not_in_force(kind: str, reason: str) -> tuple[str, str]:
+    """L7: the licence number is real, but the register places it outside the service date."""
+    return (
+        f"The {kind} licence was not in force on the day of the service",
+        f"The {kind} licence number on this affidavit is in the City's register, but {reason} "
+        f"Serving papers without a current licence is a separate problem with the service, "
+        f"on top of anything your location data shows.",
+    )
+
+
+def licence_expired_on(expiry: date, served: date) -> str:
+    return (
+        f"it expired on {fmt_date(expiry)} and has not been renewed since, while the service "
+        f"is sworn to have happened on {fmt_date(served)}."
+    )
+
+
+def licence_issued_after(issued: date, served: date) -> str:
+    return (
+        f"it was first issued on {fmt_date(issued)}, after the {fmt_date(served)} the service "
+        f"is sworn to have happened."
+    )
+
+
+def licence_revoked(kind: str, status: str) -> tuple[str, str]:
+    """L7. Deliberately present tense: the register is a snapshot of now, not a history."""
+    return (
+        f"The {kind} licence is now recorded as {status.lower()}",
+        f"The City's register currently shows this {kind} licence as {status.lower()}. The "
+        f"register records what is true today and does not say what the licence's standing "
+        f"was on the day of the service, so this is background rather than a finding about "
+        f"your case — but it is worth raising.",
+    )

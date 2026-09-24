@@ -69,13 +69,21 @@ this was. There is no paragraph for it because there is nothing to swear to — 
 cannot testify about what the server meant to write — and because the timing rules that
 depend on the method were skipped, so the document has nothing to say about them either."""
 
-EXCLUDED_CODES: Final = frozenset({"F-CONFLICT"})
+EXCLUDED_CODES: Final = frozenset({"F-CONFLICT", "R-L1", "R-L2", "R-L3"})
 """Codes that reach STRONG or MODERATE and still get no paragraph, on purpose.
 
 `F-CONFLICT` is the engine saying the person's own data disagrees with itself. It is INFO
 today and would be a strange thing to swear to at any severity, so it is named here rather
 than left to the "unknown code" path — the difference between a decision and an oversight
 is whether it is written down.
+
+`R-L1`, `R-L2` and `R-L3` are the licence checks against the City's register. They are
+useful to a person and to the Help Center, and they do not belong in a sworn document.
+The register is a snapshot of today and carries no status history, so it cannot establish
+what a licence's standing was on the day of the service; the findings say so in as many
+words, and one of them turns on a number that could as easily be a typo. Swearing to
+"the server was not licensed" on the strength of a lookup is the overclaim this whole
+module is built to refuse. The person can raise it; they should not attest to it.
 """
 
 

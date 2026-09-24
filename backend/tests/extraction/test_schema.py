@@ -43,7 +43,7 @@ def test_recorded_response_parses_into_a_draft(recorded_response: dict[str, Any]
     assert draft.served_date == "2025-06-12"
     assert draft.served_time == "19:42"
     assert draft.served_address == "2100 WHITE PLAINS ROAD, Bronx, NY 10462"
-    assert draft.server_license == "1401648"
+    assert draft.server_name == "T. Ockham-Doyle"
     assert draft.attempts == []
 
 

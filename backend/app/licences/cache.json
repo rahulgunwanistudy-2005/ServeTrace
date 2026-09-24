@@ -1,0 +1,7317 @@
+[
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2004-02-13",
+  "number": "0761160-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2004-05-19",
+  "number": "0816202-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "1994-01-25",
+  "number": "0836963-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2004-02-24",
+  "number": "0895380-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2004-02-26",
+  "number": "0921228-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2004-02-10",
+  "number": "0923666-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "1998-09-02",
+  "number": "0994591-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2007-01-05",
+  "number": "1037536-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2008-01-30",
+  "number": "1065753-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-05-31",
+  "issued": "2001-04-09",
+  "number": "1077004-DCA",
+  "status": "Failed to Renew"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2001-08-27",
+  "number": "1092373-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2001-12-28",
+  "number": "1099087-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2002-02-25",
+  "number": "1102045-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2004-01-08",
+  "number": "1126802-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2008-01-30",
+  "number": "1132489-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2009-12-21",
+  "number": "1159254-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2004-01-29",
+  "number": "1159442-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2004-04-28",
+  "number": "1159577-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2007-01-18",
+  "number": "1246809-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2007-04-09",
+  "number": "1251720-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2011-04-27",
+  "number": "1257131-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2007-10-17",
+  "number": "1270729-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2008-03-21",
+  "number": "1279956-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2008-06-19",
+  "number": "1289649-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2009-02-27",
+  "number": "1310235-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2009-06-03",
+  "number": "1320502-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2009-10-20",
+  "number": "1336569-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2010-02-23",
+  "number": "1345749-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2010-09-21",
+  "number": "1371771-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2010-10-05",
+  "number": "1373465-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2010-10-15",
+  "number": "1374210-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2010-11-01",
+  "number": "1375885-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2010-11-03",
+  "number": "1376042-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2011-01-12",
+  "number": "1380619-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2011-02-08",
+  "number": "1382164-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2011-02-14",
+  "number": "1382542-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2011-04-14",
+  "number": "1387881-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2011-08-29",
+  "number": "1405825-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2012-02-13",
+  "number": "1406285-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2011-10-04",
+  "number": "1410021-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2011-11-10",
+  "number": "1413550-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2011-12-30",
+  "number": "1416526-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-01-26",
+  "number": "1418328-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-02-22",
+  "number": "1420125-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-02-23",
+  "number": "1420307-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-03-06",
+  "number": "1420758-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-03-15",
+  "number": "1422060-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-03-22",
+  "number": "1422351-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-04-24",
+  "number": "1426261-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-05-01",
+  "number": "1427277-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-06-26",
+  "number": "1435827-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-12-05",
+  "number": "1451565-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2012-12-06",
+  "number": "1451622-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2013-04-15",
+  "number": "1462510-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2013-04-30",
+  "number": "1463870-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2013-08-05",
+  "number": "1470749-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2014-02-03",
+  "number": "2003142-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2014-03-07",
+  "number": "2004442-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2014-07-30",
+  "number": "2011373-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2015-05-05",
+  "number": "2022186-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2015-08-25",
+  "number": "2027471-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2015-11-20",
+  "number": "2030659-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2016-02-17",
+  "number": "2033361-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2016-02-19",
+  "number": "2033461-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2016-03-14",
+  "number": "2034339-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2016-03-10",
+  "number": "2034421-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2016-05-13",
+  "number": "2037568-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2016-06-03",
+  "number": "2038602-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2017-04-07",
+  "number": "2050810-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2017-05-02",
+  "number": "2052227-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2017-07-25",
+  "number": "2056211-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2017-11-16",
+  "number": "2060914-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2017-12-14",
+  "number": "2063339-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2018-02-06",
+  "number": "2065727-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2018-02-27",
+  "number": "2066967-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2018-02-27",
+  "number": "2067012-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2018-11-08",
+  "number": "2079779-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2018-11-09",
+  "number": "2079830-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2019-01-31",
+  "number": "2081826-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2019-03-20",
+  "number": "2083480-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2019-03-25",
+  "number": "2083663-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2019-05-02",
+  "number": "2085360-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2019-06-04",
+  "number": "2086785-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2019-10-10",
+  "number": "2091308-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2020-01-16",
+  "number": "2093684-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2020-02-05",
+  "number": "2094197-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2020-02-25",
+  "number": "2094792-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2020-02-26",
+  "number": "2094823-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2020-03-03",
+  "number": "2094996-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2020-05-12",
+  "number": "2095725-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2020-06-09",
+  "number": "2095805-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2020-08-10",
+  "number": "2096149-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2020-09-18",
+  "number": "2096442-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2020-09-21",
+  "number": "2096454-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2021-03-18",
+  "number": "2098109-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2021-03-18",
+  "number": "2098110-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2021-03-22",
+  "number": "2098144-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2021-03-22",
+  "number": "2098146-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2021-07-26",
+  "number": "2100369-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2021-08-16",
+  "number": "2100829-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2021-09-09",
+  "number": "2101411-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2021-10-14",
+  "number": "2102114-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2021-12-01",
+  "number": "2102897-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2021-12-30",
+  "number": "2103271-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2022-01-21",
+  "number": "2103546-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2022-01-31",
+  "number": "2103684-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2022-02-16",
+  "number": "2103982-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2022-02-22",
+  "number": "2104067-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2022-03-04",
+  "number": "2104250-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2022-04-12",
+  "number": "2105212-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2022-06-27",
+  "number": "2107048-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2022-08-16",
+  "number": "2108146-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2022-09-06",
+  "number": "2108592-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2022-09-19",
+  "number": "2108885-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2022-09-27",
+  "number": "2109066-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2022-10-04",
+  "number": "2109166-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2022-10-14",
+  "number": "2109346-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2024-02-28",
+  "issued": "2022-11-09",
+  "number": "2109733-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2023-01-23",
+  "number": "2110710-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2023-04-13",
+  "number": "2112432-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2024-03-20",
+  "number": "2119900-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2024-03-20",
+  "number": "2119907-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2024-03-25",
+  "number": "2119964-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2024-04-05",
+  "number": "2120290-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2024-06-04",
+  "number": "2121919-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2025-01-13",
+  "number": "2126275-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2025-01-28",
+  "number": "2126506-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2025-02-21",
+  "number": "2126844-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2025-04-08",
+  "number": "2127642-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-08-14",
+  "issued": "2025-04-22",
+  "number": "2127913-DCWP",
+  "status": "Failed to Renew"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2025-05-27",
+  "number": "2128949-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2025-05-29",
+  "number": "2128989-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2025-08-01",
+  "number": "2130295-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2025-08-07",
+  "number": "2130398-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2025-11-20",
+  "number": "2132191-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2026-01-27",
+  "number": "2133111-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2026-01-29",
+  "number": "2133162-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2026-03-09",
+  "number": "2133756-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2026-03-16",
+  "number": "2133853-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2026-03-18",
+  "number": "2133893-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2026-04-08",
+  "number": "2134251-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2026-04-20",
+  "number": "2134476-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2026-02-28",
+  "issued": "2026-04-30",
+  "number": "2134651-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134653-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2026-08-13",
+  "number": "2136860-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "agency",
+  "expires": "2028-02-28",
+  "issued": "2026-08-17",
+  "number": "2136917-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-02-09",
+  "number": "0744100-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2001-01-24",
+  "number": "0745503-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-28",
+  "number": "0749086-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "1997-03-10",
+  "number": "0758942-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-20",
+  "number": "0773567-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-02-28",
+  "number": "0775188-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-01-27",
+  "number": "0775869-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2004-02-26",
+  "number": "0790101-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-02-26",
+  "number": "0793198-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2004-02-23",
+  "number": "0798246-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "1994-03-29",
+  "number": "0799024-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-01-29",
+  "number": "0799621-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-01-30",
+  "number": "0820872-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-03-02",
+  "number": "0827240-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-02-17",
+  "number": "0843358-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-26",
+  "number": "0843537-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-05-31",
+  "issued": "2010-01-04",
+  "number": "0844127-DCA",
+  "status": "Failed to Renew"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "1996-03-13",
+  "number": "0847497-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-24",
+  "number": "0848345-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-28",
+  "number": "0849004-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-08-23",
+  "number": "0849518-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2009-12-28",
+  "number": "0861178-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "1994-01-15",
+  "number": "0861610-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-03-04",
+  "number": "0861782-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2004-11-26",
+  "number": "0861957-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-20",
+  "number": "0866544-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-26",
+  "number": "0868800-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-24",
+  "number": "0869802-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2005-01-18",
+  "number": "0869984-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2012-02-14",
+  "number": "0870141-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2012-02-24",
+  "number": "0870679-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-01-30",
+  "number": "0871041-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2010-05-11",
+  "number": "0871439-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-01-26",
+  "number": "0871450-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-11",
+  "number": "0871612-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "1997-10-09",
+  "number": "0872002-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2004-01-16",
+  "number": "0872140-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-01-15",
+  "number": "0872436-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-01-23",
+  "number": "0914079-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-19",
+  "number": "0918927-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-06",
+  "number": "0919010-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2004-02-28",
+  "number": "0920142-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-01-25",
+  "number": "0920930-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2004-02-19",
+  "number": "0920935-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-24",
+  "number": "0921878-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-26",
+  "number": "0925902-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2010-03-06",
+  "number": "0932043-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-02-09",
+  "number": "0947369-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-23",
+  "number": "0948189-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2004-01-09",
+  "number": "0953009-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-03-22",
+  "number": "0970422-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "1999-03-08",
+  "number": "1004298-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-01-25",
+  "number": "1004643-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "1999-04-22",
+  "number": "1007503-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2010-04-14",
+  "number": "1007981-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2009-02-04",
+  "number": "1019553-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2010-03-03",
+  "number": "1020803-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "1999-11-04",
+  "number": "1022925-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2000-03-02",
+  "number": "1028069-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2000-11-16",
+  "number": "1066544-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2008-02-14",
+  "number": "1071492-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2010-12-10",
+  "number": "1076009-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2001-04-19",
+  "number": "1078305-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-14",
+  "number": "1086552-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-06-05",
+  "number": "1088563-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-09-30",
+  "issued": "2012-01-26",
+  "number": "1103238-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2007-07-11",
+  "number": "1104105-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-07",
+  "number": "1115274-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2003-04-28",
+  "number": "1137105-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2003-05-13",
+  "number": "1139306-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2003-06-16",
+  "number": "1142816-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-08-31",
+  "issued": "2012-05-25",
+  "number": "1158652-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2004-01-26",
+  "number": "1159230-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-03-02",
+  "number": "1161183-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-08",
+  "number": "1167432-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2004-06-17",
+  "number": "1170892-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2004-09-14",
+  "number": "1179930-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2005-02-08",
+  "number": "1188546-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2005-02-11",
+  "number": "1189113-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2005-02-16",
+  "number": "1189336-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2013-06-13",
+  "number": "1189351-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2005-06-17",
+  "number": "1201127-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2005-09-14",
+  "number": "1209939-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2005-09-26",
+  "number": "1210999-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-27",
+  "number": "1212873-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2006-03-14",
+  "number": "1215639-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2010-10-05",
+  "number": "1216146-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2006-02-22",
+  "number": "1219598-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2006-03-10",
+  "number": "1220800-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2006-03-24",
+  "number": "1221793-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2012-02-27",
+  "number": "1232446-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2010-06-01",
+  "number": "1232575-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2006-08-02",
+  "number": "1234753-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-01-20",
+  "number": "1239212-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2006-10-03",
+  "number": "1240610-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2006-10-11",
+  "number": "1241096-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2007-01-16",
+  "number": "1246635-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2007-03-07",
+  "number": "1249479-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2023-04-03",
+  "issued": "2007-06-08",
+  "number": "1258345-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2007-08-10",
+  "number": "1263889-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2007-09-25",
+  "number": "1268748-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2007-10-10",
+  "number": "1270049-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2007-11-30",
+  "number": "1273575-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2008-02-26",
+  "number": "1278091-DCA",
+  "status": "Revoked"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-02-29",
+  "number": "1278468-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-03-13",
+  "number": "1279379-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-24",
+  "number": "1279639-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-03-20",
+  "number": "1279759-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-05-30",
+  "number": "1287296-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-07-18",
+  "number": "1292936-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-09-08",
+  "number": "1298539-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-09-10",
+  "number": "1298914-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2008-11-13",
+  "number": "1304160-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2008-12-17",
+  "number": "1306140-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2009-01-13",
+  "number": "1307355-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2009-06-03",
+  "number": "1320496-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2009-07-28",
+  "number": "1326602-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2009-10-09",
+  "number": "1335711-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2011-04-28",
+  "number": "1336864-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2009-12-08",
+  "number": "1340466-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-28",
+  "number": "1341632-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2009-12-29",
+  "number": "1341639-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2010-03-01",
+  "number": "1346142-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2010-03-05",
+  "number": "1346489-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-28",
+  "number": "1365542-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-07-15",
+  "issued": "2010-09-27",
+  "number": "1372356-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-02-24",
+  "number": "1376400-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2011-01-24",
+  "number": "1381333-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-03-31",
+  "issued": "2011-09-29",
+  "number": "1392295-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2011-07-14",
+  "number": "1399928-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2011-08-22",
+  "number": "1405246-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-01-04",
+  "number": "1416703-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-03-12",
+  "number": "1421732-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2012-03-22",
+  "number": "1422672-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2012-04-16",
+  "number": "1425263-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-04-16",
+  "number": "1425269-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2012-04-16",
+  "number": "1425274-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2013-04-08",
+  "number": "1425814-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-04-26",
+  "number": "1426703-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-05-01",
+  "number": "1427246-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-05-21",
+  "number": "1430550-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-05-21",
+  "number": "1430554-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-07-13",
+  "number": "1437271-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-07-26",
+  "number": "1438821-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2013-04-22",
+  "number": "1440324-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-08-09",
+  "number": "1440535-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2012-08-13",
+  "number": "1440809-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2012-11-14",
+  "number": "1450036-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2013-03-28",
+  "number": "1453615-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2013-03-11",
+  "number": "1459466-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2013-03-15",
+  "number": "1459944-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2013-10-24",
+  "number": "1475177-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2014-03-06",
+  "number": "2004364-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2014-03-13",
+  "number": "2004715-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2014-03-24",
+  "number": "2005093-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2014-03-31",
+  "number": "2005387-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2014-04-04",
+  "number": "2005681-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2014-04-07",
+  "number": "2005859-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2014-05-08",
+  "number": "2007749-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2014-05-28",
+  "number": "2008739-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2014-07-22",
+  "number": "2011018-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2014-11-14",
+  "number": "2015553-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2014-11-24",
+  "number": "2015787-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2014-12-03",
+  "number": "2016143-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2015-01-06",
+  "number": "2017061-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-08-31",
+  "issued": "2015-01-22",
+  "number": "2017524-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-02-10",
+  "number": "2018133-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-03-25",
+  "number": "2019989-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-04-09",
+  "number": "2020788-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2015-05-13",
+  "number": "2022724-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2015-05-29",
+  "number": "2023543-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-06-04",
+  "number": "2023901-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-06-23",
+  "number": "2024701-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-07-07",
+  "number": "2025377-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-07-17",
+  "number": "2025817-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2015-07-23",
+  "number": "2026027-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2015-07-23",
+  "number": "2026030-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2015-08-27",
+  "number": "2027601-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-09-01",
+  "number": "2027870-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-03-31",
+  "issued": "2015-11-10",
+  "number": "2030308-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2015-12-02",
+  "number": "2031026-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2015-12-18",
+  "number": "2031534-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2016-01-14",
+  "number": "2032440-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2016-02-04",
+  "number": "2032977-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2016-02-12",
+  "number": "2033274-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-02-23",
+  "number": "2033588-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-03-08",
+  "number": "2034169-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2016-03-09",
+  "number": "2034227-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-03-15",
+  "number": "2034396-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-04-22",
+  "number": "2036513-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-05-17",
+  "number": "2037672-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-06-13",
+  "number": "2038944-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-07-21",
+  "number": "2040935-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-08-03",
+  "number": "2041941-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-09-01",
+  "number": "2043161-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-09-23",
+  "number": "2044088-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-10-28",
+  "number": "2045119-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-11-10",
+  "number": "2045442-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2016-12-19",
+  "number": "2046555-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-01-12",
+  "number": "2047340-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2017-02-02",
+  "number": "2047996-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2017-02-07",
+  "number": "2048130-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-03-13",
+  "number": "2049506-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-04-07",
+  "number": "2050879-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-04-28",
+  "number": "2052124-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-05-18",
+  "number": "2053231-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2017-06-21",
+  "number": "2054784-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-06-28",
+  "number": "2055105-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2017-07-24",
+  "number": "2056112-DCA",
+  "status": "Revoked"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-08-10",
+  "number": "2056924-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-09-20",
+  "number": "2058467-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-11-01",
+  "number": "2060116-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2017-11-13",
+  "number": "2060617-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2017-11-16",
+  "number": "2060947-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-02-08",
+  "number": "2065844-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2018-02-12",
+  "number": "2066003-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-02-15",
+  "number": "2066183-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-16",
+  "number": "2066229-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-08-31",
+  "issued": "2018-02-20",
+  "number": "2066309-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-26",
+  "number": "2066896-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2018-02-27",
+  "number": "2066935-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-27",
+  "number": "2066936-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-02-27",
+  "number": "2066954-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-27",
+  "number": "2066963-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-27",
+  "number": "2066971-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-27",
+  "number": "2066974-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-02-27",
+  "number": "2066980-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-27",
+  "number": "2066993-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-02-27",
+  "number": "2067019-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-28",
+  "number": "2067056-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-02-28",
+  "number": "2067076-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-01",
+  "number": "2067123-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-02",
+  "number": "2067151-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-02",
+  "number": "2067175-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-05",
+  "number": "2067237-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-05",
+  "number": "2067270-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-06",
+  "number": "2067334-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-07",
+  "number": "2067370-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-07",
+  "number": "2067431-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2018-03-08",
+  "number": "2067483-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-09",
+  "number": "2067545-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-12",
+  "number": "2067589-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-12",
+  "number": "2067620-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-12",
+  "number": "2067625-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2018-03-14",
+  "number": "2067766-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-15",
+  "number": "2067822-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-15",
+  "number": "2067825-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-16",
+  "number": "2067872-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-16",
+  "number": "2067891-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-19",
+  "number": "2067941-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-21",
+  "number": "2068129-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-22",
+  "number": "2068200-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-23",
+  "number": "2068237-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-27",
+  "number": "2068384-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2018-03-27",
+  "number": "2068399-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-27",
+  "number": "2068402-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-09-30",
+  "issued": "2018-03-27",
+  "number": "2068406-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-03-28",
+  "number": "2068477-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-03-30",
+  "number": "2068649-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-04-03",
+  "number": "2068802-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-04-04",
+  "number": "2068855-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-04-09",
+  "number": "2069120-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-04-10",
+  "number": "2069153-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-04-13",
+  "number": "2069396-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-04-13",
+  "number": "2069441-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-04-16",
+  "number": "2069494-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-04-16",
+  "number": "2069496-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-04-16",
+  "number": "2069502-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-06-04",
+  "number": "2072478-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-06-07",
+  "number": "2072862-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-06-18",
+  "number": "2073697-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2018-06-25",
+  "number": "2074366-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-07-03",
+  "number": "2074985-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-07-05",
+  "number": "2075073-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-07-11",
+  "number": "2075408-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-07-13",
+  "number": "2075574-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-07-20",
+  "number": "2075962-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-07-27",
+  "number": "2076269-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-07-30",
+  "number": "2076339-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-07-30",
+  "number": "2076366-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-08-06",
+  "number": "2076664-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-08-07",
+  "number": "2076720-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-09-07",
+  "number": "2077931-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-09-24",
+  "number": "2078481-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2018-09-28",
+  "number": "2078650-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-10-04",
+  "number": "2078804-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-10-05",
+  "number": "2078861-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-10-12",
+  "number": "2079049-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2018-11-14",
+  "number": "2079906-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-11-28",
+  "number": "2080261-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-12-04",
+  "number": "2080445-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-12-05",
+  "number": "2080469-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-12-05",
+  "number": "2080470-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2018-12-21",
+  "number": "2080885-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2018-12-26",
+  "number": "2080919-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2019-01-11",
+  "number": "2081312-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-01-11",
+  "number": "2081331-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-03-08",
+  "number": "2082979-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-03-14",
+  "number": "2083169-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-03-19",
+  "number": "2083378-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-04-02",
+  "number": "2084044-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-04-04",
+  "number": "2084176-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-04-09",
+  "number": "2084426-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-04-17",
+  "number": "2084775-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2019-04-25",
+  "number": "2085170-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-05-09",
+  "number": "2085741-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-05-15",
+  "number": "2085987-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-06-05",
+  "number": "2086808-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-06-20",
+  "number": "2087413-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-07-11",
+  "number": "2088132-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-07-17",
+  "number": "2088353-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-07-22",
+  "number": "2088569-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-07-23",
+  "number": "2088614-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2019-08-13",
+  "number": "2089467-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-09-12",
+  "number": "2090474-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2019-09-16",
+  "number": "2090551-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2019-10-11",
+  "number": "2091375-DCA",
+  "status": "Revoked"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-10-30",
+  "number": "2091902-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-11-19",
+  "number": "2092317-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-04-30",
+  "issued": "2019-11-20",
+  "number": "2092366-DCA",
+  "status": "Failed to Renew"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2019-11-22",
+  "number": "2092443-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2019-12-17",
+  "number": "2093035-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2019-12-18",
+  "number": "2093062-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2020-01-08",
+  "number": "2093436-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-01-14",
+  "number": "2093579-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-01-22",
+  "number": "2093804-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-01-29",
+  "number": "2094001-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-01-30",
+  "number": "2094030-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-01-31",
+  "number": "2094115-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2020-02-06",
+  "number": "2094277-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-02-13",
+  "number": "2094493-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-02-13",
+  "number": "2094510-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-02-18",
+  "number": "2094589-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-02-19",
+  "number": "2094622-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-02-20",
+  "number": "2094655-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-02-24",
+  "number": "2094735-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-02-26",
+  "number": "2094808-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-02-26",
+  "number": "2094817-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-02-27",
+  "number": "2094844-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-02-27",
+  "number": "2094853-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-03-02",
+  "number": "2094952-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-03-02",
+  "number": "2094954-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-03-02",
+  "number": "2094957-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-03-05",
+  "number": "2095110-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-03-11",
+  "number": "2095241-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-03-12",
+  "number": "2095302-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2020-03-12",
+  "number": "2095310-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-03-13",
+  "number": "2095386-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-03-20",
+  "number": "2095470-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-03-23",
+  "number": "2095511-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-06-24",
+  "number": "2095865-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2020-06-30",
+  "number": "2095906-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-08-20",
+  "number": "2096239-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-09-08",
+  "number": "2096356-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-09-11",
+  "number": "2096384-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-10-15",
+  "number": "2096666-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-11-02",
+  "number": "2096821-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-11-13",
+  "number": "2096914-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-11-13",
+  "number": "2096925-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2020-11-19",
+  "number": "2096987-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2020-11-25",
+  "number": "2097041-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2020-12-09",
+  "number": "2097170-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-02-22",
+  "number": "2097780-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-03-01",
+  "number": "2097885-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-03-12",
+  "number": "2098057-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-05-03",
+  "number": "2098528-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-06-07",
+  "number": "2099171-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-06-28",
+  "number": "2099754-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2021-06-29",
+  "number": "2099794-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-07-08",
+  "number": "2099990-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-07-28",
+  "number": "2100463-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-08-02",
+  "number": "2100561-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-08-10",
+  "number": "2100727-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-08-17",
+  "number": "2100884-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2021-08-18",
+  "number": "2100909-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-08-07",
+  "number": "2101066-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-09-09",
+  "number": "2101394-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-09-15",
+  "number": "2101509-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-09-16",
+  "number": "2101541-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-09-17",
+  "number": "2101568-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2021-09-21",
+  "number": "2101634-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-09-22",
+  "number": "2101664-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-09-22",
+  "number": "2101680-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-09-23",
+  "number": "2101695-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-09-29",
+  "number": "2101849-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2021-09-30",
+  "number": "2101866-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-09-30",
+  "number": "2101870-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-10-04",
+  "number": "2101906-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2021-10-07",
+  "number": "2102013-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2021-10-13",
+  "number": "2102101-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-10-22",
+  "number": "2102269-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-11-22",
+  "number": "2102730-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-12-01",
+  "number": "2102887-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-12-02",
+  "number": "2102909-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-12-15",
+  "number": "2103131-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-12-15",
+  "number": "2103134-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2021-12-28",
+  "number": "2103247-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-01-04",
+  "number": "2103303-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-01-07",
+  "number": "2103362-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-01-14",
+  "number": "2103469-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-01-19",
+  "number": "2103497-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-01-28",
+  "number": "2103674-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-02-03",
+  "number": "2103774-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-02-10",
+  "number": "2103903-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-02-18",
+  "number": "2104027-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-02-22",
+  "number": "2104062-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-02-28",
+  "number": "2104147-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-02",
+  "number": "2104180-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-02",
+  "number": "2104182-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-02",
+  "number": "2104192-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-03-03",
+  "number": "2104222-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-03-07",
+  "number": "2104295-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-07",
+  "number": "2104306-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-03-07",
+  "number": "2104307-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-09",
+  "number": "2104350-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-03-10",
+  "number": "2104412-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-11",
+  "number": "2104433-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-03-11",
+  "number": "2104437-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-03-14",
+  "number": "2104456-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-16",
+  "number": "2104507-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-17",
+  "number": "2104533-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-03-17",
+  "number": "2104541-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-18",
+  "number": "2104574-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-03-21",
+  "number": "2104582-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-03-22",
+  "number": "2104638-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-23",
+  "number": "2104696-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-03-24",
+  "number": "2104729-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-28",
+  "number": "2104765-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-03-30",
+  "number": "2104840-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-03-31",
+  "number": "2104895-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-04-04",
+  "number": "2105008-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-04-11",
+  "number": "2105209-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-04-13",
+  "number": "2105259-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-04-13",
+  "number": "2105260-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-04-15",
+  "number": "2105332-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-04-19",
+  "number": "2105367-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-04-22",
+  "number": "2105495-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-04-25",
+  "number": "2105518-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-05-02",
+  "number": "2105698-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-05-03",
+  "number": "2105721-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-05-06",
+  "number": "2105811-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-05-06",
+  "number": "2105814-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-05-10",
+  "number": "2105892-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-05-11",
+  "number": "2105938-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-05-12",
+  "number": "2105973-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-05-12",
+  "number": "2105974-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-05-17",
+  "number": "2106056-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-05-18",
+  "number": "2106112-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-05-24",
+  "number": "2106266-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-05-24",
+  "number": "2106274-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-06-01",
+  "number": "2106432-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-06-08",
+  "number": "2106638-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-06-09",
+  "number": "2106668-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-06-10",
+  "number": "2106710-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-06-10",
+  "number": "2106713-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-06-27",
+  "number": "2107051-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-07-05",
+  "number": "2107237-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-07-06",
+  "number": "2107297-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-07-07",
+  "number": "2107313-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-07-07",
+  "number": "2107325-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-07-13",
+  "number": "2107421-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-07-18",
+  "number": "2107544-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-07-19",
+  "number": "2107591-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-07-20",
+  "number": "2107625-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-07-29",
+  "number": "2107836-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-08-01",
+  "number": "2107854-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-08-08",
+  "number": "2107996-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-08-18",
+  "number": "2108234-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-08-26",
+  "number": "2108420-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-08-29",
+  "number": "2108461-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-08-31",
+  "number": "2108506-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-09-02",
+  "number": "2108580-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-09-06",
+  "number": "2108600-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-09-15",
+  "number": "2108828-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-09-19",
+  "number": "2108904-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-09-26",
+  "number": "2109057-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-10-03",
+  "number": "2109142-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-10-03",
+  "number": "2109150-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-10-05",
+  "number": "2109201-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-10-12",
+  "number": "2109287-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-10-13",
+  "number": "2109321-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-10-31",
+  "number": "2109591-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-11-02",
+  "number": "2109627-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-11-02",
+  "number": "2109628-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-11-03",
+  "number": "2109646-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2022-11-17",
+  "number": "2109841-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-11-22",
+  "number": "2109922-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-11-22",
+  "number": "2109929-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-12-08",
+  "number": "2110130-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-12-12",
+  "number": "2110195-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-12-13",
+  "number": "2110226-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-12-14",
+  "number": "2110245-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2022-12-15",
+  "number": "2110263-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2022-12-29",
+  "number": "2110392-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-01-06",
+  "number": "2110513-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-01-09",
+  "number": "2110538-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-01-12",
+  "number": "2110616-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-01-18",
+  "number": "2110658-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-01-19",
+  "number": "2110676-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-01-23",
+  "number": "2110716-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-01-24",
+  "number": "2110734-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-02-07",
+  "number": "2110924-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-02-08",
+  "number": "2110948-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-02-13",
+  "number": "2111023-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-02-27",
+  "number": "2111242-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-03-06",
+  "number": "2111377-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-03-13",
+  "number": "2111573-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-03-14",
+  "number": "2111610-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-03-20",
+  "number": "2111707-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-03-21",
+  "number": "2111725-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-04-10",
+  "number": "2112300-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-04-13",
+  "number": "2112453-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-04-17",
+  "number": "2112491-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-04-17",
+  "number": "2112511-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-04-19",
+  "number": "2112632-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-04-20",
+  "number": "2112646-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-04-25",
+  "number": "2112770-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-04-25",
+  "number": "2112782-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-04-25",
+  "number": "2112797-DCA",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-05-15",
+  "number": "2113379-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-06-05",
+  "number": "2114083-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-06-06",
+  "number": "2114197-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-06-09",
+  "number": "2114288-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-06-12",
+  "number": "2114314-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-06-14",
+  "number": "2114407-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-06-15",
+  "number": "2114469-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-06-28",
+  "number": "2114720-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-07-05",
+  "number": "2114839-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-07-05",
+  "number": "2114840-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-07-07",
+  "number": "2114910-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-07-11",
+  "number": "2114981-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-07-11",
+  "number": "2114993-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-07-11",
+  "number": "2114994-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-07-13",
+  "number": "2115070-DCA",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-07-17",
+  "number": "2115146-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-07-18",
+  "number": "2115174-DCA",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-07-25",
+  "number": "2115320-DCWP",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-07-27",
+  "number": "2115384-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-07-28",
+  "number": "2115413-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-08-07",
+  "number": "2115616-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-08-11",
+  "number": "2115732-DCWP",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-08-22",
+  "number": "2115998-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-08-24",
+  "number": "2116052-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-08-24",
+  "number": "2116086-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-09-12",
+  "number": "2116460-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-09-12",
+  "number": "2116478-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-09-18",
+  "number": "2116599-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-10-04",
+  "number": "2117007-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-10-06",
+  "number": "2117056-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-08-31",
+  "issued": "2023-10-16",
+  "number": "2117200-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-10-23",
+  "number": "2117344-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-10-27",
+  "number": "2117449-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-11-01",
+  "number": "2117495-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-11-06",
+  "number": "2117563-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-11-07",
+  "number": "2117584-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-11-13",
+  "number": "2117644-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-11-13",
+  "number": "2117662-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-11-21",
+  "number": "2117789-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-12-08",
+  "number": "2118159-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2023-12-12",
+  "number": "2118209-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-12-14",
+  "number": "2118247-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2023-12-19",
+  "number": "2118305-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2023-12-21",
+  "number": "2118452-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-01-02",
+  "number": "2118609-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2024-01-08",
+  "number": "2118714-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-01-08",
+  "number": "2118720-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-01-10",
+  "number": "2118745-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-01-17",
+  "number": "2118834-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-01-24",
+  "number": "2118920-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-02-12",
+  "number": "2119181-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-02-26",
+  "number": "2119375-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-02-29",
+  "number": "2119443-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-04",
+  "number": "2119478-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-04",
+  "number": "2119479-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-06",
+  "number": "2119542-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-06",
+  "number": "2119565-DCWP",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-07",
+  "number": "2119579-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-07",
+  "number": "2119589-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-07",
+  "number": "2119599-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-08-31",
+  "issued": "2024-03-08",
+  "number": "2119600-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-08",
+  "number": "2119610-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-08",
+  "number": "2119614-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-11",
+  "number": "2119657-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-11",
+  "number": "2119659-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-13",
+  "number": "2119733-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-15",
+  "number": "2119766-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2024-03-15",
+  "number": "2119770-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-18",
+  "number": "2119777-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-18",
+  "number": "2119817-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-20",
+  "number": "2119874-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-20",
+  "number": "2119893-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-20",
+  "number": "2119895-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-20",
+  "number": "2119896-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-20",
+  "number": "2119903-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-21",
+  "number": "2119914-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-21",
+  "number": "2119916-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-03-22",
+  "number": "2119947-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-27",
+  "number": "2120031-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-27",
+  "number": "2120035-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-27",
+  "number": "2120072-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-03-28",
+  "number": "2120081-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-04-03",
+  "number": "2120222-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-04-05",
+  "number": "2120295-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-04-08",
+  "number": "2120326-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-04-12",
+  "number": "2120473-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-04-15",
+  "number": "2120487-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-04-15",
+  "number": "2120488-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-04-15",
+  "number": "2120491-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-04-17",
+  "number": "2120585-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-04-17",
+  "number": "2120603-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-04-22",
+  "number": "2120679-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-04-26",
+  "number": "2120826-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-05-07",
+  "number": "2121158-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-05-08",
+  "number": "2121211-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-05-16",
+  "number": "2121473-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-05-20",
+  "number": "2121513-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-05-22",
+  "number": "2121627-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-05-22",
+  "number": "2121637-DCWP",
+  "status": "Voided"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-05-29",
+  "number": "2121785-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-05-31",
+  "number": "2121831-DCWP",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-03",
+  "number": "2121896-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-04",
+  "number": "2121937-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-05",
+  "number": "2121977-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-05",
+  "number": "2121981-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-07",
+  "number": "2122060-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-06-07",
+  "number": "2122064-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-06-10",
+  "number": "2122097-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-06-11",
+  "number": "2122153-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-06-13",
+  "number": "2122246-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-20",
+  "number": "2122372-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-24",
+  "number": "2122407-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-06-24",
+  "number": "2122436-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-27",
+  "number": "2122509-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-06-27",
+  "number": "2122535-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-07-02",
+  "number": "2122611-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-07-03",
+  "number": "2122653-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-07-08",
+  "number": "2122715-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-07-10",
+  "number": "2122759-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-07-10",
+  "number": "2122764-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-07-15",
+  "number": "2122832-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-07-23",
+  "number": "2123009-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-07-24",
+  "number": "2123032-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-07-30",
+  "number": "2123179-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-08-01",
+  "number": "2123225-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-08-05",
+  "number": "2123306-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-08-15",
+  "number": "2123560-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-08-16",
+  "number": "2123593-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-08-19",
+  "number": "2123609-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-08-19",
+  "number": "2123615-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-08-20",
+  "number": "2123702-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-08-21",
+  "number": "2123719-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-08-23",
+  "number": "2123805-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-08-26",
+  "number": "2123859-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-09-30",
+  "issued": "2024-08-28",
+  "number": "2123913-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-09-04",
+  "number": "2124081-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-09-04",
+  "number": "2124107-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-09-05",
+  "number": "2124122-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-09-06",
+  "number": "2124129-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-09-11",
+  "number": "2124200-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-09-12",
+  "number": "2124232-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-09-16",
+  "number": "2124292-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-09-16",
+  "number": "2124295-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-09-23",
+  "number": "2124396-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-09-30",
+  "number": "2124540-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-10-02",
+  "number": "2124585-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-10-07",
+  "number": "2124665-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-10-11",
+  "number": "2124734-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-10-21",
+  "number": "2124882-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-10-22",
+  "number": "2124910-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-10-23",
+  "number": "2124932-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-10-23",
+  "number": "2124933-DCWP",
+  "status": "Voided"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-11-14",
+  "number": "2125273-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2024-11-19",
+  "number": "2125353-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2024-11-19",
+  "number": "2125354-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2024-11-19",
+  "number": "2125355-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2024-11-19",
+  "number": "2125356-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-11-20",
+  "number": "2125384-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-11-26",
+  "number": "2125504-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-12-03",
+  "number": "2125592-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-12-10",
+  "number": "2125715-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-12-12",
+  "number": "2125735-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2024-02-28",
+  "issued": "2024-12-12",
+  "number": "2125748-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-12-16",
+  "number": "2125798-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2024-12-20",
+  "number": "2125882-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2024-12-23",
+  "number": "2125902-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-01-03",
+  "number": "2126052-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-01-08",
+  "number": "2126194-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-01-14",
+  "number": "2126310-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-01-14",
+  "number": "2126314-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-01-17",
+  "number": "2126362-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-01-17",
+  "number": "2126369-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-01-21",
+  "number": "2126409-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-01-23",
+  "number": "2126451-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-01-28",
+  "number": "2126494-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-01-31",
+  "number": "2126560-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-02-07",
+  "number": "2126686-DCWP",
+  "status": "Voided"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-02-12",
+  "number": "2126728-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-02-19",
+  "number": "2126811-DCWP",
+  "status": "Surrendered"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-03-05",
+  "number": "2126994-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-03-17",
+  "number": "2127260-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-03-18",
+  "number": "2127280-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-03-20",
+  "number": "2127317-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-03-24",
+  "number": "2127371-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-03-24",
+  "number": "2127387-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-03-25",
+  "number": "2127402-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-03-26",
+  "number": "2127457-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-04-01",
+  "number": "2127527-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-04-01",
+  "number": "2127537-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-04-01",
+  "number": "2127538-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-04-03",
+  "number": "2127560-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-04-07",
+  "number": "2127623-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-04-08",
+  "number": "2127652-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-04-14",
+  "number": "2127755-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-04-21",
+  "number": "2127865-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-04-28",
+  "number": "2128048-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-04-29",
+  "number": "2128066-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-05-05",
+  "number": "2128202-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-05-15",
+  "number": "2128483-DCWP",
+  "status": "Suspended"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-05-15",
+  "number": "2128493-DCWP",
+  "status": "Voided"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-05-22",
+  "number": "2128819-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-05-29",
+  "number": "2128986-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-05-29",
+  "number": "2128987-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-05-30",
+  "number": "2129025-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-05-30",
+  "number": "2129026-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-06-03",
+  "number": "2129143-DCWP",
+  "status": "Voided"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-06-03",
+  "number": "2129144-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-06-06",
+  "number": "2129215-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-08-31",
+  "issued": "2025-06-11",
+  "number": "2129307-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-06-13",
+  "number": "2129341-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-06-16",
+  "number": "2129368-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-06-20",
+  "number": "2129461-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-07-07",
+  "number": "2129809-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-07-15",
+  "number": "2129947-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-07-16",
+  "number": "2129968-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-07-17",
+  "number": "2129979-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-07-18",
+  "number": "2130000-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-07-22",
+  "number": "2130074-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-07-25",
+  "number": "2130167-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-07-29",
+  "number": "2130221-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-08-11",
+  "number": "2130480-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-08-18",
+  "number": "2130635-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-08-20",
+  "number": "2130684-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-08-20",
+  "number": "2130685-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-08-21",
+  "number": "2130711-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-08-22",
+  "number": "2130716-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-08-26",
+  "number": "2130772-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-09-08",
+  "number": "2130976-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-09-29",
+  "number": "2131269-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-10-14",
+  "number": "2131516-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-10-14",
+  "number": "2131535-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-10-16",
+  "number": "2131630-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-10-22",
+  "number": "2131761-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-10-22",
+  "number": "2131766-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-10-24",
+  "number": "2131790-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-10-28",
+  "number": "2131851-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-11-05",
+  "number": "2131963-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-11-06",
+  "number": "2131979-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-11-07",
+  "number": "2131999-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2026-02-28",
+  "issued": "2025-11-10",
+  "number": "2132012-DCWP",
+  "status": "Expired"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-11-10",
+  "number": "2132014-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-11-10",
+  "number": "2132026-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-11-19",
+  "number": "2132165-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-11-19",
+  "number": "2132178-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-11-25",
+  "number": "2132252-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-12-02",
+  "number": "2132330-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-12-09",
+  "number": "2132450-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-12-18",
+  "number": "2132609-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-12-24",
+  "number": "2132675-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2025-12-29",
+  "number": "2132698-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-01-05",
+  "number": "2132746-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-01-05",
+  "number": "2132752-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-01-21",
+  "number": "2132978-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-01-22",
+  "number": "2133045-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-01-26",
+  "number": "2133071-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-01-27",
+  "number": "2133112-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-02",
+  "number": "2133209-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-03",
+  "number": "2133229-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-11",
+  "number": "2133358-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-12",
+  "number": "2133394-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-18",
+  "number": "2133468-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-19",
+  "number": "2133479-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-20",
+  "number": "2133513-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-24",
+  "number": "2133540-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-24",
+  "number": "2133544-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-25",
+  "number": "2133552-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-25",
+  "number": "2133553-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-25",
+  "number": "2133558-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-26",
+  "number": "2133586-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-27",
+  "number": "2133591-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-02-27",
+  "number": "2133605-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-02",
+  "number": "2133624-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-02",
+  "number": "2133627-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-03",
+  "number": "2133659-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-05",
+  "number": "2133696-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-05",
+  "number": "2133700-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-05",
+  "number": "2133701-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-09",
+  "number": "2133736-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-09",
+  "number": "2133748-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-09",
+  "number": "2133749-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-09",
+  "number": "2133755-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-10",
+  "number": "2133760-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-10",
+  "number": "2133762-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-10",
+  "number": "2133785-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-11",
+  "number": "2133789-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-11",
+  "number": "2133797-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-11",
+  "number": "2133798-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-11",
+  "number": "2133806-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-12",
+  "number": "2133820-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-13",
+  "number": "2133824-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-16",
+  "number": "2133849-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-16",
+  "number": "2133860-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-16",
+  "number": "2133861-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-17",
+  "number": "2133881-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-19",
+  "number": "2133927-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-19",
+  "number": "2133951-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-19",
+  "number": "2133953-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-20",
+  "number": "2133964-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-20",
+  "number": "2133975-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-20",
+  "number": "2133977-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-24",
+  "number": "2134019-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-25",
+  "number": "2134046-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-25",
+  "number": "2134050-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-27",
+  "number": "2134074-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-27",
+  "number": "2134089-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-27",
+  "number": "2134095-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-30",
+  "number": "2134113-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-03-30",
+  "number": "2134114-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-02",
+  "number": "2134176-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-06",
+  "number": "2134196-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-06",
+  "number": "2134202-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-06",
+  "number": "2134203-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-07",
+  "number": "2134216-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-07",
+  "number": "2134222-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-10",
+  "number": "2134298-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-13",
+  "number": "2134316-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-14",
+  "number": "2134345-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-15",
+  "number": "2134366-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-16",
+  "number": "2134384-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-16",
+  "number": "2134401-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-17",
+  "number": "2134415-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-22",
+  "number": "2134508-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-22",
+  "number": "2134510-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-22",
+  "number": "2134526-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-23",
+  "number": "2134553-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-24",
+  "number": "2134566-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-24",
+  "number": "2134567-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-24",
+  "number": "2134579-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-24",
+  "number": "2134580-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-27",
+  "number": "2134601-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134644-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134645-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134647-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134652-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134655-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134660-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134665-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-04-30",
+  "number": "2134670-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-04",
+  "number": "2134724-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-04",
+  "number": "2134728-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-04",
+  "number": "2134743-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-06",
+  "number": "2134830-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-07",
+  "number": "2134838-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-08",
+  "number": "2134880-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-11",
+  "number": "2134898-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-12",
+  "number": "2134916-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-18",
+  "number": "2135028-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-18",
+  "number": "2135032-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-26",
+  "number": "2135150-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-26",
+  "number": "2135155-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-28",
+  "number": "2135215-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-05-29",
+  "number": "2135240-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-03",
+  "number": "2135324-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-05",
+  "number": "2135404-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-05",
+  "number": "2135406-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-09",
+  "number": "2135470-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-11",
+  "number": "2135533-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-11",
+  "number": "2135534-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-12",
+  "number": "2135556-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-15",
+  "number": "2135581-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-16",
+  "number": "2135606-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-18",
+  "number": "2135657-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-23",
+  "number": "2135686-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-23",
+  "number": "2135693-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-25",
+  "number": "2135768-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-25",
+  "number": "2135773-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-25",
+  "number": "2135776-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-29",
+  "number": "2135832-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-06-29",
+  "number": "2135834-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-01",
+  "number": "2135900-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-07",
+  "number": "2135969-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-10",
+  "number": "2136066-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-13",
+  "number": "2136092-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-20",
+  "number": "2136275-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-23",
+  "number": "2136371-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-28",
+  "number": "2136481-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-30",
+  "number": "2136526-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-30",
+  "number": "2136527-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-07-30",
+  "number": "2136528-DCWP",
+  "status": "Active"
+ },
+ {
+  "category": "individual",
+  "expires": "2028-02-28",
+  "issued": "2026-08-13",
+  "number": "2136857-DCWP",
+  "status": "Active"
+ }
+]

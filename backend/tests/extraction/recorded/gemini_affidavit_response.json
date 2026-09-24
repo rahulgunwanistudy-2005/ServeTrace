@@ -25,16 +25,6 @@
   "confidence": 0.95,
   "evidence_quote": "T. Ockham-Doyle, being duly sworn, deposes and says"
  },
- "server_license": {
-  "value": "1401648",
-  "confidence": 0.94,
-  "evidence_quote": "License No. 1401648"
- },
- "agency_license": {
-  "value": "8871386",
-  "confidence": 0.91,
-  "evidence_quote": "Agency License No. 8871386."
- },
  "method": {
   "value": "308_2",
   "confidence": 0.92,

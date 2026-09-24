@@ -188,14 +188,35 @@ def make_affidavit(
     else:
         proof_filed_date = later + timedelta(days=rng.randint(1, 18))
 
+    # These four are drawn before the constructor rather than inside it so that the order
+    # of the draws is visible, because two of them no longer have a field to go into.
+    #
+    # No licence numbers, deliberately. Session 9 gave the engine the City's real register
+    # to check these against (bible §5 L7), and the moment it had one, an invented
+    # seven-digit number stopped being harmless decoration: it resolves to "not in the
+    # register", so every synthetic case grew two findings that were true of the fixture
+    # and false of the scenario — including the consistent demo case, whose whole job is to
+    # report honestly that the data supports the affidavit. A fixture may not assert
+    # something checkable that it cannot back.
+    #
+    # The two draws they used to make are still made, in the same position, and thrown
+    # away. Everything here is a pure function of the seed, so dropping them would re-roll
+    # every value downstream and turn a two-field change into an unreviewable diff across
+    # every committed fixture.
+    index_number = f"CV-{rng.randint(1000, 99999):06d}-25/{county_code}"
+    plaintiff = rng.choice(PLAINTIFFS)
+    server_name = rng.choice(SERVER_NAMES)
+    rng.randint(1000000, 9999999)  # was server_license
+    rng.randint(1000000, 9999999)  # was agency_license
+
     affidavit = Affidavit(
-        index_number=f"CV-{rng.randint(1000, 99999):06d}-25/{county_code}",
+        index_number=index_number,
         court=f"Civil Court of the City of New York, County of {county}",
-        plaintiff=rng.choice(PLAINTIFFS),
+        plaintiff=plaintiff,
         defendant_name=person.name,
-        server_name=rng.choice(SERVER_NAMES),
-        server_license=f"{rng.randint(1000000, 9999999)}",
-        agency_license=f"{rng.randint(1000000, 9999999)}",
+        server_name=server_name,
+        server_license=None,
+        agency_license=None,
         method=method,
         served_at=served_at,
         served_address=served_place.address,

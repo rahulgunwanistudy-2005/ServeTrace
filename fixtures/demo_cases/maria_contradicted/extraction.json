@@ -1,11 +1,10 @@
 {
  "draft": {
-  "agency_license": "8871386",
+  "agency_license": null,
   "attempts": [],
   "court": "Civil Court of the City of New York, County of Bronx",
   "defendant_name": "Maria Delarmo",
   "evidence_quotes": {
-   "agency_license": "8871386",
    "court": "CIVIL COURT OF THE CITY OF NEW YORK",
    "defendant_name": "Maria Delarmo",
    "index_number": "CV-025236-25/BX",
@@ -20,11 +19,9 @@
    "served_address": "2100 WHITE PLAINS ROAD, Bronx, NY 10462",
    "served_date": "June 12, 2025",
    "served_time": "7:42 PM",
-   "server_license": "1401648",
    "server_name": "T. Ockham-Doyle"
   },
   "field_confidence": {
-   "agency_license": 0.9,
    "court": 0.93,
    "defendant_name": 0.97,
    "index_number": 0.96,
@@ -39,7 +36,6 @@
    "served_address": 0.94,
    "served_date": 0.96,
    "served_time": 0.95,
-   "server_license": 0.93,
    "server_name": 0.94
   },
   "index_number": "CV-025236-25/BX",
@@ -67,13 +63,13 @@
   "served_date": "2025-06-12",
   "served_location": null,
   "served_time": "19:42",
-  "server_license": "1401648",
+  "server_license": null,
   "server_name": "T. Ockham-Doyle"
  },
  "has_text_layer": true,
  "n_pages": 2,
  "notes": [],
  "provider": "derived_from_ground_truth",
- "source_sha256": "87c88b5cbcb341efb5eeafc76f90e2093c31127380149d420eed152d48df3d8f",
+ "source_sha256": "58325c94c46e5928baf2b6fdc54ac04a773f552684aced36704064a752835cb0",
  "used_vision": false
 }

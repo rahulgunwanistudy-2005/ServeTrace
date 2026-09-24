@@ -1,11 +1,10 @@
 {
  "draft": {
-  "agency_license": "4818635",
+  "agency_license": null,
   "attempts": [],
   "court": "Civil Court of the City of New York, County of Kings",
   "defendant_name": "James Okonkwa",
   "evidence_quotes": {
-   "agency_license": "4818635",
    "court": "CIVIL COURT OF THE CITY OF NEW YORK",
    "defendant_name": "James Okonkwa",
    "index_number": "CV-044886-25/KI",
@@ -19,11 +18,9 @@
    "served_address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
    "served_date": "May 14, 2025",
    "served_time": "7:15 PM",
-   "server_license": "1693873",
    "server_name": "K. Aldersey"
   },
   "field_confidence": {
-   "agency_license": 0.9,
    "court": 0.93,
    "defendant_name": 0.97,
    "index_number": 0.96,
@@ -37,7 +34,6 @@
    "served_address": 0.94,
    "served_date": 0.96,
    "served_time": 0.95,
-   "server_license": 0.93,
    "server_name": 0.94
   },
   "index_number": "CV-044886-25/KI",
@@ -65,13 +61,13 @@
   "served_date": "2025-05-14",
   "served_location": null,
   "served_time": "19:15",
-  "server_license": "1693873",
+  "server_license": null,
   "server_name": "K. Aldersey"
  },
  "has_text_layer": true,
  "n_pages": 2,
  "notes": [],
  "provider": "derived_from_ground_truth",
- "source_sha256": "0e8083e96421ffcc6530018527161b611ffa7b26ebabcc46a59a8876ffb1dd42",
+ "source_sha256": "5a511cccfe7322192f8aa8753fc9ce77beb7eef2460d99e138985fed8bb2a1a9",
  "used_vision": false
 }

@@ -237,3 +237,94 @@ def test_copy_never_states_a_fact_the_bible_does_not() -> None:
     assert "20 days" in detail
     _, detail = copy.proof_filed_late(30, PROOF_FILING_DAYS)
     assert "20 days" in detail
+
+
+class TestLicenceRules:
+    """R-L1..R-L3 against the City's register. Bible §5 L7.
+
+    The numbers come out of the committed register at test time rather than being pinned,
+    so a refresh cannot silently turn these into tests of a stale snapshot.
+    """
+
+    @staticmethod
+    def _findings(**overrides: object) -> list[object]:
+        return [
+            f for f in check_rules(affidavit(**overrides), [], PARAMS) if f.code.startswith("R-L")
+        ]
+
+    @staticmethod
+    def _earliest_expired() -> str | None:
+        import json
+
+        from app.licences.registry import CACHE_PATH
+
+        rows = [
+            r
+            for r in json.loads(CACHE_PATH.read_text(encoding="utf-8"))
+            if r["status"].strip().lower() == "expired"
+            and r["category"] == "individual"
+            and r.get("expires")
+        ]
+        rows.sort(key=lambda r: r["expires"])
+        return str(rows[0]["number"]) if rows else None
+
+    @staticmethod
+    def _real(status: str, category: str = "individual") -> str | None:
+        import json
+
+        from app.licences.registry import CACHE_PATH
+
+        for row in json.loads(CACHE_PATH.read_text(encoding="utf-8")):
+            if row["status"].strip().lower() == status and row["category"] == category:
+                return str(row["number"])
+        return None
+
+    def test_an_affidavit_with_no_licence_number_raises_nothing(self) -> None:
+        """The demo fixtures are this case, and it is the common one on a real affidavit
+        that simply did not print the number. Silence, not a finding."""
+        assert self._findings(server_license=None, agency_license=None) == []
+
+    def test_a_number_that_is_not_in_the_register_raises_r_l1(self) -> None:
+        found = self._findings(server_license="9999999")
+        assert [f.code for f in found] == ["R-L1"]
+        assert found[0].severity is Severity.MODERATE
+        assert found[0].legal_ref == "L7"
+
+    def test_both_numbers_are_checked_independently(self) -> None:
+        """An affidavit carries two, and the register can object to both. This is the
+        reason the licence rules return a list where every other rule returns one."""
+        found = self._findings(server_license="9999999", agency_license="9999998")
+        assert [f.code for f in found] == ["R-L1", "R-L1"]
+        assert "server" in found[0].title and "agency" in found[1].title
+
+    def test_a_licence_that_had_expired_before_the_service_raises_r_l2(self) -> None:
+        from app.licences.registry import LicenceCategory, look_up
+
+        number = self._earliest_expired()
+        assert number is not None
+        licence = look_up(number, LicenceCategory.INDIVIDUAL)
+        assert licence is not None and licence.expires is not None
+        # The earliest-expiring licence in the register, so "two years later" is still a
+        # date in the past and the affidavit is not sworn to a service in the future.
+        served = ny(19, 42, 12, 6, licence.expires.year + 2)
+        found = self._findings(server_license=number, served_at=served)
+        assert [f.code for f in found] == ["R-L2"]
+        assert found[0].legal_ref == "L7"
+        # The machine-readable field, not the sentence: the prose belongs to `copy` and
+        # has to stay free to change.
+        assert found[0].numbers["expired"] == licence.expires.isoformat()
+
+    def test_an_agency_number_is_not_accepted_as_a_server_number(self) -> None:
+        """Separate registers. A real agency licence quoted as the server's licence is
+        still not in the server register, and the engine must say so."""
+        agency = self._real("active", category="agency")
+        assert agency is not None
+        found = self._findings(server_license=agency, agency_license=None)
+        assert [f.code for f in found] == ["R-L1"]
+
+    def test_the_licence_findings_never_reach_the_sworn_document(self) -> None:
+        """Bible §15 and the S7 rule that a code with no paragraph produces no paragraph.
+        A register snapshot is not something a person should attest to."""
+        from app.documents.affidavit import EXCLUDED_CODES
+
+        assert {"R-L1", "R-L2", "R-L3"} <= EXCLUDED_CODES

@@ -48,6 +48,25 @@ product that is not traceable to one of these rows.
   https://www.nyc.gov/site/dca/businesses/info-process-servers.page
   https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCrules/0-0-0-149059
 
+## The licence register
+
+- **DCWP "Legally Operating Businesses"**, NYC Open Data dataset `w7w3-xahh` — free, no
+  API key. The source for `backend/app/licences/cache.json`, filtered to the two
+  categories an affidavit of service can name: `Process Server Individual` (899) and
+  `Process Serving Agency` (146), as of the last refresh. Rebuilt by hand with
+  `fixtures/generator/build_licences.py`; the output is committed so that no analysis
+  makes a network call (bible §16).
+  https://data.cityofnewyork.us/resource/w7w3-xahh.json
+
+  Four fields are taken — number, category, status, issue and expiry dates. The published
+  rows also carry each licensee's **name** and **home address**; those are real people at
+  mostly residential addresses, the check does not need them, and bible §18.7 keeps them
+  out of this repo.
+
+  The register is a snapshot of the present and carries no status history, so it can show
+  that a licence had lapsed or had not yet been issued on a given date and can never show
+  that one *was* in force then. R-L1..R-L3 are written to that limit.
+
 ## Geocoding
 
 - NYC Planning Labs GeoSearch — free, no API key.

@@ -8,7 +8,7 @@
   "n_servers": 5,
   "precision": 1.0,
   "recall": 1.0,
-  "runtime_ms": 15.2,
+  "runtime_ms": 15.4,
   "true_positives": 12
  },
  "by_edge_kind": {
@@ -106,9 +106,9 @@
  },
  "false_accusations": 0,
  "latency_ms": {
-  "max": 1.34,
-  "median": 0.13,
-  "p95": 0.65
+  "max": 1.49,
+  "median": 0.15,
+  "p95": 0.71
  },
  "n_cases": 200,
  "n_disagreements": 4,
