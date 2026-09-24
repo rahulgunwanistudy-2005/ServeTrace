@@ -56,7 +56,10 @@ def mount_frontend(app: FastAPI, build_dir: Path) -> None:
         # Hashed filenames, so these are safe to cache hard.
         app.mount("/_app", StaticFiles(directory=assets), name="assets")
 
-    @app.get("/{full_path:path}", include_in_schema=False)
+    # HEAD as well as GET. FastAPI, unlike bare Starlette, does not add HEAD to a GET
+    # route, so every page answered a HEAD with 405 — which is what Render's platform
+    # probe, an uptime monitor and a chat client generating a link preview all send.
+    @app.api_route("/{full_path:path}", methods=["GET", "HEAD"], include_in_schema=False)
     async def serve(request: Request, full_path: str) -> Response:
         if full_path.startswith("api/"):
             return JSONResponse(status_code=404, content=envelope("not_found", "No such endpoint."))

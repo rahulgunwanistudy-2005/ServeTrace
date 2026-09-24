@@ -55,6 +55,18 @@ def test_a_404_from_the_static_mount_keeps_its_headers(client: TestClient) -> No
     assert response.headers["x-content-type-options"] == "nosniff"
 
 
+def test_head_is_answered_wherever_get_is(client: TestClient) -> None:
+    """A probe, an uptime monitor and a link preview all send HEAD, not GET.
+
+    FastAPI does not derive HEAD from a GET route the way bare Starlette does, so both the
+    health path and every page answered 405 — which is how the first Render deploy looked
+    in its own logs.
+    """
+    for path in ("/api/health", "/", "/result"):
+        response = client.head(path)
+        assert response.status_code != 405, path
+
+
 def test_hsts_only_when_the_browser_arrived_over_tls(client: TestClient) -> None:
     """Sent over plain HTTP it is both useless and a lie about the connection."""
     assert "strict-transport-security" not in client.get("http://testserver/api/health").headers
