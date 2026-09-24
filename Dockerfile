@@ -4,11 +4,20 @@
 # ---------- stage 1: build the static frontend ----------
 FROM node:22-bookworm-slim AS frontend
 
-WORKDIR /build
+# The repo layout is mirrored rather than flattened, because three modules under
+# `frontend/src` reach *out* of the frontend with `../../../../fixtures/demo_cases` — the
+# advocate demo spreadsheet, the three demo cases, and the test fixtures. Building from a
+# bare /build silently changes what those four `..` mean.
+#
+# It failed loudly for the static import and would have failed silently for the other two:
+# `import.meta.glob` over a directory that is not there matches nothing and raises nothing,
+# so /demo would have deployed with no cases and no error anywhere.
+WORKDIR /build/frontend
 COPY frontend/package.json frontend/package-lock.json* ./
 RUN npm ci --no-audit --no-fund
 
 COPY frontend/ ./
+COPY fixtures/demo_cases /build/fixtures/demo_cases
 RUN npm run build
 
 
@@ -49,7 +58,7 @@ COPY backend/ ./
 RUN uv sync --no-dev
 
 # main.py resolves the bundle as <repo>/frontend/build, two levels above app/.
-COPY --from=frontend /build/build /srv/frontend/build
+COPY --from=frontend /build/frontend/build /srv/frontend/build
 
 # Demo cases must work with no network and no LLM key (bible §17).
 COPY fixtures/demo_cases /srv/fixtures/demo_cases

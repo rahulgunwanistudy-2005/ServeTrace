@@ -1,0 +1,50 @@
+# Render blueprint. One web service, built from the Dockerfile at the repo root.
+# Bible §7: a single deployable — FastAPI serves the built SvelteKit bundle at /.
+#
+# Nothing here is secret. `sync: false` marks the two values that must be typed into the
+# Render dashboard rather than committed, and the service runs fine without either: with
+# LLM_PROVIDER=none the affidavit is typed in by hand and every other feature is unchanged.
+services:
+  - type: web
+    name: servetrace
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      # Extraction is the only place an LLM is used (bible §7). "none" is the honest
+      # default for a public link: the app is fully usable without a key, and a key on a
+      # public URL is a key anybody can spend.
+      - key: LLM_PROVIDER
+        value: none
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+
+      # Uploads still work — DEMO_ONLY=true would refuse them, and the manual entry form
+      # is a fallback rather than the product.
+      - key: DEMO_ONLY
+        value: false
+      - key: MAX_UPLOAD_MB
+        value: 15
+
+      # Same-origin only: the bundle and the API are served by this one service, so the
+      # browser never makes a cross-origin request and no origin needs allowing.
+      - key: CORS_ORIGINS
+        value: ""
+
+      # Render terminates TLS and proxies to the container, so every request arrives from
+      # the proxy. Without this the rate limiter sees one client for the whole internet
+      # and the first busy minute locks everybody out together.
+      - key: RATE_LIMIT_TRUSTED_HOPS
+        value: 1
+      - key: RATE_LIMIT_PER_MINUTE
+        value: 30
+      - key: RATE_LIMIT_BURST
+        value: 10
+
+      - key: GEOSEARCH_URL
+        value: https://geosearch.planninglabs.nyc/v2/search

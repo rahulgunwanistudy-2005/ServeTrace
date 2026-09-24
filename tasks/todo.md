@@ -1256,3 +1256,160 @@ duplicate code that can rot.
   have. The route handles `provider === 'none'` by saying so and showing the manual form.
 - `docs/screens/` for the Devpost gallery, and a Lighthouse run. The structural half of
   §14's accessibility ask is checked — labels, no overflow, keyboard-reachable controls.
+
+## Session 11 — S8_eval_deploy_hardening: honest numbers, a public URL, a demo that cannot fail
+
+**What the audit found, stated first, because it changes the shape of the session.** The
+S8 prompt assumes a greenfield. It is not: six of its items are partly or wholly built
+already. `eval/run_eval.py` scores the engine, the rules and advocate mode against
+independently-labelled ground truth and publishes the figures the Methodology page reads.
+The rate limiter, CORS, typed errors, outbound timeouts, upload validation and
+`DEMO_ONLY` refusal all exist and are tested. Re-building any of that would be the worst
+kind of busywork — churn that reviews as progress.
+
+So this session is the gaps, and only the gaps:
+
+| S8 item | State | This session |
+|---|---|---|
+| Engine / rules / advocate eval | Built | Severity split; N 200 → 500 |
+| Robustness perturbation sweep | Absent | Build it |
+| Extraction eval | Written, unrun (no key) | Leave; report honestly |
+| One command, ~2 min | Two commands | One driver |
+| Typed errors, timeouts, uploads, rate limit, CORS | Built | — |
+| Security headers / CSP | Absent | Build it |
+| UI error boundary | Absent | Build it |
+| PII-free logs | True by construction | Add the test that proves it |
+| Cache headers | Absent | Build it |
+| Render deploy | Absent | `render.yaml`, then deploy |
+| `DEMO_ONLY` variant | Built | — |
+| README | Stale (documents two deleted routes) | Rewrite |
+
+**Two decisions Rahul made before the work started.** matplotlib joins the backend *dev*
+group — not the runtime image — for the one robustness figure. And this session ends with
+the repo pushed and a live Render URL, rather than at a runbook.
+
+### Steps
+- [x] S11.1 `eval/robustness.py` — perturb the corpus and re-score: GPS jitter σ 20→300 m,
+      sampling gaps 2→30 min. CONTRADICTED precision and recall at each level, plus the
+      false-contradiction count, which is the number that must not move. Seeded, so the
+      sweep is as reproducible as the corpus it perturbs.
+- [x] S11.2 Severity split in `run_eval.py`: precision/recall of CONTRADICTED at STRONG,
+      and at STRONG+MODERATE, reported separately. S8 asks for both and today's report
+      has neither.
+- [x] S11.3 `eval/run_eval.py --all`: one command that generates the corpus if it is
+      missing, scores engine + rules + advocate + robustness, writes `REPORT.md`,
+      `results/*.json` and the PNG. N=500.
+- [x] S11.4 `app/api/security.py` — security-header middleware. CSP allowing self,
+      OpenFreeMap tiles and the `blob:`/`data:` the map worker and the packet capture
+      need; `X-Content-Type-Options`, `Referrer-Policy`, frame-ancestors, HSTS behind TLS.
+      Plus `Cache-Control` on static assets: immutable for hashed `/_app`, revalidate for
+      everything else.
+- [x] S11.5 `frontend/src/routes/+error.svelte` — the global boundary, in the S6 visual
+      system, with copy that tells a person what they have not lost.
+- [x] S11.6 `tests/api/test_log_privacy.py` — drive a full flow with fixture data, capture
+      the log stream, fail if any fixture name, address or coordinate appears in it.
+- [x] S11.7 `render.yaml` + deploy section in the README: health check, env, cold start,
+      and the `RATE_LIMIT_TRUSTED_HOPS=1` that Render needs or every user shares a bucket.
+- [x] S11.8 README rewrite: pitch, architecture diagram, screenshots, local run, the eval
+      command, limitations, disclosure, MIT `LICENSE`. Delete the section documenting the
+      two dev routes S10 removed.
+- [x] S11.9 Self-review pass over the whole repo; gates both sides; lessons.
+- [x] S11.10 Commit, push, deploy to Render, verify the live URL serves a demo result.
+
+### Risks / open questions
+- **The sweep can only move one number in one direction.** Jitter and gaps destroy
+  information, so CONTRADICTED *recall* must fall as σ rises. If precision falls too — if
+  noise starts manufacturing contradictions — that is a real finding about the thresholds
+  and bible §2 says publish it, not tune until it looks better. The acceptance gate is
+  false-accusations = 0, and §S8 is explicit that the fix is the logic, never the test.
+- **CSP is the classic way to ship a broken map.** MapLibre fetches tiles, glyphs and
+  sprites from OpenFreeMap, builds workers from blobs, and the evidence-packet capture
+  reads the canvas back as a `data:` URL. A policy written from the list of what the app
+  "should" need will pass every test here and blank the map in production. It gets checked
+  in a browser against a real map, not against a unit test.
+- **N=500 changes every published figure.** `published.json`, `REPORT.md` and the
+  Methodology page all move together, and a backend test already fails if they drift. That
+  test is the reason this is safe.
+- **Pushing is irreversible in the way that matters.** The repo goes to GitHub with its
+  full history. Everything in it is synthetic by construction — bible §16 — and S9 already
+  removed the invented licence numbers. Worth one deliberate check before the push rather
+  than a retraction after it.
+
+### Review
+
+**Built**
+
+- **`eval/robustness.py`** — the perturbation sweep. GPS jitter from 20 m to 300 m and
+  sampling gaps from 2 to 30 minutes, seeded per case so the whole thing reproduces. The
+  jitter pass runs twice, with the fix's `accuracy_m` withheld and then reported, and the
+  pair of results is the point: alone the first overstates the risk and the second hides
+  it.
+- **`eval/plots.py`** — the one figure, three panels, matplotlib in the *dev* group only.
+  The y-axis scales to the data and the caption says where it starts, because a 0–100 axis
+  on data that lives in the high nineties draws four flat lines and says nothing.
+- **Severity split in `run_eval.py`** — CONTRADICTED scored as two classifiers, at STRONG
+  and at STRONG+MODERATE, because they are two different claims about the same person.
+- **`eval/corpus.py`** — loading a case and reading the engine's answer about the service
+  claim, shared by both scorers. Two copies of "which findings count as a conflict" is two
+  copies that can disagree, and it is the number the whole eval is gated on.
+- **One command.** `python eval/run_eval.py` generates the corpus if it is missing at
+  **N=500**, scores engine, rules, advocate and robustness, writes the JSON, draws the PNG
+  and republishes the Methodology figures. ~40 s cold, ~10 s warm.
+- **`app/api/security.py`** — nosniff, no-referrer, frame denial, a permissions policy,
+  HSTS behind TLS, `default-src 'none'; sandbox` for the API, and cache-control by path.
+  Registered last so it is outermost, which a test asserts rather than a comment claiming.
+- **The page CSP in `svelte.config.js`**, `mode: 'hash'` — generated from the bundle that
+  shipped, so it cannot drift from it. `worker-src blob:` is the directive the map needs.
+- **`+error.svelte`** — the global boundary, in the S6 vocabulary, deliberately inert: no
+  fetch, no store read, no map. Its first sentence is that nothing was lost and nothing
+  was sent anywhere.
+- **`tests/api/test_log_privacy.py`** — a real case through four routes, the log stream
+  captured through the real formatter, and a failure if any of that case's names,
+  addresses or coordinates appear in it, whole or split or truncated.
+- **Methodology page** grew the three robustness tables, in plain language.
+- **`render.yaml`, `LICENSE` (MIT), README rewritten** — pitch, architecture diagram,
+  privacy, limitations, disclosure, and the deploy notes that matter.
+
+**The engine bug the sweep found**
+
+`_required_speed` returned 0 inside the match radius and priced the *full* distance one
+metre outside it. A transaction accurate to 500 m was consistent 799 m from the door and a
+moderate contradiction at 801 m — two metres of GPS noise deciding whether a sworn
+statement was contradicted — and the docstring defending the short circuit named that
+exact failure as the thing it was there to prevent. Pricing only the distance beyond what
+the data can resolve is continuous, needs no special case, scores all 500 clean cases
+**identically**, and takes false contradictions at 300 m of jitter from 18 to 1 (to 0 when
+the phone reports its error). Three tests now hold both sides of that boundary.
+
+**The Dockerfile bug**
+
+`docker build` had been broken since session 5. Three frontend modules reach out of the
+frontend with `../../../../fixtures/demo_cases`, and the image built from a bare `/build`,
+where those four `..` mean something else. One import failed loudly; the other two are
+`import.meta.glob`, which would have deployed a `/demo` with no cases and no error at all.
+
+**Verified**
+
+- Backend `ruff` / `ruff format --check` clean over 135 files, `mypy` clean over 72,
+  **673 passed** (was 656). Frontend `svelte-check` 0/0 over 296, `tsc` clean, `vitest`
+  **294 passed**, build clean.
+- `python eval/run_eval.py` twice → `engine.json`, `advocate.json`, `robustness.json` and
+  `robustness.png` identical, the PNG byte for byte. **0 false contradictions over 500
+  cases**; the claimed moment read correctly 500/500.
+- `docker build` green, and the container exercised rather than assumed: health, the
+  Maria demo case through the real engine with the map drawn, both PDFs rendered (34.6 KB
+  and 26.2 KB), the CSP meta present, the API headers set, hashed assets immutable.
+- CSP verified in a browser against the real build, twice — dev server and container. The
+  map draws tiles, glyphs, the claim pin, the dashed line and the scrubber, with no
+  console error. The negative control for the log-privacy test was run too: a deliberate
+  `logger.info(f"...{defendant_name}...")` fails it with the exact leaked values.
+
+**Deferred**
+
+- **`docs/screens/` for the Devpost gallery.** The browser pane returns screenshots to the
+  session rather than to disk, and the alternatives are a dependency outside §8
+  (Playwright) or `screencapture`, which photographs the desktop. Worth five minutes by
+  hand; the README does not reference images that do not exist.
+- **Lighthouse.** Same reason — no runner here that does not add a dependency.
+- **The extraction eval remains unrun**, for want of a key. Stated in `REPORT.md` and the
+  README rather than left as a gap.

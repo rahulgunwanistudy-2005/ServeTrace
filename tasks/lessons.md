@@ -321,3 +321,46 @@ a race with the success path. The fix was to stop pushing a captured frame and l
 caller pull one when it needs it, which removed the timing question entirely and also fixed
 a second bug nobody had noticed: the pushed frame predated anything the user did with the
 scrubber.
+
+[2026-09-24] - The S8 robustness sweep was built to produce a graph, and it found a bug
+instead. It runs the jitter pass twice - once with `accuracy_m` left lying about the
+displacement, once with it raised to match - expecting the second to show the match radius
+absorbing the noise. It showed no difference at all: 18 false contradictions either way.
+That was the tell. `_required_speed` short-circuited to zero *inside* the radius and priced
+the full distance one metre outside it, so a transaction accurate to 500 m was consistent
+at 799 m from the door and a moderate contradiction at 801 m - and the docstring defending
+the short circuit named that exact failure as the thing it was there to prevent. -> Session
+4 removed the same shape of bug from the elapsed-time guard and wrote down the rule: a
+threshold that produces a cliff at the radius is the wrong threshold. This was its distance
+half, and it survived because no test asked what happened on both sides of the boundary.
+The fix is the same one: price only the distance beyond what the data can resolve, which is
+continuous, needs no special case, and scores all 500 clean cases identically. The general
+lesson is about the experiment, not the arithmetic - a measurement designed to *confirm*
+something working is worth running precisely because it can come back flat.
+
+[2026-09-24] - The eval's headline was one accuracy figure, and S8 asked for precision and
+recall of CONTRADICTED at STRONG and at STRONG+MODERATE separately. Splitting them looked
+like reporting detail and was not: the split is what let the robustness sweep say that
+noise costs *precision* at the severity a court document rests on while leaving recall
+untouched, which is a different and much more serious statement than "accuracy fell". ->
+When one number summarises two decisions a product actually makes differently, an average
+of them describes neither. Score each operating point as its own classifier.
+
+[2026-09-24] - `docker build` had been broken since session 5 and nobody had noticed,
+because the quality gates build the frontend with `npm run build` from inside `frontend/`
+and the image built it from a bare `/build`. Three modules under `frontend/src` reach out
+of the frontend with `../../../../fixtures/demo_cases`, and those four `..` meant something
+different in the container. One was a static import and failed the build loudly; the other
+two are `import.meta.glob`, which matches nothing and raises nothing - so had the static
+import not existed, the image would have deployed a /demo page with no cases on it and no
+error anywhere. -> A relative path that leaves its own package is a dependency on the
+directory layout, and a build that flattens the layout is a different build. The image
+mirrors the repo now. The wider point is that the gates verified the dev build and the
+deploy artifact was never built at all; "the tests pass" and "the thing we ship works" were
+two claims and only one of them was being checked.
+
+[2026-09-24] - A first cut of the robustness module re-ran both sweeps a second time purely
+to collect the case ids behind the false-accusation count, doubling the runtime of the
+slowest thing in the eval to produce a list. -> The scorer already had every answer in
+hand; it just was not carrying the identifier alongside. When a second pass exists only to
+recover something the first pass saw, widen what the first pass records.
