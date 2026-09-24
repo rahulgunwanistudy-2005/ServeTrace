@@ -299,6 +299,40 @@ One thing this boundary does **not** cover: the result map pans to the user's ow
 so the tile host can infer roughly where those points are from which tiles are requested.
 No location data is sent, but the inference is real, and the privacy page says so.
 
+The boundary is asserted rather than described. `tests/api/test_log_privacy.py` drives a
+committed demo case through `/api/analyze`, both document routes and `/api/geocode`,
+captures everything the process writes to its log stream through the real formatter, and
+fails if any of that case's names, addresses or coordinates — whole, split into words, or
+truncated to three decimal places — appear in it. It also fails on any log *key* bible §16
+does not name, because a new field is a field nobody reviewed against that rule. A second
+test does the same on the unhandled-exception path, which is the one that wants to be
+helpful and is therefore the risk.
+
+## Security headers
+
+Split between two places, for one reason. SvelteKit emits an inline bootstrap script per
+page and hashes it into a `<meta>` CSP at build time (`frontend/svelte.config.js`), so the
+policy is generated from the bundle that actually shipped. Writing the same policy by hand
+in a server header would mean keeping it in step with the bundler by hand, and browsers
+enforce the *intersection* of every policy they are given — so the first time the two
+drifted, the app would either break or silently stop being protected.
+
+`app/api/security.py` therefore carries only what a meta tag cannot express — HSTS, which
+is a transport instruction, and frame denial, which browsers ignore in meta — plus
+`nosniff`, `no-referrer`, a permissions policy that forecloses the device APIs this app
+never asks for, and a far stricter `default-src 'none'; sandbox` for `/api/*`, which loads
+nothing at all. It is registered last so it is outermost: every response leaves through it,
+including the ones an error handler produces, and a test asserts that rather than trusting
+the comment.
+
+Caching is decided in the same module: hashed `/_app/immutable/*` assets are immutable for
+a year, HTML revalidates, and every API response is `no-store` — some of them describe
+where a person was, and none of that belongs in a shared cache.
+
+The one directive worth naming is `worker-src blob:`. MapLibre builds its tile worker from
+a blob URL, and without it the map renders nothing and says nothing — which is the same
+symptom as session 5's glyph bug, from a different cause.
+
 ## Maps
 
 `lib/map/AdvocateMap.svelte` and, from session 7, `ResultMap.svelte` both draw with

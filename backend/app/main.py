@@ -14,6 +14,7 @@ from app.api import (
     routes_health,
 )
 from app.api.errors import install_error_handlers
+from app.api.security import security_headers_middleware
 from app.api.static_site import mount_frontend
 from app.config import get_settings
 from app.logging import configure_logging, request_log_middleware
@@ -33,6 +34,11 @@ def create_app() -> FastAPI:
         docs_url="/api/docs",
     )
 
+    # Starlette inserts each middleware at the front of the stack, so the one registered
+    # *last* is the outermost. The security headers go last deliberately: every response
+    # leaves through them, including the ones CORS answers by itself and the ones an error
+    # handler produces, and a response that skipped them is exactly the one nobody notices.
+    # `tests/api/test_security_headers.py` asserts that rather than trusting this comment.
     app.middleware("http")(request_log_middleware)
 
     if settings.cors_origin_list:
@@ -42,6 +48,8 @@ def create_app() -> FastAPI:
             allow_methods=["GET", "POST"],
             allow_headers=["content-type"],
         )
+
+    app.middleware("http")(security_headers_middleware)
 
     install_error_handlers(app)
     app.include_router(routes_health.router, prefix="/api")
