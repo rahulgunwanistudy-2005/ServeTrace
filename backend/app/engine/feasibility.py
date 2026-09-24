@@ -348,15 +348,29 @@ def _best_near(anchors: list[_Anchor], at: datetime, near_window: timedelta) -> 
 def _required_speed(anchor: _Anchor, at: datetime) -> float:
     """km/h needed to be at the claimed point at the claimed time.
 
-    A fix inside its own stated accuracy of the claimed point *is* at the claimed point,
-    so there is no journey to price and the answer is zero. That has to be a special case
-    rather than a small number, or a transaction with 500 m of accuracy would price its
-    own uncertainty as a 48 km/h dash.
+    Only the distance the data can actually *resolve* is priced. A fix knows where it was
+    to within `radius_km` — the match radius widened by its own stated accuracy — so the
+    journey it proves is the part beyond that, and the part inside it is not a journey at
+    all. A fix within the radius therefore costs nothing, and one just outside it costs
+    almost nothing, which is the same statement made continuously.
+
+    **The special case this replaces, and why it had to go.** It read "inside the radius,
+    return 0", and its docstring named the failure it was there to prevent: a transaction
+    accurate to 500 m should not price its own uncertainty as a 48 km/h dash. Written as a
+    short circuit it prevented that only *inside* the radius and produced exactly that dash
+    one metre outside it — 799 m from the door was consistent and 801 m was a moderate
+    contradiction of a sworn statement, on two metres of GPS noise. Session 4 removed the
+    same shape of bug from the elapsed-time guard and the lesson it left is the tell: a
+    threshold that produces a cliff at the radius is the wrong threshold. This is the
+    distance half of that fix, found by S8's perturbation sweep.
+
+    Nothing about the clean corpus moves — 500 cases score identically either way, because
+    a genuine contradiction is kilometres out and a 300 m radius is noise beside it. What
+    moves is data that is actually noisy, which is the data real phones produce.
     """
-    if anchor.within_radius:
-        return 0.0
+    excess_km = max(0.0, anchor.km - anchor.radius_km)
     seconds = max(abs((at - anchor.at).total_seconds()), MIN_ELAPSED_S)
-    return anchor.km / (seconds / 3600.0)
+    return excess_km / (seconds / 3600.0)
 
 
 def _covering_conflict(

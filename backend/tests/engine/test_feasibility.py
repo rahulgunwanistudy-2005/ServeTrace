@@ -113,6 +113,13 @@ def test_the_nearest_covering_stay_decides_when_several_cover_the_claim() -> Non
 
 
 def test_impossible_speed_between_two_points_contradicts_strongly() -> None:
+    """The speed quoted is the one the data can *prove*, not the one it suggests.
+
+    A phone 14 km away knows its own position to within the match radius, so the journey
+    the record establishes is 14 km less that radius. Quoting the full 14 km would be
+    reading the fix as a point when it is a disc, and this number goes into a document a
+    judge reads: the defensible figure is the smallest one consistent with the evidence.
+    """
     fixes = [
         fix(CLAIM_AT - timedelta(minutes=5), away(14.0)),
         fix(CLAIM_AT + timedelta(minutes=5), away(14.0)),
@@ -121,7 +128,48 @@ def test_impossible_speed_between_two_points_contradicts_strongly() -> None:
     assert verdict.tier is ClaimTier.CONTRADICTED
     assert findings[0].code == "F-PRISM"
     assert findings[0].severity is Severity.STRONG
-    assert verdict.required_speed_kmh == pytest.approx(14.0 / (5 / 60), rel=0.02)
+    provable_km = 14.0 - PARAMS.match_radius_km
+    assert verdict.required_speed_kmh == pytest.approx(provable_km / (5 / 60), rel=0.02)
+    assert verdict.required_speed_kmh < 14.0 / (5 / 60)
+
+
+def test_crossing_the_match_radius_does_not_flip_a_verdict_on_one_metre() -> None:
+    """The distance half of session 4's lesson: no threshold may cliff at the radius.
+
+    A transaction accurate to 500 m gets a 0.8 km radius. Under the old short circuit a
+    fix 799 m from the door cost nothing and one 801 m away cost a 48 km/h dash — two
+    metres of GPS noise deciding whether a sworn statement was contradicted. The property
+    that forbids that is continuity: a metre of extra distance may only ever buy a metre's
+    worth of required speed.
+    """
+    accurate_to_500m = {"accuracy_m": 500.0, "kind": FixKind.TRANSACTION}
+    radius_km = PARAMS.match_radius_km + 0.5
+
+    just_inside = fix(CLAIM_AT, away(radius_km - 0.001), **accurate_to_500m)
+    just_outside = fix(CLAIM_AT, away(radius_km + 0.001), **accurate_to_500m)
+
+    inside_verdict, inside_findings = run([just_inside])
+    outside_verdict, outside_findings = run([just_outside])
+
+    assert "F-PRISM" not in codes(inside_findings)
+    assert "F-PRISM" not in codes(outside_findings)
+    assert inside_verdict.tier is not ClaimTier.CONTRADICTED
+    assert outside_verdict.tier is not ClaimTier.CONTRADICTED
+
+
+def test_a_fix_that_admits_its_error_is_not_contradicted_by_that_error() -> None:
+    """A cell-tower fix accurate to 1 km, 1.2 km from the door, at the claimed minute.
+
+    Bible §11.1 widens the match radius by the fix's own `accuracy_m` precisely so that a
+    phone is not contradicted by noise it declared. The same displacement from a fix
+    claiming 10 m of accuracy is a real conflict, and the pair is what shows the field is
+    doing work rather than being read and discarded.
+    """
+    vague = fix(CLAIM_AT, away(1.2), accuracy_m=1000.0, kind=FixKind.TRANSACTION)
+    precise = fix(CLAIM_AT, away(1.2), accuracy_m=10.0, kind=FixKind.TRANSACTION)
+
+    assert run([vague])[0].tier is not ClaimTier.CONTRADICTED
+    assert run([precise])[0].tier is ClaimTier.CONTRADICTED
 
 
 def test_a_merely_brisk_speed_contradicts_moderately() -> None:
