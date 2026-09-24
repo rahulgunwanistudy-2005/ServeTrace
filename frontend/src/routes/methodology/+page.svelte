@@ -27,6 +27,33 @@
 	const cell = (truth: string, pred: string) => matrix[truth]?.[pred] ?? 0;
 
 	const advocate = published.advocate;
+	const robustness = published.robustness;
+
+	/**
+	 * The three sweeps, each as a small table. The numbers come straight out of
+	 * `published.json`, which the eval rewrites and a backend test refuses to let go
+	 * stale — so nothing here can claim a figure the last run did not produce.
+	 */
+	const sweeps = [
+		{
+			title: copy.robustnessJitterTitle,
+			body: copy.robustnessJitterBody,
+			unit: 'm',
+			levels: robustness.jitter.levels
+		},
+		{
+			title: copy.robustnessReportedTitle,
+			body: copy.robustnessReportedBody,
+			unit: 'm',
+			levels: robustness.jitter_reported.levels
+		},
+		{
+			title: copy.robustnessGapsTitle,
+			body: copy.robustnessGapsBody,
+			unit: 'min',
+			levels: robustness.gaps.levels
+		}
+	];
 </script>
 
 <svelte:head><title>{nav.methodology} — ServeTrace</title></svelte:head>
@@ -183,6 +210,42 @@
 
 	<p>{copy.advocatePrecisionNote}</p>
 	<p>{copy.advocateRuntime(advocate.runtime_ms, advocate.n_records)}</p>
+
+	<h2>{copy.robustnessTitle}</h2>
+	<p>{copy.robustnessBody(robustness.n_cases)}</p>
+
+	{#each sweeps as sweep (sweep.title)}
+		<h3>{sweep.title}</h3>
+		<p>{sweep.body}</p>
+		<div class="not-prose my-5 overflow-x-auto">
+			<table class="w-full text-sm">
+				<thead>
+					<tr class="border-b border-line text-left">
+						<th class="py-2 pr-4 font-medium">{copy.robustnessColumnLevel}</th>
+						<th class="py-2 pr-4 text-right font-medium">{copy.robustnessColumnPrecision}</th>
+						<th class="py-2 pr-4 text-right font-medium">{copy.robustnessColumnRecall}</th>
+						<th class="py-2 text-right font-medium">{copy.robustnessColumnFalse}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each sweep.levels as level (level.value)}
+						<tr class="border-b border-line/60">
+							<td class="py-2 pr-4 tabular-nums">{level.value} {sweep.unit}</td>
+							<td class="py-2 pr-4 text-right tabular-nums">{pct(level.precision ?? 0)}</td>
+							<td class="py-2 pr-4 text-right tabular-nums">{pct(level.recall ?? 0)}</td>
+							<td
+								class="py-2 text-right tabular-nums {level.false_accusations
+									? toneInk.contradicted
+									: ''}"
+							>
+								{level.false_accusations}
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/each}
 
 	<h2>{copy.limitsTitle}</h2>
 	<ul>

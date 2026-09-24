@@ -1,4 +1,4 @@
-"""The acceptance gate: the engine against 200 cases it has never seen labels for.
+"""The acceptance gate: the engine against 500 cases it has never seen labels for.
 
 The labels come from `fixtures/generator`, which records where it *put* the person and
 never asks the engine. That independence is the whole value of this file — a golden
@@ -17,7 +17,10 @@ import pytest
 from eval.advocate_eval import load_records
 from eval.advocate_eval import published_figures as advocate_published
 from eval.advocate_eval import score as advocate_score
+from eval.robustness import published_figures as robustness_published
+from eval.robustness import run as run_robustness
 from eval.run_eval import (
+    CORPUS_CASES,
     PUBLISHED,
     TIERS,
     build_report,
@@ -60,7 +63,7 @@ def test_no_false_accusations(report, capsys) -> None:
 
 def test_the_corpus_is_the_one_the_generator_was_asked_for(report) -> None:
     """A gate over five cases would pass for the wrong reason."""
-    assert report.n_cases == 200
+    assert report.n_cases == CORPUS_CASES
 
 
 def test_every_claim_verdict_agrees_with_where_the_generator_put_the_person(report) -> None:
@@ -101,13 +104,14 @@ def test_the_description_check_never_flags_a_household_that_matches(report) -> N
     assert report.description["false_flags"] == 0
 
 
-def test_the_figures_on_the_methodology_page_are_the_figures_this_run_produced(report) -> None:
+def test_the_figures_on_the_methodology_page_are_the_figures_this_run_produced(
+    report, tmp_path
+) -> None:
     """Bible §2 and §14.7: the published numbers are whatever the eval says, as it says
     them. The page reads a generated file, and this is what stops that file going stale
     while the engine moves under it.
 
-        cd backend && PYTHONPATH=.. uv run python ../eval/run_eval.py \
-            --corpus ../fixtures/out --out ../eval/results
+        python eval/run_eval.py
     """
     assert PUBLISHED.is_file(), f"{PUBLISHED} is missing; re-run the eval"
     committed = json.loads(PUBLISHED.read_text())
@@ -118,6 +122,17 @@ def test_the_figures_on_the_methodology_page_are_the_figures_this_run_produced(r
     # value of this test is that *everything* on that page is whatever the eval last said.
     committed_advocate = committed.pop("advocate", None)
     assert committed_advocate is not None, "the page publishes batch figures; re-run the eval"
+
+    # And the perturbation sweep, for the same reason and by the same route: compared
+    # against its own scorer rather than exempted. Excluding a block is how the page and
+    # the eval come apart, and this file exists to make that impossible.
+    committed_robustness = committed.pop("robustness", None)
+    assert committed_robustness is not None, (
+        "the page publishes robustness figures; re-run the eval"
+    )
+    assert committed_robustness == robustness_published(run_robustness(CORPUS, tmp_path)), (
+        "the robustness figures on the page are not the ones this corpus produces"
+    )
 
     # Two figures here measure a machine rather than a decision of the engine's — the
     # per-case latency and the batch runtime — so both are checked for shape and sanity

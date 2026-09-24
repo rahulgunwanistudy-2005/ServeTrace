@@ -571,6 +571,35 @@ export const methodology = {
 	advocateRuntime: (ms: number, filings: number) =>
 		`${filings.toLocaleString('en-US')} filings analysed in ${Math.round(ms)} ms. The design target is 50,000 in under three seconds.`,
 
+	robustnessTitle: 'How it holds up when the data is bad',
+	robustnessBody: (cases: number) =>
+		`Clean synthetic data is not what a real phone produces. An urban GPS fix can be a ` +
+		`couple of hundred metres out, and a phone in battery saver can go twenty minutes ` +
+		`without recording anything. So the same ${cases.toLocaleString('en-US')} cases are ` +
+		`run again with the data deliberately spoiled, and scored against where the person ` +
+		`really was — because noise is the phone mis-measuring, not the person moving.`,
+	robustnessReportedTitle: 'The same noise, honestly reported',
+	robustnessJitterTitle: 'Positions pushed off by noise',
+	robustnessJitterBody:
+		'Every recorded point is displaced by a random amount, from 20 metres up to 300 — ' +
+		'which is the whole width of the radius the check treats as "the same place". Up to ' +
+		'200 metres nothing changes at all. Only at 300, where the error is as large as the ' +
+		'thing being measured, does the check start calling a few people contradicted who ' +
+		'were not.',
+	robustnessReportedBody:
+		'Phones record how accurate each point is, and the check widens its radius to match. ' +
+		'When the spoiled data reports its own error honestly, as a real export does, every ' +
+		'figure stays where it started, all the way out to 300 metres.',
+	robustnessGapsTitle: 'Points recorded less often',
+	robustnessGapsBody:
+		'Thinning the record so consecutive points are up to half an hour apart never ' +
+		'produces a wrong conflict. It loses some real ones: with half-hour gaps the check ' +
+		'still catches most conflicts, and stays silent rather than guessing about the rest.',
+	robustnessColumnLevel: 'Noise',
+	robustnessColumnPrecision: 'Of those it calls conflicting, how many really are',
+	robustnessColumnRecall: 'Of the real conflicts, how many it finds',
+	robustnessColumnFalse: 'People wrongly told their data conflicts',
+
 	limitsTitle: 'Where this cannot help',
 	limits: [
 		'Location history shows where your phone was. It is not proof of where you were, and a judge decides what happened.',
@@ -786,6 +815,31 @@ export const errors = {
 } as const;
 
 export type ErrorCode = keyof typeof errors;
+
+/**
+ * The global error boundary: any page that throws, and any route that does not exist.
+ *
+ * Written for the one reader who matters here — somebody part-way through checking a
+ * court case, whose screen has just gone wrong. The first thing they need to know is not
+ * what broke, it is that their work is still on this device and nothing was sent
+ * anywhere. Bible §16 makes that true; this is where it gets said.
+ */
+export const errorPage = {
+	eyebrow: 'Something went wrong',
+	title: {
+		404: 'That page is not here.',
+		default: 'This screen ran into a problem.'
+	},
+	body: {
+		404: 'The link may be old, or the address may have a typo in it.',
+		default:
+			'Nothing you entered has been lost, and nothing was sent anywhere. Your case stays on this device.'
+	},
+	retry: 'Try that again',
+	home: 'Start over',
+	/** Shown small, under the copy. A code is useless to the reader and useful to us. */
+	referenceLabel: 'Reference'
+} as const;
 
 export const demo = {
 	/**

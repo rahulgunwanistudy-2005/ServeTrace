@@ -31,6 +31,10 @@ dev = [
     "hypothesis>=6.112",
     "ruff>=0.7",
     "mypy>=1.13",
+    # Draws the one figure in the eval: CONTRADICTED precision and recall against GPS
+    # jitter. Dev-only and deliberately so — it is not imported by `app`, it is not in
+    # the runtime image, and the product never plots anything.
+    "matplotlib>=3.9",
 ]
 
 [build-system]

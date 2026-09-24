@@ -25,18 +25,37 @@ from __future__ import annotations
 import argparse
 import json
 import statistics
+import sys
 import time
 from collections import Counter
+from collections.abc import Callable
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-from app.domain.models import AnalyzeRequest, ClaimTier, ServiceMethod, Severity
-from app.engine.params import PARAMS, PARAMS_VERSION
-from app.engine.verdict import MAIN_CLAIM, analyze
-from eval.advocate_eval import format_report as format_advocate
-from eval.advocate_eval import published_figures as advocate_published
-from eval.advocate_eval import run as run_advocate
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+# S8 asks for the whole eval to be one command. Run as a script, `sys.path[0]` is this
+# directory, so neither `app` (under backend/) nor `eval` itself is importable — hence a
+# few lines of path setup ahead of the first-party imports rather than a `PYTHONPATH` the
+# caller has to remember. Running it as `python -m eval.run_eval` takes the same route
+# through `eval/__init__.py`, and inside the backend's test suite both entries already
+# exist and this does nothing.
+for _path in (REPO_ROOT / "backend", REPO_ROOT):
+    if str(_path) not in sys.path:
+        sys.path.insert(0, str(_path))
+
+from app.domain.models import ClaimTier, ServiceMethod, Severity  # noqa: E402
+from app.engine.params import PARAMS, PARAMS_VERSION  # noqa: E402
+from app.engine.verdict import MAIN_CLAIM, analyze  # noqa: E402
+from eval.advocate_eval import format_report as format_advocate  # noqa: E402
+from eval.advocate_eval import published_figures as advocate_published  # noqa: E402
+from eval.advocate_eval import run as run_advocate  # noqa: E402
+from eval.corpus import case_dirs, claim_answer, load_case  # noqa: E402
+from eval.plots import write_robustness_png  # noqa: E402
+from eval.robustness import format_report as format_robustness  # noqa: E402
+from eval.robustness import published_figures as robustness_published  # noqa: E402
+from eval.robustness import run as run_robustness  # noqa: E402
 
 TIERS = ("contradicted", "consistent", "no_data", "inconclusive")
 
@@ -81,6 +100,14 @@ class CaseResult:
     description_scored: bool
     method: ServiceMethod
     latency_ms: float
+    claim_conflict: str | None = None
+    """Severity of the strongest space-time conflict on the *service claim*: "strong",
+    "moderate", or None.
+
+    Scoped to the main claim on purpose. A 308(4) affidavit swears to prior attempts, and
+    one of those can carry its own STRONG finding while the service claim itself is
+    consistent — so a severity read off the whole finding list would answer a question
+    about a different moment than the one the generator labelled."""
 
 
 @dataclass
@@ -96,23 +123,10 @@ class Report:
     by_kind: dict[str, dict[str, Any]] = field(default_factory=dict)
     by_edge_kind: dict[str, dict[str, Any]] = field(default_factory=dict)
     rule_recall: dict[str, dict[str, int]] = field(default_factory=dict)
+    contradiction: dict[str, dict[str, Any]] = field(default_factory=dict)
     description: dict[str, Any] = field(default_factory=dict)
     latency_ms: dict[str, float] = field(default_factory=dict)
     disagreements: list[dict[str, Any]] = field(default_factory=list)
-
-
-def load_case(case_dir: Path) -> tuple[AnalyzeRequest, dict[str, Any]]:
-    """Read one case as the API would receive it: an affidavit the user has confirmed."""
-    affidavit = json.loads((case_dir / "affidavit.json").read_text())
-    affidavit["user_confirmed"] = True
-    request = AnalyzeRequest.model_validate(
-        {
-            "affidavit": affidavit,
-            "fixes": json.loads((case_dir / "fixes.json").read_text()),
-            "household": json.loads((case_dir / "household.json").read_text()),
-        }
-    )
-    return request, json.loads((case_dir / "ground_truth.json").read_text())
 
 
 def score_case(case_dir: Path) -> CaseResult:
@@ -122,11 +136,7 @@ def score_case(case_dir: Path) -> CaseResult:
     latency_ms = (time.perf_counter() - started) * 1000.0
 
     main = next((v for v in analysis.verdicts if v.claim_ref == MAIN_CLAIM), None)
-    claim_tier = main.tier if main is not None else ClaimTier.NO_DATA
-    strong_conflict = any(
-        f.severity is Severity.STRONG and f.code in ("F-VISIT", "F-PRISM")
-        for f in analysis.findings
-    )
+    claim_tier, claim_conflict = claim_answer(analysis)
     method = request.affidavit.method
 
     return CaseResult(
@@ -134,12 +144,12 @@ def score_case(case_dir: Path) -> CaseResult:
         kind=truth["kind"],
         edge_kind=truth["edge_kind"],
         true_tier=truth["true_tier"],
-        claim_tier=claim_tier.value,
+        claim_tier=claim_tier,
         overall_tier=analysis.overall.value,
         false_accusation=(
             truth["true_tier"] == ClaimTier.CONSISTENT.value
-            and claim_tier is ClaimTier.CONTRADICTED
-            and strong_conflict
+            and claim_tier == ClaimTier.CONTRADICTED.value
+            and claim_conflict == Severity.STRONG.value
         ),
         nearest_fix_km=main.nearest_fix_km if main else None,
         required_speed_kmh=main.required_speed_kmh if main else None,
@@ -150,6 +160,7 @@ def score_case(case_dir: Path) -> CaseResult:
         description_scored=method in DESCRIPTION_METHODS,
         method=method,
         latency_ms=latency_ms,
+        claim_conflict=claim_conflict,
     )
 
 
@@ -165,6 +176,52 @@ def _accuracy(results: list[CaseResult], predicted: str) -> float:
         return 0.0
     hits = sum(1 for r in results if r.true_tier == getattr(r, predicted))
     return round(hits / len(results), 4)
+
+
+def _contradiction_scores(results: list[CaseResult]) -> dict[str, dict[str, Any]]:
+    """Precision and recall of CONTRADICTED, at the two severities the engine reports.
+
+    Bible §11.1.3 gives the space-time test two operating points: above `V_STRONG_KMH` the
+    finding is STRONG, and between `V_MODERATE_KMH` and `V_STRONG_KMH` it is MODERATE. They
+    are two different claims about the same person, so they are scored as two different
+    classifiers rather than averaged into one number that describes neither.
+
+    Read them together. `strong` is the operating point a document actually rests on, so
+    its *precision* is the number that matters and it is the one the no-false-accusation
+    gate turns on. `strong_or_moderate` catches more true conflicts, which is what recall
+    measures, and the price of it shows up as precision in the same row.
+    """
+    truth_positive = sum(1 for r in results if r.true_tier == ClaimTier.CONTRADICTED.value)
+
+    def at(name: str, predicate: Callable[[CaseResult], bool]) -> dict[str, Any]:
+        predicted = [r for r in results if predicate(r)]
+        tp = sum(1 for r in predicted if r.true_tier == ClaimTier.CONTRADICTED.value)
+        fp = len(predicted) - tp
+        return {
+            "operating_point": name,
+            "predicted_positive": len(predicted),
+            "true_positives": tp,
+            "false_positives": fp,
+            "false_negatives": truth_positive - tp,
+            "precision": round(tp / len(predicted), 4) if predicted else None,
+            "recall": round(tp / truth_positive, 4) if truth_positive else None,
+            "false_positive_cases": sorted(
+                r.case_id for r in predicted if r.true_tier != ClaimTier.CONTRADICTED.value
+            ),
+        }
+
+    contradicted = ClaimTier.CONTRADICTED.value
+    return {
+        "truth_positive": {"n": truth_positive, "n_cases": len(results)},
+        "strong": at(
+            "STRONG only",
+            lambda r: r.claim_tier == contradicted and r.claim_conflict == Severity.STRONG.value,
+        ),
+        "strong_or_moderate": at(
+            "STRONG + MODERATE",
+            lambda r: r.claim_tier == contradicted and r.claim_conflict is not None,
+        ),
+    }
 
 
 def _group(results: list[CaseResult], key: str) -> dict[str, dict[str, Any]]:
@@ -239,6 +296,7 @@ def build_report(results: list[CaseResult]) -> Report:
     report.by_kind = _group(results, "kind")
     report.by_edge_kind = _group([r for r in results if r.edge_kind], "edge_kind")
     report.rule_recall = _rule_recall(results)
+    report.contradiction = _contradiction_scores(results)
     report.description = _description_scores(results)
     report.latency_ms = {
         "median": round(statistics.median(latencies), 2),
@@ -261,10 +319,11 @@ def build_report(results: list[CaseResult]) -> Report:
 
 
 def score_corpus(corpus: Path) -> list[CaseResult]:
-    cases = sorted(d for d in (corpus / "cases").iterdir() if d.is_dir())
-    if not cases:
-        raise SystemExit(f"no cases under {corpus / 'cases'}. Run `python -m fixtures.generator`.")
-    return [score_case(case) for case in cases]
+    return [score_case(case) for case in case_dirs(corpus)]
+
+
+def _pct(value: float | None) -> str:
+    return "     n/a" if value is None else f"{value:>7.1%}"
 
 
 def format_matrix(matrix: dict[str, dict[str, int]], title: str) -> str:
@@ -296,6 +355,19 @@ def format_report(report: Report) -> str:
         f"  {name:<28} n={row['n']:<4} claim {row['claim_accuracy']:.0%}"
         f"  overall {row['overall_accuracy']:.0%}"
         for name, row in {**report.by_kind, **report.by_edge_kind}.items()
+    ]
+    contradiction = report.contradiction
+    lines += [
+        "",
+        f"CONTRADICTED, scored as a classifier "
+        f"({contradiction['truth_positive']['n']} truly contradicted):",
+    ]
+    lines += [
+        f"  {row['operating_point']:<18} precision {_pct(row['precision'])}"
+        f"  recall {_pct(row['recall'])}"
+        f"   tp {row['true_positives']:<4} fp {row['false_positives']:<4} "
+        f"fn {row['false_negatives']}"
+        for row in (contradiction["strong"], contradiction["strong_or_moderate"])
     ]
     lines += ["", "rules (seeded by the generator / caught by the engine):"]
     lines += [
@@ -348,23 +420,49 @@ def published_figures(report: Report) -> dict[str, Any]:
         "by_kind": report.by_kind,
         "by_edge_kind": report.by_edge_kind,
         "rule_recall": report.rule_recall,
+        "contradiction": report.contradiction,
         "description": report.description,
         "latency_ms": report.latency_ms,
         "n_disagreements": len(report.disagreements),
     }
 
 
-PUBLISHED = (
-    Path(__file__).resolve().parents[1] / "frontend" / "src" / "lib" / "eval" / "published.json"
-)
+PUBLISHED = REPO_ROOT / "frontend" / "src" / "lib" / "eval" / "published.json"
+DEFAULT_CORPUS = REPO_ROOT / "fixtures" / "out"
+DEFAULT_OUT = REPO_ROOT / "eval" / "results"
+CORPUS_CASES = 500
+CORPUS_SEED = 7
 
 
-def run(corpus: Path, out: Path, publish: Path | None = PUBLISHED) -> Report:
+def ensure_corpus(corpus: Path, n_cases: int = CORPUS_CASES, seed: int = CORPUS_SEED) -> Path:
+    """Generate the corpus if it is not there, so the eval really is one command.
+
+    `--no-pdfs` on purpose: nothing in this eval opens a PDF. The engine scores JSON, and
+    rendering 500 affidavits nobody reads is most of the runtime of the whole harness.
+    The extraction eval, which *does* need them, builds its own.
+    """
+    if (corpus / "cases").is_dir() and any((corpus / "cases").iterdir()):
+        return corpus
+
+    from fixtures.generator.__main__ import generate_corpus
+
+    print(f"no corpus at {corpus} — generating {n_cases} cases at seed {seed}", flush=True)
+    generate_corpus(n_cases, seed, corpus, pdfs=False)
+    return corpus
+
+
+def run(
+    corpus: Path,
+    out: Path,
+    publish: Path | None = PUBLISHED,
+    robustness: bool = True,
+) -> Report:
     """Analyse every case, compare tiers against ground truth, write the report.
 
-    Batch mode is scored in the same pass. It shares the thresholds and the same
-    independently-labelled corpus, and the Methodology page prints both sets of numbers,
-    so running them apart is how one of them goes stale without anybody noticing.
+    Batch mode and the robustness sweep are scored in the same pass. All three share the
+    thresholds and the same independently-labelled corpus, and the Methodology page prints
+    every set of numbers, so running them apart is how one of them goes stale without
+    anybody noticing.
     """
     results = score_corpus(corpus)
     report = build_report(results)
@@ -379,31 +477,55 @@ def run(corpus: Path, out: Path, publish: Path | None = PUBLISHED) -> Report:
     )
 
     advocate = run_advocate(corpus, out) if (corpus / "advocate").is_dir() else None
+    sweep = run_robustness(corpus, out) if robustness else None
+    if sweep is not None:
+        write_robustness_png(sweep, out / "robustness.png")
 
     if publish is not None:
         figures = published_figures(report)
         if advocate is not None:
             figures["advocate"] = advocate_published(advocate)
+        if sweep is not None:
+            figures["robustness"] = robustness_published(sweep)
         publish.parent.mkdir(parents=True, exist_ok=True)
         publish.write_text(json.dumps(figures, indent=1, sort_keys=True) + "\n")
 
     print(format_report(report))
     if advocate is not None:
         print("\n" + format_advocate(advocate))
+    if sweep is not None:
+        print("\n" + format_robustness(sweep))
     return report
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="run_eval", description=__doc__)
-    parser.add_argument("--corpus", type=Path, default=Path("fixtures/out"))
-    parser.add_argument("--out", type=Path, default=Path("eval/results"))
+    parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument(
         "--no-publish",
         action="store_true",
         help="skip rewriting the figures the Methodology page reads",
     )
+    parser.add_argument(
+        "--no-robustness",
+        action="store_true",
+        help="skip the perturbation sweep, which is most of the runtime",
+    )
+    parser.add_argument(
+        "--n",
+        type=int,
+        default=CORPUS_CASES,
+        help="cases to generate, if the corpus is not there already",
+    )
     args = parser.parse_args()
-    report = run(args.corpus, args.out, None if args.no_publish else PUBLISHED)
+    ensure_corpus(args.corpus, n_cases=args.n)
+    report = run(
+        args.corpus,
+        args.out,
+        None if args.no_publish else PUBLISHED,
+        robustness=not args.no_robustness,
+    )
     if report.false_accusations:
         raise SystemExit("false contradictions found: the no-false-accusation gate failed")
 
