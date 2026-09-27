@@ -66,6 +66,12 @@ class GeminiExtractor:
                         temperature=TEMPERATURE,
                         response_mime_type="application/json",
                         response_schema=response_json_schema(),
+                        # Copying fields off a page needs no reasoning, and thinking is
+                        # what made latency unbounded: measured on gemini-3.8-flash, one
+                        # affidavit spent 8,250 thought tokens and 31 s — past the 30 s
+                        # deadline — where the same call without it took 3.5 s and
+                        # returned the same answer.
+                        thinking_config=types.ThinkingConfig(thinking_budget=0),
                         http_options=types.HttpOptions(timeout=int(REQUEST_TIMEOUT_S * 1000)),
                     ),
                 )

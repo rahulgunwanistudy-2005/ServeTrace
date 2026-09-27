@@ -2,8 +2,8 @@
 
 Four evals live here. The **engine**, the **rules**, **advocate mode** and the
 **robustness sweep** all run from one command and their numbers are below. The
-**extraction** eval is written and has not been run, for want of an API key — said plainly
-here rather than left as a gap for a reader to discover.
+**extraction** eval needs a paid model call per document, so it runs on its own, on a
+smaller corpus, and its caveats are stated beside its numbers.
 
 ```bash
 python eval/run_eval.py
@@ -235,13 +235,35 @@ their data conflicts.
 
 Whole-corpus, whole-sweep: about 10 seconds for 500 cases scored 22 times over.
 
-## Extraction — not run
+## Extraction — gemini-3.8-flash, 66 documents
 
-`eval/extraction_eval.py` scores the affidavit extractor per field, clean PDFs and scanned
-ones separately, with each field's evidence quote checked against the document's own text
-layer. It needs a provider and an API key, and this machine has neither, so **there are no
-extraction numbers here and none are published**. The harness is committed and the command
-is in the README.
+`eval/extraction_eval.py` scores the affidavit extractor per field against the generator's
+own truth, clean PDFs and scanned ones separately. Run on 2026-09-27 against a 60-case
+corpus rendered with PDFs (`python -m fixtures.generator --n 60 --seed 7`), of which 6 also
+have a scanned variant with no text layer. Results: `eval/results/extraction.json`.
 
-The product does not depend on it: `LLM_PROVIDER=none` returns an empty draft and the UI
-shows the manual entry form, which is the path every demo case and every test uses.
+| | Documents read | Mean per-field accuracy | Service date and time | Weakest field |
+|---|---|---|---|---|
+| Clean PDF | 57 of 60 | 99.4% | 100% | mailing address, 91.2% |
+| Scanned | 6 of 6 | 98.9% | 100% | mailing address, 83.3% |
+
+Every other field — method, index number, court, parties, server, licences, dates,
+attempts, the recipient's description — scored 100% on the documents that were read.
+
+**What to read into this, and what not to.**
+
+- **Small.** 66 documents, 6 of them scanned. Enough to show the pipeline works on a real
+  model; not enough to quote a scanned-document accuracy to one decimal place.
+- **The three unread documents timed out**, and that led to a change. The model was
+  thinking before answering, and one affidavit spent 8,250 thought tokens and 31 s — past
+  the 30 s deadline in bible §12 — where the same call with thinking off returned the same
+  fields in 3.5 s. Thinking is now off (`providers/gemini.py`, pinned by
+  `tests/extraction/test_gemini_provider.py`). **These numbers were measured before that
+  change**, and a full rerun after it was stopped by the project's monthly spend cap; the
+  change was verified on the slowest document only, four calls, identical output.
+- **Synthetic documents.** One form layout, generated. A real process server's affidavit
+  is messier, and the scans here are simulated rather than photographed.
+- **A miss is caught downstream.** Every field is shown to the person with its source quote
+  before anything is compared, and on a scan every field is marked for checking. The
+  product also works with no model at all: `LLM_PROVIDER=none` returns an empty draft and
+  the UI shows the manual entry form, which is the path every demo case and every test uses.

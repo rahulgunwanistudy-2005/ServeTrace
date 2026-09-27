@@ -377,6 +377,26 @@ def _check_mailing(draft: AffidavitDraft, served_day: date | None, notes: _Notes
     return mailed.isoformat()
 
 
+NAME_FIELDS = ("defendant_name", "plaintiff", "server_name", "recipient_name")
+
+_CAPTION_TAIL = re.compile(r"[\s,;:]+$")
+
+
+def _trim_caption_punctuation(draft: AffidavitDraft) -> dict[str, object]:
+    """A court caption reads "Lin Quintaro, Defendant." and a model reading a scan keeps
+    the comma. Left in, it reaches the draft affidavit as "Lin Quintaro,, the defendant".
+
+    Only separators are trimmed. A full stop is left alone, because "Inc." and "Jr." end
+    in one and are part of the name.
+    """
+    trimmed: dict[str, object] = {}
+    for field in NAME_FIELDS:
+        value = getattr(draft, field)
+        if isinstance(value, str) and _CAPTION_TAIL.search(value):
+            trimmed[field] = _CAPTION_TAIL.sub("", value) or None
+    return trimmed
+
+
 def validate(
     draft: AffidavitDraft, source_text: str | None, now: datetime | None = None
 ) -> tuple[AffidavitDraft, list[ValidationNote]]:
@@ -422,6 +442,7 @@ def validate(
 
     _check_licences(draft, notes)
     update["attempts"] = _resolve_attempts(draft, notes)
+    update |= _trim_caption_punctuation(draft)
 
     normalized = draft.model_copy(update=update)
     _check_grounding(normalized, source_text, notes)

@@ -294,3 +294,24 @@ def test_validation_never_throws_a_field_away(recorded_response: dict[str, Any])
     assert validated.served_date == "whenever"
     assert validated.server_license == "nope"
     assert len(notes) > 3
+
+
+# --- names ------------------------------------------------------------------------------
+
+
+def test_a_name_loses_the_comma_the_caption_printed_after_it() -> None:
+    """Seen live: a model reading a scanned caption returned "Lin Quintaro,"."""
+    draft = AffidavitDraft(
+        defendant_name="Lin Quintaro,",
+        plaintiff="Ridgeline Receivables Partners LP, ",
+        server_name="T. Ockham-Doyle;",
+    )
+    validated, _ = validate(draft, None, NOW)
+    assert validated.defendant_name == "Lin Quintaro"
+    assert validated.plaintiff == "Ridgeline Receivables Partners LP"
+    assert validated.server_name == "T. Ockham-Doyle"
+
+
+def test_a_full_stop_that_belongs_to_a_name_is_kept() -> None:
+    validated, _ = validate(AffidavitDraft(plaintiff="Atlas Bay Funding Inc."), None, NOW)
+    assert validated.plaintiff == "Atlas Bay Funding Inc."

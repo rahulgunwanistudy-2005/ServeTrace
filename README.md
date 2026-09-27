@@ -235,7 +235,7 @@ Said here rather than left to be discovered.
   does not help you.
 - New York City Civil Court consumer credit cases only, and only service on a person under
   CPLR 308(1), 308(2) and 308(4). The rules live in one module so other states can be added.
-- The extraction eval has not been run, so there are no published extraction numbers.
+- The extraction eval is small: 66 synthetic documents, 6 scanned (see `eval/REPORT.md`).
 - Nothing here predicts whether you will win, and nothing here is legal advice.
 
 ## Disclosure
