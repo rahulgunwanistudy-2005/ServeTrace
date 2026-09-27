@@ -215,6 +215,15 @@ def test_affidavits_are_unconfirmed_so_analysis_must_refuse_them(corpus: Path) -
     assert all(not a.user_confirmed for _, a, _ in _cases(corpus))
 
 
+def test_an_affidavit_without_its_mailing_paragraph_has_no_mailing_address(corpus: Path) -> None:
+    """The label describes the page. R-T1 leaves the mailing paragraph off, and that is the
+    only place a mailing address is printed; a label that kept one scored every correct
+    reading of those pages as a miss, which the first billed extraction eval found."""
+    seeded = [a for t, a, _ in _cases(corpus) if "R-T1" in t.get("seeded_rule_codes", [])]
+    assert seeded, "the corpus should seed R-T1 somewhere"
+    assert all(a.mailing_address is None and a.mailing_date is None for a in seeded)
+
+
 # --- export formats ----------------------------------------------------------------
 
 

@@ -173,7 +173,11 @@ def make_affidavit(
     if method is not ServiceMethod.PERSONAL:
         mailing_address = served_place.address
         if seed_rule_violations and rng.random() < 0.25:
+            # The mailing paragraph is left off the document, and with it the only place
+            # an address to mail to is printed. Keeping one in the label scored every
+            # extractor that read this page correctly as a miss.
             mailing_date = None
+            mailing_address = None
             seeded.append("R-T1")
         elif seed_rule_violations and rng.random() < 0.35:
             mailing_date = served_at.date() + timedelta(days=rng.randint(24, 45))
