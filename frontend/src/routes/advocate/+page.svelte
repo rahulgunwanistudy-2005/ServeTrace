@@ -24,6 +24,7 @@
 	import DemoNote from '$lib/ui/DemoNote.svelte';
 	import FileDrop from '$lib/ui/FileDrop.svelte';
 	import IridescentField from '$lib/ui/IridescentField.svelte';
+	import { saveBlob } from '$lib/download';
 
 	type Stage = 'choose' | 'map' | 'report';
 
@@ -106,13 +107,10 @@
 		if (!analysis) return;
 		try {
 			const blob = await api.advocate.exportCsv(analysis.reports, kind);
-			const url = URL.createObjectURL(blob);
-			const link = document.createElement('a');
-			link.href = url;
-			link.download =
-				kind === 'servers' ? 'servetrace-servers.csv' : 'servetrace-impossible-pairs.csv';
-			link.click();
-			URL.revokeObjectURL(url);
+			saveBlob(
+				blob,
+				kind === 'servers' ? 'servetrace-servers.csv' : 'servetrace-impossible-pairs.csv'
+			);
 		} catch (error) {
 			failure = describe(error);
 		}

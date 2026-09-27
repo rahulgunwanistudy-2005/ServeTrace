@@ -26,6 +26,7 @@
 	import VerdictCard from '$lib/ui/VerdictCard.svelte';
 	import AffiantForm from '$lib/ui/AffiantForm.svelte';
 	import ResultMap from '$lib/map/ResultMap.svelte';
+	import { saveBlob } from '$lib/download';
 	import { result } from '$copy/en';
 
 	let analysis = $state<CaseAnalysis | null>(caseStore.analysis);
@@ -74,21 +75,12 @@
 		}
 	});
 
-	function deliver(blob: Blob, filename: string) {
-		const url = URL.createObjectURL(blob);
-		const link = document.createElement('a');
-		link.href = url;
-		link.download = filename;
-		link.click();
-		URL.revokeObjectURL(url);
-	}
-
 	async function downloadPacket() {
 		if (!analysis) return;
 		downloading = 'packet';
 		failure = null;
 		try {
-			deliver(
+			saveBlob(
 				await api.documents.packet(analysis, captureMap?.() ?? null, caseStore.fixes),
 				'servetrace-evidence-packet.pdf'
 			);
@@ -104,7 +96,7 @@
 		downloading = 'affidavit';
 		failure = null;
 		try {
-			deliver(await api.documents.affidavit(analysis, affiant), 'servetrace-draft-affidavit.pdf');
+			saveBlob(await api.documents.affidavit(analysis, affiant), 'servetrace-draft-affidavit.pdf');
 			askingAffiant = false;
 		} catch (error) {
 			failure = error instanceof ApiError ? error.message : String(error);
