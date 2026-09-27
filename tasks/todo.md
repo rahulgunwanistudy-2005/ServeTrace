@@ -1432,3 +1432,101 @@ generates the frontend's types.
 - **Lighthouse.** Same reason — no runner here that does not add a dependency.
 - **The extraction eval remains unrun**, for want of a key. Stated in `REPORT.md` and the
   README rather than left as a gap.
+
+## Session 12 — Head-to-toe audit
+
+Plan: every gate; then the engine, rules, advocate mode, extraction and both documents
+through the live API on inputs the suite has never seen; then every screen in a browser
+against the production build served by FastAPI; then the public deploy.
+
+**Verified, not assumed**
+
+- Gates on HEAD before any change: backend `ruff`/`format` clean over 135 files, `mypy`
+  strict over 72, **674 passed**; frontend `svelte-check` 0/0, `tsc` clean, **294 passed**,
+  build clean.
+- Engine on hand-built cases through `/api/analyze`: a covering stay 14 km away → STRONG
+  F-VISIT; 14 km ten minutes before → 83 km/h, STRONG F-PRISM; the same thirty minutes
+  before → INCONCLUSIVE; 400 m at the claimed minute → INCONCLUSIVE; nothing in window →
+  NO_DATA; 01:30 on the fall-back night → both readings evaluated, the weaker kept, F-CLOCK
+  raised. R-T1, R-T2, R-T3, R-D1, R-D2, R-M1, F-DESC and the 422 on an unconfirmed
+  affidavit all fire as §11.3 says.
+- Advocate mode on the bundled XLSX matches `advocate_expected.json` exactly (4 and 2
+  impossible hops, reused descriptions at 6 and 4 doors, ranking).
+- Both PDFs rendered and read page by page.
+- Browser, production build: all three demo cases, both maps, the packet with the map PNG
+  captured, the draft affidavit through its tick form, advocate mode end to end, the
+  methodology page, 375 px layout, and the real wizard — PDF upload through
+  `/api/extract` with `LLM_PROVIDER=none`, typed fields, live geocode, an Android Timeline
+  parsed in the worker ("Sending 8 of 19"), result identical to the demo.
+- `python eval/run_eval.py` rerun: every result file identical; only wall-clock timings
+  in `published.json` moved, and that file was restored.
+- Public deploy: every route 200, health reports the same engine and params versions, and
+  Maria through the live engine is CONTRADICTED at 10.578 km, as local.
+
+**Fixed**
+
+- **The service time field rejected the way affidavits print it.** It was free text and
+  the parser took only `19:42`; typing "7:42 PM" off the page failed with a message saying
+  the time was *missing*. It is now a native time input, and `nyLocalToInstant` accepts a
+  12-hour clock everywhere (`normaliseTime` moved from `cardCsv.ts` into `tz.ts`, stricter:
+  `13:00 PM` is refused rather than read as 13:00).
+- **A blank service time silently became midnight** (`|| '00:00'`), which would have run
+  the engine against the wrong moment. The time is now required.
+- **Latent UTC bug** in the form prefill: `served_at` was split with `toISOString()`, which
+  would move 7:42 PM to 23:42. Unreachable today (the backend only sets `served_at` from an
+  already-split date and time), but now uses `nyDayKey`/`nyClockKey`.
+- **Downloads revoked their blob URL in the same tick as `click()`**, which Firefox and iOS
+  Safari can turn into a silently cancelled download. One `saveBlob` helper
+  (`lib/download.ts`) for all four downloads, revoking after 60 s.
+- **British spelling in a product for New York courts**: "defence", "licence", "metres",
+  "travelled", "analyse", "recognise" in user-facing copy, the packet template and API
+  messages → US spelling. Identifiers and comments untouched. Goldens regenerated and the
+  diff read: wording only, no tier, number or code moved.
+- Deadline sentence: "June 1, 2027 and five years…" → "June 1, 2027, and five years…".
+- Methodology intro said "two hundred synthetic cases" beside figures for 500; the count
+  is gone from the sentence, so it cannot drift again.
+
+After: backend 674 passed, gates clean; frontend **304 passed** (10 new), gates clean.
+
+**Found, not changed (Rahul's call)**
+
+- Production runs `LLM_PROVIDER=none`, so the live site reads nothing off an uploaded
+  affidavit and every field is typed. Setting `GEMINI_API_KEY` on Render turns it on.
+- Render free plan: a cold request took 22.5 s. Worth warming the URL before judging.
+- Advocate mode exports CSV only; bible §14.6 also names a PDF report.
+- The drop zone gives no sign a file was received when nothing is extracted; the
+  "no document reader" callout sits below the fold.
+- On a 375 px phone the header nav scrolls sideways with a hidden scrollbar, so Privacy
+  is off-screen with no cue. Deliberate per the comment in `+layout.svelte`.
+- "Upload the affidavit of service" appears three times in a row on step 1.
+
+### Session 12, part 2 — the extractor against a real model
+
+Key supplied by Rahul, kept in the gitignored root `.env` only (`LLM_PROVIDER=gemini`).
+
+- **The pinned model was retired.** `gemini-2.5-flash` answers new keys with 404 "no longer
+  available to new users". Default in `config.py` and `.env.example` → `gemini-3.8-flash`.
+  `render.yaml` sets no model, so production would have fallen back to the dead default
+  the moment a key was added there.
+- **All three demo affidavits, clean and scanned, through the real pipeline:** served date
+  and time exact in all six; clean PDFs field-for-field; scans correct but for a caption
+  comma ("Lin Quintaro,") → deterministic trim in `validators.py` for name fields (a full
+  stop is kept: "Inc."), two tests.
+- **Browser, wizard:** Lin's *scanned* PDF through Gemini vision, every field prefilled in
+  10 s, all amber with their source quotes (the §12 cap of 0.6 without a text layer), then
+  her Timeline → CONFLICTS 12.8 km, R-T2 STRONG, R-D1 — the demo's verdict, from a scan.
+- **Extraction eval, first run:** 57/60 clean at 99.4% per field, 6/6 scanned at 98.9%,
+  served_at 100% on every document read; mailing address the weakest (91.2% / 83.3%).
+  Written into `eval/REPORT.md` with its caveats; README limitation line updated.
+- **The 3 unread documents were timeouts, and the cause was thinking.** One affidavit:
+  8,250 thought tokens, 31 s, 504 at the 30 s deadline; same call with thinking off: 3.5 s,
+  identical fields (4 calls). `thinking_budget=0` in `providers/gemini.py`, pinned by a new
+  `tests/extraction/test_gemini_provider.py` — the provider had no tests before.
+- **The rerun after that change was stopped by the project's monthly spend cap** (429
+  RESOURCE_EXHAUSTED), after ~80 calls. The failure path was checked in the browser: the
+  person is told reading is unavailable and the manual form carries on.
+- Backend **679 passed** (5 new), gates clean. One earlier run showed 31 errors while the
+  eval ran alongside it; not reproduced on a quiet machine, twice.
+
+Deferred: rerun the full extraction eval once the cap is raised; set `LLM_PROVIDER` and
+`GEMINI_API_KEY` on Render (Rahul's call — it is production and it spends money).

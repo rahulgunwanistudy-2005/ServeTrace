@@ -373,3 +373,19 @@ suite used GET, so nothing objected. -> A framework that adds a convenience is a
 worth checking, and so is one that doesn't. The wider point is where the bug came from:
 it was not visible in any test, any gate or any local run, and it appeared in the first
 thirty seconds of real logs. Reading the logs of the first deploy is part of deploying.
+
+[2026-09-25] - The service time field was free text parsed as 24-hour only, so a person
+typing "7:42 PM" straight off their affidavit was told the time was missing, and a blank
+time silently became midnight and was analysed as the sworn moment. Both passed every
+test because every test typed `19:42`. -> A field that copies a value off a document must
+accept it in the form the document prints it, and a field the verdict is measured from
+must never have a default. Test inputs should include the way a real person types.
+
+[2026-09-27] - A model name pinned as a default is a dependency with no lockfile.
+`gemini-2.5-flash` was retired for new keys while the app sat unrun against any key, so
+extraction was broken in production before it was ever switched on, and nothing local
+could have said so. Separately, the replacement "thinks" by default, which made latency
+unbounded and pushed one call past the 30 s deadline while spending tokens nobody reads.
+-> The first call with a new key is a test, not a formality: run the real pipeline and the
+eval before calling a provider "working", and pin in a test the call settings that are
+decisions rather than defaults.
