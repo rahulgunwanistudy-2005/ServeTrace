@@ -14,11 +14,14 @@ services:
     healthCheckPath: /api/health
     autoDeployTrigger: commit
     envVars:
-      # Extraction is the only place an LLM is used (bible §7). "none" is the honest
-      # default for a public link: the app is fully usable without a key, and a key on a
-      # public URL is a key anybody can spend.
+      # Extraction is the only place an LLM is used (bible §7). A key on a public URL is
+      # a key anybody can spend, so what bounds it is the per-client rate limit below and
+      # a spending cap on the Google project. Set LLM_PROVIDER to "none" to turn reading
+      # off: the app is fully usable without it, and the affidavit is typed in by hand.
       - key: LLM_PROVIDER
-        value: none
+        value: gemini
+      - key: GEMINI_MODEL
+        value: gemini-3.8-flash
       - key: GEMINI_API_KEY
         sync: false
       - key: ANTHROPIC_API_KEY
