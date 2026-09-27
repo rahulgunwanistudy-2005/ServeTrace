@@ -15,6 +15,7 @@ from typing import Any
 import pytest
 
 from app.api.errors import ExtractionUnavailableError
+from app.extraction.providers import gemini
 from app.extraction.providers.gemini import GeminiExtractor
 from app.extraction.vision import REQUEST_TIMEOUT_S, ExtractInput
 
@@ -79,3 +80,57 @@ async def test_any_sdk_failure_reaches_the_user_as_type_it_in_instead(
 def test_no_key_means_no_provider_rather_than_a_failed_request() -> None:
     with pytest.raises(ExtractionUnavailableError):
         GeminiExtractor(api_key="")
+
+
+class _OverloadedError(Exception):
+    """What the SDK raises when the model is refusing work: a `ServerError` with code 503."""
+
+    code = 503
+
+
+class _DeadlineExceededError(Exception):
+    code = 504
+
+
+@dataclass
+class _FlakyModels(_FakeModels):
+    failures: list[Exception] = field(default_factory=list)
+
+    async def generate_content(self, **kwargs: Any) -> _Response:
+        self.calls.append(kwargs)
+        if self.failures:
+            raise self.failures.pop(0)
+        return _Response(self.answer)
+
+
+@pytest.fixture
+def no_pauses(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(gemini, "OVERLOAD_BACKOFF_S", (0.0, 0.0))
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("no_pauses")
+async def test_a_model_under_high_demand_is_asked_again(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Seen live: two 503s, then an answer. One try would have sent that person to typing."""
+    models = _FlakyModels(failures=[_OverloadedError(), _OverloadedError()])
+    await _extractor(models, monkeypatch).extract(ExtractInput(text="AFFIDAVIT OF SERVICE"))
+    assert len(models.calls) == 3
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("no_pauses")
+async def test_retries_are_bounded(monkeypatch: pytest.MonkeyPatch) -> None:
+    models = _FlakyModels(failures=[_OverloadedError() for _ in range(5)])
+    with pytest.raises(ExtractionUnavailableError):
+        await _extractor(models, monkeypatch).extract(ExtractInput(text="AFFIDAVIT OF SERVICE"))
+    assert len(models.calls) == 1 + len(gemini.OVERLOAD_BACKOFF_S)
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("no_pauses")
+async def test_a_deadline_is_not_retried(monkeypatch: pytest.MonkeyPatch) -> None:
+    """A 504 has already spent the whole deadline; asking again would double the wait."""
+    models = _FlakyModels(failures=[_DeadlineExceededError()])
+    with pytest.raises(ExtractionUnavailableError):
+        await _extractor(models, monkeypatch).extract(ExtractInput(text="AFFIDAVIT OF SERVICE"))
+    assert len(models.calls) == 1
