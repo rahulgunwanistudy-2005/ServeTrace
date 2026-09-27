@@ -9,6 +9,7 @@ same call without it answered in 3.5 seconds with the same fields.
 
 from __future__ import annotations
 
+import sys
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -134,3 +135,15 @@ async def test_a_deadline_is_not_retried(monkeypatch: pytest.MonkeyPatch) -> Non
     with pytest.raises(ExtractionUnavailableError):
         await _extractor(models, monkeypatch).extract(ExtractInput(text="AFFIDAVIT OF SERVICE"))
     assert len(models.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_an_image_without_the_sdk_answers_type_it_in_rather_than_500(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The first production upload with a key set returned 500: the Docker image had no
+    `google-genai`, and `extract` imported from it before `_client` could say so politely."""
+    monkeypatch.setitem(sys.modules, "google", None)
+    monkeypatch.setitem(sys.modules, "google.genai", None)
+    with pytest.raises(ExtractionUnavailableError):
+        await GeminiExtractor(api_key="test-key").extract(ExtractInput(text="AFFIDAVIT"))

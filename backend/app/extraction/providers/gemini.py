@@ -54,9 +54,9 @@ class GeminiExtractor:
         return genai.Client(api_key=self._api_key)
 
     async def extract(self, doc: ExtractInput) -> AffidavitDraft:
-        from google.genai import types
-
         client = self._client()
+        from google.genai import types  # importable: `_client` has just imported the SDK
+
         parts: list[Any] = []
         if doc.text:
             parts.append(types.Part.from_text(text=doc.text))

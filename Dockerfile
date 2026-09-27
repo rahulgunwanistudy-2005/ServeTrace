@@ -51,11 +51,14 @@ WORKDIR /srv/backend
 
 # Dependencies resolve from the lockfile alone, so editing application code does not
 # invalidate this layer.
+# `--extra llm` installs the provider SDKs. They are optional so a machine can run the app
+# with LLM_PROVIDER=none, but an image without them turns on reading the moment a key is
+# set and then fails every upload: the first production upload found exactly that.
 COPY backend/pyproject.toml backend/uv.lock* ./
-RUN uv sync --no-install-project --no-dev
+RUN uv sync --no-install-project --no-dev --extra llm
 
 COPY backend/ ./
-RUN uv sync --no-dev
+RUN uv sync --no-dev --extra llm
 
 # main.py resolves the bundle as <repo>/frontend/build, two levels above app/.
 COPY --from=frontend /build/frontend/build /srv/frontend/build
