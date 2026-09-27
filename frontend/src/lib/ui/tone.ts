@@ -74,7 +74,7 @@ export function bySeverity(a: { severity: Severity }, b: { severity: Severity })
  * a number and "300 metres" is a distance.
  */
 export function formatKm(km: number): string {
-	if (km < 1) return `${Math.round(km * 1000).toLocaleString('en-US')} metres`;
+	if (km < 1) return `${Math.round(km * 1000).toLocaleString('en-US')} meters`;
 	return `${km.toFixed(1)} km`;
 }
 

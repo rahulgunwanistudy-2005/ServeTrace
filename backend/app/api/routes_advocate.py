@@ -206,7 +206,7 @@ async def analyze_affidavits(affidavits: list[Affidavit]) -> AdvocateAnalysis:
         RejectedRow(
             row=index + 1,
             code="missing_server",
-            reason="That affidavit names no process server and no licence number, so its "
+            reason="That affidavit names no process server and no license number, so its "
             "filings cannot be grouped with anyone's.",
         )
         for index, _ in enumerate(skipped)

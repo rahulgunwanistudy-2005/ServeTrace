@@ -84,7 +84,7 @@ def test_the_note_carries_the_conditions_the_statute_attaches() -> None:
     defence. A date on its own would read like an entitlement."""
     note = compute_deadlines(KNEW, ENTERED).note
     assert "other than in person" in note
-    assert "defence worth hearing" in note
+    assert "defense worth hearing" in note
 
 
 def test_the_note_also_carries_the_other_ground() -> None:

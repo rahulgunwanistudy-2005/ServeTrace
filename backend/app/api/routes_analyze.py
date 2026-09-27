@@ -25,7 +25,7 @@ def _guard(body: AnalyzeRequest) -> None:
     if not body.affidavit.user_confirmed:
         raise AffidavitNotConfirmedError(
             "Please confirm that the details we read off your papers are right before we "
-            "analyse them. Every number in the result is built from those details."
+            "analyze them. Every number in the result is built from those details."
         )
 
     settings = get_settings()

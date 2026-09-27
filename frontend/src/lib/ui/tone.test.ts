@@ -75,9 +75,9 @@ describe('bySeverity', () => {
 });
 
 describe('formatting', () => {
-	it('says metres below a kilometre and kilometres above it', () => {
-		expect(formatKm(0.45)).toBe('450 metres');
-		expect(formatKm(0.03)).toBe('30 metres');
+	it('says meters below a kilometer and kilometers above it', () => {
+		expect(formatKm(0.45)).toBe('450 meters');
+		expect(formatKm(0.03)).toBe('30 meters');
 		expect(formatKm(14.23)).toBe('14.2 km');
 	});
 

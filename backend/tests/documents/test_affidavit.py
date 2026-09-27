@@ -254,7 +254,7 @@ def test_the_users_own_words_are_the_defence_and_ours_are_a_blank() -> None:
     theirs = texts(analysis, statement(defense_summary=None))
 
     assert "I never opened this account." in mine
-    assert "[state your defence here in your own words]" in theirs
+    assert "[state your defense here in your own words]" in theirs
 
 
 # --- Relief, always -----------------------------------------------------------------------

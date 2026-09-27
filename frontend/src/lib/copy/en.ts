@@ -42,7 +42,7 @@ export const landing = {
 	/** Bible §2: the technical angle, said plainly and only once. */
 	angleTitle: 'The check a bank runs on your card, run on an affidavit',
 	angleBody:
-		"When a card is used in two cities twenty minutes apart, a bank\u2019s fraud checks flag it: nobody travels that fast. ServeTrace asks the same question of a sworn statement. If an affidavit puts a server at your door at 7:42 PM and your phone was fourteen kilometres away at 7:39, getting there would have taken about 171 km/h. That is the whole idea, and as far as we can tell nobody had pointed it at an affidavit of service before.",
+		"When a card is used in two cities twenty minutes apart, a bank\u2019s fraud checks flag it: nobody travels that fast. ServeTrace asks the same question of a sworn statement. If an affidavit puts a server at your door at 7:42 PM and your phone was fourteen kilometers away at 7:39, getting there would have taken about 171 km/h. That is the whole idea, and as far as we can tell nobody had pointed it at an affidavit of service before.",
 	/**
 	 * The strip under the hero. Where a marketing site puts customer logos, this puts the
 	 * provisions the engine actually encodes — bible §5, nothing else. A logo wall is a
@@ -205,12 +205,12 @@ export const ingest = {
  */
 export const ingestErrors = {
 	unsupported_format:
-		'We could not recognise that file. ServeTrace reads Google Timeline exports (the Timeline.json or location-history.json from your phone) and card statements saved as CSV.',
+		'We could not recognize that file. ServeTrace reads Google Timeline exports (the Timeline.json or location-history.json from your phone) and card statements saved as CSV.',
 	file_too_large: 'That file is too large to read in the browser.',
 	empty_file: 'That file is empty.',
 	malformed_json: 'We could not read that file. It may be damaged or only partly downloaded.',
 	no_fixes:
-		'We recognised that as a Timeline export, but could not read any locations out of it.',
+		'We recognized that as a Timeline export, but could not read any locations out of it.',
 	cancelled: 'Reading that file was stopped.',
 	truncated: 'That file ends in the middle of a record, so we could not finish reading it.',
 	oversizedRecord:
@@ -361,7 +361,7 @@ export function verdictLine(
 	}
 	const distance =
 		nearestKm < 1
-			? `${Math.round(nearestKm * 1000).toLocaleString('en-US')} metres`
+			? `${Math.round(nearestKm * 1000).toLocaleString('en-US')} meters`
 			: `${nearestKm.toFixed(1)} km`;
 	const where =
 		nearestKm < 0.3
@@ -428,9 +428,9 @@ export const result = {
 		'I did not learn about this case in time to defend it.',
 	affiantNoNoticeHint:
 		'CPLR 317 turns on this, and the alternative paragraph it allows cannot be offered without it.',
-	affiantDefense: 'If you have a defence to the debt itself, say it in your own words',
+	affiantDefense: 'If you have a defense to the debt itself, say it in your own words',
 	affiantDefenseHint:
-		'Optional, and never written for you. CPLR 317 asks for a defence with merit; a judge reads this as yours.',
+		'Optional, and never written for you. CPLR 317 asks for a defense with merit; a judge reads this as yours.',
 	affiantCancel: 'Cancel',
 	affiantSubmit: 'Draft the affidavit',
 	affiantNameNeeded: 'The document needs a name to put on it.',
@@ -472,7 +472,7 @@ export const deadlines = {
  */
 export const methodology = {
 	intro:
-		'How the check works, the numbers behind every threshold it uses, how it scores against two hundred synthetic cases, and where it cannot help.',
+		'How the check works, the numbers behind every threshold it uses, how it scores against hundreds of synthetic cases, and where it cannot help.',
 	headlineTitle: 'The number that matters most',
 	headlineBody: (cases: number, falseAccusations: number, accuracy: string) =>
 		`Across ${cases} synthetic cases, ServeTrace told ${falseAccusations} people their data conflicted with an affidavit when it did not. It read the claimed moment correctly in ${accuracy} of them.`,
@@ -562,34 +562,34 @@ export const methodology = {
 
 	advocateTitle: 'Batch mode, scored separately',
 	advocateBody: (filings: number, servers: number) =>
-		`Advocate mode asks a different question of a different corpus: ${filings.toLocaleString('en-US')} filings from ${servers} synthetic process servers, some of whose sequences were deliberately built so that nobody could have travelled them. As with the case corpus, the generator decided which ones from where it placed the records, and never by asking the engine.`,
+		`Advocate mode asks a different question of a different corpus: ${filings.toLocaleString('en-US')} filings from ${servers} synthetic process servers, some of whose sequences were deliberately built so that nobody could have traveled them. As with the case corpus, the generator decided which ones from where it placed the records, and never by asking the engine.`,
 	advocateStatClean: 'Ordinary servers named',
 	advocateStatPrecision: 'Sequences found that were planted',
 	advocateStatRecall: 'Planted sequences found',
 	advocatePrecisionNote:
 		'Precision leads here and recall follows. A sequence this misses costs an advocate one line of evidence; a sequence it reports wrongly costs them their credibility with whoever reads the report.',
 	advocateRuntime: (ms: number, filings: number) =>
-		`${filings.toLocaleString('en-US')} filings analysed in ${Math.round(ms)} ms. The design target is 50,000 in under three seconds.`,
+		`${filings.toLocaleString('en-US')} filings analyzed in ${Math.round(ms)} ms. The design target is 50,000 in under three seconds.`,
 
 	robustnessTitle: 'How it holds up when the data is bad',
 	robustnessBody: (cases: number) =>
 		`Clean synthetic data is not what a real phone produces. An urban GPS fix can be a ` +
-		`couple of hundred metres out, and a phone in battery saver can go twenty minutes ` +
+		`couple of hundred meters out, and a phone in battery saver can go twenty minutes ` +
 		`without recording anything. So the same ${cases.toLocaleString('en-US')} cases are ` +
 		`run again with the data deliberately spoiled, and scored against where the person ` +
 		`really was — because noise is the phone mis-measuring, not the person moving.`,
 	robustnessReportedTitle: 'The same noise, honestly reported',
 	robustnessJitterTitle: 'Positions pushed off by noise',
 	robustnessJitterBody:
-		'Every recorded point is displaced by a random amount, from 20 metres up to 300 — ' +
+		'Every recorded point is displaced by a random amount, from 20 meters up to 300 — ' +
 		'which is the whole width of the radius the check treats as "the same place". Up to ' +
-		'200 metres nothing changes at all. Only at 300, where the error is as large as the ' +
+		'200 meters nothing changes at all. Only at 300, where the error is as large as the ' +
 		'thing being measured, does the check start calling a few people contradicted who ' +
 		'were not.',
 	robustnessReportedBody:
 		'Phones record how accurate each point is, and the check widens its radius to match. ' +
 		'When the spoiled data reports its own error honestly, as a real export does, every ' +
-		'figure stays where it started, all the way out to 300 metres.',
+		'figure stays where it started, all the way out to 300 meters.',
 	robustnessGapsTitle: 'Points recorded less often',
 	robustnessGapsBody:
 		'Thinning the record so consecutive points are up to half an hour apart never ' +
@@ -646,7 +646,7 @@ export const methodology = {
 
 export const advocate = {
 	title: 'Advocate mode',
-	sub: 'Load many service records from one process server and look for sequences nobody could have travelled.',
+	sub: 'Load many service records from one process server and look for sequences nobody could have traveled.',
 
 	/**
 	 * Why this is a different kind of evidence from the defendant flow, said once and
@@ -655,7 +655,7 @@ export const advocate = {
 	 */
 	premiseTitle: 'What this looks at',
 	premiseBody:
-		'The defendant check compares one sworn affidavit against one person\u2019s own location history. This compares a process server\u2019s filings against each other. If two services are sworn eleven kilometres apart three minutes apart, the two filings conflict whatever either defendant was doing that day.',
+		'The defendant check compares one sworn affidavit against one person\u2019s own location history. This compares a process server\u2019s filings against each other. If two services are sworn eleven kilometers apart three minutes apart, the two filings conflict whatever either defendant was doing that day.',
 
 	// --- Step 1: the file
 	uploadTitle: 'Your service records',
@@ -711,7 +711,7 @@ export const advocate = {
 	},
 	nothingFound: 'Nothing to report',
 	nothingFoundBody:
-		'None of these servers has a sequence in their own filings that could not have been travelled. That is the result, and it is a real one.',
+		'None of these servers has a sequence in their own filings that could not have been traveled. That is the result, and it is a real one.',
 	impossiblePairs: 'Sequences that do not add up',
 	pairSummary: (km: string, minutes: string, speed: string) =>
 		`${km} apart, ${minutes} apart. Covering that would mean about ${speed}.`,
@@ -727,7 +727,7 @@ export const advocate = {
 	selectServer: 'Select a server to see their day on the map.',
 	mapTitle: 'That server\u2019s filings',
 	mapHint:
-		'Each pin is a filing. A red line joins two the server could not have travelled between.',
+		'Each pin is a filing. A red line joins two the server could not have traveled between.',
 	mapAlternative: 'The same filings as a table',
 	viewDay: 'See this server\u2019s day',
 
@@ -800,7 +800,7 @@ export const errors = {
 	bad_input: 'We could not read that file.',
 	upload_too_large: 'That file is too large.',
 	unsupported_file: 'We cannot read that kind of file yet.',
-	affidavit_not_confirmed: 'Please confirm the affidavit details before we analyse them.',
+	affidavit_not_confirmed: 'Please confirm the affidavit details before we analyze them.',
 	extraction_unavailable: 'Automatic reading is unavailable. You can type the details in instead.',
 	extraction_invalid:
 		'We could not read the details off that document. You can type them in instead.',

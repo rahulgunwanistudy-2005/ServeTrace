@@ -74,7 +74,7 @@ def fmt_datetime(when: datetime) -> str:
 def fmt_km(km: float) -> str:
     """Kilometres below one are metres: "300 metres" is a distance, "0.3 km" is a number."""
     if km < 1.0:
-        return f"{round(km * 1000):,} metres"
+        return f"{round(km * 1000):,} meters"
     return f"{km:.1f} km"
 
 
@@ -389,7 +389,7 @@ DEADLINE_NOTE_L6 = (
     "If you were served in any way other than in person, and you did not personally get "
     "notice in time to defend the case, you may be able to ask the court to reopen it "
     "within one year of learning about the judgment, and no more than five years after it "
-    "was entered. You also have to show you have a defence worth hearing."
+    "was entered. You also have to show you have a defense worth hearing."
 )
 
 
@@ -402,14 +402,16 @@ def deadline_note(knowledge_deadline: date | None, outer_limit: date | None) -> 
     if outer_limit is not None:
         dates.append(f"five years after the judgment was entered, which is {fmt_date(outer_limit)}")
     whichever = " The earlier of the two is the one that matters." if len(dates) == 2 else ""
-    return f"{DEADLINE_NOTE_L6} For you that is {fmt_list(dates)}.{whichever} {DEADLINE_NOTE_L5}"
+    # Each clause ends in a full date, and a date mid-sentence takes a comma after its year.
+    both = ", and ".join(dates)
+    return f"{DEADLINE_NOTE_L6} For you that is {both}.{whichever} {DEADLINE_NOTE_L5}"
 
 
 def licence_not_found(kind: str) -> tuple[str, str]:
     """L7: NYC licenses its process servers, and DCWP publishes the register."""
     return (
-        f"The {kind} licence number is not in the City's register",
-        f"New York City licenses process servers, and publishes the list. The {kind} licence "
+        f"The {kind} license number is not in the City's register",
+        f"New York City licenses process servers, and publishes the list. The {kind} license "
         f"number written on this affidavit is not on it. That can happen because a number "
         f"was mistyped or a record was corrected, so it is something to check rather than "
         f"something settled — but an unlicensed process server is a separate problem with "
@@ -420,9 +422,9 @@ def licence_not_found(kind: str) -> tuple[str, str]:
 def licence_not_in_force(kind: str, reason: str) -> tuple[str, str]:
     """L7: the licence number is real, but the register places it outside the service date."""
     return (
-        f"The {kind} licence was not in force on the day of the service",
-        f"The {kind} licence number on this affidavit is in the City's register, but {reason} "
-        f"Serving papers without a current licence is a separate problem with the service, "
+        f"The {kind} license was not in force on the day of the service",
+        f"The {kind} license number on this affidavit is in the City's register, but {reason} "
+        f"Serving papers without a current license is a separate problem with the service, "
         f"on top of anything your location data shows.",
     )
 
@@ -444,9 +446,9 @@ def licence_issued_after(issued: date, served: date) -> str:
 def licence_revoked(kind: str, status: str) -> tuple[str, str]:
     """L7. Deliberately present tense: the register is a snapshot of now, not a history."""
     return (
-        f"The {kind} licence is now recorded as {status.lower()}",
-        f"The City's register currently shows this {kind} licence as {status.lower()}. The "
-        f"register records what is true today and does not say what the licence's standing "
+        f"The {kind} license is now recorded as {status.lower()}",
+        f"The City's register currently shows this {kind} license as {status.lower()}. The "
+        f"register records what is true today and does not say what the license's standing "
         f"was on the day of the service, so this is background rather than a finding about "
         f"your case — but it is worth raising.",
     )

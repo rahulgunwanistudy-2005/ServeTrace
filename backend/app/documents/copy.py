@@ -209,7 +209,7 @@ def verdict_line(nearest_km: float | None, required_speed_kmh: float | None) -> 
         return f"Your nearest location record is {fmt_km(nearest_km)} from that address."
     return (
         f"Your nearest location record is {fmt_km(nearest_km)} from that address. Covering "
-        f"that distance in the time available means travelling at about "
+        f"that distance in the time available means traveling at about "
         f"{fmt_speed(required_speed_kmh)}."
     )
 
@@ -366,7 +366,7 @@ def para_prism(
         f"At {fmt_time(fix_at)} on {fmt_date(fix_at)}, my location history places me "
         f"{fmt_km(km)} from {address}. That is {fmt_minutes(minutes)} from "
         f"{fmt_time(when)}, the time of the service sworn to. Covering that distance in "
-        f"that time would require travelling at about {fmt_speed(speed_kmh)}."
+        f"that time would require traveling at about {fmt_speed(speed_kmh)}."
     )
 
 
@@ -496,9 +496,9 @@ def para_317(method: str, defense: str | None) -> str:
     )
     # A blank left in square brackets is how a draft says "this part is yours" without
     # inventing it. Nothing in this product may write somebody's defence for them.
-    said = _as_sentence(defense) if defense else "[state your defence here in your own words]."
+    said = _as_sentence(defense) if defense else "[state your defense here in your own words]."
     return (
-        f"{ground} I have a meritorious defence to this action: {said} I therefore ask the "
+        f"{ground} I have a meritorious defense to this action: {said} I therefore ask the "
         f"court to allow me to defend under CPLR 317."
     )
 

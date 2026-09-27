@@ -287,7 +287,7 @@ def _check_licences(draft: AffidavitDraft, notes: _Notes) -> None:
             notes.add(
                 field,
                 "warning",
-                "A New York City process server licence number is seven digits. "
+                "A New York City process server license number is seven digits. "
                 "Please check this one.",
                 FLAGGED_CAP,
             )
