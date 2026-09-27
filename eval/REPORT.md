@@ -259,8 +259,10 @@ attempts, the recipient's description — scored 100% on the documents that were
   the 30 s deadline in bible §12 — where the same call with thinking off returned the same
   fields in 3.5 s. Thinking is now off (`providers/gemini.py`, pinned by
   `tests/extraction/test_gemini_provider.py`). **These numbers were measured before that
-  change**, and a full rerun after it was stopped by the project's monthly spend cap; the
-  change was verified on the slowest document only, four calls, identical output.
+  change.** Two reruns after it have been stopped short: the first by that project's
+  monthly spend cap, the second by a free-tier key's limit of 20 requests a day on this
+  model. The change was verified on the slowest document (four calls, identical output)
+  and on the demo affidavits, clean and scanned.
 - **Synthetic documents.** One form layout, generated. A real process server's affidavit
   is messier, and the scans here are simulated rather than photographed.
 - **A miss is caught downstream.** Every field is shown to the person with its source quote

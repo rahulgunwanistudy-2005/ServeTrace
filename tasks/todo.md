@@ -1530,3 +1530,31 @@ Key supplied by Rahul, kept in the gitignored root `.env` only (`LLM_PROVIDER=ge
 
 Deferred: rerun the full extraction eval once the cap is raised; set `LLM_PROVIDER` and
 `GEMINI_API_KEY` on Render (Rahul's call — it is production and it spends money).
+
+### Session 12, part 3 — reading turned on in production
+
+- New key (Rahul), free tier. Accepted, but `gemini-3.8-flash` refused two of the first
+  three calls with 503 "high demand" → the provider retries a 503 twice (1 s, 3 s); a 504
+  and every 4xx are not retried. Three tests.
+- Render: `LLM_PROVIDER=gemini`, `GEMINI_API_KEY`, `GEMINI_MODEL=gemini-3.8-flash` set on
+  `srv-daq8ks0jo6nc73dhf0n0`; `render.yaml` now says the same, so a blueprint sync cannot
+  switch reading off again.
+- **The first production upload returned 500**: `ModuleNotFoundError: No module named
+  'google'`. The image ran `uv sync --no-dev`, which leaves out the optional `llm` extra,
+  and `extract` imported `google.genai.types` before `_client` could turn a missing SDK
+  into the polite answer. Dockerfile → `--extra llm` (checked with `uv sync --locked
+  --dry-run`; Docker was not running here, so the Render build is the image test);
+  `extract` asks for the client first; a test hides the SDK and expects "type it in".
+- The rerun of the extraction eval failed 64 of 66: at 4 concurrent requests the model was
+  refusing for demand, and then the key's free tier ran out — 20 requests a day on
+  `gemini-3.8-flash`, 5 a minute on `gemini-3.5-flash`. A fallback model was considered
+  and not built: on a free tier it only moves the wall.
+- Backend **683 passed**, gates clean.
+- **Verified on the public URL** after the rebuild: Maria's affidavit through
+  `https://servetrace.onrender.com/api/extract` → 200, `provider: gemini`, every field
+  right (index number, court, parties, server, 308(2), 7:42 PM on 12 June 2025, both
+  dates, the recipient's description), the address already geocoded, no validator notes.
+
+**Rahul's call:** enable billing on this key's Google project (with a spend cap, as the
+first key had). On the free tier, production reads about twenty affidavits a day and
+everyone after that types theirs in.
