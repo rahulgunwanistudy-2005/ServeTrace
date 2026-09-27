@@ -24,7 +24,7 @@
 	import FileDrop from '$lib/ui/FileDrop.svelte';
 	import StepHeader from '$lib/ui/StepHeader.svelte';
 	import TextField from '$lib/ui/TextField.svelte';
-	import { nyLocalToInstant } from '$lib/ingest/tz';
+	import { nyClockKey, nyDayKey, nyLocalToInstant } from '$lib/ingest/tz';
 	import { steps, upload, wizard } from '$copy/en';
 
 	let step = $state(1);
@@ -88,8 +88,8 @@
 			}
 			if (draft.served_at && typeof draft.served_at === 'string') {
 				const at = new Date(draft.served_at);
-				values.served_date ||= at.toISOString().slice(0, 10);
-				values.served_time ||= at.toISOString().slice(11, 16);
+				values.served_date ||= nyDayKey(at);
+				values.served_time ||= nyClockKey(at);
 			}
 		} catch (error) {
 			failure = error instanceof ApiError ? error.message : upload.readFailed;
@@ -116,7 +116,7 @@
 		 * confident, wrong verdict for anyone not sitting in New York. `nyLocalToInstant`
 		 * is session 3's answer to this and already handles both DST edges.
 		 */
-		const local = nyLocalToInstant(v('served_date'), v('served_time') || '00:00');
+		const local = nyLocalToInstant(v('served_date'), v('served_time'));
 		if (!local) throw new ApiError('bad_input', 400, upload.timeNeeded);
 		const resolved = await api.geocode(v('served_address').trim());
 		if (!resolved.result) throw new ApiError('bad_input', 400, upload.addressNotFound);

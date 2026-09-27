@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import {
 	formatNY,
+	nyClockKey,
 	nyDayKey,
 	nyDaysSpanned,
 	nyLocalToInstant,
+	normaliseTime,
 	parseLatLng,
 	toEpochMs
 } from './tz';
@@ -80,6 +82,35 @@ describe('nyDayKey', () => {
 	});
 });
 
+describe('normaliseTime', () => {
+	it.each([
+		['7:42 PM', '19:42:00'],
+		['7:42pm', '19:42:00'],
+		['12:00 PM', '12:00:00'],
+		['12:30 AM', '00:30:00'],
+		['11:59:30 p.m.', '23:59:30'],
+		['19:42', '19:42']
+	])('reads %s as %s', (raw, expected) => {
+		expect(normaliseTime(raw)).toBe(expected);
+	});
+
+	it('leaves an impossible 12-hour time for the caller to refuse', () => {
+		expect(normaliseTime('13:00 PM')).toBe('13:00 PM');
+		expect(nyLocalToInstant('2025-06-12', '13:00 PM')).toBeNull();
+	});
+});
+
+describe('nyClockKey', () => {
+	it('answers in New York, not in UTC, on a 24-hour clock', () => {
+		expect(nyClockKey('2025-06-12T19:42:00-04:00')).toBe('19:42');
+		expect(nyClockKey('2025-06-12T23:42:00Z')).toBe('19:42');
+	});
+
+	it('writes midnight as 00, which is what a time input expects', () => {
+		expect(nyClockKey('2025-01-15T05:05:00Z')).toBe('00:05');
+	});
+});
+
 describe('nyDaysSpanned', () => {
 	it('returns one day for an interval inside a day', () => {
 		const start = Date.parse('2025-06-12T09:00:00-04:00');
@@ -131,6 +162,14 @@ describe('nyLocalToInstant', () => {
 	it('marks an ordinary time as neither ambiguous nor missing', () => {
 		const result = nyLocalToInstant('2025-06-12', '08:00');
 		expect(result).toMatchObject({ ambiguous: false, nonexistent: false });
+	});
+
+	it('accepts the 12-hour clock an affidavit is printed in', () => {
+		const typed = nyLocalToInstant('2025-06-12', '7:42 PM');
+		expect(typed?.iso).toBe(nyLocalToInstant('2025-06-12', '19:42')?.iso);
+		expect(nyLocalToInstant('2025-06-12', '12:05 a.m.')?.iso).toBe(
+			nyLocalToInstant('2025-06-12', '00:05')?.iso
+		);
 	});
 
 	it('accepts seconds and a single-digit hour', () => {

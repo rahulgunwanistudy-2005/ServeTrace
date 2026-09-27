@@ -24,7 +24,7 @@
 		value?: string;
 		hint?: string;
 		placeholder?: string;
-		type?: 'text' | 'date';
+		type?: 'text' | 'date' | 'time';
 		required?: boolean;
 		multiline?: boolean;
 		/** Amber, for a field the extractor was unsure about or a validator flagged. */

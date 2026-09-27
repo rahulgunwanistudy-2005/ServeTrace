@@ -74,7 +74,7 @@ export function parseCardCsv(text: string, columns: ColumnMap): CsvParseResult {
 			continue;
 		}
 
-		const instant = nyLocalToInstant(date, normaliseTime(time));
+		const instant = nyLocalToInstant(date, time);
 		if (!instant) {
 			skipped += 1;
 			continue;
@@ -97,14 +97,4 @@ export function parseCardCsv(text: string, columns: ColumnMap): CsvParseResult {
 	if (parsed.errors.length > 0) warnings.push(ingestWarnings.csvMisshapenLines);
 
 	return { pending, skipped, warnings };
-}
-
-/** `7:05 PM`, `19:05`, `19:05:33` all mean a time of day; only one of them parses as one. */
-function normaliseTime(raw: string): string {
-	const meridiem = /^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*([AaPp])\.?[Mm]\.?$/.exec(raw.trim());
-	if (!meridiem) return raw;
-
-	const hour12 = Number(meridiem[1]) % 12;
-	const hour = meridiem[4]?.toLowerCase() === 'p' ? hour12 + 12 : hour12;
-	return `${String(hour).padStart(2, '0')}:${meridiem[2]}:${meridiem[3] ?? '00'}`;
 }

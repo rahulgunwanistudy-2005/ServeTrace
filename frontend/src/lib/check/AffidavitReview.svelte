@@ -113,7 +113,7 @@
 					id="field-{field}"
 					label={labels[field] ?? field}
 					bind:value={values[field]}
-					type={DATES.has(field) ? 'date' : 'text'}
+					type={DATES.has(field) ? 'date' : field === 'served_time' ? 'time' : 'text'}
 					invalid={unsure(field) || Boolean(validatorNote(field))}
 					note={noteFor(field)}
 				/>

@@ -80,6 +80,24 @@ export function nyDayKey(value: Date | string | number): string {
 	return `${get('year')}-${get('month')}-${get('day')}`;
 }
 
+const clockFormatter = new Intl.DateTimeFormat('en-US', {
+	timeZone: TZ,
+	hour: '2-digit',
+	minute: '2-digit',
+	hourCycle: 'h23'
+});
+
+/**
+ * The New York wall-clock time of an instant, as 24-hour `HH:MM` — the value a time
+ * input holds. The same reason as `nyDayKey`: 7:42 PM in New York is 23:42 in UTC, and a
+ * form filled from `toISOString()` would move the sworn time by four hours.
+ */
+export function nyClockKey(value: Date | string | number): string {
+	const parts = clockFormatter.formatToParts(toDate(value));
+	const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '';
+	return `${get('hour')}:${get('minute')}`;
+}
+
 const DAY_MS = 86_400_000;
 const MAX_DAYS_SPANNED = 400;
 
@@ -145,6 +163,22 @@ export type NyLocalInstant = {
 const TWELVE_H = 43_200_000;
 
 /**
+ * `7:05 PM`, `19:05`, `19:05:33` all mean a time of day; only two of them match a 24-hour
+ * pattern. An affidavit prints its time the first way, and a person copying it off the
+ * page will type it the same way, so every wall-clock parse accepts it.
+ */
+export function normaliseTime(raw: string): string {
+	const trimmed = raw.trim();
+	const meridiem = /^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*([AaPp])\.?[Mm]\.?$/.exec(trimmed);
+	if (!meridiem) return trimmed;
+
+	const hour12 = Number(meridiem[1]);
+	if (hour12 < 1 || hour12 > 12) return trimmed;
+	const hour = (hour12 % 12) + (meridiem[4]?.toLowerCase() === 'p' ? 12 : 0);
+	return `${String(hour).padStart(2, '0')}:${meridiem[2]}:${meridiem[3] ?? '00'}`;
+}
+
+/**
  * Turn a New York wall-clock date and time — `2025-06-12`, `19:42` — into an instant.
  *
  * A typed-in entry and a bank statement row have no offset in them, and the offset that
@@ -155,7 +189,7 @@ const TWELVE_H = 43_200_000;
  */
 export function nyLocalToInstant(date: string, time: string): NyLocalInstant | null {
 	const day = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date.trim());
-	const clock = /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/.exec(time.trim());
+	const clock = /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/.exec(normaliseTime(time));
 	if (!day || !clock) return null;
 
 	const [year, month, dayOfMonth] = [Number(day[1]), Number(day[2]), Number(day[3])];
