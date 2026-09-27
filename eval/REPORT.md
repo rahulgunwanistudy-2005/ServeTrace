@@ -238,31 +238,38 @@ Whole-corpus, whole-sweep: about 10 seconds for 500 cases scored 22 times over.
 ## Extraction — gemini-3.8-flash, 66 documents
 
 `eval/extraction_eval.py` scores the affidavit extractor per field against the generator's
-own truth, clean PDFs and scanned ones separately. Run on 2026-09-27 against a 60-case
+own truth, clean PDFs and scanned ones separately. Run on 2026-09-28 against a 60-case
 corpus rendered with PDFs (`python -m fixtures.generator --n 60 --seed 7`), of which 6 also
-have a scanned variant with no text layer. Results: `eval/results/extraction.json`.
+have a scanned variant with no text layer, so the model reads them as images. Results:
+`eval/results/extraction.json`.
 
-| | Documents read | Mean per-field accuracy | Service date and time | Weakest field |
-|---|---|---|---|---|
-| Clean PDF | 57 of 60 | 99.4% | 100% | mailing address, 91.2% |
-| Scanned | 6 of 6 | 98.9% | 100% | mailing address, 83.3% |
+| | Documents read | Per-field accuracy | Service date and time |
+|---|---|---|---|
+| Clean PDF | 60 of 60 | 100% | 100% |
+| Scanned | 6 of 6 | 100% | 100% |
 
-Every other field — method, index number, court, parties, server, licences, dates,
-attempts, the recipient's description — scored 100% on the documents that were read.
+Every field scored: index number, court, both parties, server, both licences, method,
+service date and time, both addresses, mailing and filing dates, the number of prior
+attempts and the recipient's description.
+
+**How it got here, because two of the three runs taught something.**
+
+- **The first run lost 3 of 60 to timeouts.** The model was thinking before answering, and
+  one affidavit spent 8,250 thought tokens and 31 s, past the 30 s deadline in bible §12.
+  With thinking off the same call returned the same fields in 3.5 s. Thinking is now off
+  (`providers/gemini.py`, pinned by `tests/extraction/test_gemini_provider.py`), and the
+  whole run takes under two minutes instead of four and a half.
+- **Mailing address then scored 91.7% clean and 83.3% scanned, and the extractor was
+  right every time.** All six misses were affidavits the generator had built without a
+  mailing paragraph, to exercise R-T1, while still writing a mailing address into the
+  label. The model answered "none" off a page that prints none. The label is fixed in
+  `fixtures/generator/affidavit.py` and held by a test in `tests/fixtures`; the PDFs are
+  byte-identical and the engine, advocate and robustness evals are unchanged.
 
 **What to read into this, and what not to.**
 
-- **Small.** 66 documents, 6 of them scanned. Enough to show the pipeline works on a real
-  model; not enough to quote a scanned-document accuracy to one decimal place.
-- **The three unread documents timed out**, and that led to a change. The model was
-  thinking before answering, and one affidavit spent 8,250 thought tokens and 31 s — past
-  the 30 s deadline in bible §12 — where the same call with thinking off returned the same
-  fields in 3.5 s. Thinking is now off (`providers/gemini.py`, pinned by
-  `tests/extraction/test_gemini_provider.py`). **These numbers were measured before that
-  change.** Two reruns after it have been stopped short: the first by that project's
-  monthly spend cap, the second by a free-tier key's limit of 20 requests a day on this
-  model. The change was verified on the slowest document (four calls, identical output)
-  and on the demo affidavits, clean and scanned.
+- **Small.** 66 documents, 6 of them scanned. Enough to show the pipeline reads this form
+  reliably on a real model; not enough to promise 100% on anything.
 - **Synthetic documents.** One form layout, generated. A real process server's affidavit
   is messier, and the scans here are simulated rather than photographed.
 - **A miss is caught downstream.** Every field is shown to the person with its source quote

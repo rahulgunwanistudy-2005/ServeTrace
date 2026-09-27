@@ -389,3 +389,12 @@ unbounded and pushed one call past the 30 s deadline while spending tokens nobod
 -> The first call with a new key is a test, not a formality: run the real pipeline and the
 eval before calling a provider "working", and pin in a test the call settings that are
 decisions rather than defaults.
+
+[2026-09-28] - The extraction eval reported mailing address at 91.7%, and the first
+hypothesis — the model filling in a field that should be empty — was wrong when checked.
+The misses were all R-T1 cases, where the generator removed the mailing paragraph from the
+page and left the address in the label: the extractor was right six times and scored
+wrong six times. The 2026-09-23 lesson said labels must come from where the generator put
+things, not from the engine; this is its other half. -> A label must describe the
+document as rendered, not the case the document was built from. When a score is
+consistently wrong on the same documents, read the page before blaming the reader.

@@ -1558,3 +1558,17 @@ Deferred: rerun the full extraction eval once the cap is raised; set `LLM_PROVID
 **Rahul's call:** enable billing on this key's Google project (with a spend cap, as the
 first key had). On the free tier, production reads about twenty affidavits a day and
 everyone after that types theirs in.
+
+### Session 12, part 4 — billing on, and the eval finished
+
+- Billing enabled on the key's project: six concurrent calls, six answers in ~2 s each.
+- Production, public URL: Maria's clean PDF read in 9.8 s (text layer), Lin's scan in
+  16 s (vision, both prior attempts read) — every field right.
+- **Extraction eval, 66/66 read, zero failures, under two minutes.** First pass: mailing
+  address 91.7% clean / 83.3% scanned, everything else 100%. Every miss was an R-T1 case:
+  the generator left the mailing paragraph off the page and kept a mailing address in the
+  label, and the model correctly answered "none". Label fixed in
+  `fixtures/generator/affidavit.py`, test added (negative control run: fails without the
+  fix). PDFs byte-identical; engine, advocate and robustness evals identical but for
+  timings. Rescored: **100% on every field, clean and scanned.** `eval/REPORT.md` updated.
+- Backend **684 passed**, gates clean.
