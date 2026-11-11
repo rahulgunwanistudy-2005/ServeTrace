@@ -15,6 +15,7 @@
 	import ColumnMapper from '$lib/advocate/ColumnMapper.svelte';
 	import ServerDetail from '$lib/advocate/ServerDetail.svelte';
 	import ServerTable from '$lib/advocate/ServerTable.svelte';
+	import BatchMode from '$lib/advocate/BatchMode.svelte';
 	import { guessColumns, isComplete } from '$lib/advocate/mapping';
 	import { loadDemoFile } from '$lib/advocate/demoFile';
 	import Button from '$lib/ui/Button.svelte';
@@ -27,6 +28,10 @@
 	import { saveBlob } from '$lib/download';
 
 	type Stage = 'choose' | 'map' | 'report';
+	/** v1.1: a spreadsheet of records (v1.0) or a folder of affidavits (build prompt §6). */
+	type Mode = 'sheet' | 'affidavits';
+
+	let mode = $state<Mode>('sheet');
 
 	let stage = $state<Stage>('choose');
 	let file = $state<File | null>(null);
@@ -145,6 +150,36 @@
 	{/if}
 
 	{#if stage === 'choose'}
+		<fieldset class="grid gap-3 sm:grid-cols-2">
+			<legend class="sr-only">What are you bringing?</legend>
+			{#each [['sheet', advocate.modeSheet, advocate.modeSheetHint], ['affidavits', advocate.modeAffidavits, advocate.modeAffidavitsHint]] as [value, title, hint] (value)}
+				<label
+					class="flex cursor-pointer gap-3 rounded-card border p-4
+					       {mode === value ? 'border-accent bg-accent-quiet' : 'border-line-strong bg-surface hover:bg-sunken'}"
+				>
+					<input
+						type="radio"
+						name="advocate-mode"
+						{value}
+						bind:group={mode}
+						class="mt-1 size-4 accent-current"
+						onchange={() => {
+							failure = null;
+							isDemo = false;
+						}}
+					/>
+					<span>
+						<span class="block font-semibold">{title}</span>
+						<span class="mt-1 block text-sm text-muted">{hint}</span>
+					</span>
+				</label>
+			{/each}
+		</fieldset>
+	{/if}
+
+	{#if stage === 'choose' && mode === 'affidavits'}
+		<BatchMode onsample={(on) => (isDemo = on)} />
+	{:else if stage === 'choose'}
 		<div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
 			<div class="space-y-5">
 				<FileDrop

@@ -11,16 +11,27 @@ import type { components } from './schema';
 export class ApiError extends Error {
 	readonly code: ErrorCode;
 	readonly status: number;
+	/** Seconds the server asked us to wait before trying again (429 only), else null. */
+	readonly retryAfter: number | null;
 
-	constructor(code: ErrorCode, status: number, message?: string) {
+	constructor(code: ErrorCode, status: number, message?: string, retryAfter: number | null = null) {
 		super(message ?? errors[code] ?? errors.internal_error);
 		this.name = 'ApiError';
 		this.code = code;
 		this.status = status;
+		this.retryAfter = retryAfter;
 	}
 }
 
-type Envelope = { error?: { code?: string; message?: string } };
+type Envelope = { error?: { code?: string; message?: string; retry_after?: number } };
+
+/** The envelope's typed `retry_after`, else the standard header, else nothing. */
+function waitOf(body: Envelope, response: Response): number | null {
+	const typed = body.error?.retry_after;
+	if (typeof typed === 'number' && Number.isFinite(typed) && typed >= 0) return typed;
+	const header = Number(response.headers?.get('retry-after'));
+	return Number.isFinite(header) && header > 0 ? header : null;
+}
 
 function isErrorCode(value: string): value is ErrorCode {
 	return value in errors;
@@ -37,7 +48,7 @@ async function toError(response: Response): Promise<ApiError> {
 	}
 	const raw = body.error?.code ?? 'internal_error';
 	const code: ErrorCode = isErrorCode(raw) ? raw : 'internal_error';
-	return new ApiError(code, response.status, body.error?.message);
+	return new ApiError(code, response.status, body.error?.message, waitOf(body, response));
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -64,6 +75,7 @@ export type ValidationNote = components['schemas']['ValidationNote'];
 export type GeocodeResponse = components['schemas']['GeocodeResponse'];
 export type GeocodeResult = components['schemas']['GeocodeResult'];
 export type Affidavit = components['schemas']['Affidavit'];
+export type LatLng = components['schemas']['LatLng'];
 export type LocationFix = components['schemas']['LocationFix'];
 export type HouseholdMember = components['schemas']['HouseholdMember'];
 export type AnalyzeRequest = components['schemas']['AnalyzeRequest'];
@@ -82,6 +94,13 @@ export type ServiceRecord = components['schemas']['ServiceRecord'];
 export type RejectedRow = components['schemas']['RejectedRow'];
 export type AffiantStatement = components['schemas']['AffiantStatement'];
 export type PacketRequest = components['schemas']['PacketRequest'];
+export type BatchReport = components['schemas']['BatchReport'];
+export type AgencyReport = components['schemas']['AgencyReport'];
+export type RuleRate = components['schemas']['RuleRate'];
+export type AffidavitRuleFlag = components['schemas']['AffidavitRuleFlag'];
+export type BatchRejection = components['schemas']['BatchRejection'];
+export type BatchReportRequest = components['schemas']['BatchReportRequest'];
+export type BatchExportKind = 'pairs' | 'flags' | 'agencies';
 
 const JSON_HEADERS = { 'content-type': 'application/json' } as const;
 
@@ -214,6 +233,36 @@ export const api = {
 			}
 			if (!response.ok) throw await toError(response);
 			return await response.blob();
-		}
+		},
+
+		/**
+		 * Confirmed affidavits in, servers and agencies ranked out. Only affidavits a person
+		 * confirmed are sent; the files they were read from stay on this device.
+		 */
+		batch: (affidavits: Affidavit[]) =>
+			request<BatchReport>('/advocate/batch', {
+				method: 'POST',
+				headers: JSON_HEADERS,
+				body: JSON.stringify(affidavits)
+			}),
+
+		/** A batch report the browser already holds, as a CSV. Nothing is recomputed. */
+		batchCsv: async (report: BatchReport, kind: BatchExportKind): Promise<Blob> => {
+			let response: Response;
+			try {
+				response = await fetch(`/api/advocate/batch/export.csv?kind=${kind}`, {
+					method: 'POST',
+					headers: JSON_HEADERS,
+					body: JSON.stringify(report)
+				});
+			} catch {
+				throw new ApiError('network', 0);
+			}
+			if (!response.ok) throw await toError(response);
+			return await response.blob();
+		},
+
+		/** The same report as a PDF, with any map snapshots keyed by agency. */
+		batchPdf: (request: BatchReportRequest) => pdf('/advocate/batch/report.pdf', request)
 	}
 } as const;

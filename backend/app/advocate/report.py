@@ -12,7 +12,7 @@ from __future__ import annotations
 import csv
 import io
 
-from app.domain.models import ServerReport
+from app.domain.models import BatchReport, ServerReport
 from app.engine.copy import fmt_datetime
 
 PAIR_COLUMNS = (
@@ -85,6 +85,68 @@ def servers_to_csv(reports: list[ServerReport]) -> bytes:
                 len(report.impossible_pairs),
                 report.max_services_per_hour,
                 len(report.repeated_descriptions),
+            )
+        )
+    return buffer.getvalue().encode("utf-8-sig")
+
+
+FLAG_COLUMNS = ("affidavit", "index_number", "server_id", "agency_key", "rule", "flagged")
+
+AGENCY_COLUMNS = (
+    "risk_rank",
+    "agency_key",
+    "agency",
+    "affidavits",
+    "servers",
+    "impossible_pairs",
+    "max_services_per_hour",
+    "repeated_descriptions",
+    *(f"{code}_flagged_of_applicable" for code in ("R-T1", "R-T2", "R-T3", "R-D1", "R-M1")),
+)
+
+
+def flags_to_csv(report: BatchReport) -> bytes:
+    """One row per affidavit and rule that applies to it, flagged or not, so every rate in
+    the report can be recounted from this file by hand."""
+    buffer = io.StringIO(newline="")
+    writer = csv.writer(buffer)
+    writer.writerow(FLAG_COLUMNS)
+    for flag in report.flags:
+        writer.writerow(
+            (
+                flag.index + 1,
+                flag.case_ref or "",
+                flag.server_id,
+                flag.agency_key,
+                flag.rule_code,
+                "yes" if flag.flagged else "no",
+            )
+        )
+    return buffer.getvalue().encode("utf-8-sig")
+
+
+def agencies_to_csv(report: BatchReport) -> bytes:
+    """The agency ranking, with each rule as `flagged/applicable` (blank where it never
+    applied, so a 0 always means "applied and never fired")."""
+    buffer = io.StringIO(newline="")
+    writer = csv.writer(buffer)
+    writer.writerow(AGENCY_COLUMNS)
+    for agency in report.agencies:
+        by_code = {rate.rule_code: rate for rate in agency.rule_rates}
+        writer.writerow(
+            (
+                agency.risk_rank,
+                agency.agency_key,
+                agency.agency_display,
+                agency.n_affidavits,
+                " ".join(agency.servers),
+                agency.impossible_pairs,
+                agency.max_services_per_hour,
+                len(agency.repeated_descriptions),
+                *(
+                    f"{by_code[code].flagged}/{by_code[code].applicable}" if code in by_code else ""
+                    for code in ("R-T1", "R-T2", "R-T3", "R-D1", "R-M1")
+                ),
             )
         )
     return buffer.getvalue().encode("utf-8-sig")

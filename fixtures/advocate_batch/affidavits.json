@@ -1,0 +1,2507 @@
+[
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ana Arvel",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100000-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-08",
+  "recipient_description": {
+   "age_max": 25,
+   "age_min": 20,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Dark  Hair: Brown  Age: 20-25  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Ana Arvel",
+  "recipient_relationship": null,
+  "served_address": "100 5 AVENUE, Brooklyn, NY 11217",
+  "served_at": "2025-03-03T09:00:00-05:00",
+  "served_location": {
+   "lat": 40.680001,
+   "lng": -73.97838
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "2891a6b53f55eb0aa6db2e080e5038b93dab1e0b5aed23948b4578a56d2be1fc",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ben Brisk",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100037-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_2",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-11",
+  "recipient_description": {
+   "age_max": 26,
+   "age_min": 21,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Gray  Age: 21-26  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "100 OCEAN AVENUE, Brooklyn, NY 11225",
+  "served_at": "2025-03-06T10:00:00-05:00",
+  "served_location": {
+   "lat": 40.660476,
+   "lng": -73.9636
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "d6d7fa3073b611ab6f74d66e0be207118474f8bebf9bb622e8901d16fa297ecd",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Cleo Corwin",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100074-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-14",
+  "recipient_description": {
+   "age_max": 27,
+   "age_min": 22,
+   "hair": "Black",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Black  Age: 22-27  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Cleo Corwin",
+  "recipient_relationship": null,
+  "served_address": "1400 CONEY IS AVENUE, Brooklyn, NY 11230",
+  "served_at": "2025-03-09T11:00:00-04:00",
+  "served_location": {
+   "lat": 40.62335,
+   "lng": -73.965265
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "24b498f7abd384ab300c5ef627b19c1e5a912ac18ac2eed05b775bcd475e8b07",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Dev Dulane",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100111-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_2",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-03-17",
+  "recipient_description": {
+   "age_max": 28,
+   "age_min": 23,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Light  Hair: Gray  Age: 23-28  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "1750 ATLANTIC AVENUE, Brooklyn, NY 11213",
+  "served_at": "2025-03-12T12:00:00-04:00",
+  "served_location": {
+   "lat": 40.67722,
+   "lng": -73.93234
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "7c587c2fe9e19fb2369cec125778fdd62d05c5be80358985fe44995ee19f17d2",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Eli Eskar",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100148-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-03-20",
+  "recipient_description": {
+   "age_max": 29,
+   "age_min": 24,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Blonde  Age: 24-29  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Eli Eskar",
+  "recipient_relationship": null,
+  "served_address": "1750 OCEAN PARKWAY, Brooklyn, NY 11223",
+  "served_at": "2025-03-15T13:00:00-04:00",
+  "served_location": {
+   "lat": 40.605826,
+   "lng": -73.967658
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "b1be3a29d6fa6fd9ee85dc666c10a38c8aa39692a791261ce51882ab475d8777",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Fay Fenmore",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100185-25/KI",
+  "mailing_address": "2100 KINGS HIGHWAY, Brooklyn, NY 11229",
+  "mailing_date": "2025-03-20",
+  "method": "308_2",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-25",
+  "recipient_description": {
+   "age_max": 30,
+   "age_min": 25,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Dark  Hair: Gray  Age: 25-30  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "2100 KINGS HIGHWAY, Brooklyn, NY 11229",
+  "served_at": "2025-03-18T14:00:00-04:00",
+  "served_location": {
+   "lat": 40.61081,
+   "lng": -73.95234
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "4183080eb77736ae97e812665df7ae7183393383e473d066d67b10f2f3845c5f",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Gus Gaskill",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100222-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-26",
+  "recipient_description": {
+   "age_max": 31,
+   "age_min": 26,
+   "hair": "Black",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Dark  Hair: Black  Age: 26-31  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Gus Gaskill",
+  "recipient_relationship": null,
+  "served_address": "250 NOSTRAND AVENUE, Brooklyn, NY 11205",
+  "served_at": "2025-03-21T15:00:00-04:00",
+  "served_location": {
+   "lat": 40.691708,
+   "lng": -73.952779
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "83f1ec2a6ac16fb8d64bd93203f55c33d2aa267756028a4b85d4fdaa4591e18d",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Hana Holloran",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100259-25/KI",
+  "mailing_address": "450 5 AVENUE, Brooklyn, NY 11215",
+  "mailing_date": "2025-03-26",
+  "method": "308_2",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-31",
+  "recipient_description": {
+   "age_max": 32,
+   "age_min": 27,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Light  Hair: Gray  Age: 27-32  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "450 5 AVENUE, Brooklyn, NY 11215",
+  "served_at": "2025-03-24T16:00:00-04:00",
+  "served_location": {
+   "lat": 40.66913,
+   "lng": -73.986836
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "7fc74e1094bf57290d0a23bad8609eee8aaf72f0f599d3d9162df3500aa193af",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ivo Arvel",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100296-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-03-14",
+  "recipient_description": {
+   "age_max": 33,
+   "age_min": 28,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Light  Hair: Brown  Age: 28-33  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Ivo Arvel",
+  "recipient_relationship": null,
+  "served_address": "1400 CASTLETON AVENUE, Staten Island, NY 10302",
+  "served_at": "2025-03-09T11:04:00-04:00",
+  "served_location": {
+   "lat": 40.633697,
+   "lng": -74.129805
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "d9120dd7eb4b664ed1c1a4b048d567ca8b73fcbe5425be2caad93cb4d93e37cc",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Jun Brisk",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100333-25/KI",
+  "mailing_address": "1400 CLOVE ROAD, Staten Island, NY 10301",
+  "mailing_date": "2025-03-20",
+  "method": "308_2",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-03-25",
+  "recipient_description": {
+   "age_max": 34,
+   "age_min": 29,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Gray  Age: 29-34  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "1400 CLOVE ROAD, Staten Island, NY 10301",
+  "served_at": "2025-03-18T14:04:00-04:00",
+  "served_location": {
+   "lat": 40.613354,
+   "lng": -74.100732
+  },
+  "server_license": null,
+  "server_name": "R. Tallowbeck",
+  "source_sha256": "87b2f07a9980de1d883b257853f67c032ce03dcd1b3e1cfd161327c5acffb47c",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ana Corwin",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100370-25/KI",
+  "mailing_address": "550 OCEAN AVENUE, Brooklyn, NY 11226",
+  "mailing_date": "2025-03-05",
+  "method": "308_2",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-10",
+  "recipient_description": {
+   "age_max": 55,
+   "age_min": 45,
+   "hair": "Brown",
+   "height_in_max": 70,
+   "height_in_min": 68,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Brown  Age: 45-55  Height: 5'8\"-5'10\"  Weight: 180-200 lbs",
+   "sex": "male",
+   "weight_lb_max": 200,
+   "weight_lb_min": 180
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "550 OCEAN AVENUE, Brooklyn, NY 11226",
+  "served_at": "2025-03-03T09:05:00-05:00",
+  "served_location": {
+   "lat": 40.649157,
+   "lng": -73.961116
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "defb60f7c033a3af7032efbc5aaa1b4754a18a51189d9b41c3797c5122182758",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ben Dulane",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100407-25/KI",
+  "mailing_address": "620 CHURCH AVENUE, Brooklyn, NY 11218",
+  "mailing_date": "2025-03-08",
+  "method": "308_2",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-13",
+  "recipient_description": {
+   "age_max": 36,
+   "age_min": 31,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Blonde  Age: 31-36  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "620 CHURCH AVENUE, Brooklyn, NY 11218",
+  "served_at": "2025-03-06T10:05:00-05:00",
+  "served_location": {
+   "lat": 40.645031,
+   "lng": -73.973281
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "6caaedabdeaa1c0d61d0e9ab6854738fd5e63e3182d453c432dd99215f480bfc",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Cleo Eskar",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100444-25/KI",
+  "mailing_address": "71 ATLANTIC AVENUE, Brooklyn, NY 11201",
+  "mailing_date": "2025-03-11",
+  "method": "308_2",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-16",
+  "recipient_description": {
+   "age_max": 37,
+   "age_min": 32,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Dark  Hair: Brown  Age: 32-37  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "71 ATLANTIC AVENUE, Brooklyn, NY 11201",
+  "served_at": "2025-03-09T11:05:00-04:00",
+  "served_location": {
+   "lat": 40.691484,
+   "lng": -73.997956
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "f5aad9fe1b9911834173a92a5d6ed923b2b06d7de77a069e1ee7a7a67acd991d",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Dev Fenmore",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100481-25/KI",
+  "mailing_address": "900 FLATBUSH AVENUE, Brooklyn, NY 11226",
+  "mailing_date": "2025-03-14",
+  "method": "308_2",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-03-19",
+  "recipient_description": {
+   "age_max": 38,
+   "age_min": 33,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Blonde  Age: 33-38  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "900 FLATBUSH AVENUE, Brooklyn, NY 11226",
+  "served_at": "2025-03-12T12:05:00-04:00",
+  "served_location": {
+   "lat": 40.649691,
+   "lng": -73.958863
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "80bc40dee1678d7af3ece43bbc8896ddfadb6686349d1f2831829d9a7eb61607",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Eli Gaskill",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100518-25/KI",
+  "mailing_address": "100 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "mailing_date": "2025-03-17",
+  "method": "308_2",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-03-22",
+  "recipient_description": {
+   "age_max": 55,
+   "age_min": 45,
+   "hair": "Brown",
+   "height_in_max": 70,
+   "height_in_min": 68,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Brown  Age: 45-55  Height: 5'8\"-5'10\"  Weight: 180-200 lbs",
+   "sex": "male",
+   "weight_lb_max": 200,
+   "weight_lb_min": 180
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "100 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "served_at": "2025-03-15T13:05:00-04:00",
+  "served_location": {
+   "lat": 40.72046,
+   "lng": -73.955196
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "06a66b9b1621a9bf38d7a9638aef072440d926afe28fdfaa06fe353ae8ddeb48",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Fay Holloran",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100555-25/KI",
+  "mailing_address": "13 CHURCH AVENUE, Brooklyn, NY 11218",
+  "mailing_date": "2025-03-20",
+  "method": "308_2",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-25",
+  "recipient_description": {
+   "age_max": 40,
+   "age_min": 35,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Light  Hair: Brown  Age: 35-40  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "13 CHURCH AVENUE, Brooklyn, NY 11218",
+  "served_at": "2025-03-18T14:05:00-04:00",
+  "served_location": {
+   "lat": 40.641675,
+   "lng": -73.982814
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "45555dc1a33355f42c8c49e6a327221397d2e28bd40b35bcf5ab3ed34f0dd78b",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Gus Arvel",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100592-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_2",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-26",
+  "recipient_description": {
+   "age_max": 41,
+   "age_min": 36,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Gray  Age: 36-41  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "1400 FULTON STREET, Brooklyn, NY 11216",
+  "served_at": "2025-03-21T15:05:00-04:00",
+  "served_location": {
+   "lat": 40.679896,
+   "lng": -73.944899
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "d16c5b487dbdd8fe00b435e2d13900760ef35a079e930d34ef25222615ae666b",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Hana Brisk",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100629-25/KI",
+  "mailing_address": "1750 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "mailing_date": "2025-03-26",
+  "method": "308_2",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-31",
+  "recipient_description": {
+   "age_max": 55,
+   "age_min": 45,
+   "hair": "Brown",
+   "height_in_max": 70,
+   "height_in_min": 68,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Brown  Age: 45-55  Height: 5'8\"-5'10\"  Weight: 180-200 lbs",
+   "sex": "male",
+   "weight_lb_max": 200,
+   "weight_lb_min": 180
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "1750 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "served_at": "2025-03-24T16:05:00-04:00",
+  "served_location": {
+   "lat": 40.678158,
+   "lng": -73.899808
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "dce3beb29256ef835871fca945caa8d5dfe05d0fd01db18a7a74e893540fe859",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ivo Corwin",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100666-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_2",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-04-01",
+  "recipient_description": {
+   "age_max": 43,
+   "age_min": 38,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Light  Hair: Blonde  Age: 38-43  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "2100 ATLANTIC AVENUE, Brooklyn, NY 11233",
+  "served_at": "2025-03-27T09:05:00-04:00",
+  "served_location": {
+   "lat": 40.67642,
+   "lng": -73.91788
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "668301c0606b1697f6bc1ddb665d81453b50d426d1cf7960223a6591f7906428",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Kestrel Legal Support Services Inc.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Jun Dulane",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100703-25/KI",
+  "mailing_address": "250 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "mailing_date": "2025-04-01",
+  "method": "308_2",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-04-06",
+  "recipient_description": {
+   "age_max": 44,
+   "age_min": 39,
+   "hair": "Black",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Black  Age: 39-44  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "250 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "served_at": "2025-03-30T10:05:00-04:00",
+  "served_location": {
+   "lat": 40.715866,
+   "lng": -73.960201
+  },
+  "server_license": null,
+  "server_name": "M. Grisholm",
+  "source_sha256": "943e2ec03723fff4d27839cd5fdaddbb0f29e4ba6c7890e9a0670b2cbead2c62",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "3100 ATLANTIC AVENUE, Brooklyn, NY 11208",
+    "at": "2025-02-28T10:30:00-05:00",
+    "location": {
+     "lat": 40.678844,
+     "lng": -73.880594
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "3100 ATLANTIC AVENUE, Brooklyn, NY 11208",
+    "at": "2025-02-28T11:15:00-05:00",
+    "location": {
+     "lat": 40.678844,
+     "lng": -73.880594
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ana Eskar",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100740-25/KI",
+  "mailing_address": "3100 ATLANTIC AVENUE, Brooklyn, NY 11208",
+  "mailing_date": "2025-03-05",
+  "method": "308_4",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-10",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "3100 ATLANTIC AVENUE, Brooklyn, NY 11208",
+  "served_at": "2025-03-03T09:10:00-05:00",
+  "served_location": {
+   "lat": 40.678844,
+   "lng": -73.880594
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "5e7b648852f77dcebfe3e46ccea656228056003c665579da3c94cc3cda7079e4",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "450 BEDFORD AVENUE, Brooklyn, NY 11249",
+    "at": "2025-03-05T07:40:00-05:00",
+    "location": {
+     "lat": 40.708517,
+     "lng": -73.964457
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "450 BEDFORD AVENUE, Brooklyn, NY 11249",
+    "at": "2025-03-04T19:50:00-05:00",
+    "location": {
+     "lat": 40.708517,
+     "lng": -73.964457
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "450 BEDFORD AVENUE, Brooklyn, NY 11249",
+    "at": "2025-03-02T13:10:00-05:00",
+    "location": {
+     "lat": 40.708517,
+     "lng": -73.964457
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ben Fenmore",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100777-25/KI",
+  "mailing_address": "450 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "mailing_date": "2025-03-08",
+  "method": "308_4",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-13",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "450 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "served_at": "2025-03-06T10:10:00-05:00",
+  "served_location": {
+   "lat": 40.708517,
+   "lng": -73.964457
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "a8e5100637858119d0b2b61f1156e7482a0cb5ffa7f30abe97263f980e9efe46",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "450 NOSTRAND AVENUE, Brooklyn, NY 11216",
+    "at": "2025-03-07T10:30:00-05:00",
+    "location": {
+     "lat": 40.683589,
+     "lng": -73.950437
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "450 NOSTRAND AVENUE, Brooklyn, NY 11216",
+    "at": "2025-03-07T11:15:00-05:00",
+    "location": {
+     "lat": 40.683589,
+     "lng": -73.950437
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Cleo Gaskill",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100814-25/KI",
+  "mailing_address": "450 NOSTRAND AVENUE, Brooklyn, NY 11216",
+  "mailing_date": "2025-03-11",
+  "method": "308_4",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-16",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "450 NOSTRAND AVENUE, Brooklyn, NY 11216",
+  "served_at": "2025-03-09T11:10:00-04:00",
+  "served_location": {
+   "lat": 40.683589,
+   "lng": -73.950437
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "6ad81547fde1d4ba8bd2ae1d1d0cc76603511c6908afb2dd61840e689714a953",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "550 FLATBUSH AVENUE, Brooklyn, NY 11225",
+    "at": "2025-03-11T07:40:00-04:00",
+    "location": {
+     "lat": 40.660613,
+     "lng": -73.96107
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "550 FLATBUSH AVENUE, Brooklyn, NY 11225",
+    "at": "2025-03-10T19:50:00-04:00",
+    "location": {
+     "lat": 40.660613,
+     "lng": -73.96107
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "550 FLATBUSH AVENUE, Brooklyn, NY 11225",
+    "at": "2025-03-08T13:10:00-05:00",
+    "location": {
+     "lat": 40.660613,
+     "lng": -73.96107
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Dev Holloran",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100851-25/KI",
+  "mailing_address": "550 FLATBUSH AVENUE, Brooklyn, NY 11225",
+  "mailing_date": "2025-03-14",
+  "method": "308_4",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-03-19",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "550 FLATBUSH AVENUE, Brooklyn, NY 11225",
+  "served_at": "2025-03-12T12:10:00-04:00",
+  "served_location": {
+   "lat": 40.660613,
+   "lng": -73.96107
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "845d773a13c604c6e2dd35ff2e46321897ec5cd8252d8e23958c3d8159fd6cff",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "619 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+    "at": "2025-03-14T10:30:00-04:00",
+    "location": {
+     "lat": 40.642289,
+     "lng": -73.969372
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "619 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+    "at": "2025-03-14T11:15:00-04:00",
+    "location": {
+     "lat": 40.642289,
+     "lng": -73.969372
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Eli Arvel",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100888-25/KI",
+  "mailing_address": "619 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+  "mailing_date": "2025-03-17",
+  "method": "308_4",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-03-22",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "619 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+  "served_at": "2025-03-15T13:10:00-04:00",
+  "served_location": {
+   "lat": 40.642289,
+   "lng": -73.969372
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "0a486a21691c478fdbf6126c84c350bec009855dd111bc36879f53deda64d52c",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "620 FLATBUSH AVENUE, Brooklyn, NY 11225",
+    "at": "2025-03-17T07:40:00-04:00",
+    "location": {
+     "lat": 40.658177,
+     "lng": -73.960656
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "620 FLATBUSH AVENUE, Brooklyn, NY 11225",
+    "at": "2025-03-16T19:50:00-04:00",
+    "location": {
+     "lat": 40.658177,
+     "lng": -73.960656
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "620 FLATBUSH AVENUE, Brooklyn, NY 11225",
+    "at": "2025-03-14T13:10:00-04:00",
+    "location": {
+     "lat": 40.658177,
+     "lng": -73.960656
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Fay Brisk",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100925-25/KI",
+  "mailing_address": "620 FLATBUSH AVENUE, Brooklyn, NY 11225",
+  "mailing_date": "2025-03-20",
+  "method": "308_4",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-25",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "620 FLATBUSH AVENUE, Brooklyn, NY 11225",
+  "served_at": "2025-03-18T14:10:00-04:00",
+  "served_location": {
+   "lat": 40.658177,
+   "lng": -73.960656
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "5d3a28ccc660be18f1c42dc1ffc85f407df8dc5dacc38f18cea8d841a013c70c",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "79 KINGS HIGHWAY, Brooklyn, NY 11214",
+    "at": "2025-03-20T10:30:00-04:00",
+    "location": {
+     "lat": 40.606571,
+     "lng": -73.988519
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "79 KINGS HIGHWAY, Brooklyn, NY 11214",
+    "at": "2025-03-20T11:15:00-04:00",
+    "location": {
+     "lat": 40.606571,
+     "lng": -73.988519
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Gus Corwin",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100962-25/KI",
+  "mailing_address": "79 KINGS HIGHWAY, Brooklyn, NY 11214",
+  "mailing_date": "2025-03-23",
+  "method": "308_4",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-28",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "79 KINGS HIGHWAY, Brooklyn, NY 11214",
+  "served_at": "2025-03-21T15:10:00-04:00",
+  "served_location": {
+   "lat": 40.606571,
+   "lng": -73.988519
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "f689bdae71999fef5a889fc3fcc728f93e637f74c8319478648686e46739f5bd",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "900 MYRTLE AVENUE, Brooklyn, NY 11206",
+    "at": "2025-03-23T07:40:00-04:00",
+    "location": {
+     "lat": 40.695569,
+     "lng": -73.945697
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "900 MYRTLE AVENUE, Brooklyn, NY 11206",
+    "at": "2025-03-22T19:50:00-04:00",
+    "location": {
+     "lat": 40.695569,
+     "lng": -73.945697
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "900 MYRTLE AVENUE, Brooklyn, NY 11206",
+    "at": "2025-03-20T13:10:00-04:00",
+    "location": {
+     "lat": 40.695569,
+     "lng": -73.945697
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Hana Dulane",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-100999-25/KI",
+  "mailing_address": "900 MYRTLE AVENUE, Brooklyn, NY 11206",
+  "mailing_date": "2025-03-26",
+  "method": "308_4",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-31",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "900 MYRTLE AVENUE, Brooklyn, NY 11206",
+  "served_at": "2025-03-24T16:10:00-04:00",
+  "served_location": {
+   "lat": 40.695569,
+   "lng": -73.945697
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "e4753d88602f97ad15eb78720dd8b6d2b08008ac1b50bfc7433afe045caacd13",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "100 FLATBUSH AVENUE, Brooklyn, NY 11217",
+    "at": "2025-03-26T10:30:00-04:00",
+    "location": {
+     "lat": 40.68567,
+     "lng": -73.97899
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "100 FLATBUSH AVENUE, Brooklyn, NY 11217",
+    "at": "2025-03-26T11:15:00-04:00",
+    "location": {
+     "lat": 40.68567,
+     "lng": -73.97899
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ivo Eskar",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101036-25/KI",
+  "mailing_address": "100 FLATBUSH AVENUE, Brooklyn, NY 11217",
+  "mailing_date": "2025-03-29",
+  "method": "308_4",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-04-03",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "100 FLATBUSH AVENUE, Brooklyn, NY 11217",
+  "served_at": "2025-03-27T09:10:00-04:00",
+  "served_location": {
+   "lat": 40.68567,
+   "lng": -73.97899
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "1b36c41af8edc7a5a74dc0e1113bbe56d5f62646b12ebbc381456d9d69e18b02",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [
+   {
+    "address": "1400 ATLANTIC AVENUE, Brooklyn, NY 11216",
+    "at": "2025-03-29T07:40:00-04:00",
+    "location": {
+     "lat": 40.67795,
+     "lng": -73.94585
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "1400 ATLANTIC AVENUE, Brooklyn, NY 11216",
+    "at": "2025-03-28T19:50:00-04:00",
+    "location": {
+     "lat": 40.67795,
+     "lng": -73.94585
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "1400 ATLANTIC AVENUE, Brooklyn, NY 11216",
+    "at": "2025-03-26T13:10:00-04:00",
+    "location": {
+     "lat": 40.67795,
+     "lng": -73.94585
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Jun Fenmore",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101073-25/KI",
+  "mailing_address": "1400 ATLANTIC AVENUE, Brooklyn, NY 11216",
+  "mailing_date": "2025-04-01",
+  "method": "308_4",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-04-06",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "1400 ATLANTIC AVENUE, Brooklyn, NY 11216",
+  "served_at": "2025-03-30T10:10:00-04:00",
+  "served_location": {
+   "lat": 40.67795,
+   "lng": -73.94585
+  },
+  "server_license": null,
+  "server_name": "D. Penfarrow",
+  "source_sha256": "a8af4d261d7bb79ff2adf34bfde2aac669a890a1d23a9ee97b844af643ab6d32",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ana Gaskill",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101110-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-08",
+  "recipient_description": {
+   "age_max": 55,
+   "age_min": 50,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Dark  Hair: Brown  Age: 50-55  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Ana Gaskill",
+  "recipient_relationship": null,
+  "served_address": "1400 NOSTRAND AVENUE, Brooklyn, NY 11226",
+  "served_at": "2025-03-03T09:15:00-05:00",
+  "served_location": {
+   "lat": 40.652334,
+   "lng": -73.949931
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "fe4dc7e1afa2c68fef9a142e4eea1b748fb619ebe515890e517e5d73c8973d8a",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ben Holloran",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101147-25/KI",
+  "mailing_address": "1750 FLATBUSH AVENUE, Brooklyn, NY 11210",
+  "mailing_date": "2025-03-08",
+  "method": "308_2",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-13",
+  "recipient_description": {
+   "age_max": 56,
+   "age_min": 51,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Light  Hair: Blonde  Age: 51-56  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "1750 FLATBUSH AVENUE, Brooklyn, NY 11210",
+  "served_at": "2025-03-06T10:15:00-05:00",
+  "served_location": {
+   "lat": 40.627535,
+   "lng": -73.942379
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "513054a7d5155d3fb2760c34d4eb109af7f34d6a2194a731bb9bf0d7ef7f609e",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Cleo Arvel",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101184-25/KI",
+  "mailing_address": "2100 CONEY IS AVENUE, Brooklyn, NY 11223",
+  "mailing_date": "2025-03-11",
+  "method": "308_2",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-16",
+  "recipient_description": {
+   "age_max": 57,
+   "age_min": 52,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Light  Hair: Brown  Age: 52-57  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "2100 CONEY IS AVENUE, Brooklyn, NY 11223",
+  "served_at": "2025-03-09T11:15:00-04:00",
+  "served_location": {
+   "lat": 40.606042,
+   "lng": -73.962088
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "a8f217aebba8c41a5e27490782a2d52302c70d253c4230daf84c942fa954defd",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Dev Brisk",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101221-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-03-17",
+  "recipient_description": {
+   "age_max": 58,
+   "age_min": 53,
+   "hair": "Black",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Dark  Hair: Black  Age: 53-58  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Dev Brisk",
+  "recipient_relationship": null,
+  "served_address": "250 FLATBUSH AVENUE, Brooklyn, NY 11217",
+  "served_at": "2025-03-12T12:15:00-04:00",
+  "served_location": {
+   "lat": 40.67941,
+   "lng": -73.974437
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "01ee11e904f155e58e8f78317ba88c9fbb746f9bfc636a28d02b6a02e440276b",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Eli Corwin",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101258-25/KI",
+  "mailing_address": "3100 FULTON STREET, Brooklyn, NY 11208",
+  "mailing_date": "2025-03-17",
+  "method": "308_2",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-03-22",
+  "recipient_description": {
+   "age_max": 59,
+   "age_min": 54,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Dark  Hair: Brown  Age: 54-59  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "3100 FULTON STREET, Brooklyn, NY 11208",
+  "served_at": "2025-03-15T13:15:00-04:00",
+  "served_location": {
+   "lat": 40.681092,
+   "lng": -73.880515
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "c13a29c54e5c70c77bb602b39a2ca7fd24630fa4c423a8c03256678ff285a5d7",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Fay Dulane",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101295-25/KI",
+  "mailing_address": "450 CONEY IS AVENUE, Brooklyn, NY 11218",
+  "mailing_date": "2025-03-20",
+  "method": "308_2",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-25",
+  "recipient_description": {
+   "age_max": 60,
+   "age_min": 55,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Dark  Hair: Gray  Age: 55-60  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "450 CONEY IS AVENUE, Brooklyn, NY 11218",
+  "served_at": "2025-03-18T14:15:00-04:00",
+  "served_location": {
+   "lat": 40.646809,
+   "lng": -73.971344
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "22cc42fa70426897e5a4caa6ab620361a754d36fdb29609c0e053f0f6ef2c919",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Gus Eskar",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101332-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-26",
+  "recipient_description": {
+   "age_max": 61,
+   "age_min": 56,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Blonde  Age: 56-61  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Gus Eskar",
+  "recipient_relationship": null,
+  "served_address": "550 5 AVENUE, Brooklyn, NY 11215",
+  "served_at": "2025-03-21T15:15:00-04:00",
+  "served_location": {
+   "lat": 40.666016,
+   "lng": -73.989767
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "9f15357b2b18fb239ec5cf9c606df61b9d3382a82871b18b7b31970fd7cd3bf4",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Hana Fenmore",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101369-25/KI",
+  "mailing_address": "550 KINGS HIGHWAY, Brooklyn, NY 11223",
+  "mailing_date": "2025-03-26",
+  "method": "308_2",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-31",
+  "recipient_description": {
+   "age_max": 62,
+   "age_min": 57,
+   "hair": "Black",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Black  Age: 57-62  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "550 KINGS HIGHWAY, Brooklyn, NY 11223",
+  "served_at": "2025-03-24T16:15:00-04:00",
+  "served_location": {
+   "lat": 40.604359,
+   "lng": -73.969356
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "c09e4c8789287d6e5b1b343d80c2991a7d4b77257ee0e900095412ba95b8d9ee",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ivo Gaskill",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101406-25/KI",
+  "mailing_address": "620 ATLANTIC AVENUE, Brooklyn, NY 11217",
+  "mailing_date": "2025-03-29",
+  "method": "308_2",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-04-03",
+  "recipient_description": {
+   "age_max": 63,
+   "age_min": 58,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Light  Hair: Brown  Age: 58-63  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "620 ATLANTIC AVENUE, Brooklyn, NY 11217",
+  "served_at": "2025-03-27T09:15:00-04:00",
+  "served_location": {
+   "lat": 40.682579,
+   "lng": -73.975263
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "6b2d4baa653a3cfc954f2c49e222d672889a9da95a8afb981d2560c4b7c8603c",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Ironvale Attorney Service Corp.",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Jun Holloran",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101443-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-04-04",
+  "recipient_description": {
+   "age_max": 64,
+   "age_min": 59,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Blonde  Age: 59-64  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Jun Holloran",
+  "recipient_relationship": null,
+  "served_address": "620 MYRTLE AVENUE, Brooklyn, NY 11205",
+  "served_at": "2025-03-30T10:15:00-04:00",
+  "served_location": {
+   "lat": 40.693988,
+   "lng": -73.959112
+  },
+  "server_license": null,
+  "server_name": "K. Aldersey",
+  "source_sha256": "0b33969e40aa5c900190a044eda7371f2f15325a6d68b4923b39810e830ce477",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ana Arvel",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101480-25/KI",
+  "mailing_address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
+  "mailing_date": "2025-03-05",
+  "method": "308_2",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-10",
+  "recipient_description": {
+   "age_max": 65,
+   "age_min": 60,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Light  Hair: Gray  Age: 60-65  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "900 BEDFORD AVENUE, Brooklyn, NY 11205",
+  "served_at": "2025-03-03T09:20:00-05:00",
+  "served_location": {
+   "lat": 40.69391,
+   "lng": -73.956285
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "8b0fa01e1c411eaa9e8daeee84e2a971d02a1e956b88ff5189348ca66e6594e3",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [
+   {
+    "address": "900 OCEAN AVENUE, Brooklyn, NY 11226",
+    "at": "2025-03-05T07:40:00-05:00",
+    "location": {
+     "lat": 40.640477,
+     "lng": -73.959561
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "900 OCEAN AVENUE, Brooklyn, NY 11226",
+    "at": "2025-03-04T19:50:00-05:00",
+    "location": {
+     "lat": 40.640477,
+     "lng": -73.959561
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "900 OCEAN AVENUE, Brooklyn, NY 11226",
+    "at": "2025-03-02T13:10:00-05:00",
+    "location": {
+     "lat": 40.640477,
+     "lng": -73.959561
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ben Brisk",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101517-25/KI",
+  "mailing_address": "900 OCEAN AVENUE, Brooklyn, NY 11226",
+  "mailing_date": "2025-03-08",
+  "method": "308_4",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-13",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "900 OCEAN AVENUE, Brooklyn, NY 11226",
+  "served_at": "2025-03-06T10:20:00-05:00",
+  "served_location": {
+   "lat": 40.640477,
+   "lng": -73.959561
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "d2d48e323edfaa76cd55994f8bb35bd67f31dc3575815fb274b0801e031951bf",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Cleo Corwin",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101554-25/KI",
+  "mailing_address": "100 NOSTRAND AVENUE, Brooklyn, NY 11205",
+  "mailing_date": "2025-03-11",
+  "method": "308_2",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-16",
+  "recipient_description": {
+   "age_max": 67,
+   "age_min": 62,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Brown  Age: 62-67  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "100 NOSTRAND AVENUE, Brooklyn, NY 11205",
+  "served_at": "2025-03-09T11:20:00-04:00",
+  "served_location": {
+   "lat": 40.696677,
+   "lng": -73.953328
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "222114743afe6e465020e07331076762b1af8188db53c3e9d8f071af02aa188c",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [
+   {
+    "address": "1400 BUSHWICK AVENUE, Brooklyn, NY 11207",
+    "at": "2025-03-11T07:40:00-04:00",
+    "location": {
+     "lat": 40.684444,
+     "lng": -73.909998
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "1400 BUSHWICK AVENUE, Brooklyn, NY 11207",
+    "at": "2025-03-10T19:50:00-04:00",
+    "location": {
+     "lat": 40.684444,
+     "lng": -73.909998
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "1400 BUSHWICK AVENUE, Brooklyn, NY 11207",
+    "at": "2025-03-08T13:10:00-05:00",
+    "location": {
+     "lat": 40.684444,
+     "lng": -73.909998
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Dev Dulane",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101591-25/KI",
+  "mailing_address": "1400 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "mailing_date": "2025-03-14",
+  "method": "308_4",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-03-19",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "1400 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "served_at": "2025-03-12T12:20:00-04:00",
+  "served_location": {
+   "lat": 40.684444,
+   "lng": -73.909998
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "4d8528fee08b3d472b6fb135f9a23479b2525742418309baab8d889c05e92c67",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Eli Eskar",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101628-25/KI",
+  "mailing_address": "1462 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "mailing_date": "2025-03-17",
+  "method": "308_2",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-03-22",
+  "recipient_description": {
+   "age_max": 69,
+   "age_min": 64,
+   "hair": "Black",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Black  Age: 64-69  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "1462 BUSHWICK AVENUE, Brooklyn, NY 11207",
+  "served_at": "2025-03-15T13:20:00-04:00",
+  "served_location": {
+   "lat": 40.683364,
+   "lng": -73.90787
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "4a23b5a7494dda5b99ca6c1ad462d8a745875076f57d52f400fa8da0818d7c2f",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [
+   {
+    "address": "1750 NOSTRAND AVENUE, Brooklyn, NY 11226",
+    "at": "2025-03-17T07:40:00-04:00",
+    "location": {
+     "lat": 40.643074,
+     "lng": -73.948989
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "1750 NOSTRAND AVENUE, Brooklyn, NY 11226",
+    "at": "2025-03-16T19:50:00-04:00",
+    "location": {
+     "lat": 40.643074,
+     "lng": -73.948989
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "1750 NOSTRAND AVENUE, Brooklyn, NY 11226",
+    "at": "2025-03-14T13:10:00-04:00",
+    "location": {
+     "lat": 40.643074,
+     "lng": -73.948989
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Fay Fenmore",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101665-25/KI",
+  "mailing_address": "1750 NOSTRAND AVENUE, Brooklyn, NY 11226",
+  "mailing_date": "2025-03-20",
+  "method": "308_4",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-25",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "1750 NOSTRAND AVENUE, Brooklyn, NY 11226",
+  "served_at": "2025-03-18T14:20:00-04:00",
+  "served_location": {
+   "lat": 40.643074,
+   "lng": -73.948989
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "148ec2c46b8c4fefc4cbc9d0fb992bb3503aa82a94ad6de3037a41bc7ab0b9e9",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Gus Gaskill",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101702-25/KI",
+  "mailing_address": "2100 FULTON STREET, Brooklyn, NY 11233",
+  "mailing_date": "2025-03-23",
+  "method": "308_2",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-28",
+  "recipient_description": {
+   "age_max": 71,
+   "age_min": 66,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Dark  Hair: Blonde  Age: 66-71  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "2100 FULTON STREET, Brooklyn, NY 11233",
+  "served_at": "2025-03-21T15:20:00-04:00",
+  "served_location": {
+   "lat": 40.678218,
+   "lng": -73.913246
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "6c94c206ad0989c2e31194be81d18daf9a0b5365ed30d6c14a22d52f727a7347",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [
+   {
+    "address": "250 KINGS HIGHWAY, Brooklyn, NY 11223",
+    "at": "2025-03-23T07:40:00-04:00",
+    "location": {
+     "lat": 40.605134,
+     "lng": -73.981475
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "250 KINGS HIGHWAY, Brooklyn, NY 11223",
+    "at": "2025-03-22T19:50:00-04:00",
+    "location": {
+     "lat": 40.605134,
+     "lng": -73.981475
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "250 KINGS HIGHWAY, Brooklyn, NY 11223",
+    "at": "2025-03-20T13:10:00-04:00",
+    "location": {
+     "lat": 40.605134,
+     "lng": -73.981475
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Hana Holloran",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101739-25/KI",
+  "mailing_address": "250 KINGS HIGHWAY, Brooklyn, NY 11223",
+  "mailing_date": "2025-03-26",
+  "method": "308_4",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-31",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "250 KINGS HIGHWAY, Brooklyn, NY 11223",
+  "served_at": "2025-03-24T16:20:00-04:00",
+  "served_location": {
+   "lat": 40.605134,
+   "lng": -73.981475
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "39f47dbd2d9f8af61236766e05c640e9b0ba781d67515eaef88cb232892b0524",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ivo Arvel",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101776-25/KI",
+  "mailing_address": "3100 OCEAN AVENUE, Brooklyn, NY 11235",
+  "mailing_date": "2025-03-29",
+  "method": "308_2",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-04-03",
+  "recipient_description": {
+   "age_max": 73,
+   "age_min": 68,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Gray  Age: 68-73  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "3100 OCEAN AVENUE, Brooklyn, NY 11235",
+  "served_at": "2025-03-27T09:20:00-04:00",
+  "served_location": {
+   "lat": 40.585219,
+   "lng": -73.949622
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "1f0a630da164f0c259676c561bfca7aa8be0544d6a3933af7e2823392c40680b",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [
+   {
+    "address": "450 FULTON STREET, Brooklyn, NY 11201",
+    "at": "2025-03-29T07:40:00-04:00",
+    "location": {
+     "lat": 40.690265,
+     "lng": -73.984985
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "450 FULTON STREET, Brooklyn, NY 11201",
+    "at": "2025-03-28T19:50:00-04:00",
+    "location": {
+     "lat": 40.690265,
+     "lng": -73.984985
+    },
+    "outcome": "not_home"
+   },
+   {
+    "address": "450 FULTON STREET, Brooklyn, NY 11201",
+    "at": "2025-03-26T13:10:00-04:00",
+    "location": {
+     "lat": 40.690265,
+     "lng": -73.984985
+    },
+    "outcome": "not_home"
+   }
+  ],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Jun Brisk",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101813-25/KI",
+  "mailing_address": "450 FULTON STREET, Brooklyn, NY 11201",
+  "mailing_date": "2025-04-01",
+  "method": "308_4",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-04-06",
+  "recipient_description": null,
+  "recipient_name": null,
+  "recipient_relationship": null,
+  "served_address": "450 FULTON STREET, Brooklyn, NY 11201",
+  "served_at": "2025-03-30T10:20:00-04:00",
+  "served_location": {
+   "lat": 40.690265,
+   "lng": -73.984985
+  },
+  "server_license": null,
+  "server_name": "J. Vantrell",
+  "source_sha256": "005f2f5d119fa8b767342e166e17e6ebd85e7372959b6a0683b99ef88f4f4286",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ana Corwin",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101850-25/KI",
+  "mailing_address": "550 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "mailing_date": "2025-03-05",
+  "method": "308_2",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-10",
+  "recipient_description": {
+   "age_max": 75,
+   "age_min": 70,
+   "hair": "Black",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Medium  Hair: Black  Age: 70-75  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "550 BEDFORD AVENUE, Brooklyn, NY 11249",
+  "served_at": "2025-03-03T09:25:00-05:00",
+  "served_location": {
+   "lat": 40.704846,
+   "lng": -73.962302
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "d3330bb7edf86faeea2942d577d691a1406a91cc803569020da37d9405495472",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ben Dulane",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101887-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-11",
+  "recipient_description": {
+   "age_max": 76,
+   "age_min": 71,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Medium  Hair: Blonde  Age: 71-76  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Ben Dulane",
+  "recipient_relationship": null,
+  "served_address": "550 NOSTRAND AVENUE, Brooklyn, NY 11216",
+  "served_at": "2025-03-06T10:25:00-05:00",
+  "served_location": {
+   "lat": 40.679891,
+   "lng": -73.949796
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "3b2e3a876f8475fe05378f943cfb2a7b78ed146d409305274f1032ca1a98d4fc",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Cleo Eskar",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101924-25/KI",
+  "mailing_address": "620 BUSHWICK AVENUE, Brooklyn, NY 11206",
+  "mailing_date": "2025-03-11",
+  "method": "308_2",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-16",
+  "recipient_description": {
+   "age_max": 77,
+   "age_min": 72,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Dark  Hair: Blonde  Age: 72-77  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "620 BUSHWICK AVENUE, Brooklyn, NY 11206",
+  "served_at": "2025-03-09T11:25:00-04:00",
+  "served_location": {
+   "lat": 40.697873,
+   "lng": -73.934002
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "a87925a65032c556afddd56a4a45fa9b445780e14ac3de433a1687dbd5027b28",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Dev Fenmore",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101961-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-03-17",
+  "recipient_description": {
+   "age_max": 78,
+   "age_min": 73,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Dark  Hair: Brown  Age: 73-78  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Dev Fenmore",
+  "recipient_relationship": null,
+  "served_address": "620 OCEAN VIEW AVENUE, Brooklyn, NY 11235",
+  "served_at": "2025-03-12T12:25:00-04:00",
+  "served_location": {
+   "lat": 40.579507,
+   "lng": -73.961597
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "37952ce0721c31e3fe9148c84bed45430226ebd9b715adafcddd2b182e1bb498",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Eli Gaskill",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-101998-25/KI",
+  "mailing_address": "900 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+  "mailing_date": "2025-03-17",
+  "method": "308_2",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-03-22",
+  "recipient_description": {
+   "age_max": 79,
+   "age_min": 74,
+   "hair": "Brown",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Dark  Hair: Brown  Age: 74-79  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "900 CONEY ISLAND AVENUE, Brooklyn, NY 11218",
+  "served_at": "2025-03-15T13:25:00-04:00",
+  "served_location": {
+   "lat": 40.63542,
+   "lng": -73.96817
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "b06a1aa32e29b6fac8e990e7b4d15ec2a93ac66c31bbbc294ea35f535cc023f9",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Fay Holloran",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-102035-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Meridian Portfolio Recovery LLC",
+  "proof_filed_date": "2025-03-23",
+  "recipient_description": {
+   "age_max": 80,
+   "age_min": 75,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Light  Hair: Gray  Age: 75-80  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Fay Holloran",
+  "recipient_relationship": null,
+  "served_address": "100 ATLANTIC AVENUE, Brooklyn, NY 11201",
+  "served_at": "2025-03-18T14:25:00-04:00",
+  "served_location": {
+   "lat": 40.690655,
+   "lng": -73.996741
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "7a10eb6a69c20ca80aef596961800e68356a726b67349d58f18e2fcc65064b7f",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Gus Arvel",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-102072-25/KI",
+  "mailing_address": "107 MYRTLE AVENUE, Brooklyn, NY 11201",
+  "mailing_date": "2025-03-23",
+  "method": "308_2",
+  "plaintiff": "Cornerstone Asset Acceptance Corp.",
+  "proof_filed_date": "2025-03-28",
+  "recipient_description": {
+   "age_max": 81,
+   "age_min": 76,
+   "hair": "Gray",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Dark  Hair: Gray  Age: 76-81  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "107 MYRTLE AVENUE, Brooklyn, NY 11201",
+  "served_at": "2025-03-21T15:25:00-04:00",
+  "served_location": {
+   "lat": 40.69413,
+   "lng": -73.98567
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "e6f236b35c3a53e3f1b351d71938d5cf95bfc9170df289fa7af947ae4b2996bc",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Hana Brisk",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-102109-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Blue Harbor Credit Services LLC",
+  "proof_filed_date": "2025-03-29",
+  "recipient_description": {
+   "age_max": 82,
+   "age_min": 77,
+   "hair": "Black",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Light  Hair: Black  Age: 77-82  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Hana Brisk",
+  "recipient_relationship": null,
+  "served_address": "1400 FLATBUSH AVENUE, Brooklyn, NY 11210",
+  "served_at": "2025-03-24T16:25:00-04:00",
+  "served_location": {
+   "lat": 40.636258,
+   "lng": -73.951649
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "1ff6052ea3db9ad8e783136baa3ebe493f94aea6f739d5f9f834a223024caef8",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Ivo Corwin",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-102146-25/KI",
+  "mailing_address": "1750 BEDFORD AVENUE, Brooklyn, NY 11225",
+  "mailing_date": "2025-03-29",
+  "method": "308_2",
+  "plaintiff": "Ridgeline Receivables Partners LP",
+  "proof_filed_date": "2025-04-03",
+  "recipient_description": {
+   "age_max": 83,
+   "age_min": 78,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Male  Skin: Dark  Hair: Blonde  Age: 78-83  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "male",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": null,
+  "recipient_relationship": "Co-Tenant",
+  "served_address": "1750 BEDFORD AVENUE, Brooklyn, NY 11225",
+  "served_at": "2025-03-27T09:25:00-04:00",
+  "served_location": {
+   "lat": 40.6639,
+   "lng": -73.95764
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "3312e14c6e09ecd3f379ec39a6253ee6c4b0b78a772b74fa2acc2517fb684b45",
+  "user_confirmed": true
+ },
+ {
+  "agency_license": null,
+  "agency_name": "Halloway & Finch Process Servers LLC",
+  "attempts": [],
+  "court": "Civil Court of the City of New York, County of Kings",
+  "defendant_name": "Jun Dulane",
+  "evidence": {},
+  "field_confidence": {},
+  "index_number": "CV-102183-25/KI",
+  "mailing_address": null,
+  "mailing_date": null,
+  "method": "308_1",
+  "plaintiff": "Atlas Bay Funding LLC",
+  "proof_filed_date": "2025-04-04",
+  "recipient_description": {
+   "age_max": 84,
+   "age_min": 79,
+   "hair": "Blonde",
+   "height_in_max": 68,
+   "height_in_min": 64,
+   "raw_text": "Sex: Female  Skin: Light  Hair: Blonde  Age: 79-84  Height: 5'4\"-5'8\"  Weight: 140-160 lbs",
+   "sex": "female",
+   "weight_lb_max": 160,
+   "weight_lb_min": 140
+  },
+  "recipient_name": "Jun Dulane",
+  "recipient_relationship": null,
+  "served_address": "1750 WEST 5 STREET, Brooklyn, NY 11223",
+  "served_at": "2025-03-30T10:25:00-04:00",
+  "served_location": {
+   "lat": 40.604733,
+   "lng": -73.978335
+  },
+  "server_license": null,
+  "server_name": "P. Moorcastle",
+  "source_sha256": "eb75babc3b1ce6a3dde7c3f80138aef7178a7aa4b6e92e4e6b42f6e27cf6f15b",
+  "user_confirmed": true
+ }
+]

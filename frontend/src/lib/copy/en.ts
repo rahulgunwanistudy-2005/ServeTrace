@@ -836,7 +836,155 @@ export const advocate = {
 	gpsBody:
 		'Licensed New York City process servers must carry a device that electronically records the GPS location, date and time of every service and attempt. That record can be asked for, and it either matches these filings or it does not.',
 	limitation:
-		'This compares filings with each other. It shows where two sworn statements cannot both be right; what happened, and what follows from it, is for a court.'
+		'This compares filings with each other. It shows where two sworn statements cannot both be right; what happened, and what follows from it, is for a court.',
+
+	// --- v1.1: a folder of affidavits, read one by one (build prompt §6)
+	modeSheet: 'A spreadsheet of service records',
+	modeSheetHint: 'One row per service, from a case-management export.',
+	modeAffidavits: 'A folder of affidavits',
+	modeAffidavitsHint:
+		'PDFs or photos of affidavits of service. Each is read, you check it, and they are compared as a batch.',
+	batch: {
+		upload: 'Add affidavits of service (PDF or photo).',
+		uploadHint: (files: number, pages: number) =>
+			`Up to ${files} files and ${pages.toLocaleString('en-US')} pages in one sitting. Keep this tab open while they are read.`,
+		sample: 'Or load a sample batch',
+		sampleNote:
+			'Sixty synthetic affidavits from three invented agencies, with a few problems placed on purpose. Nothing in them is real.',
+		refused: (n: number, cap: number) =>
+			`${n} file${n === 1 ? ' was' : 's were'} not added: one sitting holds ${cap}.`,
+		queueTitle: 'Affidavits',
+		queueHint:
+			'Each row is one affidavit. Rows marked “needs a look” have something the reader was unsure of; nothing goes into the report until a person confirms it.',
+		tally: (ok: number, review: number, failed: number, confirmed: number, waiting: number) =>
+			[
+				`${confirmed} confirmed`,
+				`${ok} ready`,
+				`${review} need${review === 1 ? 's' : ''} a look`,
+				failed ? `${failed} could not be read` : '',
+				waiting ? `${waiting} still reading` : ''
+			]
+				.filter(Boolean)
+				.join(' · '),
+		columns: {
+			status: 'Status',
+			file: 'File',
+			defendant: 'Defendant',
+			served: 'Served',
+			server: 'Server',
+			agency: 'Agency',
+			method: 'Method',
+			flags: 'Flagged fields',
+			action: ''
+		},
+		status: {
+			queued: 'Waiting',
+			reading: 'Reading…',
+			ok: 'Ready',
+			review: 'Needs a look',
+			failed: 'Could not read',
+			confirmed: 'Confirmed'
+		},
+		fail: {
+			read: 'The file could not be read.',
+			no_affidavit: 'No affidavit of service was found in this file.',
+			reader: 'Automatic reading was unavailable for this file.',
+			page_cap: 'Not read: this sitting already reached its page limit.',
+			build: 'Something on this affidavit needs fixing before it can be confirmed.'
+		},
+		review: 'Check it',
+		close: 'Close',
+		retry: 'Try again',
+		typeIn: 'Type it in',
+		confirmClean: (n: number) => `Confirm all ${n} ready`,
+		confirmCleanHint:
+			'Confirms only rows where the reader was sure of every field and nothing the analysis needs is missing.',
+		confirming: 'Placing addresses…',
+		analyse: (n: number) => `Compare ${n} confirmed affidavit${n === 1 ? '' : 's'}`,
+		analysing: 'Comparing…',
+		unconfirmedLeft: (n: number) =>
+			`${n} affidavit${n === 1 ? ' is' : 's are'} not confirmed and will be left out, and listed as left out.`,
+		startOver: 'Start a new batch',
+		backToQueue: 'Back to the affidavits',
+		fields: {
+			index_number: 'Index number',
+			court: 'Court',
+			plaintiff: 'Plaintiff',
+			defendant_name: 'Defendant, as written',
+			server_name: 'Process server',
+			server_license: 'Server license number',
+			agency_name: 'Process serving agency',
+			method: 'Method of service claimed',
+			served_date: 'Date of service',
+			served_time: 'Time of service',
+			served_address: 'Address of service',
+			recipient_name: 'Person who took the papers',
+			recipient_relationship: 'Their relationship to the defendant',
+			recipient_description: 'Description of that person',
+			mailing_date: 'Mailing date',
+			mailing_address: 'Mailing address',
+			proof_filed_date: 'Date proof was filed'
+		},
+		methodOptions: {
+			'308_1': 'Personal delivery, 308(1)',
+			'308_2': 'Suitable age and discretion, and mailing, 308(2)',
+			'308_4': 'Affix and mail, 308(4)',
+			unknown: 'Not clear from the papers'
+		},
+		methodShort: {
+			'308_1': '308(1)',
+			'308_2': '308(2)',
+			'308_4': '308(4)',
+			unknown: 'Unclear'
+		} as Record<string, string>,
+		confirmCheckbox: 'These details match the affidavit',
+		confirmAll: 'Confirm all — these match the affidavit',
+		reviewIntro:
+			'These came off the affidavit. Change anything that is wrong. Nothing is compared until you confirm it.',
+
+		// --- the batch report
+		reportTitle: 'Agencies, ranked',
+		reportHint:
+			'Ordered by sequences that could not have been traveled, then by mailings more than 20 days from delivery, then by descriptions reused at different doors.',
+		totals: (affidavits: number, servers: number, agencies: number) =>
+			`${affidavits} affidavit${affidavits === 1 ? '' : 's'} compared, from ${servers} server${servers === 1 ? '' : 's'} and ${agencies} agenc${agencies === 1 ? 'y' : 'ies'}.`,
+		agencyColumns: {
+			rank: 'Rank',
+			agency: 'Agency',
+			affidavits: 'Affidavits',
+			servers: 'Servers',
+			pairs: 'Sequences that do not add up',
+			descriptions: 'Reused descriptions',
+			flags: 'Rule flags'
+		},
+		ratesTitle: 'How often each rule flagged',
+		ratesHint:
+			'Each rate counts only the affidavits the rule applies to. A personal service needs no mailing, so it is not in the mailing rule’s count.',
+		rate: (flagged: number, applicable: number) =>
+			`${flagged} of ${applicable} affidavit${applicable === 1 ? '' : 's'} it applies to`,
+		ruleNames: {
+			'R-T1': 'No mailing shown (308(2), 308(4))',
+			'R-T2': 'Mailing more than 20 days from delivery (308(2), 308(4))',
+			'R-T3': 'Proof filed more than 20 days after delivery or mailing (308(2), 308(4))',
+			'R-D1': 'Attempts thinner than courts commonly expect (308(4))',
+			'R-M1': 'Method of service unclear'
+		} as Record<string, string>,
+		serversTitle: 'Servers, ranked',
+		leftOutTitle: (n: number) => `${n} affidavit${n === 1 ? ' was' : 's were'} left out`,
+		leftOutBody:
+			'Listed rather than dropped: a rate is only as good as the affidavits it counted.',
+		leftOutRow: (n: number) => `Affidavit ${n}`,
+		unreadTitle: (n: number) => `${n} file${n === 1 ? '' : 's'} could not be read or confirmed`,
+		downloadPdf: 'Download the report (PDF)',
+		downloadingPdf: 'Preparing the report…',
+		downloadPairs: 'Sequences (CSV)',
+		downloadFlags: 'Every rule check (CSV)',
+		downloadAgencies: 'Agencies (CSV)',
+		mapInPdf:
+			'The map of the server selected below goes into the PDF on its agency’s page.',
+		footer:
+			'Analysis of documents supplied by the user. Data conflicts are not findings of misconduct.'
+	}
 } as const;
 
 /** The Privacy page (bible §14.7, §16). Every claim here is one the code actually keeps. */

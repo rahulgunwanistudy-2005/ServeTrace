@@ -12,15 +12,17 @@ by the person they were sworn against, which is better evidence than any export.
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
 from datetime import UTC, datetime
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, File, Form, Response, UploadFile
 from pydantic import ValidationError
 
+from app.advocate import batch as batch_analysis
 from app.advocate.ingest import parse_records, peek_headers, records_from_affidavits
 from app.advocate.patterns import analyze_servers
-from app.advocate.report import pairs_to_csv, servers_to_csv
+from app.advocate.report import agencies_to_csv, flags_to_csv, pairs_to_csv, servers_to_csv
 from app.api.errors import BadInputError, DemoOnlyError, UploadTooLargeError
 from app.api.rate_limit import enforce_rate_limit
 from app.config import ENGINE_VERSION, get_settings
@@ -29,6 +31,8 @@ from app.domain.models import (
     AdvocateColumnMapping,
     AdvocateStats,
     Affidavit,
+    BatchReport,
+    BatchReportRequest,
     RejectedRow,
     ServerReport,
     ServiceRecord,
@@ -236,4 +240,60 @@ async def export_csv(reports: list[ServerReport], kind: str = "pairs") -> Respon
         content=body,
         media_type="text/csv; charset=utf-8",
         headers={"content-disposition": f'attachment; filename="{name}"'},
+    )
+
+
+MAX_BATCH_AFFIDAVITS = 2_000
+"""Build prompt §6.1 caps a batch at 200 files or 2,000 pages in the browser; a page holds
+at most one affidavit, so 2,000 affidavits is the most a legitimate batch can carry."""
+
+
+@router.post("/batch", response_model=BatchReport, dependencies=[Depends(enforce_rate_limit)])
+async def batch(affidavits: list[Affidavit]) -> BatchReport:
+    """Confirmed affidavits in, servers and agencies ranked and rule rates counted out.
+
+    The browser read each file through `/api/extract`, a person confirmed each one, and
+    only then does the batch come here. Unconfirmed affidavits are refused one by one and
+    listed in the report, never analysed.
+    """
+    if len(affidavits) > MAX_BATCH_AFFIDAVITS:
+        raise BadInputError(
+            f"That is more than {MAX_BATCH_AFFIDAVITS:,} affidavits. Please split the batch."
+        )
+    return batch_analysis.analyze_batch(affidavits, PARAMS)
+
+
+def _pairs_csv(report: BatchReport) -> bytes:
+    return pairs_to_csv(report.servers)
+
+
+BATCH_EXPORTS: dict[str, tuple[str, Callable[[BatchReport], bytes]]] = {
+    "pairs": ("servetrace-impossible-pairs.csv", _pairs_csv),
+    "flags": ("servetrace-affidavit-flags.csv", flags_to_csv),
+    "agencies": ("servetrace-agencies.csv", agencies_to_csv),
+}
+
+
+@router.post("/batch/export.csv", dependencies=[Depends(enforce_rate_limit)])
+async def batch_export_csv(report: BatchReport, kind: str = "pairs") -> Response:
+    """The batch report as a CSV: impossible pairs, per-affidavit flags, or agencies."""
+    if kind not in BATCH_EXPORTS:
+        raise BadInputError("That export does not exist.")
+    name, build = BATCH_EXPORTS[kind]
+    return Response(
+        content=build(report),
+        media_type="text/csv; charset=utf-8",
+        headers={"content-disposition": f'attachment; filename="{name}"'},
+    )
+
+
+@router.post("/batch/report.pdf", dependencies=[Depends(enforce_rate_limit)])
+async def batch_report_pdf(request: BatchReportRequest) -> Response:
+    """The batch report as a PDF, built from the report the browser already holds."""
+    from app.documents.advocate_report import build_report
+
+    return Response(
+        content=build_report(request),
+        media_type="application/pdf",
+        headers={"content-disposition": 'attachment; filename="servetrace-batch-report.pdf"'},
     )

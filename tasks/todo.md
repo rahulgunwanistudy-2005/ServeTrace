@@ -12,7 +12,7 @@ the public site is one the eval or the store actually produced.
 - [x] **B** Photo ingest (exifr, on-device), time-uncertainty rule, property tests
 - [x] **C** Eight affidavit layouts, HEIC, page classification, provenance, judgment date
 - [x] **D** Flagged-first correction UI on `ExtractionResult`, legacy endpoint deleted
-- [ ] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
+- [x] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
 - [ ] **F** Usage counts + leads (Supabase over PostgREST), `/attorneys`, privacy update
 - [ ] **G** i18n plumbing; eval, REPORT, methodology, changelog, version 1.1.0, README
 - [ ] **H** Regression, self-review, security pass, Docker, deploy notes, smoke script
@@ -81,8 +81,49 @@ the public site is one the eval or the store actually produced.
   panes stack, no horizontal scroll (scrollWidth 375). Court file (L8, no model): 6 page
   types, affidavit pages 4–5, judgment 2025-06-02 prefilled; re-tag of page 5 sent
   `extract_pages=3,4` only.
-- **Not yet done from Phase A's decisions:** the separate rate budget for `/api/extract`
-  exists in config only. It lands with the batch upload in Phase E, which is what needs it.
+- **Phase A's extract budget landed in Phase E.** `/api/extract` has its own limiter
+  (burst 6, 60/min); a refusal is a typed 429 with `retry_after` (seconds) in the
+  envelope as well as the `Retry-After` header, and the client reads either.
+- **Batch rule rates are flagged / applicable, never / everything.** R-T1 applies to
+  308(2)/308(4); R-T2 only when a mailing date exists (a missing one is R-T1's); R-T3
+  only when a filing date exists; R-D1 to 308(4); R-M1 to all. Applicability lives beside
+  the rules (`advocate/batch.py: APPLICABLE`) so a reader can check each denominator.
+- **R-D2 is not a batch rule.** It needs a defendant's own location data.
+- **Agency key:** `lic:<digits>` when a licence is printed, else `name:<normalised>`,
+  else `unknown`; prefixes so a numeric name can never collide with a licence.
+- **Agency ranking:** pairs, then the R-T2 rate, then repeated descriptions (build prompt
+  §6.3), then total rule flags, then the key. The total-flags tiebreak was added because
+  Ironvale (5 × R-D1) otherwise ranked below the clean agency on the spelling of its name.
+- **The batch is driven by the browser**, 3 reads in flight, one retry on 429/5xx/network
+  honouring `retry_after` (else 2 s). Caps 200 files, 2,000 pages (counted as files are
+  read; files after the cap fail with a stated reason). No server-side queue: there is
+  nowhere to keep one.
+- **Queue rows show initials, not names.** File names are shown on the device and never
+  sent; the batch payload is confirmed `Affidavit`s only.
+- **"Confirm all clean" confirms only `ok` rows** — no flagged field and nothing the
+  engine needs missing. Everything else is opened by a person.
+- **No sixty geocodes.** The shared `lib/check/affidavit.ts` reuses the reader's point
+  when the address is unchanged (case- and space-insensitive); the defendant check uses
+  the same builder, so it now skips a lookup the extract route already made.
+- **The inline review reads "defendant", not "you"** (`voice="advocate"`), and hides the
+  "which affidavit is about you" picker because every affidavit is its own row.
+- **"Type it in" keeps what the validators read** (the method, from the wording) and the
+  page images, rather than starting blank.
+- **The PDF's map is the server open on screen**, placed on that server's agency page and
+  read at the moment of the press. A per-agency set of maps would mean rendering maps the
+  person never looked at.
+- **Sample batch:** `fixtures/advocate_batch/sample_extractions.json` (derived drafts,
+  located, no previews), loaded lazily through `import.meta.glob`; the 60 PDFs are
+  rebuilt from the seed and not committed.
+- **Phase E checkpoint.** Sample batch in the browser: 60 ready → one confirmed in its
+  review, 59 by "Confirm all" → report ranks Kestrel (2 pairs, R-T1 4/15, 1 reused
+  description), Ironvale (R-D1 5/10), Halloway & Finch (clean); batch R-T1 4/46, R-T2
+  0/42, R-T3 0/46, R-D1 5/15, R-M1 0/60 — exactly the generator's answer key. PDF 863 KB
+  with the map (75 KB without), three CSVs 200. Real uploads with the depleted key: every
+  file reads "Could not read · Automatic reading was unavailable", Try again / Type it in;
+  typed-in row geocoded and confirmed. 375 px: no horizontal page scroll with a review
+  open (an `sr-only` label positioned against the body was widening the page to 941 px;
+  fixed by making the table wrapper `relative`).
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what

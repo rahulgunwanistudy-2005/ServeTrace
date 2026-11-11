@@ -292,6 +292,22 @@ table.data tr {
 	break-inside: avoid;
 }
 
+/* The batch report's map keeps its heading and stays on one page with room to spare. */
+.map-figure {
+	margin: 0;
+	break-inside: avoid;
+}
+
+.map-capped {
+	width: auto;
+	max-width: 100%;
+	max-height: 4.5in;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
 /* --- Boxes ------------------------------------------------------------------------ */
 
 .box {

@@ -20,13 +20,23 @@
 	 */
 	import maplibregl from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
+	import { captureMap } from './capture';
 
 	import type { ImpossiblePair, ServerReport, ServiceRecord } from '$lib/api/client';
 	import { advocate } from '$copy/en';
 	import { resolvePalette } from './color';
 	import { formatDateTime, formatKm, formatSpeed } from '$lib/ui/tone';
 
-	let { report, records }: { report: ServerReport; records: ServiceRecord[] } = $props();
+	let {
+		report,
+		records,
+		onReady
+	}: {
+		report: ServerReport;
+		records: ServiceRecord[];
+		/** Handed a function that reads the canvas back, once there is one (batch PDF). */
+		onReady?: (capture: () => string | null) => void;
+	} = $props();
 
 	const STYLE = 'https://tiles.openfreemap.org/styles/liberty';
 	const NYC: [number, number] = [-73.95, 40.72];
@@ -214,6 +224,7 @@
 			fit(created, ordered);
 			map = created;
 			ready = true;
+			onReady?.(() => captureMap(created));
 		});
 
 		// A filing is a point on a specific day; the popup says which, because a week of
@@ -244,6 +255,7 @@
 		});
 
 		return () => {
+			onReady?.(() => null);
 			created.remove();
 			map = null;
 			ready = false;

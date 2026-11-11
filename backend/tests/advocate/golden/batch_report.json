@@ -1,0 +1,279 @@
+{
+ "agencies": [
+  {
+   "descriptions": [
+    {
+     "addresses": 3,
+     "text": "Sex: Male  Skin: Medium  Hair: Brown  Age: 45-55  Height: 5'8\"-5'10\"  Weight: 180-200 lbs"
+    }
+   ],
+   "display": "Kestrel Legal Support Services Inc.",
+   "impossible_pairs": 2,
+   "key": "name:KESTREL LEGAL SUPPORT SERVICES",
+   "map": null,
+   "n_affidavits": 20,
+   "pairs": [
+    {
+     "distance": "13.9 km",
+     "first": "11:00 AM on March 9, 2025 \u00b7 1400 CONEY IS AVENUE, Brooklyn, NY 11230",
+     "minutes": "4 min",
+     "second": "11:04 AM on March 9, 2025 \u00b7 1400 CASTLETON AVENUE, Staten Island, NY 10302",
+     "server": "R. Tallowbeck",
+     "speed": "209 km/h"
+    },
+    {
+     "distance": "12.5 km",
+     "first": "2:00 PM on March 18, 2025 \u00b7 2100 KINGS HIGHWAY, Brooklyn, NY 11229",
+     "minutes": "4 min",
+     "second": "2:04 PM on March 18, 2025 \u00b7 1400 CLOVE ROAD, Staten Island, NY 10301",
+     "server": "R. Tallowbeck",
+     "speed": "188 km/h"
+    }
+   ],
+   "pairs_more": 0,
+   "per_hour": 2,
+   "rank": 1,
+   "rates": [
+    {
+     "code": "R-T1",
+     "line": "4 of 15",
+     "name": "No mailing shown (308(2), 308(4))",
+     "percent": "27%"
+    },
+    {
+     "code": "R-T2",
+     "line": "0 of 11",
+     "name": "Mailing more than 20 days from delivery (308(2), 308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-T3",
+     "line": "0 of 15",
+     "name": "Proof filed more than 20 days after delivery or mailing (308(2), 308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-M1",
+     "line": "0 of 20",
+     "name": "Method of service unclear",
+     "percent": "0%"
+    }
+   ],
+   "servers": [
+    {
+     "id": "M. Grisholm",
+     "pairs": 0,
+     "per_hour": 1,
+     "records": 10
+    },
+    {
+     "id": "R. Tallowbeck",
+     "pairs": 2,
+     "per_hour": 2,
+     "records": 10
+    }
+   ]
+  },
+  {
+   "descriptions": [],
+   "display": "Ironvale Attorney Service Corp.",
+   "impossible_pairs": 0,
+   "key": "name:IRONVALE ATTORNEY SERVICE",
+   "map": null,
+   "n_affidavits": 20,
+   "pairs": [],
+   "pairs_more": 0,
+   "per_hour": 1,
+   "rank": 2,
+   "rates": [
+    {
+     "code": "R-T1",
+     "line": "0 of 16",
+     "name": "No mailing shown (308(2), 308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-T2",
+     "line": "0 of 16",
+     "name": "Mailing more than 20 days from delivery (308(2), 308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-T3",
+     "line": "0 of 16",
+     "name": "Proof filed more than 20 days after delivery or mailing (308(2), 308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-D1",
+     "line": "5 of 10",
+     "name": "Attempts thinner than courts commonly expect (308(4))",
+     "percent": "50%"
+    },
+    {
+     "code": "R-M1",
+     "line": "0 of 20",
+     "name": "Method of service unclear",
+     "percent": "0%"
+    }
+   ],
+   "servers": [
+    {
+     "id": "D. Penfarrow",
+     "pairs": 0,
+     "per_hour": 1,
+     "records": 35
+    },
+    {
+     "id": "K. Aldersey",
+     "pairs": 0,
+     "per_hour": 1,
+     "records": 10
+    }
+   ]
+  },
+  {
+   "descriptions": [],
+   "display": "Halloway & Finch Process Servers LLC",
+   "impossible_pairs": 0,
+   "key": "name:HALLOWAY & FINCH PROCESS SERVERS",
+   "map": null,
+   "n_affidavits": 20,
+   "pairs": [],
+   "pairs_more": 0,
+   "per_hour": 1,
+   "rank": 3,
+   "rates": [
+    {
+     "code": "R-T1",
+     "line": "0 of 15",
+     "name": "No mailing shown (308(2), 308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-T2",
+     "line": "0 of 15",
+     "name": "Mailing more than 20 days from delivery (308(2), 308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-T3",
+     "line": "0 of 15",
+     "name": "Proof filed more than 20 days after delivery or mailing (308(2), 308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-D1",
+     "line": "0 of 5",
+     "name": "Attempts thinner than courts commonly expect (308(4))",
+     "percent": "0%"
+    },
+    {
+     "code": "R-M1",
+     "line": "0 of 20",
+     "name": "Method of service unclear",
+     "percent": "0%"
+    }
+   ],
+   "servers": [
+    {
+     "id": "J. Vantrell",
+     "pairs": 0,
+     "per_hour": 1,
+     "records": 25
+    },
+    {
+     "id": "P. Moorcastle",
+     "pairs": 0,
+     "per_hour": 1,
+     "records": 10
+    }
+   ]
+  }
+ ],
+ "disclaimer": "Analysis of documents supplied by the user. Data conflicts are not findings of misconduct.",
+ "generated": "Prepared by ServeTrace at 10:00 AM on November 12, 2026 (New York time). Engine 0.2.0, thresholds 2026.09-v1. App 1.1.0.",
+ "generated_iso": "2026-11-12T10:00:00-05:00",
+ "intro": "This report covers 60 affidavits of service, each read off the document and then confirmed by a person before it was analysed. Left out: 2 affidavits left unconfirmed in review and 1 file that could not be read. Nothing unconfirmed is counted anywhere in it.",
+ "limits": "Every number here comes from the affidavits supplied, as confirmed in review. A wrong time or address on an affidavit, or a misread one that was confirmed anyway, will show here as a conflict. A conflict between two filings is a reason to request the server's GPS records (L7), not a finding about what happened.",
+ "method": "Each server's sworn services and attempts are put in time order. Two consecutive filings are listed as a sequence no one could have travelled when the speed needed between them is above 80 km/h door to door, or when they are 5 minutes or less apart and 2.0 km or more apart. A description is listed when the same description of the person who took the papers appears at three or more different addresses. Rule rates count how many affidavits were flagged out of the affidavits each rule applies to.",
+ "not_a_law_firm": "ServeTrace is not a law firm and does not give legal advice. It compares the times and places sworn to in an affidavit of service against records the person supplied, and reports where the two do not fit.",
+ "product": "ServeTrace",
+ "rates": [
+  {
+   "code": "R-T1",
+   "line": "4 of 46",
+   "name": "No mailing shown (308(2), 308(4))",
+   "percent": "9%"
+  },
+  {
+   "code": "R-T2",
+   "line": "0 of 42",
+   "name": "Mailing more than 20 days from delivery (308(2), 308(4))",
+   "percent": "0%"
+  },
+  {
+   "code": "R-T3",
+   "line": "0 of 46",
+   "name": "Proof filed more than 20 days after delivery or mailing (308(2), 308(4))",
+   "percent": "0%"
+  },
+  {
+   "code": "R-D1",
+   "line": "5 of 15",
+   "name": "Attempts thinner than courts commonly expect (308(4))",
+   "percent": "33%"
+  },
+  {
+   "code": "R-M1",
+   "line": "0 of 60",
+   "name": "Method of service unclear",
+   "percent": "0%"
+  }
+ ],
+ "rules": [
+  {
+   "code": "R-T1",
+   "name": "No mailing shown (308(2), 308(4))",
+   "text": "CPLR 308(2) and 308(4) both require a mailing as well as the delivery or affixing (L2, L3). Flagged when the affidavit shows no mailing date. Applies to affidavits claiming 308(2) or 308(4)."
+  },
+  {
+   "code": "R-T2",
+   "name": "Mailing more than 20 days from delivery (308(2), 308(4))",
+   "text": "Under CPLR 308(2) and 308(4) the delivery or affixing and the mailing are made within 20 days of each other (L2, L3). Flagged when they are more than 20 days apart. Applies to 308(2) and 308(4) affidavits that show a mailing date."
+  },
+  {
+   "code": "R-T3",
+   "name": "Proof filed more than 20 days after delivery or mailing (308(2), 308(4))",
+   "text": "Proof of service is filed within 20 days of the later of delivery and mailing (L2, L3). Flagged when it was filed later than that. Applies to 308(2) and 308(4) affidavits that show a filing date."
+  },
+  {
+   "code": "R-D1",
+   "name": "Attempts thinner than courts commonly expect (308(4))",
+   "text": "Affix-and-mail is allowed only when personal and substitute service cannot be made with due diligence (L3). Courts commonly expect three attempts on at least two different days at different times of day (L4); this is a practitioner standard, not a statute, so the flag means 'look at this', nothing more. Applies to 308(4) affidavits."
+  },
+  {
+   "code": "R-M1",
+   "name": "Method of service unclear",
+   "text": "Every timing rule depends on which kind of service is claimed. Flagged when the method could not be determined. Applies to every affidavit."
+  }
+ ],
+ "sections": {
+  "agencies": "Agencies, ranked",
+  "agency": "Agency",
+  "appendix": "How this report was worked out",
+  "descriptions": "The same description at several addresses",
+  "map": "The day these filings describe",
+  "pairs": "Sequences no one could have travelled",
+  "rates": "How often each rule was flagged, across the batch",
+  "servers": "Process servers in these affidavits"
+ },
+ "subtitle": "Affidavits of service, checked against each other and against CPLR 308",
+ "title": "Process Service Batch Report",
+ "totals": {
+  "affidavits": 60,
+  "agencies": 3,
+  "records": 100,
+  "servers": 6
+ }
+}

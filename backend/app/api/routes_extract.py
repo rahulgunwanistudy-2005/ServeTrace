@@ -9,7 +9,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, File, Query, UploadFile
 
 from app.api.errors import BadInputError, DemoOnlyError, UploadTooLargeError
-from app.api.rate_limit import enforce_rate_limit
+from app.api.rate_limit import enforce_extract_rate_limit
 from app.config import get_settings
 from app.domain.models import AffidavitDraft, ExtractionResult, LatLng, PageType
 from app.extraction.vision import extract_document
@@ -90,7 +90,7 @@ def _page_list(raw: str | None) -> list[int] | None:
 
 
 @router.post(
-    "/extract", response_model=ExtractionResult, dependencies=[Depends(enforce_rate_limit)]
+    "/extract", response_model=ExtractionResult, dependencies=[Depends(enforce_extract_rate_limit)]
 )
 async def extract(
     file: Annotated[UploadFile, File()],

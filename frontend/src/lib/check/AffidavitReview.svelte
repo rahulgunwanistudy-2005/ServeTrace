@@ -40,7 +40,7 @@
 		type AttemptValues,
 		type Values
 	} from './review';
-	import { upload } from '$copy/en';
+	import { advocate, upload } from '$copy/en';
 
 	let {
 		extraction,
@@ -50,6 +50,7 @@
 		resolved = $bindable([]),
 		confirmed = $bindable(false),
 		retagging = false,
+		voice = 'defendant',
 		onselect,
 		onretag,
 		onconfirm
@@ -62,13 +63,19 @@
 		resolved?: string[];
 		confirmed?: boolean;
 		retagging?: boolean;
+		/**
+		 * Who is checking. The defendant reads "your name"; an advocate checking someone
+		 * else's papers reads "defendant". Same fields, same rules, different pronoun.
+		 */
+		voice?: 'defendant' | 'advocate';
 		onselect?: (index: number) => void;
 		onretag?: (pageTypes: PageType[]) => void;
 		onconfirm?: () => void;
 	} = $props();
 
 	const review = upload.review;
-	const labels = upload.fields as Record<string, string>;
+	const words = $derived(voice === 'advocate' ? advocate.batch : upload);
+	const labels = $derived(words.fields as Record<string, string>);
 
 	const found = $derived(extraction?.affidavits?.[selected] ?? null);
 	const original = $derived(valuesFrom(found?.draft));
@@ -169,7 +176,9 @@
 
 <section>
 	<Eyebrow>{upload.reviewTitle}</Eyebrow>
-	<p class="mt-3 leading-relaxed text-muted">{upload.reviewIntro}</p>
+	<p class="mt-3 leading-relaxed text-muted">
+		{voice === 'advocate' ? advocate.batch.reviewIntro : upload.reviewIntro}
+	</p>
 
 	{#if extraction && extraction.provider === 'none'}
 		<div class="mt-5"><Callout tone="neutral">{upload.noLlm}</Callout></div>
@@ -178,7 +187,8 @@
 		<div class="mt-5"><Callout tone="caution">{note.message}</Callout></div>
 	{/each}
 
-	{#if (extraction?.affidavits?.length ?? 0) > 1}
+	<!-- A batch makes every affidavit its own row, so there is nothing to pick between. -->
+	{#if onselect && (extraction?.affidavits?.length ?? 0) > 1}
 		<fieldset class="mt-6">
 			<legend class="text-sm font-medium">{review.which(extraction?.affidavits?.length ?? 0)}</legend>
 			<div class="mt-3 grid gap-2 sm:grid-cols-2">
@@ -302,7 +312,7 @@
 									class="mt-1.5 min-h-11 w-full rounded-control border bg-raised px-3 text-sm text-ink
 									       {flag && !done ? 'border-caution' : 'border-line-strong'}"
 								>
-									{#each Object.entries(upload.methodOptions) as [value, label] (value)}
+									{#each Object.entries(words.methodOptions) as [value, label] (value)}
 										<option {value}>{label}</option>
 									{/each}
 								</select>
@@ -459,7 +469,11 @@
 
 			<div class="mt-8 border-t border-line pt-6">
 				<Button id="confirm-all" onclick={confirmAll} disabled={left.length > 0 || confirmed}>
-					{confirmed ? `✓ ${upload.confirmCheckbox}` : review.confirmAll}
+					{confirmed
+						? `✓ ${words.confirmCheckbox}`
+						: voice === 'advocate'
+							? advocate.batch.confirmAll
+							: review.confirmAll}
 				</Button>
 				{#if left.length > 0}
 					<p class="mt-2 text-sm text-caution">{review.confirmBlocked(left.length)}</p>

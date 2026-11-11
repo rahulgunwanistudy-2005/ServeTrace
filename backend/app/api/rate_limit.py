@@ -133,6 +133,37 @@ def get_limiter() -> TokenBucketLimiter:
     )
 
 
+@lru_cache(maxsize=1)
+def get_extract_limiter() -> TokenBucketLimiter:
+    """`/api/extract` has its own budget (build prompt §6.1). A batch upload is one call per
+    file, three at a time; on the shared budget a forty-file folder would lock the same
+    person out of geocoding their own address for a minute."""
+    settings = get_settings()
+    return TokenBucketLimiter(
+        capacity=float(settings.extract_rate_limit_burst),
+        refill_per_s=settings.extract_rate_limit_per_minute / 60.0,
+    )
+
+
+def _refuse(wait: float) -> RateLimitedError:
+    seconds = max(1, round(wait))
+    return RateLimitedError(
+        "That is more requests than we allow in a short time. Please wait a few seconds "
+        "and try again.",
+        headers={"retry-after": str(seconds)},
+        retry_after=seconds,
+    )
+
+
+async def enforce_extract_rate_limit(request: Request) -> None:
+    """Dependency for `/api/extract` only."""
+    wait = get_extract_limiter().retry_after(
+        client_key(request, get_settings().rate_limit_trusted_hops)
+    )
+    if wait is not None:
+        raise _refuse(wait)
+
+
 async def enforce_rate_limit(request: Request) -> None:
     """Dependency for the routes that cost something per call.
 
@@ -144,8 +175,4 @@ async def enforce_rate_limit(request: Request) -> None:
     wait = limiter.retry_after(client_key(request, get_settings().rate_limit_trusted_hops))
     if wait is None:
         return
-    raise RateLimitedError(
-        "That is more requests than we allow in a short time. Please wait a few seconds "
-        "and try again.",
-        headers={"retry-after": str(max(1, round(wait)))},
-    )
+    raise _refuse(wait)

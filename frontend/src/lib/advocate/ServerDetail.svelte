@@ -14,7 +14,16 @@
 	import Card from '$lib/ui/Card.svelte';
 	import { formatDateTime, formatKm, formatSpeed } from '$lib/ui/tone';
 
-	let { report, records }: { report: ServerReport; records: ServiceRecord[] } = $props();
+	let {
+		report,
+		records,
+		onmap
+	}: {
+		report: ServerReport;
+		records: ServiceRecord[];
+		/** Passed through to the map, for a report that wants a picture of it. */
+		onmap?: (capture: () => string | null) => void;
+	} = $props();
 
 	const mine = $derived(records.filter((record) => record.server_id === report.server_id));
 	const ordered = $derived([...mine].sort((a, b) => a.at.localeCompare(b.at)));
@@ -34,7 +43,7 @@
 	</div>
 
 	{#if mine.length}
-		<AdvocateMap {report} records={mine} />
+		<AdvocateMap {report} records={mine} onReady={onmap} />
 	{:else}
 		<Callout tone="neutral">
 			This server's filings were not among those sent back for the map, so their day

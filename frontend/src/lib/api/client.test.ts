@@ -143,3 +143,37 @@ describe('geocode', () => {
 		await expect(api.geocode('nowhere')).resolves.toEqual({ result: null });
 	});
 });
+
+describe('retry_after', () => {
+	it('reads the typed wait off a rate-limit refusal', async () => {
+		vi.stubGlobal(
+			'fetch',
+			vi.fn(
+				async () =>
+					({
+						ok: false,
+						status: 429,
+						headers: new Headers({ 'retry-after': '3' }),
+						json: async () => ({ error: { code: 'rate_limited', message: 'slow', retry_after: 10 } })
+					}) as unknown as Response
+			)
+		);
+		await expect(api.health()).rejects.toMatchObject({ code: 'rate_limited', retryAfter: 10 });
+	});
+
+	it('falls back to the header, then to nothing', async () => {
+		vi.stubGlobal(
+			'fetch',
+			vi.fn(
+				async () =>
+					({
+						ok: false,
+						status: 429,
+						headers: new Headers({ 'retry-after': '3' }),
+						json: async () => ({ error: { code: 'rate_limited' } })
+					}) as unknown as Response
+			)
+		);
+		await expect(api.health()).rejects.toMatchObject({ retryAfter: 3 });
+	});
+});

@@ -34,7 +34,7 @@
 	import FileDrop from '$lib/ui/FileDrop.svelte';
 	import StepHeader from '$lib/ui/StepHeader.svelte';
 	import TextField from '$lib/ui/TextField.svelte';
-	import { nyLocalToInstant } from '$lib/ingest/tz';
+	import { buildAffidavit } from '$lib/check/affidavit';
 	import { steps, upload, wizard } from '$copy/en';
 
 	let step = $state(1);
@@ -165,71 +165,19 @@
 	}
 
 	/**
-	 * The typed fields as the contract wants them.
-	 *
-	 * The address is geocoded here rather than in the engine because §11 measures from a
-	 * point, and a person typing an address has no way to supply one. A failure to resolve
-	 * is reported as a problem with that field, not as a failed analysis.
+	 * The typed fields as the contract wants them (`lib/check/affidavit.ts`, shared with
+	 * the advocate batch). A failure to place the address is reported as a problem with
+	 * that field, not as a failed analysis.
 	 */
 	async function toAffidavit() {
-		/**
-		 * The time on an affidavit is New York wall-clock, and `new Date('2025-06-12T19:42')`
-		 * reads it as the *browser's* wall clock.
-		 *
-		 * A first cut did exactly that, and on a machine set to IST a service typed as
-		 * 19:42 reached the engine as 10:12 AM — a nine-and-a-half hour error that moved
-		 * the claimed moment to a different part of the day and would have produced a
-		 * confident, wrong verdict for anyone not sitting in New York. `nyLocalToInstant`
-		 * is session 3's answer to this and already handles both DST edges.
-		 */
-		const local = nyLocalToInstant(v('served_date'), v('served_time'));
-		if (!local) throw new ApiError('bad_input', 400, upload.timeNeeded);
-		const resolvedAt = await api.geocode(v('served_address').trim());
-		if (!resolvedAt.result) throw new ApiError('bad_input', 400, upload.addressNotFound);
 		const draft = caseStore.extraction?.affidavits?.[selected]?.draft;
-
-		// Earlier tries matter to the diligence rules (bible §11.3, R-D1/R-D2), so they go
-		// through with the same New York wall-clock handling as the service itself. An
-		// address we cannot place leaves that try without a point, not out of the case.
-		const tries = [];
-		for (const attempt of attempts) {
-			const at = nyLocalToInstant(attempt.date, attempt.time);
-			if (!at) throw new ApiError('bad_input', 400, upload.attemptIncomplete);
-			const address = attempt.address.trim() || v('served_address').trim();
-			const placed = await api.geocode(address).catch(() => null);
-			tries.push({
-				at: at.iso,
-				address,
-				location: placed?.result?.location ?? null,
-				outcome: attempt.outcome as 'served' | 'affixed' | 'not_home' | 'refused' | 'other'
-			});
-		}
-
-		return {
-			index_number: v('index_number') || null,
-			court: v('court') || null,
-			plaintiff: v('plaintiff') || null,
-			defendant_name: v('defendant_name'),
-			server_name: v('server_name') || null,
-			server_license: v('server_license') || null,
-			agency_license: draft?.agency_license ?? null,
-			agency_name: v('agency_name') || null,
-			method: v('method'),
-			served_at: local.iso,
-			served_address: v('served_address').trim(),
-			served_location: resolvedAt.result.location,
-			recipient_name: v('recipient_name') || null,
-			recipient_relationship: v('recipient_relationship') || null,
-			recipient_description: draft?.recipient_description ?? null,
-			attempts: tries,
-			mailing_date: v('mailing_date') || null,
-			mailing_address: v('mailing_address') || null,
-			proof_filed_date: v('proof_filed_date') || null,
-			source_sha256: caseStore.extraction?.source_sha256 ?? '0'.repeat(64),
-			field_confidence: draft?.field_confidence ?? {},
-			evidence: draft?.evidence ?? {},
-			user_confirmed: true
-		} as NonNullable<typeof caseStore.affidavit>;
+		return (await buildAffidavit({
+			values,
+			attempts,
+			draft,
+			sourceSha256: caseStore.extraction?.source_sha256,
+			geocode: async (address) => (await api.geocode(address)).result?.location ?? null
+		})) as NonNullable<typeof caseStore.affidavit>;
 	}
 
 	/** Step 1 is done when the fields the engine cannot work without are present. */

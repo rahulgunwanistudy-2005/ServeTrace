@@ -97,9 +97,23 @@ class RateLimitedError(ServeTraceError):
     code = "rate_limited"
     status_code = status.HTTP_429_TOO_MANY_REQUESTS
 
+    def __init__(
+        self, message: str, headers: dict[str, str] | None = None, retry_after: int = 1
+    ) -> None:
+        super().__init__(message, headers)
+        self.retry_after = retry_after
+        """Seconds, also in the body: a browser reading a batch can wait exactly that long."""
 
-def envelope(code: str, message: str) -> dict[str, dict[str, str]]:
-    return {"error": {"code": code, "message": message}}
+
+def envelope(code: str, message: str, **extra: object) -> dict[str, dict[str, object]]:
+    return {"error": {"code": code, "message": message, **extra}}
+
+
+def _extra(exc: ServeTraceError) -> dict[str, object]:
+    """Typed fields a client can act on, beside the sentence a person reads."""
+    if isinstance(exc, RateLimitedError):
+        return {"retry_after": exc.retry_after}
+    return {}
 
 
 def install_error_handlers(app: FastAPI) -> None:
@@ -107,7 +121,7 @@ def install_error_handlers(app: FastAPI) -> None:
     async def _handled(_: Request, exc: ServeTraceError) -> JSONResponse:
         return JSONResponse(
             status_code=exc.status_code,
-            content=envelope(exc.code, exc.message),
+            content=envelope(exc.code, exc.message, **_extra(exc)),
             headers=exc.headers,
         )
 

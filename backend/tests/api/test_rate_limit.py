@@ -5,7 +5,7 @@ from collections.abc import Iterator
 import pytest
 from fastapi.testclient import TestClient
 
-from app.api.rate_limit import TokenBucketLimiter, client_key, get_limiter
+from app.api.rate_limit import TokenBucketLimiter, client_key, get_extract_limiter, get_limiter
 from app.config import get_settings
 from app.main import create_app
 
@@ -171,15 +171,35 @@ def test_the_message_says_what_to_do_and_names_nothing(tight_limit: TestClient) 
     assert "Fordham" not in message
 
 
-def test_the_budget_is_shared_across_the_routes_that_cost_money(tight_limit: TestClient) -> None:
-    """Both routes spend one upstream call, so they spend one budget."""
+def test_extract_has_its_own_budget(tight_limit: TestClient) -> None:
+    """Build prompt §6.1: a batch upload is one extract call per file, so a spent geocode
+    budget must not stop it, and a batch must not spend the geocode budget."""
     body = {"address": "100 East Fordham Road, Bronx, NY 10468"}
     tight_limit.post("/api/geocode", json=body)
     tight_limit.post("/api/geocode", json=body)
+    assert tight_limit.post("/api/geocode", json=body).status_code == 429
 
-    refused = tight_limit.post("/api/extract", files={"file": ("a.pdf", b"%PDF-1.4", "x/pdf")})
+    allowed = tight_limit.post("/api/extract", files={"file": ("a.pdf", b"%PDF-1.4", "x/pdf")})
+    assert allowed.status_code != 429
 
+
+def test_extract_refuses_with_a_typed_retry_after(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("EXTRACT_RATE_LIMIT_BURST", "1")
+    monkeypatch.setenv("EXTRACT_RATE_LIMIT_PER_MINUTE", "6")
+    get_settings.cache_clear()
+    get_extract_limiter.cache_clear()
+    try:
+        with TestClient(create_app()) as client:
+            files = {"file": ("a.pdf", b"%PDF-1.4", "x/pdf")}
+            client.post("/api/extract", files=files)
+            refused = client.post("/api/extract", files=files)
+    finally:
+        get_settings.cache_clear()
+        get_extract_limiter.cache_clear()
     assert refused.status_code == 429
+    assert refused.json()["error"]["code"] == "rate_limited"
+    assert refused.json()["error"]["retry_after"] == 10
+    assert refused.headers["retry-after"] == "10"
 
 
 def test_health_is_never_rate_limited(tight_limit: TestClient) -> None:

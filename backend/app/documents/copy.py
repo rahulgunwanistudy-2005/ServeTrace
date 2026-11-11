@@ -547,3 +547,98 @@ EXHIBITS = (
 SIGNATURE_LABEL = "Signature of defendant"
 NOTARY_BLOCK = "Sworn to before me this ______ day of ____________, 20____."
 NOTARY_LABEL = "Notary Public"
+
+
+# --- The advocate batch report (v1.1, build prompt §6.4) --------------------------------
+
+ADVOCATE_TITLE = "Process Service Batch Report"
+ADVOCATE_SUBTITLE = "Affidavits of service, checked against each other and against CPLR 308"
+ADVOCATE_FOOTER = (
+    "Analysis of documents supplied by the user. Data conflicts are not findings of misconduct."
+)
+"""Build prompt §6.4, verbatim. Printed in the footer of every page of the report."""
+
+ADVOCATE_SECTIONS = {
+    "agencies": "Agencies, ranked",
+    "rates": "How often each rule was flagged, across the batch",
+    "agency": "Agency",
+    "servers": "Process servers in these affidavits",
+    "pairs": "Sequences no one could have travelled",
+    "descriptions": "The same description at several addresses",
+    "map": "The day these filings describe",
+    "appendix": "How this report was worked out",
+}
+
+RULE_NAMES = {
+    "R-T1": "No mailing shown (308(2), 308(4))",
+    "R-T2": "Mailing more than 20 days from delivery (308(2), 308(4))",
+    "R-T3": "Proof filed more than 20 days after delivery or mailing (308(2), 308(4))",
+    "R-D1": "Attempts thinner than courts commonly expect (308(4))",
+    "R-M1": "Method of service unclear",
+}
+
+RULE_EXPLANATIONS = {
+    "R-T1": "CPLR 308(2) and 308(4) both require a mailing as well as the delivery or "
+    "affixing (L2, L3). Flagged when the affidavit shows no mailing date. Applies to "
+    "affidavits claiming 308(2) or 308(4).",
+    "R-T2": "Under CPLR 308(2) and 308(4) the delivery or affixing and the mailing are made "
+    "within 20 days of each other (L2, L3). Flagged when they are more than 20 days apart. "
+    "Applies to 308(2) and 308(4) affidavits that show a mailing date.",
+    "R-T3": "Proof of service is filed within 20 days of the later of delivery and mailing "
+    "(L2, L3). Flagged when it was filed later than that. Applies to 308(2) and 308(4) "
+    "affidavits that show a filing date.",
+    "R-D1": "Affix-and-mail is allowed only when personal and substitute service cannot be "
+    "made with due diligence (L3). Courts commonly expect three attempts on at least two "
+    "different days at different times of day (L4); this is a practitioner standard, not a "
+    "statute, so the flag means 'look at this', nothing more. Applies to 308(4) affidavits.",
+    "R-M1": "Every timing rule depends on which kind of service is claimed. Flagged when "
+    "the method could not be determined. Applies to every affidavit.",
+}
+
+
+def _count(n: int, one: str, many: str) -> str:
+    return f"{n:,} {one if n == 1 else many}"
+
+
+def advocate_intro(analysed: int, total: int, unconfirmed: int, failed: int) -> str:
+    left_out = []
+    if total - analysed:
+        left_out.append(
+            f"{_count(total - analysed, 'affidavit', 'affidavits')} that could not be analysed"
+        )
+    if unconfirmed:
+        left_out.append(
+            f"{_count(unconfirmed, 'affidavit', 'affidavits')} left unconfirmed in review"
+        )
+    if failed:
+        left_out.append(f"{_count(failed, 'file', 'files')} that could not be read")
+    tail = f" Left out: {fmt_list(left_out)}." if left_out else ""
+    return (
+        f"This report covers {_count(analysed, 'affidavit', 'affidavits')} of service, each "
+        f"read off the document and then confirmed by a person before it was analysed."
+        f"{tail} Nothing unconfirmed is counted anywhere in it."
+    )
+
+
+def advocate_method(strong_kmh: float, simultaneous_min: float, simultaneous_km: float) -> str:
+    return (
+        f"Each server's sworn services and attempts are put in time order. Two consecutive "
+        f"filings are listed as a sequence no one could have travelled when the speed "
+        f"needed between them is above {fmt_speed(strong_kmh)} door to door, or when they "
+        f"are {simultaneous_min:g} minutes or less apart and {fmt_km(simultaneous_km)} or "
+        f"more apart. A description is listed when the same description of the person who "
+        f"took the papers appears at three or more different addresses. Rule rates count "
+        f"how many affidavits were flagged out of the affidavits each rule applies to."
+    )
+
+
+ADVOCATE_LIMITS = (
+    "Every number here comes from the affidavits supplied, as confirmed in review. A wrong "
+    "time or address on an affidavit, or a misread one that was confirmed anyway, will "
+    "show here as a conflict. A conflict between two filings is a reason to request the "
+    "server's GPS records (L7), not a finding about what happened."
+)
+
+
+def rate_line(flagged: int, applicable: int) -> str:
+    return f"{flagged:,} of {applicable:,}"

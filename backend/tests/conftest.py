@@ -19,7 +19,7 @@ from typing import Any
 import httpx
 import pytest
 
-from app.api.rate_limit import get_limiter
+from app.api.rate_limit import get_extract_limiter, get_limiter
 from app.documents.render import pdf_available
 
 SKIP_PDF_ENV = "SERVETRACE_SKIP_PDF_TESTS"
@@ -66,5 +66,7 @@ def fresh_rate_limiter() -> Iterator[None]:
     source of order-dependent failures in a suite, so every test starts with empty buckets.
     """
     get_limiter.cache_clear()
+    get_extract_limiter.cache_clear()
     yield
     get_limiter.cache_clear()
+    get_extract_limiter.cache_clear()

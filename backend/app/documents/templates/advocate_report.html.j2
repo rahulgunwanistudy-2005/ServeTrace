@@ -1,0 +1,128 @@
+{# The advocate batch report. Build prompt §6.4. Structure only — every sentence comes
+   from the context, which takes it from `documents/copy.py`. #}
+{% extends "base.html.j2" %}
+
+{% block body_class %}packet{% endblock %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+<p class="subtitle">{{ subtitle }}</p>
+<p class="small muted">{{ generated }}</p>
+<hr class="rule">
+
+<p class="lede">{{ intro }}</p>
+
+<table class="data">
+	<thead>
+		<tr><th class="num">Affidavits</th><th class="num">Services and attempts</th><th class="num">Servers</th><th class="num">Agencies</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="num">{{ totals.affidavits }}</td>
+			<td class="num">{{ totals.records }}</td>
+			<td class="num">{{ totals.servers }}</td>
+			<td class="num">{{ totals.agencies }}</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>{{ sections.agencies }}</h2>
+<table class="data">
+	<thead>
+		<tr>
+			<th class="num">Rank</th><th>Agency</th><th class="num">Affidavits</th>
+			<th class="num">Impossible sequences</th><th class="num">Most in one hour</th>
+			<th class="num">Repeated descriptions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for agency in agencies %}
+		<tr>
+			<td class="num">{{ agency.rank }}</td>
+			<td>{{ agency.display }}</td>
+			<td class="num">{{ agency.n_affidavits }}</td>
+			<td class="num">{{ agency.impossible_pairs }}</td>
+			<td class="num">{{ agency.per_hour }}</td>
+			<td class="num">{{ agency.descriptions | length }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h2>{{ sections.rates }}</h2>
+<table class="data">
+	<thead><tr><th>Rule</th><th>Flagged</th><th class="num">Rate</th></tr></thead>
+	<tbody>
+		{% for rate in rates %}
+		<tr><td><span class="mono">{{ rate.code }}</span> {{ rate.name }}</td><td>{{ rate.line }}</td><td class="num">{{ rate.percent }}</td></tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% for agency in agencies %}
+<div class="page-break"></div>
+<h2>{{ sections.agency }} {{ agency.rank }}: {{ agency.display }}</h2>
+
+<table class="data">
+	<thead><tr><th>{{ sections.servers }}</th><th class="num">Services and attempts</th><th class="num">Impossible sequences</th><th class="num">Most in one hour</th></tr></thead>
+	<tbody>
+		{% for server in agency.servers %}
+		<tr><td class="mono">{{ server.id }}</td><td class="num">{{ server.records }}</td><td class="num">{{ server.pairs }}</td><td class="num">{{ server.per_hour }}</td></tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% if agency.rates %}
+<table class="data">
+	<thead><tr><th>Rule</th><th>Flagged</th><th class="num">Rate</th></tr></thead>
+	<tbody>
+		{% for rate in agency.rates %}
+		<tr><td><span class="mono">{{ rate.code }}</span> {{ rate.name }}</td><td>{{ rate.line }}</td><td class="num">{{ rate.percent }}</td></tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endif %}
+
+{% if agency.map %}
+<figure class="map-figure">
+<h3>{{ sections.map }}</h3>
+<img class="map map-capped" src="{{ agency.map }}" alt="{{ sections.map }}">
+</figure>
+{% endif %}
+
+{% if agency.pairs %}
+<h3>{{ sections.pairs }}</h3>
+<table class="data">
+	<thead><tr><th>Server</th><th>First filing</th><th>Next filing</th><th class="num">Apart</th><th class="num">Time</th><th class="num">Speed needed</th></tr></thead>
+	<tbody>
+		{% for pair in agency.pairs %}
+		<tr><td class="mono nowrap">{{ pair.server }}</td><td>{{ pair.first }}</td><td>{{ pair.second }}</td><td class="num">{{ pair.distance }}</td><td class="num">{{ pair.minutes }}</td><td class="num">{{ pair.speed }}</td></tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% if agency.pairs_more %}<p class="small muted">+ {{ agency.pairs_more }} more in the CSV export.</p>{% endif %}
+{% endif %}
+
+{% if agency.descriptions %}
+<h3>{{ sections.descriptions }}</h3>
+<table class="data">
+	<thead><tr><th>Description, as written</th><th class="num">Addresses</th></tr></thead>
+	<tbody>
+		{% for d in agency.descriptions %}
+		<tr><td>{{ d.text }}</td><td class="num">{{ d.addresses }}</td></tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endif %}
+{% endfor %}
+
+<div class="page-break"></div>
+<h2>{{ sections.appendix }}</h2>
+<p>{{ method }}</p>
+{% for rule in rules %}
+<p><span class="mono">{{ rule.code }}</span> <strong>{{ rule.name }}.</strong> {{ rule.text }}</p>
+{% endfor %}
+<div class="box"><p>{{ limits }}</p><p>{{ not_a_law_firm }}</p></div>
+
+{% endblock %}

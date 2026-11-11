@@ -22,6 +22,7 @@
 	 *   (bible §15). It is the only way to read pixels back after a paint.
 	 */
 	import maplibregl from 'maplibre-gl';
+	import { captureMap } from './capture';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 
 	import type { CaseAnalysis, LocationFix } from '$lib/api/client';
@@ -308,43 +309,6 @@
 		created.fitBounds(bounds, { padding: 64, maxZoom: 15, duration: 0 });
 	}
 
-	/**
-	 * How wide the capture is, in pixels, before it goes into the packet.
-	 *
-	 * The packet is Letter with about six and a half inches of content, so this is a bit
-	 * over 200 dpi — past what the paper can show. The raw canvas is the viewport times
-	 * the device pixel ratio, which on this machine was 2048px for a 1024px map and about
-	 * 1.5 MB of PNG. The server refuses anything over 3 MB (bible §15), so on a 2560px
-	 * display the untouched capture would have crossed the limit and the download would
-	 * have failed with a size error on exactly the screens most likely to be showing this
-	 * to a courtroom. Downscaling is not an optimisation here, it is the thing that keeps
-	 * the feature working.
-	 */
-	const CAPTURE_WIDTH = 1400;
-
-	/**
-	 * The canvas as a PNG data URI, read at the moment somebody asks for it.
-	 *
-	 * Returns null rather than throwing on a tainted canvas or a context the browser will
-	 * not read back. The packet prints its text alternative in that case, which is why
-	 * this is a fallback and not an error.
-	 */
-	function capture(created: maplibregl.Map): string | null {
-		try {
-			const source = created.getCanvas();
-			if (source.width <= CAPTURE_WIDTH) return source.toDataURL('image/png');
-
-			const scaled = document.createElement('canvas');
-			scaled.width = CAPTURE_WIDTH;
-			scaled.height = Math.round((source.height / source.width) * CAPTURE_WIDTH);
-			const context = scaled.getContext('2d');
-			if (!context) return source.toDataURL('image/png');
-			context.drawImage(source, 0, 0, scaled.width, scaled.height);
-			return scaled.toDataURL('image/png');
-		} catch {
-			return null;
-		}
-	}
 
 	$effect(() => {
 		if (!container) return;
@@ -385,7 +349,7 @@
 			fit(created);
 			map = created;
 			ready = true;
-			onReady?.(() => capture(created));
+			onReady?.(() => captureMap(created));
 		});
 
 		return () => {

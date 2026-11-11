@@ -1,0 +1,32 @@
+{
+ "agencies": [
+  "Kestrel Legal Support Services Inc.",
+  "Ironvale Attorney Service Corp.",
+  "Halloway & Finch Process Servers LLC"
+ ],
+ "clean_agency": "Halloway & Finch Process Servers LLC",
+ "flagged": {
+  "R-D1": [
+   20,
+   22,
+   24,
+   26,
+   28
+  ],
+  "R-T1": [
+   1,
+   3,
+   16,
+   18
+  ]
+ },
+ "impossible_pairs": {
+  "R. Tallowbeck": 2
+ },
+ "n_affidavits": 60,
+ "repeated_description": {
+  "addresses": 3,
+  "server": "M. Grisholm",
+  "text": "Sex: Male  Skin: Medium  Hair: Brown  Age: 45-55  Height: 5'8\"-5'10\"  Weight: 180-200 lbs"
+ }
+}

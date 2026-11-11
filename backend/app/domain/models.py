@@ -534,6 +534,18 @@ class BatchRejection(BaseModel):
     reason: str
 
 
+class AffidavitRuleFlag(BaseModel):
+    """One batch rule against one affidavit it applies to: the row behind every rate."""
+
+    index: int
+    """Position of the affidavit in the submitted batch, 0-based."""
+    case_ref: str | None
+    server_id: str
+    agency_key: str
+    rule_code: str
+    flagged: bool
+
+
 class BatchReport(BaseModel):
     servers: list[ServerReport]
     agencies: list[AgencyReport]
@@ -544,10 +556,24 @@ class BatchReport(BaseModel):
     rejected: list[BatchRejection]
     records: list[ServiceRecord] = []
     """The service records the batch produced, so the map can draw a server's day."""
+    flags: list[AffidavitRuleFlag] = []
+    """Every (affidavit, applicable rule) pair, flagged or not. The rates are counts of these."""
     params_version: str
     engine_version: str
     app_version: str
     generated_at: AwareDatetime
+
+
+class BatchReportRequest(BaseModel):
+    """The advocate report PDF, rendered from a report the browser already holds."""
+
+    report: BatchReport
+    map_images: dict[str, str] = {}
+    """Agency key to a PNG of that agency's day, captured in the browser. Optional."""
+    unconfirmed: int = Field(default=0, ge=0)
+    """Affidavits the person left unconfirmed in the queue; listed, never analysed."""
+    failed: int = Field(default=0, ge=0)
+    """Files that could not be read at all."""
 
 
 class UsageEventKind(StrEnum):

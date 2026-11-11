@@ -156,6 +156,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/advocate/batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Batch
+         * @description Confirmed affidavits in, servers and agencies ranked and rule rates counted out.
+         *
+         *     The browser read each file through `/api/extract`, a person confirmed each one, and
+         *     only then does the batch come here. Unconfirmed affidavits are refused one by one and
+         *     listed in the report, never analysed.
+         */
+        post: operations["batch_api_advocate_batch_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/advocate/batch/export.csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Batch Export Csv
+         * @description The batch report as a CSV: impossible pairs, per-affidavit flags, or agencies.
+         */
+        post: operations["batch_export_csv_api_advocate_batch_export_csv_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/advocate/batch/report.pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Batch Report Pdf
+         * @description The batch report as a PDF, built from the report the browser already holds.
+         */
+        post: operations["batch_report_pdf_api_advocate_batch_report_pdf_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/documents/packet": {
         parameters: {
             query?: never;
@@ -441,6 +505,48 @@ export interface components {
             /** Method Checkbox */
             method_checkbox?: string | null;
         };
+        /**
+         * AffidavitRuleFlag
+         * @description One batch rule against one affidavit it applies to: the row behind every rate.
+         */
+        AffidavitRuleFlag: {
+            /** Index */
+            index: number;
+            /** Case Ref */
+            case_ref: string | null;
+            /** Server Id */
+            server_id: string;
+            /** Agency Key */
+            agency_key: string;
+            /** Rule Code */
+            rule_code: string;
+            /** Flagged */
+            flagged: boolean;
+        };
+        /** AgencyReport */
+        AgencyReport: {
+            /** Agency Key */
+            agency_key: string;
+            /** Agency Display */
+            agency_display: string;
+            /** N Affidavits */
+            n_affidavits: number;
+            /** Servers */
+            servers: string[];
+            /** Impossible Pairs */
+            impossible_pairs: number;
+            /** Max Services Per Hour */
+            max_services_per_hour: number;
+            /** Repeated Descriptions */
+            repeated_descriptions: [
+                string,
+                number
+            ][];
+            /** Rule Rates */
+            rule_rates: components["schemas"]["RuleRate"][];
+            /** Risk Rank */
+            risk_rank: number;
+        };
         /** AnalyzeRequest */
         AnalyzeRequest: {
             affidavit: components["schemas"]["Affidavit"];
@@ -472,6 +578,78 @@ export interface components {
             location?: components["schemas"]["LatLng"] | null;
             /** Outcome */
             outcome?: string | null;
+        };
+        /**
+         * BatchRejection
+         * @description An affidavit that was in the batch but not analysed, and why. Never its contents.
+         */
+        BatchRejection: {
+            /** Index */
+            index: number;
+            /** Code */
+            code: string;
+            /** Reason */
+            reason: string;
+        };
+        /** BatchReport */
+        BatchReport: {
+            /** Servers */
+            servers: components["schemas"]["ServerReport"][];
+            /** Agencies */
+            agencies: components["schemas"]["AgencyReport"][];
+            /** Rule Rates */
+            rule_rates: components["schemas"]["RuleRate"][];
+            /** N Affidavits */
+            n_affidavits: number;
+            /** N Records */
+            n_records: number;
+            /** Rejected */
+            rejected: components["schemas"]["BatchRejection"][];
+            /**
+             * Records
+             * @default []
+             */
+            records?: components["schemas"]["ServiceRecord"][];
+            /**
+             * Flags
+             * @default []
+             */
+            flags?: components["schemas"]["AffidavitRuleFlag"][];
+            /** Params Version */
+            params_version: string;
+            /** Engine Version */
+            engine_version: string;
+            /** App Version */
+            app_version: string;
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+        };
+        /**
+         * BatchReportRequest
+         * @description The advocate report PDF, rendered from a report the browser already holds.
+         */
+        BatchReportRequest: {
+            report: components["schemas"]["BatchReport"];
+            /**
+             * Map Images
+             * @default {}
+             */
+            map_images?: {
+                [key: string]: string;
+            };
+            /**
+             * Unconfirmed
+             * @default 0
+             */
+            unconfirmed?: number;
+            /**
+             * Failed
+             * @default 0
+             */
+            failed?: number;
         };
         /** Body_analyze_batch_api_advocate_analyze_post */
         Body_analyze_batch_api_advocate_analyze_post: {
@@ -836,6 +1014,20 @@ export interface components {
             /** Reason */
             reason: string;
         };
+        /**
+         * RuleRate
+         * @description How often one NY rule fired across a batch, out of the affidavits it applies to.
+         */
+        RuleRate: {
+            /** Rule Code */
+            rule_code: string;
+            /** Flagged */
+            flagged: number;
+            /** Applicable */
+            applicable: number;
+            /** Rate */
+            rate: number;
+        };
         /** ServerReport */
         ServerReport: {
             /** Server Id */
@@ -1175,6 +1367,107 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["ServerReport"][];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    batch_api_advocate_batch_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Affidavit"][];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BatchReport"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    batch_export_csv_api_advocate_batch_export_csv_post: {
+        parameters: {
+            query?: {
+                kind?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchReport"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    batch_report_pdf_api_advocate_batch_report_pdf_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchReportRequest"];
             };
         };
         responses: {
