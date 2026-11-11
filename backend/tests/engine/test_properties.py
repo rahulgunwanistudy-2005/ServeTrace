@@ -45,6 +45,9 @@ def placed_fix(draw: st.DrawFn, *, offset_s: st.SearchStrategy[int] | None = Non
     kind = draw(st.sampled_from(list(FixKind)))
     duration = draw(st.one_of(st.none(), st.integers(min_value=1, max_value=600)))
     accuracy = draw(st.one_of(st.none(), st.floats(min_value=0.0, max_value=500.0)))
+    # v1.1: every invariant above must also hold for fixes whose time is uncertain.
+    uncertainty = draw(st.one_of(st.just(0), st.integers(min_value=0, max_value=7200)))
+    tz_assumed = draw(st.booleans()) if uncertainty else False
     start = CLAIM_AT + timedelta(seconds=seconds)
     return LocationFix(
         t=start,
@@ -53,6 +56,8 @@ def placed_fix(draw: st.DrawFn, *, offset_s: st.SearchStrategy[int] | None = Non
         accuracy_m=accuracy,
         kind=kind,
         source="generated",
+        time_uncertainty_s=uncertainty,
+        tz_assumed=tz_assumed,
     )
 
 
@@ -198,3 +203,58 @@ def test_the_answer_does_not_depend_on_the_order_fixes_arrive_in(
     shuffled = list(fixes)
     random.Random(order_seed).shuffle(shuffled)
     assert fingerprint(shuffled) == fingerprint(fixes)
+
+
+# --- v1.1, bible §11.1.7: uncertain time never strengthens a contradiction --------------
+
+
+@EXAMPLES
+@given(
+    fixes=st.lists(placed_fix(), min_size=1, max_size=10),
+    index=st.integers(min_value=0, max_value=9),
+    extra_s=st.integers(min_value=1, max_value=7200),
+)
+def test_raising_time_uncertainty_never_raises_severity(
+    fixes: list[LocationFix], index: int, extra_s: int
+) -> None:
+    index %= len(fixes)
+    raised = list(fixes)
+    current = fixes[index].time_uncertainty_s
+    raised[index] = fixes[index].model_copy(
+        update={"time_uncertainty_s": min(current + extra_s, 86_400)}
+    )
+    assert adversity(raised) <= adversity(fixes)
+
+
+@EXAMPLES
+@given(fixes=st.lists(placed_fix(), min_size=1, max_size=10))
+def test_an_assumed_zone_only_contradiction_is_never_strong(fixes: list[LocationFix]) -> None:
+    assumed = [
+        f.model_copy(update={"tz_assumed": True, "time_uncertainty_s": f.time_uncertainty_s})
+        for f in fixes
+    ]
+    _, findings = evaluate_claim("served_at", CLAIM_AT, DOOR, assumed, PARAMS)
+    assert all(
+        f.severity is not Severity.STRONG for f in findings if f.code in ("F-VISIT", "F-PRISM")
+    )
+
+
+@EXAMPLES
+@given(
+    fixes=FIXES,
+    uncertainty=st.integers(min_value=0, max_value=7200),
+    tz_assumed=st.booleans(),
+)
+def test_an_exact_photo_at_the_door_at_the_time_is_consistent(
+    fixes: list[LocationFix], uncertainty: int, tz_assumed: bool
+) -> None:
+    photo = LocationFix(
+        t=CLAIM_AT,
+        loc=DOOR,
+        kind=FixKind.PHOTO,
+        source="photo",
+        time_uncertainty_s=uncertainty,
+        tz_assumed=tz_assumed,
+    )
+    verdict, _ = evaluate_claim("served_at", CLAIM_AT, DOOR, [*fixes, photo], PARAMS)
+    assert verdict.tier is ClaimTier.CONSISTENT

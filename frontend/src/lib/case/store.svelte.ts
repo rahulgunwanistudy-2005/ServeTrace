@@ -29,7 +29,7 @@ export type HouseholdMember = NonNullable<AnalyzeRequest['household']>[number];
 
 /** What the ingest step learned, kept so step 2 can be revisited without re-reading a file. */
 export type IngestSummary = {
-	source: 'timeline' | 'statement' | 'manual';
+	source: 'timeline' | 'statement' | 'manual' | 'photos';
 	total: number;
 	kept: number;
 	sent: number;

@@ -162,9 +162,14 @@ def _fix_row(fix: LocationFix) -> dict[str, Any]:
     when = copy.fmt_datetime(fix.t)
     if fix.t_end is not None:
         when = f"{when} to {copy.fmt_time(fix.t_end)}"
+    kind = copy.FIX_KIND_LABELS[fix.kind.value]
+    if fix.tz_assumed:
+        # v1.1: said in the row itself, so nobody reading the exhibit has to find a footnote
+        # to learn that this time came off a camera clock with no zone.
+        kind = copy.TZ_ASSUMED_LABEL.format(kind=kind)
     return {
         "when": when,
-        "kind": copy.FIX_KIND_LABELS[fix.kind.value],
+        "kind": kind,
         "coords": f"{fix.loc.lat:.5f}, {fix.loc.lng:.5f}",
         "accuracy": f"± {round(fix.accuracy_m):,} m" if fix.accuracy_m is not None else "—",
         "source": fix.label or copy.SOURCE_LABELS.get(fix.source, fix.source),

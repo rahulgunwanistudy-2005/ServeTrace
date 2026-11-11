@@ -8,8 +8,9 @@
 	 * before the button that sends them. That line is not reassurance — it is the claim
 	 * the privacy page makes, made checkable.
 	 *
-	 * Three doors, because people arrive with different things: a Timeline export, a bank
-	 * statement, or nothing but their memory. The third is not a lesser path — a person
+	 * Four doors, because people arrive with different things: a Timeline export, the
+	 * photos on their phone (v1.1 — most people never had Timeline on), a bank statement,
+	 * or nothing but their memory. The third is not a lesser path — a person
 	 * who was at work all evening and can say so has given the engine a MANUAL interval,
 	 * which is exactly what the visit test reads.
 	 */
@@ -23,6 +24,8 @@
 	import FileDrop from '$lib/ui/FileDrop.svelte';
 	import TextField from '$lib/ui/TextField.svelte';
 	import { nyLocalToInstant } from '$lib/ingest/tz';
+	import { parsePhotos, type PhotoSummary } from '$lib/ingest/parsers/photos';
+	import { windowFixes } from '$lib/ingest/window';
 	import { ingest } from '$copy/en';
 
 	let {
@@ -34,7 +37,7 @@
 		claims: string[];
 		fixes?: LocationFix[];
 		summary?: {
-			source: 'timeline' | 'statement' | 'manual';
+			source: 'timeline' | 'statement' | 'manual' | 'photos';
 			total: number;
 			kept: number;
 			sent: number;
@@ -44,7 +47,7 @@
 		} | null;
 	} = $props();
 
-	type Tile = 'timeline' | 'card' | 'manual';
+	type Tile = 'timeline' | 'photos' | 'card' | 'manual';
 
 	let tile = $state<Tile | null>(null);
 	let busy = $state(false);
@@ -62,6 +65,49 @@
 	let resolving = $state(false);
 
 	const megabytes = (bytes: number) => `${(bytes / 1e6).toFixed(1)} MB`;
+
+	// Photos (bible §13, v1.1). Names are kept for the list on this screen only; they are
+	// never put on a fix and never leave the device.
+	let photoNames = $state<string[]>([]);
+	let photoSummary = $state<(PhotoSummary & { near: number }) | null>(null);
+
+	async function readPhotos(files: File[]) {
+		busy = true;
+		failure = null;
+		try {
+			const parsed = await parsePhotos(files);
+			const windowed = windowFixes(parsed.fixes, claims);
+			photoNames = files.map((f) => f.name);
+			photoSummary = { ...parsed, near: windowed.kept.length };
+			fixes = [...fixes.filter((f) => f.kind !== 'photo'), ...windowed.kept];
+			const warnings: string[] = [];
+			if (parsed.withLocation === 0 && parsed.timeOnly > 0) warnings.push(ingest.photosNoLocation);
+			else if (parsed.timeOnly > 0) warnings.push(ingest.photosSomeNoLocation(parsed.timeOnly));
+			if (parsed.skipped > 0) warnings.push(ingest.photosSkipped(parsed.skipped));
+			const assumedNear = windowed.kept.filter((f) => f.tz_assumed).length;
+			if (assumedNear > 0) warnings.push(ingest.photosZoneAssumed(assumedNear));
+			summary = {
+				source: 'photos',
+				total: parsed.fixes.length,
+				kept: windowed.kept.length,
+				sent: fixes.length,
+				daysCovered: [],
+				claimedDaysMissing: [],
+				warnings
+			};
+		} catch (error) {
+			failure = String(error);
+		} finally {
+			busy = false;
+		}
+	}
+
+	function clearPhotos() {
+		fixes = fixes.filter((f) => f.kind !== 'photo');
+		photoNames = [];
+		photoSummary = null;
+		summary = null;
+	}
 
 	async function read(file: File, source: 'timeline' | 'statement') {
 		busy = true;
@@ -154,8 +200,8 @@
 	<Eyebrow>{ingest.title}</Eyebrow>
 	<p class="mt-3 leading-relaxed text-muted">{ingest.hint}</p>
 
-	<div class="mt-6 grid gap-3 sm:grid-cols-3">
-		{#each [['timeline', ingest.tiles.timeline, ingest.tileHints.timeline], ['card', ingest.tiles.card, ingest.tileHints.card], ['manual', ingest.tiles.manual, ingest.tileHints.manual]] as [id, label, hint] (id)}
+	<div class="mt-6 grid gap-3 sm:grid-cols-2">
+		{#each [['timeline', ingest.tiles.timeline, ingest.tileHints.timeline], ['photos', ingest.tiles.photos, ingest.tileHints.photos], ['card', ingest.tiles.card, ingest.tileHints.card], ['manual', ingest.tiles.manual, ingest.tileHints.manual]] as [id, label, hint] (id)}
 			<button
 				type="button"
 				onclick={() => (tile = id as Tile)}
@@ -194,6 +240,37 @@
 				{busy}
 				onfile={(file) => read(file, 'timeline')}
 			/>
+		</div>
+	{:else if tile === 'photos'}
+		<div class="mt-6 space-y-5">
+			<!-- Metadata only: no <img>, no object URL, no thumbnail. A list of names is all
+			     this screen ever shows of a photo (bible §13). -->
+			<FileDrop
+				accept="image/*,.heic,.heif"
+				multiple
+				label={busy ? ingest.photosReading : ingest.choosePhotos}
+				hint={ingest.choosePhotosHint}
+				{busy}
+				onfiles={readPhotos}
+			/>
+			{#if photoSummary}
+				<div class="rounded-card bg-surface p-5">
+					<p class="font-medium" data-testid="photo-counts">
+						{ingest.photosCounts(photoSummary.read, photoSummary.withLocation, photoSummary.near)}
+					</p>
+					<details class="mt-3 text-sm text-muted">
+						<summary class="cursor-pointer">{ingest.photosChosen} ({photoNames.length})</summary>
+						<ul class="mt-2 max-h-40 space-y-1 overflow-y-auto">
+							{#each photoNames as name, index (name + index)}
+								<li class="truncate">{name}</li>
+							{/each}
+						</ul>
+					</details>
+					<div class="mt-3">
+						<Button variant="quiet" onclick={clearPhotos}>{ingest.photosClear}</Button>
+					</div>
+				</div>
+			{/if}
 		</div>
 	{:else if tile === 'card'}
 		<div class="mt-6">

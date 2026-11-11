@@ -1,0 +1,80 @@
+{
+  "gps_utc.jpg": {
+    "t": "2025-06-12T23:38:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 12.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  },
+  "gps_utc.heic": {
+    "t": "2025-06-12T23:38:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 12.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  },
+  "offset.jpg": {
+    "t": "2025-06-12T23:31:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 100.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  },
+  "local_only.jpg": {
+    "t": "2025-06-12T23:45:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 100.0,
+    "tz_assumed": true,
+    "time_uncertainty_s": 3600
+  },
+  "local_only.heic": {
+    "t": "2025-06-12T23:45:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 100.0,
+    "tz_assumed": true,
+    "time_uncertainty_s": 3600
+  },
+  "no_gps.jpg": {
+    "skip": "no_location"
+  },
+  "no_time.jpg": {
+    "skip": "no_original_time"
+  },
+  "burst_1.jpg": {
+    "t": "2025-06-12T23:50:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 8.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  },
+  "burst_2.jpg": {
+    "t": "2025-06-12T23:50:20.000Z",
+    "lat": 40.78365,
+    "lng": -73.9528,
+    "accuracy_m": 8.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  },
+  "burst_3.jpg": {
+    "t": "2025-06-12T23:50:45.000Z",
+    "lat": 40.7836,
+    "lng": -73.9527,
+    "accuracy_m": 8.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  },
+  "far_local_only.jpg": {
+    "t": "2025-06-12T23:42:00.000Z",
+    "lat": 39.9526,
+    "lng": -75.1652,
+    "accuracy_m": 100.0,
+    "tz_assumed": true,
+    "time_uncertainty_s": 3600
+  }
+}

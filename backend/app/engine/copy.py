@@ -144,14 +144,27 @@ def prism_conflict(
     km: float,
     minutes: float,
     fix_at: datetime,
+    slack_minutes: float = 0.0,
 ) -> tuple[str, str]:
-    return (
-        f"Getting there in time would have taken about {fmt_speed(speed_kmh)}",
+    """`minutes` is the real gap. `slack_minutes` (v1.1) is time added because the
+    record's clock may be off; the speed is computed over both, and both are named."""
+    where = (
         f"At {fmt_time(fix_at)} on {fmt_date(fix_at)} your phone was {fmt_km(km)} from the "
         f"address on the affidavit. {sentence_case(claim_phrase(claim_ref, claimed_at))} is "
-        f"{fmt_minutes(minutes)} away from that point, so covering that distance in that "
-        f"time means moving at about {fmt_speed(speed_kmh)}.",
+        f"{fmt_minutes(minutes)} away from that point"
     )
+    if slack_minutes > 0:
+        how = (
+            f". The time on that record may be off, so we allowed {fmt_minutes(slack_minutes)} "
+            f"more. Even then, covering that distance means moving at about "
+            f"{fmt_speed(speed_kmh)}."
+        )
+    else:
+        how = (
+            f", so covering that distance in that time means moving at about "
+            f"{fmt_speed(speed_kmh)}."
+        )
+    return (f"Getting there in time would have taken about {fmt_speed(speed_kmh)}", where + how)
 
 
 def simultaneous_conflict(
@@ -214,6 +227,21 @@ def ambiguous_clock(claim_ref: str, claimed_at: datetime) -> tuple[str, str]:
         f"The clocks change on {fmt_date(claimed_at)}, so {fmt_time(claimed_at)} that night "
         f"means two different moments an hour apart. We checked both and kept the answer "
         f"that goes least against the affidavit.",
+    )
+
+
+def uncertain_time(
+    claim_ref: str, claimed_at: datetime, hours: float, capped: bool
+) -> tuple[str, str]:
+    """v1.1, bible §11.1.7. Said whenever a fix with an uncertain time was used."""
+    span = "an hour" if hours == 1 else f"{hours:g} hours"
+    tail = " That is why this cannot count as a strong conflict on its own." if capped else ""
+    return (
+        "Some times here were estimated",
+        f"Some of the records used for {claim_phrase(claim_ref, claimed_at)} did not say "
+        f"which time zone their clock was set to, so we assumed New York time and allowed "
+        f"{span} either way, always in the direction that goes least against the "
+        f"affidavit.{tail}",
     )
 
 

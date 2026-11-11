@@ -28,6 +28,16 @@ never accusing anyone on ambiguous data:
 - **Both readings of an ambiguous clock are evaluated**, and the weaker one is kept. The
   affidavit only ever said "7:42 PM"; on the night the clocks go back that names two
   moments an hour apart, and the engine has no way to know which the server meant.
+
+**Uncertain time (v1.1, bible §11.1.7).** A photo whose camera recorded no time zone has a
+time that may be an hour out. Such a fix carries `time_uncertainty_s`, and every use of it
+here takes the reading least adverse to the affidavit: it may *support* the claim over a
+wider span (a stay near the door covers more of the evening, a point near the door counts
+as near over a wider window), but it may only *contradict* over a longer elapsed time,
+which lowers the speed. Its interval is never widened for the purpose of contradicting —
+widening a far-away stay until it "covers" the claim would turn a MODERATE prism reading
+into a STRONG visit reading, which is uncertainty strengthening a contradiction. And a
+contradiction that rests only on fixes whose zone was assumed is capped at MODERATE.
 """
 
 from __future__ import annotations
@@ -125,6 +135,11 @@ class _Anchor:
     def within_radius(self) -> bool:
         return self.km <= self.radius_km
 
+    @property
+    def slack(self) -> timedelta:
+        """How far either way this fix's time could be. Zero for an exact one."""
+        return timedelta(seconds=self.fix.time_uncertainty_s)
+
 
 @dataclass(slots=True)
 class FixIndex:
@@ -190,12 +205,19 @@ def _anchor(fix: LocationFix, at: datetime, point: LatLng, params: EngineParams)
     )
 
 
-def _covers(fix: LocationFix, at: datetime, params: EngineParams) -> bool:
-    """Bible §11.1.2: a visit covers T when t - tolerance <= T <= t_end + tolerance."""
+def _covers(fix: LocationFix, at: datetime, params: EngineParams, *, support: bool = False) -> bool:
+    """Bible §11.1.2: a visit covers T when t - tolerance <= T <= t_end + tolerance.
+
+    `support=True` asks the question on behalf of the affidavit, and only then is the
+    interval widened by the fix's own time uncertainty (bible §11.1.7). Asked on behalf of
+    a contradiction, an uncertain stay covers exactly what it covered when exact.
+    """
     if fix.t_end is None or fix.kind not in INTERVAL_KINDS:
         return False
     start, end = _span(fix)
     tolerance = timedelta(minutes=params.visit_tolerance_min)
+    if support:
+        tolerance += timedelta(seconds=fix.time_uncertainty_s)
     return start - tolerance <= at <= end + tolerance
 
 
@@ -258,6 +280,21 @@ def evaluate_prepared(
             )
         )
 
+    uncertain = [f for f in kept.fixes_used if f.time_uncertainty_s > 0]
+    if uncertain:
+        hours = max(f.time_uncertainty_s for f in uncertain) / 3600.0
+        capped = kept.tier is ClaimTier.CONTRADICTED and all(f.tz_assumed for f in kept.fixes_used)
+        title, detail = copy.uncertain_time(claim_ref, claimed_at.astimezone(tz), hours, capped)
+        findings.append(
+            Finding(
+                code="F-TIME",
+                severity=Severity.INFO,
+                title=title,
+                detail=detail,
+                numbers={"claim": claim_ref, "uncertainty_hours": round(hours, 2)},
+            )
+        )
+
     verdict = ClaimVerdict(
         claim_ref=claim_ref,
         claimed_at=claimed_at,
@@ -306,8 +343,8 @@ def _evaluate_instant(
     nearest_km = round(closest_in_time.km, 3)
 
     near = _best_near(anchors, at, near_window)
-    conflict = _covering_conflict(anchors, at, claim_ref, params) or _prism(
-        anchors, at, claim_ref, params
+    conflict = _stronger(
+        _covering_conflict(anchors, at, claim_ref, params), _prism(anchors, at, claim_ref, params)
     )
 
     if near is not None:
@@ -327,7 +364,7 @@ def _evaluate_instant(
         findings=[],
         nearest_fix_km=nearest_km,
         required_speed_kmh=None,
-        fixes_used=[a.fix for a in _prism_sides(anchors, at)],
+        fixes_used=[a.fix for a in _prism_sides(anchors, at, params)],
     )
 
 
@@ -339,10 +376,33 @@ class _Conflict:
     speed_kmh: float | None
 
 
+def _stronger(visit: _Conflict | None, prism: _Conflict | None) -> _Conflict | None:
+    """The visit test's answer unless the prism's is strictly stronger.
+
+    Before v1.1 the visit conflict was always STRONG, so "visit, else prism" and "the
+    stronger of the two" were the same rule. A stay whose clock zone was assumed is capped
+    at MODERATE, and then "visit, else prism" would let a capped stay hide an exact,
+    impossible point — and raising that stay's uncertainty until it stopped covering would
+    *reveal* it, which is uncertainty strengthening a contradiction.
+    """
+    if visit is None or prism is None:
+        return visit or prism
+    rank = {Severity.STRONG: 2, Severity.MODERATE: 1, Severity.INFO: 0}
+    return prism if rank[prism.severity] > rank[visit.severity] else visit
+
+
 def _best_near(anchors: list[_Anchor], at: datetime, near_window: timedelta) -> _Anchor | None:
-    """The closest fix that puts the phone at the claimed point around the claimed time."""
-    candidates = [a for a in anchors if a.within_radius and abs(a.at - at) <= near_window]
-    return min(candidates, key=lambda a: a.km) if candidates else None
+    """The closest fix that puts the phone at the claimed point around the claimed time.
+
+    An uncertain fix is near over a wider window: its time could be off by its slack, and
+    the reading that puts it nearest the claim is the one least adverse to the affidavit.
+    """
+    candidates = [a for a in anchors if a.within_radius and abs(a.at - at) <= near_window + a.slack]
+    if not candidates:
+        return None
+    # Exact before uncertain at equal distance, so which fix is quoted - and whether the
+    # result says a time was estimated - never depends on the order the fixes arrived in.
+    return min(candidates, key=lambda a: (a.km, a.fix.time_uncertainty_s, a.fix.tz_assumed))
 
 
 def _required_speed(anchor: _Anchor, at: datetime) -> float:
@@ -369,8 +429,31 @@ def _required_speed(anchor: _Anchor, at: datetime) -> float:
     moves is data that is actually noisy, which is the data real phones produce.
     """
     excess_km = max(0.0, anchor.km - anchor.radius_km)
-    seconds = max(abs((at - anchor.at).total_seconds()), MIN_ELAPSED_S)
+    seconds = max(_elapsed_s(anchor, at), MIN_ELAPSED_S)
     return excess_km / (seconds / 3600.0)
+
+
+def _elapsed_s(anchor: _Anchor, at: datetime) -> float:
+    """Bible §11.1.7: the most favourable gap, |T - t| + uncertainty. Longer is kinder."""
+    return abs((at - anchor.at).total_seconds()) + anchor.fix.time_uncertainty_s
+
+
+def _level(anchor: _Anchor, at: datetime, params: EngineParams, *, visit: bool = False) -> int:
+    """How adverse one anchor is on its own: 0 none, 1 MODERATE, 2 STRONG.
+
+    The cap of bible §11.1.7 lives here, per anchor, rather than on the finding after the
+    fact. Every choice between anchors then minimises this one number, which is what makes
+    "move a fix away" and "raise an uncertainty" monotone: each changes one anchor's level
+    in one direction, and a minimum or a maximum of such levels moves the same way.
+
+    `visit` is the covering-stay reading, which is STRONG whenever it conflicts at all.
+    """
+    speed = _required_speed(anchor, at)
+    if speed <= params.v_moderate_kmh:
+        return 0
+    if anchor.fix.tz_assumed:
+        return 1
+    return 2 if visit or speed > params.v_strong_kmh else 1
 
 
 def _covering_conflict(
@@ -392,16 +475,20 @@ def _covering_conflict(
     covering = [a for a in anchors if _covers(a.fix, at, params)]
     if not covering:
         return None
-    best = min(covering, key=lambda a: a.km)
-    if _required_speed(best, at) <= params.v_moderate_kmh:
+    best = min(
+        covering, key=lambda a: (_level(a, at, params, visit=True), _required_speed(a, at), a.km)
+    )
+    level = _level(best, at, params, visit=True)
+    if level == 0:
         return None
     start, end = _span(best.fix)
     title, detail = copy.visit_conflict(claim_ref, at, best.km, start, end)
+    severity = Severity.STRONG if level == 2 else Severity.MODERATE
     return _Conflict(
-        severity=Severity.STRONG,
+        severity=severity,
         finding=Finding(
             code="F-VISIT",
-            severity=Severity.STRONG,
+            severity=severity,
             title=title,
             detail=detail,
             numbers={"claim": claim_ref, "distance_km": round(best.km, 3)},
@@ -411,7 +498,7 @@ def _covering_conflict(
     )
 
 
-def _prism_sides(anchors: list[_Anchor], at: datetime) -> list[_Anchor]:
+def _prism_sides(anchors: list[_Anchor], at: datetime, params: EngineParams) -> list[_Anchor]:
     """The nearest anchor before the claim and the nearest after it. Bible §11.1.3.
 
     Two fixes can share a timestamp; a phone reporting two places at the same second is
@@ -422,10 +509,20 @@ def _prism_sides(anchors: list[_Anchor], at: datetime) -> list[_Anchor]:
     before = [a for a in anchors if a.at <= at]
     after = [a for a in anchors if a.at >= at]
     sides: list[_Anchor] = []
+
+    # v1.1: ties in time go to the least adverse anchor - lowest capped level, then lowest
+    # speed, then nearest, then most uncertain. With uncertain and assumed-zone fixes, two
+    # fixes at one moment and one place can demand different things, and Hypothesis found
+    # that a distance-only tie-break let "move a fix away" lower the answer.
+    def gentleness(a: _Anchor) -> tuple[int, float, float, int]:
+        return (_level(a, at, params), _required_speed(a, at), a.km, -a.fix.time_uncertainty_s)
+
     if before:
-        sides.append(max(before, key=lambda a: (a.at, -a.km)))
+        latest = max(a.at for a in before)
+        sides.append(min((a for a in before if a.at == latest), key=gentleness))
     if after:
-        nearest_after = min(after, key=lambda a: (a.at, a.km))
+        earliest = min(a.at for a in after)
+        nearest_after = min((a for a in after if a.at == earliest), key=gentleness)
         if not sides or nearest_after.fix is not sides[0].fix:
             sides.append(nearest_after)
     return sides
@@ -434,16 +531,23 @@ def _prism_sides(anchors: list[_Anchor], at: datetime) -> list[_Anchor]:
 def _prism(
     anchors: list[_Anchor], at: datetime, claim_ref: str, params: EngineParams
 ) -> _Conflict | None:
-    sides = _prism_sides(anchors, at)
+    sides = _prism_sides(anchors, at, params)
     if not sides:
         return None
 
-    fastest, anchor = max(((_required_speed(a, at), a) for a in sides), key=lambda pair: pair[0])
-    if fastest <= params.v_moderate_kmh:
+    # The side the severity rests on is quoted: highest level, then highest speed. When an
+    # assumed-zone photo is faster but capped, and the exact side is impossible on its own,
+    # it is the exact side's numbers a reader is shown, because they are what decided it.
+    level, fastest, anchor = max(
+        ((_level(a, at, params), _required_speed(a, at), a) for a in sides),
+        key=lambda rated: (rated[0], rated[1]),
+    )
+    if level == 0:
         return None
-
-    severity = Severity.STRONG if fastest > params.v_strong_kmh else Severity.MODERATE
-    seconds = abs((at - anchor.at).total_seconds())
+    severity = Severity.STRONG if level == 2 else Severity.MODERATE
+    seconds = _elapsed_s(anchor, at)
+    gap_s = abs((at - anchor.at).total_seconds())
+    slack_s = float(anchor.fix.time_uncertainty_s)
     numbers: dict[str, float | str] = {"claim": claim_ref, "distance_km": round(anchor.km, 3)}
 
     if seconds < MIN_ELAPSED_S:
@@ -453,10 +557,14 @@ def _prism(
         title, detail = copy.simultaneous_conflict(claim_ref, at, anchor.km, anchor.at)
         speed_kmh = None
     else:
+        # `minutes` is the real gap, so a sentence quoting it is true of the record. The
+        # slack (bible §11.1.7) is carried and named separately, never folded in silently.
         title, detail = copy.prism_conflict(
-            claim_ref, at, fastest, anchor.km, seconds / 60.0, anchor.at
+            claim_ref, at, fastest, anchor.km, gap_s / 60.0, anchor.at, slack_s / 60.0
         )
-        numbers["minutes"] = round(seconds / 60.0, 1)
+        numbers["minutes"] = round(gap_s / 60.0, 1)
+        if slack_s:
+            numbers["slack_minutes"] = round(slack_s / 60.0, 1)
         numbers["required_speed_kmh"] = round(fastest, 1)
         speed_kmh = round(fastest, 1)
 
@@ -479,7 +587,7 @@ def _consistent(
     params: EngineParams,
 ) -> _Reading:
     """Evidence at the claimed time settles it, and any competing finding is still shown."""
-    if _covers(near.fix, at, params):
+    if _covers(near.fix, at, params, support=True):
         start, end = _span(near.fix)
         title, detail = copy.visit_match(claim_ref, at, near.km, start, end)
     else:

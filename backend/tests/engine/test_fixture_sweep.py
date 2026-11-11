@@ -151,3 +151,18 @@ def test_the_figures_on_the_methodology_page_are_the_figures_this_run_produced(
 def test_the_matrices_account_for_every_case(report) -> None:
     for matrix in (report.claim_matrix, report.overall_matrix):
         assert sum(matrix[t][p] for t in TIERS for p in TIERS) == report.n_cases
+
+
+def test_photo_only_cases_never_falsely_accuse() -> None:
+    """v1.1: the same gate on the same 500 people, holding only a few photos each — some
+    with no time zone and a clock an hour off. Bible §11.1.7 is what makes this hold."""
+    from eval.photos import format_report as format_photos
+    from eval.photos import run as run_photos
+
+    if not (CORPUS / "cases").is_dir():
+        pytest.skip("corpus not generated; run `python -m fixtures.generator`")
+    photos = run_photos(CORPUS)
+    assert photos.n_cases == CORPUS_CASES
+    assert photos.clock_off > 0, "the sweep stopped exercising the adversarial clocks"
+    assert photos.false_strong == 0, (format_photos(photos), photos.false_strong_cases)
+    assert photos.strong_from_assumed_only == 0

@@ -280,3 +280,26 @@ def test_every_demo_case_renders(case_id: str, needs_pdf: None) -> None:
 def test_a_case_with_no_records_at_all_still_renders(needs_pdf: None) -> None:
     """`NO_DATA` is an answer, so it is a packet too."""
     assert build_packet(built(fixes=[]), []).startswith(b"%PDF-")
+
+
+def test_a_photo_whose_zone_was_assumed_says_so_in_its_own_row() -> None:
+    """v1.1, bible §13: the exhibit never presents an assumed time as a recorded one."""
+    from datetime import UTC, datetime
+
+    from app.documents.packet import _fix_row
+    from app.domain.models import FixKind, LatLng, LocationFix
+
+    def photo(assumed: bool) -> LocationFix:
+        return LocationFix(
+            t=datetime(2025, 6, 12, 23, 38, tzinfo=UTC),
+            loc=LatLng(lat=40.78, lng=-73.95),
+            accuracy_m=100.0,
+            kind=FixKind.PHOTO,
+            source="photo",
+            label="Photo taken here",
+            time_uncertainty_s=3600 if assumed else 0,
+            tz_assumed=assumed,
+        )
+
+    assert _fix_row(photo(False))["kind"] == "Photo"
+    assert _fix_row(photo(True))["kind"] == "Photo (time from camera clock, time zone assumed)"

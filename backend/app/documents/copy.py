@@ -165,6 +165,9 @@ FIX_KIND_LABELS = {
 }
 """Column values in the packet's table of records, where a heading supplies the context."""
 
+TZ_ASSUMED_LABEL = "{kind} (time from camera clock, time zone assumed)"
+"""v1.1: a record whose time zone was assumed says so in its own row of the exhibit."""
+
 FIX_KIND_IN_SENTENCE = {
     "visit": "recorded stays in one place",
     "path": "recorded points along a journey",
@@ -362,13 +365,27 @@ def para_prism(
     fix_at: datetime,
     minutes: float,
     speed_kmh: float,
+    slack_minutes: float = 0.0,
 ) -> str:
-    """F-PRISM with a measurable gap: the number the whole method turns on."""
-    return (
+    """F-PRISM with a measurable gap: the number the whole method turns on.
+
+    v1.1: when the record's own time may be off (a photo whose camera kept no time zone),
+    the allowance is stated in the sworn sentence rather than folded into the gap, so
+    every number in it is true of the record as it is."""
+    opening = (
         f"At {fmt_time(fix_at)} on {fmt_date(fix_at)}, my location history places me "
         f"{fmt_km(km)} from {address}. That is {fmt_minutes(minutes)} from "
-        f"{fmt_time(when)}, the time of the service sworn to. Covering that distance in "
-        f"that time would require traveling at about {fmt_speed(speed_kmh)}."
+        f"{fmt_time(when)}, the time of the service sworn to."
+    )
+    if slack_minutes > 0:
+        return (
+            f"{opening} Allowing a further {fmt_minutes(slack_minutes)} because the time on "
+            f"that record may be off, covering that distance would still require traveling "
+            f"at about {fmt_speed(speed_kmh)}."
+        )
+    return (
+        f"{opening} Covering that distance in that time would require traveling at about "
+        f"{fmt_speed(speed_kmh)}."
     )
 
 

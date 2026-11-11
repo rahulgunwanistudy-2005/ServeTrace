@@ -12,20 +12,27 @@
 		hint,
 		label,
 		busy = false,
-		onfile
+		multiple = false,
+		onfile,
+		onfiles
 	}: {
 		accept: string;
 		label: string;
 		hint?: string;
 		busy?: boolean;
-		onfile: (file: File) => void;
+		/** v1.1: several files at once (camera-roll photos, a folder of affidavits). */
+		multiple?: boolean;
+		onfile?: (file: File) => void;
+		onfiles?: (files: File[]) => void;
 	} = $props();
 
 	let over = $state(false);
 
 	function take(list: FileList | null | undefined) {
-		const file = list?.[0];
-		if (file) onfile(file);
+		const files = Array.from(list ?? []);
+		if (files.length === 0) return;
+		if (multiple && onfiles) onfiles(files);
+		else if (files[0]) onfile?.(files[0]);
 	}
 
 	function onDrop(event: DragEvent) {
@@ -70,6 +77,7 @@
 	<input
 		type="file"
 		{accept}
+		{multiple}
 		disabled={busy}
 		class="sr-only"
 		onchange={(event) => take(event.currentTarget.files)}

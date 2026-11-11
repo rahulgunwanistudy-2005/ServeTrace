@@ -152,6 +152,7 @@ export const upload = {
 export const ingest = {
 	tiles: {
 		timeline: 'Google Timeline',
+		photos: 'Photos from that day',
 		card: 'Card or bank statement',
 		manual: 'Type it in'
 	},
@@ -169,6 +170,7 @@ export const ingest = {
 	hint: 'Bring whatever record you already have. It is read on this device.',
 	tileHints: {
 		timeline: 'A Google Timeline export, if you had Location History on.',
+		photos: 'Phones save where and when a photo was taken.',
 		card: 'A CSV from your bank or card, if you paid for something that evening.',
 		manual: 'No file at all — just tell us where you were.'
 	},
@@ -196,7 +198,25 @@ export const ingest = {
 	noneNearClaim:
 		'None of your points fall near the time on the affidavit. The check can still run, and it will say it has no data for that moment.',
 	coverageOk: (n: number) => `${n} point${n === 1 ? '' : 's'} fall in the hours around the service.`,
-	cancel: 'Stop reading'
+	cancel: 'Stop reading',
+
+	// v1.1 — photos (bible §13). Read on this device: metadata only, never uploaded.
+	choosePhotos: 'Choose photos from that day',
+	choosePhotosHint:
+		'Pick the originals from your camera roll. Only the time and place saved inside each photo are read \u2014 the pictures are never uploaded or shown.',
+	photosReading: 'Reading the time and place inside each photo\u2026',
+	photosCounts: (read: number, located: number, near: number) =>
+		`${read} photo${read === 1 ? '' : 's'} read \u00b7 ${located} with a location \u00b7 ${near} near the claimed time.`,
+	photosNoLocation:
+		"Your photos don't include location. Phone apps and messaging apps sometimes remove it. Try selecting the originals from your camera roll, or use your Google Photos export.",
+	photosSomeNoLocation: (n: number) =>
+		`${n} photo${n === 1 ? ' has' : 's have'} a time but no location, so ${n === 1 ? 'it' : 'they'} could not be used.`,
+	photosZoneAssumed: (n: number) =>
+		`${n} photo${n === 1 ? '' : 's'} did not record a time zone. We assumed New York time and allow an hour either way, always in the direction that goes least against the affidavit.`,
+	photosSkipped: (n: number) =>
+		`${n} file${n === 1 ? '' : 's'} had no original time saved inside, so ${n === 1 ? 'it was' : 'they were'} left out.`,
+	photosChosen: 'Photos chosen',
+	photosClear: 'Clear photos'
 } as const;
 
 /**

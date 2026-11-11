@@ -9,7 +9,7 @@ the public site is one the eval or the store actually produced.
 
 ### Phase checklist
 - [x] **A** Bible amendments, contracts, config, version stamp, regenerated types
-- [ ] **B** Photo ingest (exifr, on-device), time-uncertainty rule, property tests
+- [x] **B** Photo ingest (exifr, on-device), time-uncertainty rule, property tests
 - [ ] **C** Eight affidavit layouts, HEIC, page classification, provenance, judgment date
 - [ ] **D** Flagged-first correction UI on `ExtractionResult`, legacy endpoint deleted
 - [ ] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
@@ -35,6 +35,33 @@ the public site is one the eval or the store actually produced.
   tier, finding, number or code moved.
 - **`/api/extract` gets its own rate budget** (60/min, burst 6) separate from geocode's
   30/min, because a batch upload is one call per file.
+- **Uncertain time widens support, never conflict.** A photo's ±1 h widens its interval
+  when asking "was she there?" (consistency), but contradiction uses elapsed time
+  `|T − t| + u`, and a covering visit is never widened to *create* a conflict. Each anchor
+  gets a level (0 none, 1 moderate, 2 strong) capped at 1 when its zone was assumed; ties
+  break toward the gentler reading. Hypothesis found three order/monotonicity violations
+  on the way (distance-only tie-break, exact-vs-assumed ties, a covering visit hiding a
+  stronger prism); all fixed, 500 examples per property.
+- **The prism finding quotes the real gap** (`minutes`) and names the allowance separately
+  (`slack_minutes`), so a sworn paragraph never states a time that was not on the record.
+- **exifr 7.1.3 ignores the HEIF `iloc` base offset**, so libheif files read as malformed.
+  `parsers/heic.ts` walks the boxes itself (bounded: `meta` ≤ 1 MB, never the image data)
+  and hands exifr only the TIFF block. Tested on pillow-heif output.
+- **Maria with zone-less photos is not STRONG, by design.** Her three work photos are
+  10.5 km away; with an hour's allowance either side that distance is coverable, so the
+  engine reports a moderate conflict at most with an `F-TIME` note. A Philadelphia photo
+  (`far_local_only.jpg`, ~130 km) shows the MODERATE cap holding even when distance alone
+  would be STRONG.
+- **Photo-only sweep (eval/photos.py):** 500 cases, 865 photos (335 without a zone, 104 of
+  those an hour off). False STRONG 0, false MODERATE 0, 196 NO_DATA. One case built
+  CONTRADICTED reads CONSISTENT because an hour-off photo lands at the door; reported, not
+  hidden. Wired into run_eval in Phase G.
+- **Network proof (Phase B).** Built-in browser, `/check` with Maria's three fixture photos
+  (two JPEG, one HEIC) injected into the photo picker: reading made zero requests
+  (`performance.getEntriesByType('resource')` empty). On "See what we found" the only API
+  calls were `POST /api/geocode` (the typed address) and `POST /api/analyze`; the fixes in
+  it carry `kind: photo`, `label: "Photo taken here"`, coordinates and time — no filename,
+  no image bytes. Result: CONTRADICTED, STRONG, 10.6 km, 154 km/h.
 
 ## Session 1 — Scaffold, contracts, synthetic fixtures
 

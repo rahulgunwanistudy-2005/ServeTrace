@@ -58,7 +58,7 @@ HANDLED_CODES: Final = frozenset(
 because a `match` statement cannot be asked what it covers, and a test that cannot ask is
 a test that cannot notice a new rule arriving."""
 
-INFO_ONLY_CODES: Final = frozenset({"F-NEAR", "F-NODATA", "F-CLOCK", "F-NOGEO", "R-M1"})
+INFO_ONLY_CODES: Final = frozenset({"F-NEAR", "F-NODATA", "F-CLOCK", "F-NOGEO", "F-TIME", "R-M1"})
 """Codes the engine only ever raises at INFO. They are context for somebody reading their
 own result and are filtered out before `_paragraph_for` is ever reached; they are listed
 so that one of them being promoted to MODERATE shows up as a failing test rather than as a
@@ -157,9 +157,18 @@ def _location_paragraph(analysis: CaseAnalysis, finding: Finding, builder: str) 
 
     speed = finding.numbers.get("required_speed_kmh")
     minutes = finding.numbers.get("minutes")
+    slack = finding.numbers.get("slack_minutes", 0.0)
     if isinstance(speed, int | float) and isinstance(minutes, int | float) and anchor is not None:
         return Paragraph(
-            copy.para_prism(when, float(distance), address, anchor.t, float(minutes), float(speed)),
+            copy.para_prism(
+                when,
+                float(distance),
+                address,
+                anchor.t,
+                float(minutes),
+                float(speed),
+                float(slack) if isinstance(slack, int | float) else 0.0,
+            ),
             finding.code,
         )
 

@@ -5,7 +5,8 @@ from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-ENGINE_VERSION = "0.1.0"
+ENGINE_VERSION = "0.2.0"
+"""0.2.0 (v1.1): the time-uncertainty rule, bible §11.1.7. No v1.0 input changes its verdict."""
 
 APP_VERSION = "1.1.0"
 """Bible §19. Semver for the product as a whole, shown in the footer, `/api/health` and

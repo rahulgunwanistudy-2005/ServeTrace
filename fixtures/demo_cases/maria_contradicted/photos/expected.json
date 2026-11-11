@@ -1,0 +1,26 @@
+{
+  "IMG_0611.jpg": {
+    "t": "2025-06-12T23:31:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 15.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  },
+  "IMG_0612.jpg": {
+    "t": "2025-06-12T23:38:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 15.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  },
+  "IMG_0613.heic": {
+    "t": "2025-06-12T23:52:00.000Z",
+    "lat": 40.7836227,
+    "lng": -73.9527563,
+    "accuracy_m": 15.0,
+    "tz_assumed": false,
+    "time_uncertainty_s": 0
+  }
+}
