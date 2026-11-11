@@ -1,0 +1,182 @@
+{# Synthetic affidavit of service, v1.1 layout variants (L2-L7). No real case. #}
+{% macro v(value) -%}
+{% if hand %}<span class="hw">{{ value }}</span>{% else %}{{ value }}{% endif %}
+{%- endmacro %}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Caveat"; src: url("{{ font_url }}"); }
+  @page { size: Letter; margin: {{ '0.5in 0.55in' if compact else '0.8in 0.8in' }}; }
+  body { font-family: {{ '"Helvetica", Arial, sans-serif' if letterhead else '"Times New Roman", Times, serif' }};
+         font-size: {{ '9.2pt' if compact else '11pt' }}; line-height: {{ 1.3 if compact else 1.45 }}; color: #111; }
+  .hw { font-family: "Caveat", cursive; font-size: 1.32em; color: #1d2f86; letter-spacing: .01em; }
+  .blank { border-bottom: 1px solid #333; padding: 0 4px; }
+  .lh { border-bottom: 3px double #333; padding-bottom: 6px; margin-bottom: 10px; }
+  .lh .name { font-size: 17pt; font-weight: bold; letter-spacing: .03em; }
+  .lh .addr { font-size: 9pt; color: #333; }
+  table.hdr { width: 100%; border-collapse: collapse; }
+  table.hdr td { vertical-align: top; padding: 4px 6px; border: 1px solid #333; }
+  .court { text-align: center; }
+  .court strong { display: block; }
+  h1 { font-size: 12pt; text-align: center; text-transform: uppercase; letter-spacing: .06em;
+       margin: {{ '8px 0 4px' if compact else '18px 0 4px' }}; }
+  p.body { margin: 0 0 {{ '6px' if compact else '10px' }}; text-align: justify; }
+  .label { font-variant: small-caps; letter-spacing: .04em; }
+  .boxes div { margin: 3px 0 3px 4px; }
+  .box { display: inline-block; width: 11px; height: 11px; border: 1.3px solid #111;
+         text-align: center; line-height: 11px; font-size: 10px; font-weight: bold;
+         margin-right: 6px; vertical-align: middle; }
+  table.grid, table.desc, table.attempts { width: 100%; border-collapse: collapse;
+         margin: 4px 0 10px; font-size: 0.95em; }
+  table.grid td, table.desc th, table.desc td, table.attempts th, table.attempts td {
+         border: 1px solid #111; padding: 3px 6px; text-align: left; }
+  table.desc th, table.attempts th { background: #eee; font-weight: normal; font-variant: small-caps; }
+  table.grid td.k { width: 12%; background: #f2f2f2; font-variant: small-caps; }
+  .p2 { break-before: page; }
+  .runhead { font-size: 9pt; border-bottom: 1px solid #555; margin-bottom: 10px; }
+  .sigline { border-bottom: 1px solid #111; width: 58%; height: {{ '18px' if compact else '26px' }}; }
+  .cap { font-size: 9pt; }
+  .notary { margin-top: 10px; border-top: 1px solid #111; padding-top: 6px; font-size: 0.95em; }
+  .fineprint { font-size: 8pt; color: #444; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+{% if letterhead %}
+<div class="lh">
+  <div class="name">{{ agency | upper }}</div>
+  <div class="addr">Licensed Process Serving Agency &middot; {{ agency_address }}</div>
+</div>
+<table class="hdr">
+  <tr>
+    <td style="width:60%">
+      <div class="court"><strong>CIVIL COURT OF THE CITY OF NEW YORK</strong>COUNTY OF {{ county }}</div>
+      <br>{{ v(aff.plaintiff) }}, Plaintiff,<br>&nbsp;&nbsp;&nbsp;- against -<br>{{ v(aff.defendant_name) }}, Defendant.
+    </td>
+    <td>
+      <span class="label">Index No.</span> {{ v(aff.index_number) }}<br>
+      <span class="label">Our File No.</span> {{ file_no }}<br><br>
+      <strong>AFFIDAVIT OF SERVICE</strong>
+    </td>
+  </tr>
+</table>
+{% else %}
+<div class="court">
+  <strong>CIVIL COURT OF THE CITY OF NEW YORK</strong>
+  COUNTY OF {{ county }}
+</div>
+<p style="margin:10px 0">
+  {{ v(aff.plaintiff) }}, Plaintiff, &nbsp;- against - &nbsp;{{ v(aff.defendant_name) }}, Defendant.
+  &nbsp;&nbsp;<span class="label">Index No.</span> {{ v(aff.index_number) }}
+</p>
+<h1>Affidavit of Service</h1>
+{% endif %}
+
+<p class="body">
+  STATE OF NEW YORK, COUNTY OF {{ county }}, ss.: {{ v(aff.server_name) }}, being duly sworn,
+  deposes and says: that deponent is not a party to this action, is over 18 years of age and
+  resides in the State of New York. Deponent is a process server licensed by the New York City
+  Department of Consumer and Worker Protection, employed by {{ v(agency) }}.
+</p>
+
+<p class="body">
+  That on {{ v(aff.served_at.strftime('%B %-d, %Y')) }} at
+  {{ v(aff.served_at.strftime('%-I:%M %p')) }}, at {{ v(aff.served_address) }}, deponent
+  served the within Summons and Endorsed Complaint upon {{ v(aff.defendant_name) }}, the
+  Defendant therein named, as follows:
+</p>
+
+{% if checkboxes %}
+<div class="boxes">
+  <div><span class="box">{{ 'X' if aff.method.value == '308_1' else '' }}</span>
+    <span class="label">Individual.</span> By delivering a true copy to the Defendant personally.</div>
+  <div><span class="box">{{ 'X' if aff.method.value == '308_2' else '' }}</span>
+    <span class="label">Suitable age person.</span> By delivering a true copy to a person of
+    suitable age and discretion at the premises{% if aff.method.value == '308_2' %}:
+    {{ v(aff.recipient_name or 'name refused') }}{% if aff.recipient_relationship %},
+    {{ v(aff.recipient_relationship) }}{% endif %}{% endif %}.</div>
+  <div><span class="box">{{ 'X' if aff.method.value == '308_4' else '' }}</span>
+    <span class="label">Affixing to door.</span> By affixing a true copy to the door of said
+    premises, deponent having been unable with due diligence to find the Defendant or a person
+    of suitable age and discretion thereat.</div>
+</div>
+{% elif aff.method.value == '308_1' %}
+<p class="body"><span class="label">Personal service.</span> By delivering a true copy of each to
+  said Defendant personally.</p>
+{% elif aff.method.value == '308_2' %}
+<p class="body"><span class="label">Substituted service.</span> By delivering a true copy of each to
+  {{ v(aff.recipient_name or 'a person who refused to give a name') }}{% if aff.recipient_relationship %},
+  {{ v(aff.recipient_relationship) }}{% endif %}, a person of suitable age and discretion, at the
+  Defendant's dwelling place.</p>
+{% else %}
+<p class="body"><span class="label">Affix and mail.</span> By affixing a true copy of each to the
+  door of said premises, the Defendant's dwelling place, deponent having been unable with due
+  diligence to find the Defendant or a person of suitable age and discretion thereat.</p>
+{% endif %}
+
+{% if page_break %}
+<div class="p2">
+<div class="runhead">Index No. {{ aff.index_number }} &mdash; Affidavit of Service, continued</div>
+{% endif %}
+
+{% if desc %}
+<p class="body"><span class="label">Description of person served:</span></p>
+{% if desc_style == 'grid' %}
+<table class="grid">
+  <tr><td class="k">Sex</td><td>{{ v(desc.sex) }}</td><td class="k">Skin</td><td>{{ v(desc.skin) }}</td>
+      <td class="k">Hair</td><td>{{ v(desc.hair) }}</td></tr>
+  <tr><td class="k">Age</td><td>{{ v(desc.age) }}</td><td class="k">Height</td><td>{{ v(desc.height) }}</td>
+      <td class="k">Weight</td><td>{{ v(desc.weight) }}</td></tr>
+</table>
+{% else %}
+<table class="desc">
+  <tr><th>Sex</th><th>Skin</th><th>Hair</th><th>Age</th><th>Height</th><th>Weight</th></tr>
+  <tr><td>{{ v(desc.sex) }}</td><td>{{ v(desc.skin) }}</td><td>{{ v(desc.hair) }}</td>
+      <td>{{ v(desc.age) }}</td><td>{{ v(desc.height) }}</td><td>{{ v(desc.weight) }}</td></tr>
+</table>
+{% endif %}
+{% endif %}
+
+{% if aff.attempts %}
+<p class="body"><span class="label">Prior attempts at service:</span></p>
+<table class="attempts">
+  <tr><th>Date</th><th>Time</th><th>Address</th><th>Result</th></tr>
+  {% for attempt in aff.attempts %}
+  <tr>
+    <td>{{ v(attempt.at.strftime('%m/%d/%Y')) }}</td>
+    <td>{{ v(attempt.at.strftime('%-I:%M %p')) }}</td>
+    <td>{{ v(attempt.address) }}</td>
+    <td>No answer at door</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if aff.mailing_date %}
+<p class="body"><span class="label">Mailing.</span> That on
+  {{ v(aff.mailing_date.strftime('%B %-d, %Y')) }}, deponent enclosed a true copy of each in a
+  postpaid envelope marked &ldquo;Personal and Confidential&rdquo;, addressed to the Defendant at
+  {{ v(aff.mailing_address) }}, and deposited it in an official depository of the United States
+  Postal Service within the State of New York.</p>
+{% endif %}
+
+<div style="margin-top:{{ '10px' if compact else '22px' }}">
+  <div class="sigline"></div>
+  <div class="cap">{{ aff.server_name }}, Process Server</div>
+</div>
+<div class="notary">
+  Sworn to before me on this ______ day of ____________, 20____.
+  <div class="sigline" style="margin-top:6px"></div>
+  <div class="cap">{{ notary_name }}, Notary Public, State of New York</div>
+</div>
+{% if aff.proof_filed_date %}
+<p class="fineprint">Proof of service filed with the Clerk of the Court on
+  {{ aff.proof_filed_date.strftime('%B %-d, %Y') }}.</p>
+{% endif %}
+<p class="fineprint">SYNTHETIC DOCUMENT &mdash; generated for ServeTrace testing. Not a real
+  affidavit. All parties, servers and index numbers are fictitious.</p>
+{% if page_break %}</div>{% endif %}
+</body>
+</html>

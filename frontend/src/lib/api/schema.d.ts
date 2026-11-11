@@ -38,6 +38,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/extract/legacy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Extract Legacy
+         * @deprecated
+         * @description v1.0 shape, the first affidavit only. Removed once the frontend reads v1.1.
+         */
+        post: operations["extract_legacy_api_extract_legacy_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/geocode": {
         parameters: {
             query?: never;
@@ -438,6 +459,8 @@ export interface components {
             evidence?: {
                 [key: string]: components["schemas"]["FieldEvidence"];
             };
+            /** Method Checkbox */
+            method_checkbox?: string | null;
         };
         /** AnalyzeRequest */
         AnalyzeRequest: {
@@ -485,6 +508,11 @@ export interface components {
         };
         /** Body_extract_api_extract_post */
         Body_extract_api_extract_post: {
+            /** File */
+            file: string;
+        };
+        /** Body_extract_legacy_api_extract_legacy_post */
+        Body_extract_legacy_api_extract_legacy_post: {
             /** File */
             file: string;
         };
@@ -552,11 +580,44 @@ export interface components {
             affiant: components["schemas"]["AffiantStatement"];
         };
         /**
+         * ExtractedAffidavit
+         * @description One affidavit of service found in an uploaded file, as a draft the user confirms.
+         *
+         *     The spec for v1.1 sketched `ExtractionResult.affidavits` as confirmed `Affidavit`s.
+         *     It is drafts here, deliberately: an `Affidavit` requires a service time, an address
+         *     and a method, and a reader that could not find one must still hand back everything
+         *     else it did find rather than fail the whole file. The user's confirmation is what
+         *     turns a draft into an `Affidavit`, exactly as in v1.0.
+         */
+        ExtractedAffidavit: {
+            draft: components["schemas"]["AffidavitDraft"];
+            /**
+             * Notes
+             * @default []
+             */
+            notes?: components["schemas"]["ValidationNote"][];
+            /**
+             * Pages
+             * @default []
+             */
+            pages?: number[];
+        };
+        /**
          * ExtractionResult
-         * @description The response of `POST /api/extract`.
+         * @description The response of `POST /api/extract` (v1.1): every page classified, every affidavit
+         *     found in the file as a draft, and the judgment's entry date when the file carries one.
          */
         ExtractionResult: {
-            draft: components["schemas"]["AffidavitDraft"];
+            /** Page Types */
+            page_types: components["schemas"]["PageType"][];
+            /**
+             * Affidavits
+             * @default []
+             */
+            affidavits?: components["schemas"]["ExtractedAffidavit"][];
+            /** Judgment Entry Date */
+            judgment_entry_date?: string | null;
+            judgment_evidence?: components["schemas"]["FieldEvidence"] | null;
             /**
              * Notes
              * @default []
@@ -572,6 +633,11 @@ export interface components {
             has_text_layer: boolean;
             /** Used Vision */
             used_vision: boolean;
+            /**
+             * Previews
+             * @default []
+             */
+            previews?: components["schemas"]["PagePreview"][];
         };
         /**
          * FieldEvidence
@@ -696,6 +762,29 @@ export interface components {
             /** Lng */
             lng: number;
         };
+        /**
+         * LegacyExtractionResult
+         * @description The v1.0 response of `POST /api/extract`, kept only for `/api/extract/legacy` while
+         *     the frontend moves to `ExtractionResult`. Deleted before v1.1 ships.
+         */
+        LegacyExtractionResult: {
+            draft: components["schemas"]["AffidavitDraft"];
+            /**
+             * Notes
+             * @default []
+             */
+            notes?: components["schemas"]["ValidationNote"][];
+            /** Provider */
+            provider: string;
+            /** Source Sha256 */
+            source_sha256: string;
+            /** N Pages */
+            n_pages: number;
+            /** Has Text Layer */
+            has_text_layer: boolean;
+            /** Used Vision */
+            used_vision: boolean;
+        };
         /** LocationFix */
         LocationFix: {
             /**
@@ -737,6 +826,28 @@ export interface components {
             /** Affiant Name */
             affiant_name?: string | null;
         };
+        /**
+         * PagePreview
+         * @description A small picture of one page of the upload, handed back so the review screen can show
+         *     the user their own document. Made in memory and never kept. `width` and `height` are
+         *     in the same units as `FieldEvidence.bbox` (PDF points for a PDF, pixels for a photo).
+         */
+        PagePreview: {
+            /** Index */
+            index: number;
+            /** Width */
+            width: number;
+            /** Height */
+            height: number;
+            /** Image */
+            image: string;
+        };
+        /**
+         * PageType
+         * @description What a page of an uploaded court file is. v1.1, bible §12.
+         * @enum {string}
+         */
+        PageType: "affidavit_of_service" | "summons_complaint" | "judgment" | "notice" | "other";
         /** PersonDescription */
         PersonDescription: {
             /** Sex */
@@ -896,7 +1007,10 @@ export interface operations {
     };
     extract_api_extract_post: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Return page previews for review. */
+                previews?: boolean;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -914,6 +1028,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ExtractionResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    extract_legacy_api_extract_legacy_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_extract_legacy_api_extract_legacy_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LegacyExtractionResult"];
                 };
             };
             /** @description Validation Error */

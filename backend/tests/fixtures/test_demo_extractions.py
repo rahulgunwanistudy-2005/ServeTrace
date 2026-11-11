@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from app.domain.models import ExtractionResult
+from app.domain.models import LegacyExtractionResult
 from app.extraction.pdf_text import sha256_of
 from app.extraction.validators import GROUNDING_MIN_RATIO, grounding_ratio
 from app.extraction.vision import read_source
@@ -15,9 +15,9 @@ DEMO_DIR = Path(__file__).resolve().parents[3] / "fixtures" / "demo_cases"
 CASE_IDS = json.loads((DEMO_DIR / "index.json").read_text(encoding="utf-8"))["cases"]
 
 
-def load(case_id: str) -> ExtractionResult:
+def load(case_id: str) -> LegacyExtractionResult:
     raw = (DEMO_DIR / case_id / "extraction.json").read_text(encoding="utf-8")
-    return ExtractionResult.model_validate_json(raw)
+    return LegacyExtractionResult.model_validate_json(raw)
 
 
 @pytest.mark.parametrize("case_id", CASE_IDS)

@@ -85,7 +85,7 @@ describe('extract', () => {
 		await api.extract(new File(['%PDF-1.7'], 'affidavit.pdf', { type: 'application/pdf' }));
 
 		const { url, init } = calls.first;
-		expect(url).toBe('/api/extract');
+		expect(url).toBe('/api/extract/legacy');
 		expect(init?.method).toBe('POST');
 		const body = init?.body as FormData;
 		expect(body).toBeInstanceOf(FormData);

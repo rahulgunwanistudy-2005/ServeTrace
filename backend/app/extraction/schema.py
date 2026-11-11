@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Any, Final
 
-from app.domain.models import AffidavitDraft, AttemptDraft, PersonDescription
+from app.domain.models import AffidavitDraft, AttemptDraft, FieldEvidence, PersonDescription
 
 SCALAR_FIELDS: Final[tuple[str, ...]] = (
     "index_number",
@@ -23,7 +23,9 @@ SCALAR_FIELDS: Final[tuple[str, ...]] = (
     "server_name",
     "server_license",
     "agency_license",
+    "agency_name",
     "method",
+    "method_checkbox",
     "served_date",
     "served_time",
     "served_address",
@@ -37,6 +39,7 @@ SCALAR_FIELDS: Final[tuple[str, ...]] = (
 a field of the same name on `AffidavitDraft`; a test asserts that correspondence."""
 
 METHOD_VALUES: Final[tuple[str, ...]] = ("308_1", "308_2", "308_4", "unknown")
+CHECKBOX_VALUES: Final[tuple[str, ...]] = ("308_1", "308_2", "308_4", "none")
 
 _DESCRIPTION_INTS: Final[tuple[str, ...]] = (
     "age_min",
@@ -46,6 +49,12 @@ _DESCRIPTION_INTS: Final[tuple[str, ...]] = (
     "weight_lb_min",
     "weight_lb_max",
 )
+
+
+_PAGE: Final[dict[str, Any]] = {
+    "type": "integer",
+    "description": "The page number the evidence_quote is on, as labelled in the input.",
+}
 
 
 def _field(description: str, *, enum: tuple[str, ...] | None = None) -> dict[str, Any]:
@@ -64,6 +73,7 @@ def _field(description: str, *, enum: tuple[str, ...] | None = None) -> dict[str
                 "type": "string",
                 "description": "The span of the document this was read from, copied verbatim.",
             },
+            "page": _PAGE,
         },
         "required": ["value", "confidence", "evidence_quote"],
     }
@@ -77,7 +87,12 @@ _FIELD_HELP: Final[dict[str, str]] = {
     "server_name": "The process server who swore the affidavit.",
     "server_license": "The process server's licence number.",
     "agency_license": "The process serving agency's licence number.",
+    "agency_name": "The name of the process serving agency that employs the server.",
     "method": "How service is claimed to have been made.",
+    "method_checkbox": (
+        "Only if the form prints a box for each method of service: the method whose box is "
+        "ticked. 'none' when the form has no such boxes or none is ticked."
+    ),
     "served_date": "Date of the claimed service, normalised to YYYY-MM-DD.",
     "served_time": "Local time of the claimed service, normalised to 24-hour HH:MM.",
     "served_address": "The address where service is claimed, as printed.",
@@ -89,11 +104,16 @@ _FIELD_HELP: Final[dict[str, str]] = {
 }
 
 
+_ENUMS: Final[dict[str, tuple[str, ...]]] = {
+    "method": METHOD_VALUES,
+    "method_checkbox": CHECKBOX_VALUES,
+}
+
+
 def response_json_schema() -> dict[str, Any]:
     """The schema handed to the provider. Flat and $ref-free so every provider accepts it."""
     properties: dict[str, Any] = {
-        name: _field(_FIELD_HELP[name], enum=METHOD_VALUES if name == "method" else None)
-        for name in SCALAR_FIELDS
+        name: _field(_FIELD_HELP[name], enum=_ENUMS.get(name)) for name in SCALAR_FIELDS
     }
     properties["recipient_description"] = {
         "type": "object",
@@ -108,6 +128,7 @@ def response_json_schema() -> dict[str, Any]:
             "raw_text": {"type": "string", "description": "The description block, verbatim."},
             "confidence": {"type": "number"},
             "evidence_quote": {"type": "string"},
+            "page": _PAGE,
         },
     }
     properties["attempts"] = {
@@ -125,6 +146,7 @@ def response_json_schema() -> dict[str, Any]:
                 },
                 "confidence": {"type": "number"},
                 "evidence_quote": {"type": "string"},
+                "page": _PAGE,
             },
         },
     }
@@ -168,7 +190,15 @@ def _clean_int(value: object) -> int | None:
     return None
 
 
-def _read_field(payload: dict[str, Any], name: str) -> tuple[str | None, float | None, str | None]:
+def _clean_page(value: object) -> int | None:
+    """The model numbers pages from 1, as they are labelled; evidence counts from 0."""
+    number = _clean_int(value)
+    return number - 1 if number is not None and 1 <= number <= 1000 else None
+
+
+def _read_field(
+    payload: dict[str, Any], name: str
+) -> tuple[str | None, float | None, str | None, int | None]:
     """A field object, or a bare scalar when the model flattened it anyway."""
     raw = payload.get(name)
     if isinstance(raw, dict):
@@ -176,16 +206,17 @@ def _read_field(payload: dict[str, Any], name: str) -> tuple[str | None, float |
             _clean_str(raw.get("value")),
             _clean_confidence(raw.get("confidence")),
             _clean_str(raw.get("evidence_quote")),
+            _clean_page(raw.get("page")),
         )
-    return _clean_str(raw), None, None
+    return _clean_str(raw), None, None, None
 
 
 def _description_from(
     payload: dict[str, Any],
-) -> tuple[PersonDescription | None, float | None, str | None]:
+) -> tuple[PersonDescription | None, float | None, str | None, int | None]:
     block = _as_mapping(payload.get("recipient_description"))
     if not block:
-        return None, None, None
+        return None, None, None, None
 
     sex = _clean_str(block.get("sex"))
     description = PersonDescription(
@@ -200,11 +231,12 @@ def _description_from(
         raw_text=_clean_str(block.get("raw_text")),
     )
     if description == PersonDescription():
-        return None, None, None
+        return None, None, None, None
     return (
         description,
         _clean_confidence(block.get("confidence")),
         _clean_str(block.get("evidence_quote")),
+        _clean_page(block.get("page")),
     )
 
 
@@ -218,27 +250,36 @@ def draft_from_payload(payload: object) -> AffidavitDraft:
     values: dict[str, Any] = {}
     confidence: dict[str, float] = {}
     quotes: dict[str, str] = {}
+    evidence: dict[str, FieldEvidence] = {}
 
-    for name in SCALAR_FIELDS:
-        value, score, quote = _read_field(body, name)
-        if value is not None:
-            values[name] = value
+    def keep(name: str, score: float | None, quote: str | None, page: int | None) -> None:
         if score is not None:
             confidence[name] = score
         if quote is not None:
             quotes[name] = quote
+        if quote is not None or page is not None:
+            evidence[name] = FieldEvidence(quote=quote, page=page)
 
-    description, desc_confidence, desc_quote = _description_from(body)
+    for name in SCALAR_FIELDS:
+        value, score, quote, page = _read_field(body, name)
+        if name == "method_checkbox":
+            # Only a ticked box is evidence of anything. "none" is the model saying the
+            # form has no boxes, which is an answer, not a value.
+            if value in CHECKBOX_VALUES and value != "none":
+                values[name] = value
+            continue
+        if value is not None:
+            values[name] = value
+        keep(name, score, quote, page)
+
+    description, desc_confidence, desc_quote, desc_page = _description_from(body)
     if description is not None:
         values["recipient_description"] = description
-        if desc_confidence is not None:
-            confidence["recipient_description"] = desc_confidence
-        if desc_quote is not None:
-            quotes["recipient_description"] = desc_quote
+        keep("recipient_description", desc_confidence, desc_quote, desc_page)
 
     attempts: list[AttemptDraft] = []
     raw_attempts = body.get("attempts")
-    for index, item in enumerate(raw_attempts if isinstance(raw_attempts, list) else []):
+    for item in raw_attempts if isinstance(raw_attempts, list) else []:
         entry = _as_mapping(item)
         if not entry:
             continue
@@ -250,16 +291,17 @@ def draft_from_payload(payload: object) -> AffidavitDraft:
                 outcome=_clean_str(entry.get("outcome")),
             )
         )
-        score = _clean_confidence(entry.get("confidence"))
-        if score is not None:
-            confidence[f"attempts[{index}]"] = score
-        quote = _clean_str(entry.get("evidence_quote"))
-        if quote is not None:
-            quotes[f"attempts[{index}]"] = quote
+        keep(
+            f"attempts[{len(attempts) - 1}]",
+            _clean_confidence(entry.get("confidence")),
+            _clean_str(entry.get("evidence_quote")),
+            _clean_page(entry.get("page")),
+        )
 
     return AffidavitDraft(
         **values,
         attempts=attempts,
         field_confidence=confidence,
         evidence_quotes=quotes,
+        evidence=evidence,
     )

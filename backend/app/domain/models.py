@@ -158,6 +158,10 @@ class AffidavitDraft(BaseModel):
     evidence: dict[str, FieldEvidence] = {}
     """v1.1: the same quotes with the page they came from and, when the file has a text
     layer, the box around them, so the review screen can point at the words."""
+    method_checkbox: str | None = None
+    """v1.1: on a form that prints a box per method, the box the extractor saw ticked
+    ("308_1", "308_2", "308_4"), or None when the form has no boxes. Only ever compared with
+    `method`; never a source of the method by itself."""
 
 
 class ValidationNote(BaseModel):
@@ -168,8 +172,9 @@ class ValidationNote(BaseModel):
     message: str
 
 
-class ExtractionResult(BaseModel):
-    """The response of `POST /api/extract`."""
+class LegacyExtractionResult(BaseModel):
+    """The v1.0 response of `POST /api/extract`, kept only for `/api/extract/legacy` while
+    the frontend moves to `ExtractionResult`. Deleted before v1.1 ships."""
 
     draft: AffidavitDraft
     notes: list[ValidationNote] = []
@@ -478,6 +483,38 @@ class ExtractedAffidavit(BaseModel):
     notes: list[ValidationNote] = []
     pages: list[int] = []
     """0-based pages of the uploaded file this affidavit was read from."""
+
+
+class PagePreview(BaseModel):
+    """A small picture of one page of the upload, handed back so the review screen can show
+    the user their own document. Made in memory and never kept. `width` and `height` are
+    in the same units as `FieldEvidence.bbox` (PDF points for a PDF, pixels for a photo)."""
+
+    index: int
+    width: float
+    height: float
+    image: str
+    """`data:image/jpeg;base64,...`, at most 1000 px on the long edge."""
+
+
+class ExtractionResult(BaseModel):
+    """The response of `POST /api/extract` (v1.1): every page classified, every affidavit
+    found in the file as a draft, and the judgment's entry date when the file carries one.
+    """
+
+    page_types: list[PageType]
+    affidavits: list[ExtractedAffidavit] = []
+    judgment_entry_date: date | None = None
+    """A draft like every other extracted value: shown to the user, never used unconfirmed."""
+    judgment_evidence: FieldEvidence | None = None
+    notes: list[ValidationNote] = []
+    """File-level observations: pages skipped, classification fallbacks."""
+    provider: str
+    source_sha256: str
+    n_pages: int
+    has_text_layer: bool
+    used_vision: bool
+    previews: list[PagePreview] = []
 
 
 class RuleRate(BaseModel):

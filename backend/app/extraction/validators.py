@@ -34,6 +34,9 @@ NO_TEXT_LAYER_CAP: Final = 0.6
 FLAGGED_CAP: Final = 0.4
 """Confidence ceiling for a value a deterministic check found implausible."""
 
+METHOD_UNCLEAR_CAP: Final = 0.5
+"""Bible §12 (v1.1): the method read and the method the form itself shows disagree."""
+
 MAILING_MAX_DAYS: Final = 60
 """Bible §12 sanity bound. The 20-day legal rule is R-T2's job, in the engine, not here."""
 
@@ -185,22 +188,55 @@ def normalize_method(value: str | None) -> str | None:
     return None
 
 
-def infer_method(source_text: str | None) -> tuple[str, str] | None:
-    """Bible §12: fall back to the form's own wording when the model would not commit.
-
-    Returns the method and the verbatim span it was read from, so an inferred value is
-    evidenced on the page exactly like an extracted one and the user can see why.
-    """
-    if not source_text:
-        return None
+def _keyword_hits(source_text: str) -> list[tuple[str, str]]:
+    hits: list[tuple[str, str]] = []
     for keyword, method in _METHOD_KEYWORDS:
         pattern = re.compile(
             r"\s+".join(re.escape(word) for word in keyword.split()), re.IGNORECASE
         )
         found = pattern.search(source_text)
         if found:
-            return method, found.group(0)
-    return None
+            hits.append((method, found.group(0)))
+    return hits
+
+
+def infer_method(source_text: str | None) -> tuple[str, str] | None:
+    """Bible §12: fall back to the form's own wording when the model would not commit.
+
+    Returns the method and the verbatim span it was read from, so an inferred value is
+    evidenced on the page exactly like an extracted one and the user can see why.
+
+    A form that prints every method with a box beside each (v1.1, layout L2) carries the
+    wording of all three whichever box is ticked, so the wording proves nothing there and
+    no method is inferred from it.
+    """
+    if not source_text:
+        return None
+    hits = _keyword_hits(source_text)
+    if not hits or len({method for method, _ in hits}) == 3:
+        return None
+    return hits[0]
+
+
+_AGENCY_SUFFIXES: Final = re.compile(
+    r"(?:\s+(?:inc|incorporated|llc|l l c|corp|corporation|co|company|ltd|limited|pllc))+$"
+)
+_NON_WORD: Final = re.compile(r"[^a-z0-9& ]+")
+
+
+def agency_key(name: str | None) -> str | None:
+    """One key per agency, however its name was typed on the affidavit. v1.1 advocate rollups.
+
+    "Rapid Legal Services, Inc." and "RAPID LEGAL SERVICES INC" are one agency: case and
+    punctuation go, and so does a trailing Inc / LLC / Corp. The key is for grouping, never
+    for display — the report shows the name as the affidavit printed it.
+    """
+    if not name:
+        return None
+    lowered = _NON_WORD.sub(" ", name.lower().replace(".", ""))
+    key = _WHITESPACE.sub(" ", lowered).strip()
+    key = _AGENCY_SUFFIXES.sub("", key).strip()
+    return key.upper() or None
 
 
 class _Notes:
@@ -264,6 +300,7 @@ def _valued_fields(draft: AffidavitDraft) -> list[str]:
             "server_name",
             "server_license",
             "agency_license",
+            "agency_name",
             "method",
             "served_date",
             "served_time",
@@ -377,7 +414,7 @@ def _check_mailing(draft: AffidavitDraft, served_day: date | None, notes: _Notes
     return mailed.isoformat()
 
 
-NAME_FIELDS = ("defendant_name", "plaintiff", "server_name", "recipient_name")
+NAME_FIELDS = ("defendant_name", "plaintiff", "server_name", "recipient_name", "agency_name")
 
 _CAPTION_TAIL = re.compile(r"[\s,;:]+$")
 
@@ -397,6 +434,29 @@ def _trim_caption_punctuation(draft: AffidavitDraft) -> dict[str, object]:
     return trimmed
 
 
+def _cross_check_method(
+    method: str | None,
+    read_by_model: bool,
+    checkbox: str | None,
+    source_text: str | None,
+    notes: _Notes,
+) -> None:
+    """Bible §12 (v1.1): the method is checked against a second witness on the page.
+
+    The witness is the ticked box when the form has boxes, else the form's own wording.
+    When they disagree the user is asked; ServeTrace does not pick one. A method that was
+    itself inferred from the wording is not checked against the wording again.
+    """
+    if method is None or method == "unknown":
+        return
+    witness = normalize_method(checkbox) if checkbox else None
+    if witness is None and read_by_model:
+        inferred = infer_method(source_text)
+        witness = inferred[0] if inferred else None
+    if witness is not None and witness != method:
+        notes.add("method", "warning", "Method unclear — please confirm.", METHOD_UNCLEAR_CAP)
+
+
 def validate(
     draft: AffidavitDraft, source_text: str | None, now: datetime | None = None
 ) -> tuple[AffidavitDraft, list[ValidationNote]]:
@@ -410,6 +470,7 @@ def validate(
     update: dict[str, object] = {}
 
     method = normalize_method(draft.method)
+    read_by_model = method is not None
     if method is None:
         inferred = infer_method(source_text)
         if inferred is not None:
@@ -430,6 +491,7 @@ def validate(
         update["method"] = "unknown"
     else:
         update["method"] = None
+    _cross_check_method(method, read_by_model, draft.method_checkbox, source_text, notes)
 
     update |= _resolve_service_datetime(draft, notes, moment)
     served_day = parse_date(str(update.get("served_date") or draft.served_date or "")) or None

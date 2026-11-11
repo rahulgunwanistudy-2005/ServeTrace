@@ -10,7 +10,7 @@ the public site is one the eval or the store actually produced.
 ### Phase checklist
 - [x] **A** Bible amendments, contracts, config, version stamp, regenerated types
 - [x] **B** Photo ingest (exifr, on-device), time-uncertainty rule, property tests
-- [ ] **C** Eight affidavit layouts, HEIC, page classification, provenance, judgment date
+- [x] **C** Eight affidavit layouts, HEIC, page classification, provenance, judgment date
 - [ ] **D** Flagged-first correction UI on `ExtractionResult`, legacy endpoint deleted
 - [ ] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
 - [ ] **F** Usage counts + leads (Supabase over PostgREST), `/attorneys`, privacy update
@@ -19,6 +19,41 @@ the public site is one the eval or the store actually produced.
 
 ### Decisions taken
 (Filled in as they are made; each is the more conservative or more private option.)
+
+- **Phase C eval, without a key (2026-11-12).** `eval/layout_eval.py` on 200 generated
+  documents (25 x L1–L8, L7 also as HEIC = 225 uploads), `LLM_PROVIDER=none`. Measured
+  deterministically: page classification 100% on every text-layer layout, including all
+  150 pages of the 25 L8 court files (target ≥ 95%); affidavit grouping 225/225; judgment
+  entry date 25/25 on L8, 0 dates invented for the judgments that print none. On L4, L6
+  and L7 the 100% is the no-provider fallback ("read every image page as the affidavit")
+  happening to be right, because every page in those files *is* the affidavit; it is not
+  a measurement of the thumbnail classifier. **Per-field accuracy per layout and the
+  §4.4 served_at/served_address targets are not measured**: there is no provider key in
+  this environment. Command in the eval's docstring; results go to
+  `eval/results/layouts.json`.
+- **A complaint's verification page looked like an affidavit.** It is sworn ("being duly
+  sworn, deposes and says") in exactly an affidavit's words. Found by writing the L8
+  fixture realistically rather than conveniently; the classifier gained three complaint
+  cues ("verified complaint", "verification", "foregoing complaint") instead of the
+  fixture losing the sentence.
+- **Method cross-check uses the ticked box when there is one.** The spec says to compare
+  the method with keyword inference. On a checkbox form every method's wording is printed
+  whichever box is ticked, so inference would flag every L2 form that is not 308(4).
+  The witness is therefore the ticked box when the model saw boxes, keyword inference
+  otherwise, and keyword inference declines to answer at all when the text names all
+  three methods.
+- **A single uploaded photo is not classified.** It is the page the person was asked
+  for; a classification call could only ever skip it. Multi-page image files are.
+- **Page previews come back from the server** (`ExtractionResult.previews`, ≤ 1000 px
+  JPEG data URLs, made in memory, never kept) so the review screen can show the person
+  their own document, HEIC included, without a PDF renderer in the browser (none is an
+  approved dependency). `?previews=false` for batch uploads.
+- **Re-encoding a photo drops its EXIF**, including any GPS block, before a provider
+  sees it.
+- **`/api/extract` returns the v1.1 envelope; `/api/extract/legacy` serves the v1.0
+  shape** to the current review screen until Phase D, then is deleted.
+- **Not yet done from Phase A's decisions:** the separate rate budget for `/api/extract`
+  exists in config only. It lands with the batch upload in Phase E, which is what needs it.
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what

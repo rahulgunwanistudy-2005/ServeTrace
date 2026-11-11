@@ -6,13 +6,13 @@ response is the only copy of anything read off them.
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, Query, UploadFile
 
 from app.api.errors import BadInputError, DemoOnlyError, UploadTooLargeError
 from app.api.rate_limit import enforce_rate_limit
 from app.config import get_settings
-from app.domain.models import ExtractionResult, LatLng
-from app.extraction.vision import extract_affidavit
+from app.domain.models import AffidavitDraft, ExtractionResult, LatLng, LegacyExtractionResult
+from app.extraction.vision import extract_document, legacy_from
 from app.geo.geocode import MIN_CONFIDENCE, geocode_all
 
 router = APIRouter(tags=["extract"])
@@ -44,13 +44,12 @@ async def _read_limited(upload: UploadFile, limit: int) -> bytes:
     return b"".join(chunks)
 
 
-async def _attach_locations(result: ExtractionResult) -> ExtractionResult:
-    """Geocode the addresses on the draft, and attach a point only when it is a confident one.
+async def _locate(draft: AffidavitDraft) -> AffidavitDraft:
+    """Geocode the addresses on a draft, and attach a point only when it is a confident one.
 
     An unresolved address is not an error: the user confirms every address anyway, and a
     wrong pin on a map is worse than no pin.
     """
-    draft = result.draft
     addresses = [draft.served_address or "", *(a.address or "" for a in draft.attempts)]
     resolved = await geocode_all(addresses)
 
@@ -58,7 +57,7 @@ async def _attach_locations(result: ExtractionResult) -> ExtractionResult:
         hit = resolved.get(address or "")
         return hit.location if hit and hit.confidence >= MIN_CONFIDENCE else None
 
-    updated = draft.model_copy(
+    return draft.model_copy(
         update={
             "served_location": point(draft.served_address),
             "attempts": [
@@ -67,13 +66,9 @@ async def _attach_locations(result: ExtractionResult) -> ExtractionResult:
             ],
         }
     )
-    return result.model_copy(update={"draft": updated})
 
 
-@router.post(
-    "/extract", response_model=ExtractionResult, dependencies=[Depends(enforce_rate_limit)]
-)
-async def extract(file: Annotated[UploadFile, File()]) -> ExtractionResult:
+async def _read_upload(file: UploadFile, previews: bool) -> ExtractionResult:
     settings = get_settings()
     if settings.demo_only:
         raise DemoOnlyError(
@@ -83,7 +78,32 @@ async def extract(file: Annotated[UploadFile, File()]) -> ExtractionResult:
 
     data = await _read_limited(file, settings.max_upload_bytes)
     try:
-        result = await extract_affidavit(data)
+        result = await extract_document(data, previews=previews)
     finally:
         await file.close()
-    return await _attach_locations(result)
+    located = [
+        found.model_copy(update={"draft": await _locate(found.draft)})
+        for found in result.affidavits
+    ]
+    return result.model_copy(update={"affidavits": located})
+
+
+@router.post(
+    "/extract", response_model=ExtractionResult, dependencies=[Depends(enforce_rate_limit)]
+)
+async def extract(
+    file: Annotated[UploadFile, File()],
+    previews: Annotated[bool, Query(description="Return page previews for review.")] = True,
+) -> ExtractionResult:
+    return await _read_upload(file, previews)
+
+
+@router.post(
+    "/extract/legacy",
+    response_model=LegacyExtractionResult,
+    dependencies=[Depends(enforce_rate_limit)],
+    deprecated=True,
+)
+async def extract_legacy(file: Annotated[UploadFile, File()]) -> LegacyExtractionResult:
+    """v1.0 shape, the first affidavit only. Removed once the frontend reads v1.1."""
+    return legacy_from(await _read_upload(file, previews=False))

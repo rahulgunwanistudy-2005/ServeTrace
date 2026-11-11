@@ -1,0 +1,91 @@
+{# Synthetic court-file pages around an affidavit (layout L8): summons, complaint, judgment.
+   Wording is generic and invented for testing; it is not a reproduction of any court form. #}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: Letter; margin: 0.9in 0.9in; }
+  body { font-family: "Times New Roman", Times, serif; font-size: 11.5pt; line-height: 1.5; color: #111; }
+  .court { text-align: center; } .court strong { display: block; }
+  h1 { font-size: 13pt; text-align: center; letter-spacing: .08em; margin: 18px 0 10px; }
+  p { margin: 0 0 10px; text-align: justify; }
+  .page { break-before: page; }
+  .page:first-child { break-before: auto; }
+  .stamp { float: right; border: 2px solid #8a1c1c; color: #8a1c1c; padding: 6px 12px;
+           text-align: center; font-family: "Courier New", monospace; font-weight: bold;
+           transform: rotate(-4deg); margin: 0 0 10px 14px; }
+  .fineprint { font-size: 8.5pt; color: #444; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+{% if part == 'summons_complaint' %}
+<div class="page">
+  <div class="court"><strong>CIVIL COURT OF THE CITY OF NEW YORK</strong>COUNTY OF {{ county }}</div>
+  <p>{{ aff.plaintiff }}, Plaintiff, against {{ aff.defendant_name }}, Defendant.
+     Index No. {{ aff.index_number }}</p>
+  <h1>SUMMONS</h1>
+  <p>To the above named Defendant: YOU ARE HEREBY SUMMONED to appear in the Civil Court of the
+  City of New York, County of {{ county }}, at the office of the Clerk, by answering the
+  complaint of the plaintiff within the time allowed after service of this summons. Upon your
+  failure to appear, judgment will be entered against you by default for the sum demanded in
+  the complaint, with interest and costs.</p>
+  <p>The nature of this action is a claim for money said to be owed on a consumer credit account.
+  The amount the plaintiff demands is shown in the complaint served with this summons.</p>
+  <p>Dated: {{ summons_date }}</p>
+  <p class="fineprint">SYNTHETIC DOCUMENT &mdash; generated for ServeTrace testing.</p>
+</div>
+
+<div class="page">
+  <div class="court"><strong>CIVIL COURT OF THE CITY OF NEW YORK</strong>COUNTY OF {{ county }}</div>
+  <h1>VERIFIED COMPLAINT</h1>
+  <p>Plaintiff, by its attorneys, as and for its complaint against the Defendant, alleges:</p>
+  <p>1. Plaintiff is a purchaser of consumer credit accounts. 2. Upon information and belief,
+  Defendant resides in the County of {{ county }}. 3. Defendant opened a credit account and
+  made purchases or took cash advances on it. 4. Defendant failed to make the payments
+  required, and a balance of ${{ balance }} remains unpaid. 5. The account was sold and
+  assigned to Plaintiff, which is the present owner of it.</p>
+  <p>6. No part of the balance has been paid although duly demanded.</p>
+  <p class="fineprint">SYNTHETIC DOCUMENT &mdash; generated for ServeTrace testing.</p>
+</div>
+
+<div class="page">
+  <p>WHEREFORE, plaintiff demands judgment against the Defendant in the sum of ${{ balance }},
+  together with interest, costs and disbursements of this action. (Complaint, continued.)</p>
+  <h1>VERIFICATION</h1>
+  <p>STATE OF NEW YORK, COUNTY OF {{ county }}, ss.: {{ agent_name }}, being duly sworn, deposes
+  and says that deponent is an authorized agent of the plaintiff, has read the foregoing
+  complaint, and knows the contents thereof to be true to deponent's own knowledge, except as
+  to matters stated upon information and belief.</p>
+  <p>______________________________<br>{{ agent_name }}</p>
+  <p class="fineprint">SYNTHETIC DOCUMENT &mdash; generated for ServeTrace testing.</p>
+</div>
+{% else %}
+<div class="page">
+  {% if judgment_style == 'stamp' %}
+  <div class="stamp">ENTERED<br>{{ entry_printed }}<br>CLERK</div>
+  {% endif %}
+  <div class="court"><strong>CIVIL COURT OF THE CITY OF NEW YORK</strong>COUNTY OF {{ county }}</div>
+  <p>{{ aff.plaintiff }}, Plaintiff, against {{ aff.defendant_name }}, Defendant.
+     Index No. {{ aff.index_number }}</p>
+  <h1>JUDGMENT</h1>
+  <p>The summons and complaint in this action having been served upon the Defendant on
+  {{ aff.served_at.strftime('%B %-d, %Y') }}, and proof of service having been filed, and the
+  time for the Defendant to answer having expired without an answer or appearance, the
+  Defendant is in default.</p>
+  <p>NOW, on motion of the plaintiff, it is ADJUDGED that {{ aff.plaintiff }} recover of
+  {{ aff.defendant_name }} the sum of ${{ balance }} with interest of ${{ interest }} and costs of
+  ${{ costs }}, amounting in all to ${{ total }}, and that the plaintiff have execution therefor.</p>
+  {% if judgment_style == 'prose' %}
+  <p>Judgment entered on {{ entry_printed }} by the Clerk of the Civil Court.</p>
+  {% elif judgment_style == 'numeric' %}
+  <p>Entered: {{ entry_printed }} &nbsp;&nbsp;&nbsp; ______________________ Clerk</p>
+  {% else %}
+  <p>______________________ Clerk of the Court</p>
+  {% endif %}
+  <p class="fineprint">SYNTHETIC DOCUMENT &mdash; generated for ServeTrace testing.</p>
+</div>
+{% endif %}
+</body>
+</html>

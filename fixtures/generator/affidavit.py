@@ -251,8 +251,13 @@ def _environment() -> Environment:
     )
 
 
-def render_pdf(rng: random.Random, affidavit: Affidavit) -> bytes:
-    """Render the affidavit to a PDF that looks like the real form."""
+def render_pdf(rng: random.Random, affidavit: Affidavit, agency: str | None = None) -> bytes:
+    """Render the affidavit to a PDF that looks like the real form.
+
+    `agency` pins the agency printed on it (v1.1 layouts label it). The draw that would
+    have chosen one is made either way, so the rest of the document is the same.
+    """
+    drawn = rng.choice(PROCESS_AGENCIES)
     from weasyprint import HTML  # imported lazily: it pulls in pango at import time
 
     county = (affidavit.court or "").split("County of ")[-1] or "New York"
@@ -262,7 +267,7 @@ def render_pdf(rng: random.Random, affidavit: Affidavit) -> bytes:
         .render(
             aff=affidavit,
             county=county.upper(),
-            agency=rng.choice(PROCESS_AGENCIES),
+            agency=agency or drawn,
             notary_name=rng.choice(SERVER_NAMES),
             notary_county=county,
             commission_expiry=date(2027, rng.randint(1, 12), rng.randint(1, 28)),

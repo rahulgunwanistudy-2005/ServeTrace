@@ -37,6 +37,11 @@ class UnsupportedFileError(ServeTraceError):
     status_code = status.HTTP_415_UNSUPPORTED_MEDIA_TYPE
 
 
+class TooManyPagesError(ServeTraceError):
+    code = "too_many_pages"
+    status_code = status.HTTP_400_BAD_REQUEST
+
+
 class AffidavitNotConfirmedError(ServeTraceError):
     """The affidavit is well-formed but not yet the user's own account of their papers.
 

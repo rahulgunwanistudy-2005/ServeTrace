@@ -42,8 +42,47 @@ def test_an_affidavit_with_a_text_layer_comes_back_as_a_draft(client: TestClient
     assert body["used_vision"] is False
     assert body["n_pages"] == 2
     assert len(body["source_sha256"]) == 64
+    assert body["page_types"] == ["affidavit_of_service", "affidavit_of_service"]
+    (found,) = body["affidavits"]
+    assert found["pages"] == [0, 1]
+    assert found["draft"]["method"] == "308_2"
+    assert found["notes"][0]["field"] == "method"
+    assert [p["index"] for p in body["previews"]] == [0, 1]
+    assert body["previews"][0]["image"].startswith("data:image/jpeg;base64,")
+
+
+def test_previews_can_be_left_out(client: TestClient) -> None:
+    """A batch upload has no review screen to show them on."""
+    files = {"file": ("affidavit.pdf", (DEMO / "affidavit.pdf").read_bytes(), "application/pdf")}
+    response = client.post("/api/extract?previews=false", files=files)
+    assert response.json()["previews"] == []
+
+
+def test_the_legacy_shape_is_the_first_affidavit(client: TestClient) -> None:
+    files = {"file": ("affidavit.pdf", (DEMO / "affidavit.pdf").read_bytes(), "application/pdf")}
+    body = client.post("/api/extract/legacy", files=files).json()
     assert body["draft"]["method"] == "308_2"
-    assert body["notes"][0]["field"] == "method"
+    assert body["n_pages"] == 2
+    assert "affidavits" not in body
+
+
+def test_a_heic_photo_goes_end_to_end(client: TestClient) -> None:
+    import io
+
+    import pillow_heif
+    from PIL import Image
+
+    pillow_heif.register_heif_opener()
+    buffer = io.BytesIO()
+    Image.new("RGB", (300, 400), (250, 250, 250)).save(buffer, format="HEIF")
+    files = {"file": ("IMG_0001.HEIC", buffer.getvalue(), "image/heic")}
+    response = client.post("/api/extract", files=files)
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["page_types"] == ["affidavit_of_service"]
+    assert body["affidavits"][0]["pages"] == [0]
+    assert (body["previews"][0]["width"], body["previews"][0]["height"]) == (300, 400)
 
 
 def test_a_scan_takes_the_vision_path(client: TestClient) -> None:

@@ -53,7 +53,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 /** Generated from the backend's OpenAPI document. Never hand-written. Bible §7. */
 export type Health = components['schemas']['Health'];
-export type ExtractionResult = components['schemas']['ExtractionResult'];
+/** v1.0 shape, served by `/api/extract/legacy` until the review screen reads v1.1. */
+export type ExtractionResult = components['schemas']['LegacyExtractionResult'];
+/** v1.1: every page classified, every affidavit in the file. */
+export type DocumentExtraction = components['schemas']['ExtractionResult'];
 export type AffidavitDraft = components['schemas']['AffidavitDraft'];
 export type ValidationNote = components['schemas']['ValidationNote'];
 export type GeocodeResponse = components['schemas']['GeocodeResponse'];
@@ -106,7 +109,7 @@ export const api = {
 	extract: (file: File) => {
 		const body = new FormData();
 		body.append('file', file);
-		return request<ExtractionResult>('/extract', { method: 'POST', body });
+		return request<ExtractionResult>('/extract/legacy', { method: 'POST', body });
 	},
 
 	/**

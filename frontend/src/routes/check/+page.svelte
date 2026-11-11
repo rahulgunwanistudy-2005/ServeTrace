@@ -264,7 +264,7 @@
 
 		<div class="mt-6">
 			<FileDrop
-				accept=".pdf,image/*"
+				accept=".pdf,image/*,.heic,.heif"
 				label={busy ? upload.reading : upload.prompt}
 				hint="A PDF or a photo, up to 15 MB."
 				{busy}

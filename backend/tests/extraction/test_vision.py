@@ -37,12 +37,13 @@ def test_a_scan_is_sent_as_images(demo_scan: bytes) -> None:
 
 
 def test_a_photo_is_one_page_of_images() -> None:
-    png = bytes.fromhex(
-        "89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4"
-        "890000000a49444154789c6360000002000100ffff03000006000557bfabd400"
-        "00000049454e44ae426082"
-    )
-    source = read_source(png)
+    import io
+
+    from PIL import Image
+
+    buffer = io.BytesIO()
+    Image.new("RGB", (40, 60), (255, 255, 255)).save(buffer, format="PNG")
+    source = read_source(buffer.getvalue())
     assert source.n_pages == 1
     assert len(source.doc.page_images) == 1
 

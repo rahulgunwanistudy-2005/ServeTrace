@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from app.config import get_settings
-from app.domain.models import AffidavitDraft, AttemptDraft, ExtractionResult
+from app.domain.models import AffidavitDraft, AttemptDraft, LegacyExtractionResult
 from app.extraction.pdf_text import extract_text, sha256_of
 from app.extraction.validators import validate
 from app.extraction.vision import extract_affidavit
@@ -179,7 +179,7 @@ def derive_draft(affidavit: dict[str, Any], text: str) -> AffidavitDraft:
     )
 
 
-async def build_case(case_dir: Path) -> ExtractionResult:
+async def build_case(case_dir: Path) -> LegacyExtractionResult:
     pdf = (case_dir / "affidavit.pdf").read_bytes()
     if get_settings().llm_provider != "none":
         return await extract_affidavit(pdf)
@@ -187,7 +187,7 @@ async def build_case(case_dir: Path) -> ExtractionResult:
     layer = extract_text(pdf)
     affidavit = json.loads((case_dir / "affidavit.json").read_text(encoding="utf-8"))
     draft, notes = validate(derive_draft(affidavit, layer.text), layer.text)
-    return ExtractionResult(
+    return LegacyExtractionResult(
         draft=draft,
         notes=notes,
         provider=DERIVED,
