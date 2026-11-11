@@ -3,6 +3,7 @@ date, and where each value sits on the page. No provider is called over the netw
 
 from __future__ import annotations
 
+import random
 from datetime import date
 from typing import Any
 
@@ -321,3 +322,34 @@ async def test_a_file_with_no_affidavit_says_so(monkeypatch: pytest.MonkeyPatch)
     assert result.notes[0].field == "pages"
     assert result.judgment_entry_date == date(2025, 9, 3)
     assert result.judgment_evidence is not None and result.judgment_evidence.bbox is not None
+
+
+@pytest.mark.asyncio
+async def test_a_reader_outage_keeps_everything_that_needed_no_reader() -> None:
+    """Field extraction failing (an outage, spent credits) must not cost the person the page
+    types, the grouping or the judgment date. They get an empty draft and a note."""
+    from app.api.errors import ExtractionUnavailableError
+    from app.extraction.vision import READER_NOTE, extract_document
+    from fixtures.generator.layouts import affidavits_for, render_layout
+
+    class Down:
+        name = "down"
+
+        async def extract(self, doc: object) -> object:
+            raise ExtractionUnavailableError("Automatic reading is unavailable right now.")
+
+        async def ask_json(self, *args: object) -> object:
+            raise ExtractionUnavailableError("down")
+
+    (aff,) = affidavits_for("L8", 1, 3)
+    rendered = render_layout("L8", random.Random("outage"), aff, "Ironvale Attorney Service Corp.")
+    result = await extract_document(
+        rendered.files["document.pdf"],
+        previews=False,
+        extractor=Down(),  # type: ignore[arg-type]
+    )
+    assert result.page_types == rendered.page_types
+    assert [a.pages for a in result.affidavits] == rendered.affidavit_pages
+    assert result.judgment_entry_date == rendered.judgment_entry_date
+    assert [n.field for n in result.notes] == [READER_NOTE]
+    assert result.affidavits[0].draft.served_address is None

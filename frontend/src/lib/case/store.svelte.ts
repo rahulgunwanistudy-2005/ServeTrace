@@ -21,7 +21,7 @@
 
 import { browser } from '$app/environment';
 
-import type { AnalyzeRequest, CaseAnalysis, ExtractionResult } from '$lib/api/client';
+import type { AnalyzeRequest, CaseAnalysis, DocumentExtraction } from '$lib/api/client';
 import type { LocationFix } from '$lib/ingest/types';
 
 export type Affidavit = AnalyzeRequest['affidavit'];
@@ -45,7 +45,7 @@ const KEY = 'current';
 
 /** Everything worth carrying between steps, and nothing that can be recomputed. */
 type Snapshot = {
-	extraction: ExtractionResult | null;
+	extraction: DocumentExtraction | null;
 	affidavit: Affidavit | null;
 	confirmed: boolean;
 	fixes: LocationFix[];
@@ -71,7 +71,7 @@ function empty(): Snapshot {
 }
 
 class CaseStore {
-	extraction = $state<ExtractionResult | null>(null);
+	extraction = $state<DocumentExtraction | null>(null);
 	affidavit = $state<Affidavit | null>(null);
 	/** The tick in step 1. `/api/analyze` refuses an affidavit without it (bible §10). */
 	confirmed = $state(false);
@@ -128,7 +128,9 @@ class CaseStore {
 
 	snapshot(): Snapshot {
 		return {
-			extraction: this.extraction,
+			// Page images are for the review screen only. A saved case never needs them, so
+			// pictures of court papers are not written to this browser's storage.
+			extraction: this.extraction ? { ...this.extraction, previews: [] } : null,
 			affidavit: this.affidavit,
 			confirmed: this.confirmed,
 			fixes: this.fixes,

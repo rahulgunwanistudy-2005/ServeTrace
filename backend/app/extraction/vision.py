@@ -29,14 +29,18 @@ from typing import Any, Final, Protocol
 
 from pydantic import ValidationError
 
-from app.api.errors import ExtractionInvalidError, ServeTraceError
+from app.api.errors import (
+    BadInputError,
+    ExtractionInvalidError,
+    ExtractionUnavailableError,
+    ServeTraceError,
+)
 from app.config import get_settings
 from app.domain.models import (
     AffidavitDraft,
     ExtractedAffidavit,
     ExtractionResult,
     FieldEvidence,
-    LegacyExtractionResult,
     PagePreview,
     PageType,
     ValidationNote,
@@ -181,6 +185,11 @@ def get_extractor(provider: str) -> Extractor:
     return NoneExtractor()
 
 
+READER_NOTE: Final = "reader"
+"""The document note set when field extraction failed and the drafts are empty because of
+it. Evals read it so a reader outage is scored as a failure, not as every field wrong."""
+
+
 @dataclass(frozen=True, slots=True)
 class Source:
     """What the upload turned out to be, before any model sees it."""
@@ -251,11 +260,15 @@ class _Document:
     used_vision: bool = False
 
 
-async def _read(data: bytes, extractor: Extractor) -> _Document:
+async def _read(
+    data: bytes, extractor: Extractor, override: list[PageType] | None = None
+) -> _Document:
     sha = sha256_of(data)
     if sniff(data) == "image":
         # A single photo is the page the person was asked for: the affidavit. Asking a
         # model what it is first would cost a call and could only ever skip it.
+        if override is not None and len(override) != 1:
+            raise BadInputError(f"Got {len(override)} page labels for a one-page photo.")
         return _Document(
             data=data,
             sha=sha,
@@ -264,7 +277,7 @@ async def _read(data: bytes, extractor: Extractor) -> _Document:
             layer=None,
             photo=image_page(data),
             text_pages=set(),
-            page_types=[PageType.AFFIDAVIT_OF_SERVICE],
+            page_types=list(override or [PageType.AFFIDAVIT_OF_SERVICE]),
         )
 
     layer = extract_text(data)
@@ -274,6 +287,13 @@ async def _read(data: bytes, extractor: Extractor) -> _Document:
     types: list[PageType | None] = [
         classify_text(layer.pages[i]) if i in text_pages else None for i in range(layer.n_pages)
     ]
+    if override is not None:
+        # The person re-tagged the pages: their labels stand, and nobody is asked again.
+        if len(override) != layer.n_pages:
+            raise BadInputError(
+                f"Got {len(override)} page labels for a file with {layer.n_pages} pages."
+            )
+        types = list(override)
     image_pages = [i for i, t in enumerate(types) if t is None]
     document = _Document(
         data=data,
@@ -345,7 +365,17 @@ async def _extract_one(
     doc, source_text = _input_for(document, pages)
     if doc.page_images:
         document.used_vision = True
-    draft = await extractor.extract(doc)
+    try:
+        draft = await extractor.extract(doc)
+    except (ExtractionUnavailableError, ExtractionInvalidError) as exc:
+        # The reader failing must not cost the person what needs no reader: the page types,
+        # the page images, the judgment date and the method read off the form's own words.
+        # They get an empty draft to type into, and a note saying why it is empty.
+        draft = AffidavitDraft()
+        if not any(note.field == READER_NOTE for note in document.notes):
+            document.notes.append(
+                ValidationNote(field=READER_NOTE, level="error", message=exc.message)
+            )
     validated, notes = validate(draft, source_text)
     return ExtractedAffidavit(
         draft=_with_boxes(validated, document, pages, grounded=source_text is not None),
@@ -417,24 +447,37 @@ def _previews(document: _Document) -> list[PagePreview]:
     ]
 
 
-async def extract_document(data: bytes, *, previews: bool = True) -> ExtractionResult:
+async def extract_document(
+    data: bytes,
+    *,
+    previews: bool = True,
+    page_types: list[PageType] | None = None,
+    extract_pages: list[int] | None = None,
+    extractor: Extractor | None = None,
+) -> ExtractionResult:
     """The whole path: bytes in, every affidavit in the file out as a draft. No file is
-    ever written, and nothing read is kept after the response."""
-    extractor = get_extractor(get_settings().llm_provider)
-    document = await _read(data, extractor)
-    grouping = group(
-        document.page_types,
-        [
-            document.layer is not None
-            and i in document.text_pages
-            and starts_affidavit(document.layer.pages[i])
-            for i in range(document.n_pages)
-        ],
-    )
+    ever written, and nothing read is kept after the response.
+
+    `page_types` replaces classification with the person's own labels (the review screen's
+    re-tagging); their labels are taken as they are, with no continuation pages folded in.
+    `extract_pages` limits field extraction to the affidavits that touch those pages, so
+    re-tagging one range never re-reads the rest of the file.
+    """
+    extractor = extractor or get_extractor(get_settings().llm_provider)
+    document = await _read(data, extractor, page_types)
+    starts = [
+        document.layer is not None
+        and i in document.text_pages
+        and starts_affidavit(document.layer.pages[i])
+        for i in range(document.n_pages)
+    ]
+    grouping = group(document.page_types, starts, fold=page_types is None)
     document.page_types = grouping.page_types
 
-    affidavits = [await _extract_one(document, extractor, pages) for pages in grouping.affidavits]
-    if not affidavits:
+    wanted = set(extract_pages) if extract_pages is not None else None
+    runs = [pages for pages in grouping.affidavits if wanted is None or wanted.intersection(pages)]
+    affidavits = [await _extract_one(document, extractor, pages) for pages in runs]
+    if not grouping.affidavits:
         document.notes.append(
             ValidationNote(
                 field="pages",
@@ -443,7 +486,12 @@ async def extract_document(data: bytes, *, previews: bool = True) -> ExtractionR
                 "the details in, or upload the page that says Affidavit of Service.",
             )
         )
-    entry_date, entry_evidence = await _judgment_date(document, extractor)
+    judgment_pages = {i for i, t in enumerate(document.page_types) if t is PageType.JUDGMENT}
+    entry_date, entry_evidence = (
+        await _judgment_date(document, extractor)
+        if wanted is None or wanted & judgment_pages
+        else (None, None)
+    )
 
     return ExtractionResult(
         page_types=document.page_types,
@@ -458,23 +506,3 @@ async def extract_document(data: bytes, *, previews: bool = True) -> ExtractionR
         used_vision=document.used_vision,
         previews=_previews(document) if previews else [],
     )
-
-
-def legacy_from(result: ExtractionResult) -> LegacyExtractionResult:
-    """The v1.0 shape: the first affidavit found, or an empty draft. Interim only."""
-    empty = ExtractedAffidavit(draft=AffidavitDraft())
-    first = result.affidavits[0] if result.affidavits else empty
-    return LegacyExtractionResult(
-        draft=first.draft,
-        notes=[*result.notes, *first.notes],
-        provider=result.provider,
-        source_sha256=result.source_sha256,
-        n_pages=result.n_pages,
-        has_text_layer=result.has_text_layer,
-        used_vision=result.used_vision,
-    )
-
-
-async def extract_affidavit(data: bytes) -> LegacyExtractionResult:
-    """The v1.0 entry point, now a view of `extract_document`. Interim only."""
-    return legacy_from(await extract_document(data, previews=False))

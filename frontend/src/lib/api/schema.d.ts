@@ -38,27 +38,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/extract/legacy": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Extract Legacy
-         * @deprecated
-         * @description v1.0 shape, the first affidavit only. Removed once the frontend reads v1.1.
-         */
-        post: operations["extract_legacy_api_extract_legacy_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/geocode": {
         parameters: {
             query?: never;
@@ -511,11 +490,6 @@ export interface components {
             /** File */
             file: string;
         };
-        /** Body_extract_legacy_api_extract_legacy_post */
-        Body_extract_legacy_api_extract_legacy_post: {
-            /** File */
-            file: string;
-        };
         /** CaseAnalysis */
         CaseAnalysis: {
             affidavit: components["schemas"]["Affidavit"];
@@ -762,29 +736,6 @@ export interface components {
             /** Lng */
             lng: number;
         };
-        /**
-         * LegacyExtractionResult
-         * @description The v1.0 response of `POST /api/extract`, kept only for `/api/extract/legacy` while
-         *     the frontend moves to `ExtractionResult`. Deleted before v1.1 ships.
-         */
-        LegacyExtractionResult: {
-            draft: components["schemas"]["AffidavitDraft"];
-            /**
-             * Notes
-             * @default []
-             */
-            notes?: components["schemas"]["ValidationNote"][];
-            /** Provider */
-            provider: string;
-            /** Source Sha256 */
-            source_sha256: string;
-            /** N Pages */
-            n_pages: number;
-            /** Has Text Layer */
-            has_text_layer: boolean;
-            /** Used Vision */
-            used_vision: boolean;
-        };
         /** LocationFix */
         LocationFix: {
             /**
@@ -1010,6 +961,10 @@ export interface operations {
             query?: {
                 /** @description Return page previews for review. */
                 previews?: boolean;
+                /** @description Comma list, one label per page, replacing classification. */
+                page_types?: string | null;
+                /** @description Comma list of 0-based pages: read only affidavits touching these. */
+                extract_pages?: string | null;
             };
             header?: never;
             path?: never;
@@ -1028,39 +983,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ExtractionResult"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    extract_legacy_api_extract_legacy_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": components["schemas"]["Body_extract_legacy_api_extract_legacy_post"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LegacyExtractionResult"];
                 };
             };
             /** @description Validation Error */

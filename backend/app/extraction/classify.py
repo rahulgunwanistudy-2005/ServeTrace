@@ -124,11 +124,12 @@ class Grouping:
     """Pages that were OTHER and were read as part of the affidavit before them."""
 
 
-def group(page_types: list[PageType], starts: list[bool]) -> Grouping:
+def group(page_types: list[PageType], starts: list[bool], *, fold: bool = True) -> Grouping:
     """Turn per-page types into affidavits, folding continuation pages in.
 
     `starts[i]` says page i opens an affidavit. For an image page nobody can tell, and it
     is False: an unreadable page next to an affidavit is read as part of that affidavit.
+    With `fold=False` (labels a person chose) an OTHER page is never pulled in.
     """
     final = list(page_types)
     runs: list[list[int]] = []
@@ -147,7 +148,8 @@ def group(page_types: list[PageType], starts: list[bool]) -> Grouping:
             runs.append(current)
             continue
         if (
-            page_type is PageType.OTHER
+            fold
+            and page_type is PageType.OTHER
             and current is not None
             and not starts[index]
             and len(current) < MAX_CONTINUATION_RUN

@@ -11,7 +11,7 @@ the public site is one the eval or the store actually produced.
 - [x] **A** Bible amendments, contracts, config, version stamp, regenerated types
 - [x] **B** Photo ingest (exifr, on-device), time-uncertainty rule, property tests
 - [x] **C** Eight affidavit layouts, HEIC, page classification, provenance, judgment date
-- [ ] **D** Flagged-first correction UI on `ExtractionResult`, legacy endpoint deleted
+- [x] **D** Flagged-first correction UI on `ExtractionResult`, legacy endpoint deleted
 - [ ] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
 - [ ] **F** Usage counts + leads (Supabase over PostgREST), `/attorneys`, privacy update
 - [ ] **G** i18n plumbing; eval, REPORT, methodology, changelog, version 1.1.0, README
@@ -28,8 +28,8 @@ the public site is one the eval or the store actually produced.
   and L7 the 100% is the no-provider fallback ("read every image page as the affidavit")
   happening to be right, because every page in those files *is* the affidavit; it is not
   a measurement of the thumbnail classifier. **Per-field accuracy per layout and the
-  §4.4 served_at/served_address targets are not measured**: there is no provider key in
-  this environment. Command in the eval's docstring; results go to
+  §4.4 served_at/served_address targets are not measured**: the configured Gemini key
+  answers 402 RESOURCE_EXHAUSTED (prepaid credits depleted), found in Phase D. Command in the eval's docstring; results go to
   `eval/results/layouts.json`.
 - **A complaint's verification page looked like an affidavit.** It is sworn ("being duly
   sworn, deposes and says") in exactly an affidavit's words. Found by writing the L8
@@ -50,8 +50,37 @@ the public site is one the eval or the store actually produced.
   approved dependency). `?previews=false` for batch uploads.
 - **Re-encoding a photo drops its EXIF**, including any GPS block, before a provider
   sees it.
-- **`/api/extract` returns the v1.1 envelope; `/api/extract/legacy` serves the v1.0
-  shape** to the current review screen until Phase D, then is deleted.
+- **`/api/extract/legacy`, `LegacyExtractionResult`, `legacy_from` and
+  `extract_affidavit` are deleted (Phase D).** The frontend, the demo fixtures and both
+  evals read the v1.1 envelope.
+- **Phase D — a reader failure no longer fails the upload.** Found live: the configured
+  Gemini key returns 402 (credits depleted), and `/api/extract` answered 503, so a court
+  file lost its page types, previews and judgment date, none of which needs a model. Field
+  extraction now degrades to an empty draft plus one document note (`field: "reader"`);
+  both evals score that note as "reader unavailable", never as every field wrong.
+- **Re-tagging re-reads the changed pages plus every page of an affidavit they touched**
+  (`?page_types=…&extract_pages=…&previews=false`). The person's labels are taken as
+  given: no continuation pages are folded in, no classification call. Un-tagging page 2
+  of a two-page affidavit shrinks it to page 1 rather than losing it.
+- **Earlier attempts now reach the engine.** The v1.0 review dropped them (`attempts: []`),
+  so R-D1/R-D2 never saw a 308(4) affidavit's tries. They are reviewed and sent with the
+  same New York wall-clock handling as the service; an attempt with no date or time stops
+  step 1 with a message rather than being silently skipped.
+- **The real-data notice blocks the upload control until acknowledged** whenever
+  `/api/health` says `llm_real_data_allowed` is false — or cannot be reached. With a
+  provider configured and the flag true, the provider sentence is shown instead.
+- **"Try a sample affidavit"** on `/check` loads Lin's cached synthetic extraction (with a
+  synthetic-data line), so the review can be tried and timed with no key and no upload.
+  The demo extractions are now built through `extract_document` with a derived-draft
+  extractor; every field carries a page and a box; rebuilds are byte-identical.
+- **A saved case does not store page images.** `snapshot()` writes the extraction with
+  `previews: []`; pictures of court papers never reach IndexedDB.
+- **Phase D checkpoint, honestly.** Dev timer verified wired (`[review-timer] sample: 1.4s
+  to confirm` on a scripted run with three forced flags). That is a script, not a person:
+  the < 2 min per affidavit figure needs a human-timed run, which is Rahul's. 375 px:
+  panes stack, no horizontal scroll (scrollWidth 375). Court file (L8, no model): 6 page
+  types, affidavit pages 4–5, judgment 2025-06-02 prefilled; re-tag of page 5 sent
+  `extract_pages=3,4` only.
 - **Not yet done from Phase A's decisions:** the separate rate budget for `/api/extract`
   exists in config only. It lands with the batch upload in Phase E, which is what needs it.
 

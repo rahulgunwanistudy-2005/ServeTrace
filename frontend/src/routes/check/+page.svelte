@@ -13,9 +13,19 @@
 	 * the tab does, which is what the privacy page promises by default.
 	 */
 	import { goto } from '$app/navigation';
-	import { api, ApiError } from '$lib/api/client';
+	import { api, ApiError, type DocumentExtraction, type Health, type PageType } from '$lib/api/client';
 	import { caseStore, save, restore, forget } from '$lib/case/store.svelte';
 	import AffidavitReview from '$lib/check/AffidavitReview.svelte';
+	import {
+		attemptsFrom,
+		changedPages,
+		mergeRetag,
+		retagPages,
+		startReviewTimer,
+		valuesFrom,
+		type AttemptValues
+	} from '$lib/check/review';
+	import { loadSampleExtraction } from '$lib/demo/cases';
 	import HouseholdStep from '$lib/check/HouseholdStep.svelte';
 	import LocationStep from '$lib/check/LocationStep.svelte';
 	import Button from '$lib/ui/Button.svelte';
@@ -24,7 +34,7 @@
 	import FileDrop from '$lib/ui/FileDrop.svelte';
 	import StepHeader from '$lib/ui/StepHeader.svelte';
 	import TextField from '$lib/ui/TextField.svelte';
-	import { nyClockKey, nyDayKey, nyLocalToInstant } from '$lib/ingest/tz';
+	import { nyLocalToInstant } from '$lib/ingest/tz';
 	import { steps, upload, wizard } from '$copy/en';
 
 	let step = $state(1);
@@ -38,21 +48,12 @@
 	 * The affidavit fields, as strings, because that is what an input holds and what an
 	 * imperfect read produces. They become an `Affidavit` once, in `toAffidavit`.
 	 */
-	let values = $state<Record<string, string>>({
-		method: 'unknown',
-		defendant_name: '',
-		served_address: '',
-		served_date: '',
-		served_time: '',
-		recipient_name: '',
-		recipient_relationship: '',
-		index_number: '',
-		court: '',
-		plaintiff: '',
-		mailing_date: '',
-		proof_filed_date: '',
-		server_name: ''
-	});
+	let values = $state<Record<string, string>>(valuesFrom(null));
+	let attempts = $state<AttemptValues[]>([]);
+	/** Flagged fields the person has accepted or changed. "Confirm all" waits on these. */
+	let resolved = $state<string[]>([]);
+	/** Which affidavit in the file is about this person. */
+	let selected = $state(0);
 	/**
 	 * Reading a field.
 	 *
@@ -62,6 +63,55 @@
 	 * lives in one place rather than at each of the dozen call sites.
 	 */
 	const v = (key: string): string => values[key] ?? '';
+
+	/** The upload, kept in this tab only so a re-tag can send the same file back. */
+	let lastFile = $state.raw<File | null>(null);
+	let retagging = $state(false);
+	let sample = $state(false);
+
+	/**
+	 * Build prompt §2.3: until the deployment says real papers may go to its reader, the
+	 * upload is behind a notice the person has to acknowledge. If we cannot ask the server,
+	 * we assume the stricter answer.
+	 */
+	let health = $state<Health | null>(null);
+	let acknowledged = $state(false);
+	const realAllowed = $derived(health?.llm_real_data_allowed === true);
+	const uploadOpen = $derived(realAllowed || acknowledged);
+	const PROVIDERS: Record<string, string> = { gemini: 'Google Gemini', anthropic: 'Anthropic' };
+	$effect(() => {
+		void api
+			.health()
+			.then((h) => (health = h))
+			.catch(() => (health = null));
+	});
+
+	/** Development builds time each review; the target is under two minutes. */
+	let timer: ReturnType<typeof startReviewTimer> | null = null;
+
+	/** Put one affidavit from an extraction into the form, as read. */
+	function load(extraction: DocumentExtraction, index = 0) {
+		caseStore.extraction = extraction;
+		const count = extraction.affidavits?.length ?? 0;
+		selected = Math.min(index, Math.max(0, count - 1));
+		const draft = extraction.affidavits?.[selected]?.draft;
+		values = valuesFrom(draft);
+		attempts = attemptsFrom(draft);
+		resolved = [];
+		confirmed = false;
+		if (extraction.judgment_entry_date && !judgmentDate) {
+			judgmentDate = extraction.judgment_entry_date;
+		}
+		if (import.meta.env.DEV) timer = startReviewTimer();
+	}
+
+	const judgmentNote = $derived.by(() => {
+		const read = caseStore.extraction;
+		const evidence = read?.judgment_evidence;
+		if (!read?.judgment_entry_date || !evidence?.quote || judgmentDate !== read.judgment_entry_date)
+			return undefined;
+		return upload.review.judgmentRead((evidence.page ?? 0) + 1, evidence.quote);
+	});
 
 	let confirmed = $state(false);
 	let knowledgeDate = $state('');
@@ -78,23 +128,39 @@
 	async function upload_(file: File) {
 		busy = true;
 		failure = null;
+		sample = false;
 		try {
 			const extracted = await api.extract(file);
-			caseStore.extraction = extracted;
-			const draft = extracted.draft as unknown as Record<string, unknown>;
-			for (const key of Object.keys(values)) {
-				const read = draft[key];
-				if (typeof read === 'string' && read) values[key] = read;
-			}
-			if (draft.served_at && typeof draft.served_at === 'string') {
-				const at = new Date(draft.served_at);
-				values.served_date ||= nyDayKey(at);
-				values.served_time ||= nyClockKey(at);
-			}
+			lastFile = file;
+			load(extracted);
 		} catch (error) {
 			failure = error instanceof ApiError ? error.message : upload.readFailed;
 		} finally {
 			busy = false;
+		}
+	}
+
+	async function useSample() {
+		failure = null;
+		lastFile = null;
+		load(await loadSampleExtraction());
+		sample = true;
+	}
+
+	/** Re-read only the pages whose label the person changed, and the affidavits on them. */
+	async function retag(pageTypes: PageType[]) {
+		const current = caseStore.extraction;
+		if (!current || !lastFile) return;
+		const pages = retagPages(current, changedPages(current.page_types, pageTypes));
+		retagging = true;
+		failure = null;
+		try {
+			const reread = await api.extract(lastFile, { pageTypes, pages });
+			load(mergeRetag(current, reread, pages), selected);
+		} catch (error) {
+			failure = error instanceof ApiError ? error.message : upload.readFailed;
+		} finally {
+			retagging = false;
 		}
 	}
 
@@ -118,29 +184,50 @@
 		 */
 		const local = nyLocalToInstant(v('served_date'), v('served_time'));
 		if (!local) throw new ApiError('bad_input', 400, upload.timeNeeded);
-		const resolved = await api.geocode(v('served_address').trim());
-		if (!resolved.result) throw new ApiError('bad_input', 400, upload.addressNotFound);
+		const resolvedAt = await api.geocode(v('served_address').trim());
+		if (!resolvedAt.result) throw new ApiError('bad_input', 400, upload.addressNotFound);
+		const draft = caseStore.extraction?.affidavits?.[selected]?.draft;
+
+		// Earlier tries matter to the diligence rules (bible §11.3, R-D1/R-D2), so they go
+		// through with the same New York wall-clock handling as the service itself. An
+		// address we cannot place leaves that try without a point, not out of the case.
+		const tries = [];
+		for (const attempt of attempts) {
+			const at = nyLocalToInstant(attempt.date, attempt.time);
+			if (!at) throw new ApiError('bad_input', 400, upload.attemptIncomplete);
+			const address = attempt.address.trim() || v('served_address').trim();
+			const placed = await api.geocode(address).catch(() => null);
+			tries.push({
+				at: at.iso,
+				address,
+				location: placed?.result?.location ?? null,
+				outcome: attempt.outcome as 'served' | 'affixed' | 'not_home' | 'refused' | 'other'
+			});
+		}
+
 		return {
 			index_number: v('index_number') || null,
 			court: v('court') || null,
 			plaintiff: v('plaintiff') || null,
 			defendant_name: v('defendant_name'),
 			server_name: v('server_name') || null,
-			server_license: null,
-			agency_license: null,
+			server_license: v('server_license') || null,
+			agency_license: draft?.agency_license ?? null,
+			agency_name: v('agency_name') || null,
 			method: v('method'),
 			served_at: local.iso,
 			served_address: v('served_address').trim(),
-			served_location: resolved.result.location,
+			served_location: resolvedAt.result.location,
 			recipient_name: v('recipient_name') || null,
 			recipient_relationship: v('recipient_relationship') || null,
-			recipient_description: caseStore.extraction?.draft.recipient_description ?? null,
-			attempts: [],
+			recipient_description: draft?.recipient_description ?? null,
+			attempts: tries,
 			mailing_date: v('mailing_date') || null,
-			mailing_address: null,
+			mailing_address: v('mailing_address') || null,
 			proof_filed_date: v('proof_filed_date') || null,
 			source_sha256: caseStore.extraction?.source_sha256 ?? '0'.repeat(64),
-			field_confidence: caseStore.extraction?.draft.field_confidence ?? {},
+			field_confidence: draft?.field_confidence ?? {},
+			evidence: draft?.evidence ?? {},
 			user_confirmed: true
 		} as NonNullable<typeof caseStore.affidavit>;
 	}
@@ -198,7 +285,9 @@
 
 <svelte:head><title>{steps.one.title} — ServeTrace</title></svelte:head>
 
-<div class="st-shell st-shell-prose py-12 sm:py-16">
+<div
+	class="st-shell py-12 sm:py-16 {step === 1 && caseStore.extraction?.previews?.length ? '' : 'st-shell-prose'}"
+>
 	<StepHeader
 		step={step}
 		total={3}
@@ -262,18 +351,49 @@
 			<p class="px-5 pb-5 leading-relaxed text-muted">{upload.whereDoIGetItBody}</p>
 		</details>
 
-		<div class="mt-6">
-			<FileDrop
-				accept=".pdf,image/*,.heic,.heif"
-				label={busy ? upload.reading : upload.prompt}
-				hint="A PDF or a photo, up to 15 MB."
-				{busy}
-				onfile={upload_}
-			/>
+		<div class="mt-6 space-y-4">
+			{#if realAllowed && health && health.llm_provider !== 'none'}
+				<Callout tone="neutral">
+					{upload.realDataAllowed(PROVIDERS[health.llm_provider] ?? health.llm_provider)}
+				</Callout>
+			{:else if !realAllowed}
+				<Callout tone="caution" title={upload.realDataBlocked}>
+					<div class="mt-3">
+						<CheckBox id="real-data-ack" bind:checked={acknowledged} label={upload.realDataAck} />
+					</div>
+				</Callout>
+			{/if}
+
+			{#if uploadOpen}
+				<FileDrop
+					accept=".pdf,image/*,.heic,.heif"
+					label={busy ? upload.reading : upload.prompt}
+					hint="A PDF or a photo, up to 15 MB."
+					{busy}
+					onfile={upload_}
+				/>
+			{/if}
+			<p>
+				<Button variant="quiet" onclick={useSample}>{upload.sample}</Button>
+			</p>
+			{#if sample}
+				<p class="text-sm text-muted">{upload.sampleNote}</p>
+			{/if}
 		</div>
 
 		<div class="mt-10">
-			<AffidavitReview extraction={caseStore.extraction} bind:values bind:confirmed />
+			<AffidavitReview
+				extraction={caseStore.extraction}
+				{selected}
+				bind:values
+				bind:attempts
+				bind:resolved
+				bind:confirmed
+				{retagging}
+				onselect={(i) => caseStore.extraction && load(caseStore.extraction, i)}
+				onretag={lastFile ? retag : undefined}
+				onconfirm={() => timer?.stop(sample ? 'sample' : (caseStore.extraction?.source_sha256.slice(0, 8) ?? 'manual'))}
+			/>
 		</div>
 
 		<div class="mt-8 space-y-5 border-t border-line pt-8">
@@ -307,6 +427,8 @@
 				bind:value={judgmentDate}
 				type="date"
 				hint={upload.judgmentHint}
+				invalid={Boolean(judgmentNote)}
+				note={judgmentNote}
 			/>
 		</div>
 

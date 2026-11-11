@@ -58,12 +58,43 @@ def test_previews_can_be_left_out(client: TestClient) -> None:
     assert response.json()["previews"] == []
 
 
-def test_the_legacy_shape_is_the_first_affidavit(client: TestClient) -> None:
+def test_the_legacy_endpoint_is_gone(client: TestClient) -> None:
     files = {"file": ("affidavit.pdf", (DEMO / "affidavit.pdf").read_bytes(), "application/pdf")}
-    body = client.post("/api/extract/legacy", files=files).json()
-    assert body["draft"]["method"] == "308_2"
-    assert body["n_pages"] == 2
-    assert "affidavits" not in body
+    assert client.post("/api/extract/legacy", files=files).status_code in {404, 405}
+
+
+def test_re_tagged_pages_are_taken_as_given(client: TestClient) -> None:
+    """The review screen's re-tagging: the person's labels stand, and only the affidavit
+    touching the pages they changed is read again."""
+    files = {"file": ("affidavit.pdf", (DEMO / "affidavit.pdf").read_bytes(), "application/pdf")}
+    response = client.post(
+        "/api/extract?previews=false&page_types=affidavit_of_service,other&extract_pages=0",
+        files=files,
+    )
+    body = response.json()
+    assert response.status_code == 200
+    assert body["page_types"] == ["affidavit_of_service", "other"]
+    assert [a["pages"] for a in body["affidavits"]] == [[0]]
+
+
+def test_page_labels_must_cover_every_page(client: TestClient) -> None:
+    files = {"file": ("affidavit.pdf", (DEMO / "affidavit.pdf").read_bytes(), "application/pdf")}
+    response = client.post("/api/extract?page_types=other", files=files)
+    assert response.status_code == 400
+    assert response.json()["error"]["code"] == "bad_input"
+
+
+def test_unknown_page_labels_are_refused(client: TestClient) -> None:
+    files = {"file": ("affidavit.pdf", (DEMO / "affidavit.pdf").read_bytes(), "application/pdf")}
+    response = client.post("/api/extract?page_types=receipt,other", files=files)
+    assert response.status_code == 400
+
+
+def test_extracting_pages_away_from_any_affidavit_reads_none(client: TestClient) -> None:
+    files = {"file": ("affidavit.pdf", (DEMO / "affidavit.pdf").read_bytes(), "application/pdf")}
+    body = client.post("/api/extract?previews=false&extract_pages=7", files=files).json()
+    assert body["affidavits"] == []
+    assert body["notes"] == []  # an affidavit was found, just not asked for
 
 
 def test_a_heic_photo_goes_end_to_end(client: TestClient) -> None:

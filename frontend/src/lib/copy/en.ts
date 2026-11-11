@@ -121,21 +121,6 @@ export const upload = {
 	reviewIntro:
 		'These came off your document. Change anything that is wrong. Nothing is compared until you confirm them.',
 	quotedAs: 'On the page:',
-	fields: {
-		index_number: 'Index number',
-		court: 'Court',
-		plaintiff: 'Who sued you',
-		defendant_name: 'Your name, as written on the papers',
-		server_name: 'Process server',
-		method: 'How they say they served you',
-		served_date: 'Date of the service',
-		served_time: 'Time of the service',
-		served_address: 'Address they say they served you at',
-		recipient_name: 'Who they say took the papers',
-		recipient_relationship: 'That person\u2019s relationship to you',
-		mailing_date: 'Date they say they mailed a copy',
-		proof_filed_date: 'Date the proof was filed with the court'
-	},
 	methodOptions: {
 		'308_1': 'Handed to me in person',
 		'308_2': 'Left with someone else, and mailed',
@@ -146,7 +131,89 @@ export const upload = {
 	timeNeeded: 'The check needs the date and time they say they served you.',
 	resolving: 'Finding that address…',
 	addressNotFound:
-		'We could not find that address in New York City. Check the spelling — the check needs a point on the map to measure from.'
+		'We could not find that address in New York City. Check the spelling — the check needs a point on the map to measure from.',
+	/** Build prompt §2.3. Exact wording; it is a promise about where the pages go. */
+	realDataBlocked:
+		'This deployment is for demos and synthetic data. Do not upload real court papers.',
+	realDataAck: 'I understand. The papers I upload are a demo or made up.',
+	realDataAllowed: (provider: string) =>
+		`Pages you upload are sent to ${provider} to read the text, then discarded. Nothing is stored by ServeTrace.`,
+	sample: 'No papers to hand? Try a sample affidavit',
+	sampleNote: 'This is a synthetic sample. The person, the case and the server are invented.',
+	fields: {
+		index_number: 'Index number',
+		court: 'Court',
+		plaintiff: 'Who sued you',
+		defendant_name: 'Your name, as written on the papers',
+		server_name: 'Process server',
+		server_license: 'Server license number',
+		agency_name: 'Process serving agency',
+		method: 'How they say they served you',
+		served_date: 'Date of the service',
+		served_time: 'Time of the service',
+		served_address: 'Address they say they served you at',
+		recipient_name: 'Who they say took the papers',
+		recipient_relationship: 'That person\u2019s relationship to you',
+		recipient_description: 'How they describe that person',
+		mailing_date: 'Date they say they mailed a copy',
+		mailing_address: 'Address they say they mailed it to',
+		proof_filed_date: 'Date the proof was filed with the court'
+	},
+	attempts: 'Earlier tries they list',
+	attemptIncomplete: 'Each earlier try needs a date and a time. Fix it, or ask for help if the papers do not say.',
+	attempt: (n: number) => `Try ${n}`,
+	attemptDate: 'Date',
+	attemptTime: 'Time',
+	attemptAddress: 'Address',
+	attemptOutcome: 'What happened',
+	outcomes: {
+		not_home: 'Nobody answered',
+		refused: 'Refused',
+		served: 'Served',
+		affixed: 'Taped to the door',
+		other: 'Something else'
+	},
+	descriptionReadOnly:
+		'Shown as printed. You can say who really lives with you in step 3.',
+	review: {
+		flaggedOnly: 'Only what needs a look',
+		showAll: 'Show all fields',
+		flaggedCount: (left: number, total: number) =>
+			left === 0
+				? `All ${total} checked.`
+				: `${left} of ${total} still to check.`,
+		noneFlagged: 'Nothing was flagged. Look over the fields, then confirm.',
+		keys: 'Enter keeps what we read. Esc puts back what we read. Tab moves to the next one.',
+		accept: 'Looks right',
+		accepted: 'Checked',
+		revert: 'Undo my change',
+		confirmAll: 'Confirm all — these match my papers',
+		confirmBlocked: (left: number) =>
+			`Check the ${left === 1 ? 'last flagged field' : `${left} flagged fields`} first.`,
+		confirmed: 'Confirmed. You can still change anything — you will be asked to confirm again.',
+		page: (n: number, total: number) => `Page ${n} of ${total}`,
+		zoomIn: 'Zoom in',
+		zoomOut: 'Zoom out',
+		fit: 'Fit',
+		onThisPage: 'On the page it says:',
+		notOnPage: 'We could not point to where this is on the page.',
+		pagesTitle: 'What each page is',
+		pagesHint:
+			'If we got a page wrong, change it and read again. Only those pages are read again.',
+		reread: 'Read these pages again',
+		rereading: 'Reading those pages again…',
+		which: (n: number) => `We found ${n} affidavits of service in this file. Which one is about you?`,
+		pagesOf: (pages: string) => `Pages ${pages}`,
+		judgmentRead: (page: number, quote: string) =>
+			`Read from page ${page}: \u201c${quote}\u201d. Please check it against the judgment.`
+	},
+	pageTypes: {
+		affidavit_of_service: 'Affidavit of service',
+		summons_complaint: 'Summons or complaint',
+		judgment: 'Judgment',
+		notice: 'Notice',
+		other: 'Something else'
+	}
 } as const;
 
 export const ingest = {

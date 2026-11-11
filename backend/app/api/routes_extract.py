@@ -11,8 +11,8 @@ from fastapi import APIRouter, Depends, File, Query, UploadFile
 from app.api.errors import BadInputError, DemoOnlyError, UploadTooLargeError
 from app.api.rate_limit import enforce_rate_limit
 from app.config import get_settings
-from app.domain.models import AffidavitDraft, ExtractionResult, LatLng, LegacyExtractionResult
-from app.extraction.vision import extract_document, legacy_from
+from app.domain.models import AffidavitDraft, ExtractionResult, LatLng, PageType
+from app.extraction.vision import extract_document
 from app.geo.geocode import MIN_CONFIDENCE, geocode_all
 
 router = APIRouter(tags=["extract"])
@@ -68,24 +68,25 @@ async def _locate(draft: AffidavitDraft) -> AffidavitDraft:
     )
 
 
-async def _read_upload(file: UploadFile, previews: bool) -> ExtractionResult:
-    settings = get_settings()
-    if settings.demo_only:
-        raise DemoOnlyError(
-            "This is the demo deployment, so it does not accept uploads. "
-            "The bundled example cases show what a real check looks like."
-        )
-
-    data = await _read_limited(file, settings.max_upload_bytes)
+def _page_types(raw: str | None) -> list[PageType] | None:
+    if raw is None or raw == "":
+        return None
     try:
-        result = await extract_document(data, previews=previews)
-    finally:
-        await file.close()
-    located = [
-        found.model_copy(update={"draft": await _locate(found.draft)})
-        for found in result.affidavits
-    ]
-    return result.model_copy(update={"affidavits": located})
+        return [PageType(part.strip()) for part in raw.split(",")]
+    except ValueError as exc:
+        raise BadInputError("Those page labels were not recognised.") from exc
+
+
+def _page_list(raw: str | None) -> list[int] | None:
+    if raw is None or raw == "":
+        return None
+    try:
+        pages = [int(part) for part in raw.split(",")]
+    except ValueError as exc:
+        raise BadInputError("Those page numbers were not recognised.") from exc
+    if any(p < 0 for p in pages):
+        raise BadInputError("Those page numbers were not recognised.")
+    return pages
 
 
 @router.post(
@@ -94,16 +95,33 @@ async def _read_upload(file: UploadFile, previews: bool) -> ExtractionResult:
 async def extract(
     file: Annotated[UploadFile, File()],
     previews: Annotated[bool, Query(description="Return page previews for review.")] = True,
+    page_types: Annotated[
+        str | None,
+        Query(description="Comma list, one label per page, replacing classification."),
+    ] = None,
+    extract_pages: Annotated[
+        str | None,
+        Query(description="Comma list of 0-based pages: read only affidavits touching these."),
+    ] = None,
 ) -> ExtractionResult:
-    return await _read_upload(file, previews)
+    settings = get_settings()
+    if settings.demo_only:
+        raise DemoOnlyError(
+            "This is the demo deployment, so it does not accept uploads. "
+            "The bundled example cases show what a real check looks like."
+        )
+    labels = _page_types(page_types)
+    wanted = _page_list(extract_pages)
 
-
-@router.post(
-    "/extract/legacy",
-    response_model=LegacyExtractionResult,
-    dependencies=[Depends(enforce_rate_limit)],
-    deprecated=True,
-)
-async def extract_legacy(file: Annotated[UploadFile, File()]) -> LegacyExtractionResult:
-    """v1.0 shape, the first affidavit only. Removed once the frontend reads v1.1."""
-    return legacy_from(await _read_upload(file, previews=False))
+    data = await _read_limited(file, settings.max_upload_bytes)
+    try:
+        result = await extract_document(
+            data, previews=previews, page_types=labels, extract_pages=wanted
+        )
+    finally:
+        await file.close()
+    located = [
+        found.model_copy(update={"draft": await _locate(found.draft)})
+        for found in result.affidavits
+    ]
+    return result.model_copy(update={"affidavits": located})

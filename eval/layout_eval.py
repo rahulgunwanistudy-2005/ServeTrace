@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import Any
 
 from app.config import get_settings
-from app.extraction.vision import extract_document
+from app.extraction.vision import READER_NOTE, extract_document
 from eval.extraction_eval import normalize, score
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -59,6 +59,8 @@ class Scored:
     boxes: tuple[int, int] = (0, 0)
     """(fields with a quote, of those with a box). Text-layer documents only."""
     error: str | None = None
+    reader_failed: bool = False
+    """Field extraction failed (outage, credits); scored as not run, never as all wrong."""
 
 
 def targets(corpus: Path) -> list[tuple[str, Path, dict[str, Any]]]:
@@ -92,6 +94,10 @@ async def score_one(variant: str, path: Path, truth: dict[str, Any], provider: s
         result.judgment_entry_date.isoformat() if result.judgment_entry_date else None
     )
 
+    if provider != "none" and any(n.field == READER_NOTE for n in result.notes):
+        # Page types and the judgment date still count: they never needed the reader.
+        scored.reader_failed = True
+        return scored
     if provider != "none" and result.affidavits:
         draft = result.affidavits[0].draft
         scored.fields = await score(draft, truth["affidavit"])
@@ -123,6 +129,7 @@ def summarise(results: list[Scored], provider: str) -> dict[str, Any]:
                 sum(i.pages_right for i in ok), sum(i.pages_total for i in ok)
             ),
             "affidavit_grouping": _rate(sum(i.grouping_right for i in ok), len(ok)),
+            "n_reader_failed": sum(i.reader_failed for i in ok),
         }
         with_judgment = [i for i in ok if i.layout == "L8"]
         if with_judgment:

@@ -17,7 +17,10 @@
 		required = false,
 		multiline = false,
 		invalid = false,
-		note
+		note,
+		onkeydown,
+		onfocus,
+		oninput
 	}: {
 		id: string;
 		label: string;
@@ -30,6 +33,10 @@
 		/** Amber, for a field the extractor was unsure about or a validator flagged. */
 		invalid?: boolean;
 		note?: string;
+		/** The review screen's keyboard: Enter accepts, Esc reverts. */
+		onkeydown?: (event: KeyboardEvent) => void;
+		onfocus?: () => void;
+		oninput?: () => void;
 	} = $props();
 
 	const shell =
@@ -48,6 +55,9 @@
 			{id}
 			bind:value
 			{placeholder}
+			{onkeydown}
+			{onfocus}
+			{oninput}
 			rows="3"
 			aria-describedby={note ? `${id}-note` : undefined}
 			class="{shell} {invalid ? 'border-caution' : 'border-line-strong'}"
@@ -58,6 +68,9 @@
 			{type}
 			bind:value
 			{placeholder}
+			{onkeydown}
+			{onfocus}
+			{oninput}
 			aria-describedby={note ? `${id}-note` : undefined}
 			class="{shell} min-h-11 {invalid ? 'border-caution' : 'border-line-strong'}"
 		/>

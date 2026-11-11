@@ -17,7 +17,7 @@
  * three files per case rather than everything in the folder.
  */
 
-import type { AnalyzeRequest } from '$lib/api/client';
+import type { AnalyzeRequest, DocumentExtraction } from '$lib/api/client';
 import type { LocationFix } from '$lib/ingest/types';
 
 export const DEMO_CASE_IDS = [
@@ -86,4 +86,15 @@ export async function loadDemoCase(id: DemoCaseId): Promise<DemoCase> {
 		knowledgeDate: dates.knowledge,
 		judgmentDate: dates.judgment
 	};
+}
+
+/**
+ * A synthetic affidavit as the reader would hand it back, for the "try a sample" link on
+ * `/check`. It is the demo case's cached extraction — the same file, the same page images
+ * and boxes — so the review screen can be tried, and timed, with no key and no upload.
+ */
+export async function loadSampleExtraction(
+	id: DemoCaseId = 'lin_affix_mail_diligence'
+): Promise<DocumentExtraction> {
+	return json<DocumentExtraction>(id, 'extraction.json');
 }

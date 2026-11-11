@@ -14,6 +14,7 @@
 
 	let {
 		href,
+		id,
 		variant = 'primary',
 		size = 'md',
 		type = 'button',
@@ -24,6 +25,7 @@
 		children
 	}: {
 		href?: string;
+		id?: string;
 		variant?: 'primary' | 'secondary' | 'quiet';
 		size?: 'md' | 'lg';
 		type?: 'button' | 'submit';
@@ -85,7 +87,7 @@
 {#if href}
 	<a {href} class="{base} {sizes[size]} {skin}">{@render inner()}</a>
 {:else}
-	<button {type} {onclick} {disabled} class="{base} {sizes[size]} {skin}">
+	<button {id} {type} {onclick} {disabled} class="{base} {sizes[size]} {skin}">
 		{@render inner()}
 	</button>
 {/if}

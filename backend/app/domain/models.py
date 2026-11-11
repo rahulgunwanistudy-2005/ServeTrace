@@ -172,20 +172,6 @@ class ValidationNote(BaseModel):
     message: str
 
 
-class LegacyExtractionResult(BaseModel):
-    """The v1.0 response of `POST /api/extract`, kept only for `/api/extract/legacy` while
-    the frontend moves to `ExtractionResult`. Deleted before v1.1 ships."""
-
-    draft: AffidavitDraft
-    notes: list[ValidationNote] = []
-    provider: str
-    source_sha256: str
-    n_pages: int
-    has_text_layer: bool
-    used_vision: bool
-    """True when the pages were sent as images because there was no usable text layer."""
-
-
 class GeocodeRequest(BaseModel):
     address: str = Field(min_length=3, max_length=200)
 

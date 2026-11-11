@@ -12,7 +12,7 @@ from app.extraction.providers.none import NoneExtractor
 from app.extraction.vision import (
     MAX_TEXT_CHARS,
     ExtractInput,
-    extract_affidavit,
+    extract_document,
     get_extractor,
     prompt,
     read_source,
@@ -132,12 +132,12 @@ async def test_the_none_provider_returns_an_empty_draft(demo_pdf: bytes) -> None
 async def test_without_an_llm_the_document_still_yields_what_can_be_read(demo_pdf: bytes) -> None:
     """Bible §12: the app is fully usable with no LLM. The deterministic half still runs,
     so the method comes off the form's own wording and the user types the rest."""
-    result = await extract_affidavit(demo_pdf)
+    result = await extract_document(demo_pdf, previews=False)
 
     assert result.provider == "none"
     assert result.has_text_layer
     assert not result.used_vision
     assert result.n_pages == 2
     assert len(result.source_sha256) == 64
-    assert result.draft.method == "308_2"
-    assert result.draft.defendant_name is None
+    assert result.affidavits[0].draft.method == "308_2"
+    assert result.affidavits[0].draft.defendant_name is None

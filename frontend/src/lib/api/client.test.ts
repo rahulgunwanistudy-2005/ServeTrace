@@ -81,15 +81,26 @@ function captureFetch(body: unknown) {
 
 describe('extract', () => {
 	it('posts the file as multipart form data under the name the server expects', async () => {
-		const calls = captureFetch({ provider: 'none', draft: {} });
+		const calls = captureFetch({ provider: 'none', affidavits: [] });
 		await api.extract(new File(['%PDF-1.7'], 'affidavit.pdf', { type: 'application/pdf' }));
 
 		const { url, init } = calls.first;
-		expect(url).toBe('/api/extract/legacy');
+		expect(url).toBe('/api/extract');
 		expect(init?.method).toBe('POST');
 		const body = init?.body as FormData;
 		expect(body).toBeInstanceOf(FormData);
 		expect((body.get('file') as File).name).toBe('affidavit.pdf');
+	});
+
+	it('re-tagging sends the labels and the changed pages only, without previews', async () => {
+		const calls = captureFetch({ affidavits: [] });
+		await api.extract(new File(['%PDF-1.7'], 'court.pdf'), {
+			pageTypes: ['summons_complaint', 'affidavit_of_service', 'other'],
+			pages: [1, 2]
+		});
+		expect(calls.first.url).toBe(
+			'/api/extract?previews=false&page_types=summons_complaint,affidavit_of_service,other&extract_pages=1,2'
+		);
 	});
 
 	it('lets the browser set the multipart boundary', () => {

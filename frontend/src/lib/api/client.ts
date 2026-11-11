@@ -53,10 +53,12 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 /** Generated from the backend's OpenAPI document. Never hand-written. Bible §7. */
 export type Health = components['schemas']['Health'];
-/** v1.0 shape, served by `/api/extract/legacy` until the review screen reads v1.1. */
-export type ExtractionResult = components['schemas']['LegacyExtractionResult'];
-/** v1.1: every page classified, every affidavit in the file. */
+/** Every page classified, every affidavit in the file, each as a draft to confirm. */
 export type DocumentExtraction = components['schemas']['ExtractionResult'];
+export type ExtractedAffidavit = components['schemas']['ExtractedAffidavit'];
+export type PageType = components['schemas']['PageType'];
+export type PagePreview = components['schemas']['PagePreview'];
+export type FieldEvidence = components['schemas']['FieldEvidence'];
 export type AffidavitDraft = components['schemas']['AffidavitDraft'];
 export type ValidationNote = components['schemas']['ValidationNote'];
 export type GeocodeResponse = components['schemas']['GeocodeResponse'];
@@ -106,10 +108,15 @@ export const api = {
 	 * Upload one affidavit of service. The file leaves the device; nothing else does,
 	 * and the server keeps no copy of it (bible §16).
 	 */
-	extract: (file: File) => {
+	extract: (file: File, retag?: { pageTypes: PageType[]; pages: number[] }) => {
 		const body = new FormData();
 		body.append('file', file);
-		return request<ExtractionResult>('/extract/legacy', { method: 'POST', body });
+		// Re-tagging sends the same file back with the person's labels and asks for only the
+		// pages they changed; the previews they already have are not sent again.
+		const query = retag
+			? `?previews=false&page_types=${retag.pageTypes.join(',')}&extract_pages=${retag.pages.join(',')}`
+			: '';
+		return request<DocumentExtraction>(`/extract${query}`, { method: 'POST', body });
 	},
 
 	/**

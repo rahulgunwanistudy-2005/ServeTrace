@@ -27,7 +27,7 @@ from typing import Any
 from app.api.errors import UpstreamError
 from app.config import get_settings
 from app.domain.models import AffidavitDraft
-from app.extraction.vision import extract_affidavit
+from app.extraction.vision import READER_NOTE, extract_document
 from app.geo.distance import haversine_km
 from app.geo.geocode import geocode
 
@@ -111,10 +111,14 @@ async def score(draft: AffidavitDraft, truth: dict[str, Any]) -> dict[str, bool]
 
 async def score_file(case_id: str, variant: str, pdf: Path, truth: dict[str, Any]) -> Scored:
     try:
-        result = await extract_affidavit(pdf.read_bytes())
+        result = await extract_document(pdf.read_bytes(), previews=False)
     except Exception as exc:  # a failed extraction is a result, not a crashed run
         return Scored(case_id=case_id, variant=variant, fields={}, error=type(exc).__name__)
-    return Scored(case_id=case_id, variant=variant, fields=await score(result.draft, truth))
+    if any(note.field == READER_NOTE for note in result.notes):
+        return Scored(case_id=case_id, variant=variant, fields={}, error="ReaderUnavailable")
+    # One affidavit per corpus file; none found scores as an empty draft, every field wrong.
+    draft = result.affidavits[0].draft if result.affidavits else AffidavitDraft()
+    return Scored(case_id=case_id, variant=variant, fields=await score(draft, truth))
 
 
 def _targets(corpus: Path, limit: int | None) -> list[tuple[str, str, Path, dict[str, Any]]]:

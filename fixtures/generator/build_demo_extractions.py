@@ -5,10 +5,11 @@
 With a provider configured, the real extractor runs and its answer is recorded. Without
 one, the draft is derived from each case's committed `affidavit.json` and its rendered
 text layer: the same fields, quoted from the same document, run through the same
-deterministic validators. Either way the result is written to
-`fixtures/demo_cases/<case>/extraction.json` in the exact shape `POST /api/extract`
-returns, and `provider` records which of the two it was, so a derived draft can never be
-mistaken for something a model said.
+deterministic validators. Either way the draft goes through the same `extract_document`
+path a real upload does — page types, grouping, evidence boxes, page previews — and the
+result is written to `fixtures/demo_cases/<case>/extraction.json` in the exact shape
+`POST /api/extract` returns. `provider` records which of the two it was, so a derived
+draft can never be mistaken for something a model said.
 """
 
 from __future__ import annotations
@@ -19,11 +20,11 @@ import re
 from pathlib import Path
 from typing import Any
 
+from app.api.errors import ExtractionUnavailableError
 from app.config import get_settings
-from app.domain.models import AffidavitDraft, AttemptDraft, LegacyExtractionResult
-from app.extraction.pdf_text import extract_text, sha256_of
-from app.extraction.validators import validate
-from app.extraction.vision import extract_affidavit
+from app.domain.models import AffidavitDraft, AttemptDraft, ExtractionResult
+from app.extraction.pdf_text import PageImage
+from app.extraction.vision import ExtractInput, extract_document
 
 from .writer import write_json
 
@@ -179,23 +180,30 @@ def derive_draft(affidavit: dict[str, Any], text: str) -> AffidavitDraft:
     )
 
 
-async def build_case(case_dir: Path) -> LegacyExtractionResult:
+class DerivedExtractor:
+    """Stands in for a model when no provider is configured: answers with the draft derived
+    from the case's own ground truth, quoted from the text it is shown."""
+
+    name = DERIVED
+
+    def __init__(self, affidavit: dict[str, Any]) -> None:
+        self.affidavit = affidavit
+
+    async def extract(self, doc: ExtractInput) -> AffidavitDraft:
+        return derive_draft(self.affidavit, doc.text or "")
+
+    async def ask_json(
+        self, instruction: str, images: list[PageImage], schema: dict[str, Any]
+    ) -> object:
+        raise ExtractionUnavailableError("The derived extractor only reads affidavit text.")
+
+
+async def build_case(case_dir: Path) -> ExtractionResult:
     pdf = (case_dir / "affidavit.pdf").read_bytes()
     if get_settings().llm_provider != "none":
-        return await extract_affidavit(pdf)
-
-    layer = extract_text(pdf)
+        return await extract_document(pdf)
     affidavit = json.loads((case_dir / "affidavit.json").read_text(encoding="utf-8"))
-    draft, notes = validate(derive_draft(affidavit, layer.text), layer.text)
-    return LegacyExtractionResult(
-        draft=draft,
-        notes=notes,
-        provider=DERIVED,
-        source_sha256=sha256_of(pdf),
-        n_pages=layer.n_pages,
-        has_text_layer=layer.has_text_layer,
-        used_vision=False,
-    )
+    return await extract_document(pdf, extractor=DerivedExtractor(affidavit))
 
 
 async def build(demo_dir: Path = DEMO_DIR) -> list[str]:
