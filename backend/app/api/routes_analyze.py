@@ -9,13 +9,14 @@ The route itself only guards and delegates. Every decision in the response comes
 `engine/`, which is pure and has no idea it is behind HTTP.
 """
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends, Request
 
 from app.api.errors import AffidavitNotConfirmedError, BadInputError
 from app.api.rate_limit import enforce_rate_limit
 from app.config import get_settings
-from app.domain.models import AnalyzeRequest, CaseAnalysis
+from app.domain.models import AnalyzeRequest, CaseAnalysis, UsageEventKind
 from app.engine.verdict import analyze
+from app.metrics.events import record
 
 router = APIRouter(tags=["analyze"])
 
@@ -39,6 +40,11 @@ def _guard(body: AnalyzeRequest) -> None:
 
 
 @router.post("/analyze", response_model=CaseAnalysis, dependencies=[Depends(enforce_rate_limit)])
-async def analyze_case(body: AnalyzeRequest) -> CaseAnalysis:
+async def analyze_case(
+    body: AnalyzeRequest, request: Request, background: BackgroundTasks
+) -> CaseAnalysis:
     _guard(body)
-    return analyze(body)
+    result = analyze(body)
+    # The tier is one of four words; it is the only thing about the case that is counted.
+    record(background, request, UsageEventKind.CHECK_COMPLETED, tier=str(result.overall))
+    return result

@@ -12,6 +12,7 @@ from app.api import (
     routes_extract,
     routes_geocode,
     routes_health,
+    routes_metrics,
 )
 from app.api.errors import install_error_handlers
 from app.api.security import security_headers_middleware
@@ -58,6 +59,7 @@ def create_app() -> FastAPI:
     app.include_router(routes_analyze.router, prefix="/api")
     app.include_router(routes_advocate.router, prefix="/api")
     app.include_router(routes_documents.router, prefix="/api")
+    app.include_router(routes_metrics.router, prefix="/api")
 
     # Mounted last so that /api/* always wins over a same-named static path.
     mount_frontend(app, FRONTEND_BUILD)

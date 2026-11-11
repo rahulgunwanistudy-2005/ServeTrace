@@ -31,7 +31,13 @@
 	/** v1.1: a spreadsheet of records (v1.0) or a folder of affidavits (build prompt §6). */
 	type Mode = 'sheet' | 'affidavits';
 
-	let mode = $state<Mode>('sheet');
+	/** `/advocate?mode=affidavits` opens on the batch, which is where /attorneys sends people. */
+	let mode = $state<Mode>(
+		typeof location !== 'undefined' &&
+			new URLSearchParams(location.search).get('mode') === 'affidavits'
+			? 'affidavits'
+			: 'sheet'
+	);
 
 	let stage = $state<Stage>('choose');
 	let file = $state<File | null>(null);

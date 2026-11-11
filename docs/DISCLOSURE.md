@@ -37,6 +37,14 @@ than trusting one.
 The product is fully usable with `LLM_PROVIDER=none`: the extraction step is replaced by a
 manual entry form and nothing else changes.
 
+**Free tiers and real papers (v1.1).** Free LLM API tiers may permit the provider to use
+submitted content for product improvement. Real affidavits must never be processed on such
+a tier. `LLM_REAL_DATA_ALLOWED` defaults to `false`, and while it is false every upload
+screen shows a blocking notice: *"This deployment is for demos and synthetic data. Do not
+upload real court papers."* Setting it to `true` is a statement that the configured
+provider's plan excludes training on inputs; the operator (Rahul) verifies those terms. The
+code and its authors make no claim about any provider's terms.
+
 ## What the location check can and cannot show
 
 Location history shows where a phone was, not where a person was. A phone left at home, a
@@ -50,10 +58,20 @@ server up, the product says so.
 
 ## Data handling
 
-No accounts, no database, no persistence. Location files are parsed in the browser and the
-full history never leaves the device; only the few hours around each claimed time are
-transmitted, and the interface says how many points that is before sending. Uploads are
-processed in memory. Logs record the request, not the person.
+No accounts and no case data persisted anywhere on the server. Location files are parsed
+in the browser and the full history never leaves the device; only the few hours around each
+claimed time are transmitted, and the interface says how many points that is before
+sending. Photos used as location evidence are read for their recorded time and place on the
+device and never uploaded. Uploads are processed in memory. Logs record the request, not
+the person.
+
+Since v1.1 one small store (Supabase Postgres, `infra/supabase/001_v1_1.sql`) holds two
+things and nothing else: anonymous counts per day (checks completed by result tier,
+packets downloaded, advocate batches by size bucket, demos counted apart), and the details
+people type into the `/attorneys` contact form after ticking a consent box. No time finer
+than a day, no IP address, no user agent, no coordinate and no affidavit field is ever
+written to it. Counting is off unless `METRICS_ENABLED=true`, and a counting failure never
+fails a request.
 
 ## Synthetic data
 

@@ -37,6 +37,7 @@
 			<Button href="/check" size="lg" invert arrow>{landing.startCheck}</Button>
 			<Button href="/demo" size="lg" variant="secondary" invert>{landing.seeDemo}</Button>
 			<Button href="/advocate" variant="quiet" invert>{landing.advocate}</Button>
+			<Button href="/attorneys" variant="quiet" invert>{landing.attorneys}</Button>
 		</div>
 
 		<p class="mt-8 flex items-center gap-2 text-sm text-panel-muted">

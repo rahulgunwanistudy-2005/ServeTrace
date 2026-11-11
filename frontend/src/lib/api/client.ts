@@ -101,16 +101,27 @@ export type AffidavitRuleFlag = components['schemas']['AffidavitRuleFlag'];
 export type BatchRejection = components['schemas']['BatchRejection'];
 export type BatchReportRequest = components['schemas']['BatchReportRequest'];
 export type BatchExportKind = 'pairs' | 'flags' | 'agencies';
+export type UsageStats = components['schemas']['UsageStats'];
+export type LeadIn = components['schemas']['LeadIn'];
 
 const JSON_HEADERS = { 'content-type': 'application/json' } as const;
 
+/**
+ * Headers for a request that may be counted (build prompt §8.2). A demo — a bundled case,
+ * the sample affidavit, the sample batch — says so, and the server counts it apart from
+ * real use. This is the only thing the browser ever contributes to a count.
+ */
+function counted(demo: boolean): Record<string, string> {
+	return demo ? { ...JSON_HEADERS, 'x-servetrace-demo': '1' } : { ...JSON_HEADERS };
+}
+
 /** POST JSON, get a PDF back. Shares `toError` so a refusal reads the same everywhere. */
-async function pdf(path: string, body: unknown): Promise<Blob> {
+async function pdf(path: string, body: unknown, demo = false): Promise<Blob> {
 	let response: Response;
 	try {
 		response = await fetch(`/api${path}`, {
 			method: 'POST',
-			headers: JSON_HEADERS,
+			headers: counted(demo),
 			body: JSON.stringify(body)
 		});
 	} catch {
@@ -159,11 +170,25 @@ export const api = {
 	 * (bible §13). `lib/ingest/window.ts` is what makes that true; this function
 	 * trusts its caller and the server caps the count either way.
 	 */
-	analyze: (body: AnalyzeRequest) =>
+	analyze: (body: AnalyzeRequest, demo = false) =>
 		request<CaseAnalysis>('/analyze', {
 			method: 'POST',
-			headers: JSON_HEADERS,
+			headers: counted(demo),
 			body: JSON.stringify(body)
+		}),
+
+	/** Day-level counts, real and demo apart. `enabled: false` when the store is off. */
+	stats: () => request<UsageStats>('/stats'),
+
+	/**
+	 * The /attorneys contact form. The one request in the product whose contents are kept,
+	 * and only with the consent box ticked.
+	 */
+	lead: (lead: LeadIn) =>
+		request<{ ok: true }>('/leads', {
+			method: 'POST',
+			headers: JSON_HEADERS,
+			body: JSON.stringify(lead)
 		}),
 
 	/**
@@ -173,13 +198,22 @@ export const api = {
 	 * reason the advocate CSV export does: nothing is stored, so there is no id to post.
 	 */
 	documents: {
-		packet: (analysis: CaseAnalysis, mapPngBase64: string | null, fixes: LocationFix[] = []) =>
-			pdf('/documents/packet', {
-				analysis,
-				fixes,
-				map_png_base64: mapPngBase64,
-				affiant_name: analysis.affidavit.defendant_name
-			}),
+		packet: (
+			analysis: CaseAnalysis,
+			mapPngBase64: string | null,
+			fixes: LocationFix[] = [],
+			demo = false
+		) =>
+			pdf(
+				'/documents/packet',
+				{
+					analysis,
+					fixes,
+					map_png_base64: mapPngBase64,
+					affiant_name: analysis.affidavit.defendant_name
+				},
+				demo
+			),
 
 		/**
 		 * The draft supporting affidavit. `affiant` is not optional and is not inferred:
@@ -239,10 +273,10 @@ export const api = {
 		 * Confirmed affidavits in, servers and agencies ranked out. Only affidavits a person
 		 * confirmed are sent; the files they were read from stay on this device.
 		 */
-		batch: (affidavits: Affidavit[]) =>
+		batch: (affidavits: Affidavit[], demo = false) =>
 			request<BatchReport>('/advocate/batch', {
 				method: 'POST',
-				headers: JSON_HEADERS,
+				headers: counted(demo),
 				body: JSON.stringify(affidavits)
 			}),
 

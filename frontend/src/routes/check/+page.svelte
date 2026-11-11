@@ -222,7 +222,9 @@
 
 	async function run() {
 		caseStore.judgmentDate = judgmentDate || null;
-		caseStore.isDemo = false;
+		// A check built on the sample affidavit is a demo: it says so on the result and is
+		// counted apart from real use.
+		caseStore.isDemo = sample;
 		if (caseStore.persisted) await save();
 		await goto('/result');
 	}

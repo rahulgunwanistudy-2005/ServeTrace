@@ -185,7 +185,7 @@
 				.filter((i) => i.status === 'confirmed')
 				.map((i) => built[i.id])
 				.filter((a): a is Affidavit => Boolean(a));
-			report = await api.advocate.batch(confirmed);
+			report = await api.advocate.batch(confirmed, sample);
 			openId = null;
 		} catch (error) {
 			failure = describe(error);

@@ -4,6 +4,19 @@
 	import Eyebrow from '$lib/ui/Eyebrow.svelte';
 	import { deadlines, methodology as copy, nav, tiers, tierLabels } from '$copy/en';
 	import { toneInk, type Tone } from '$lib/ui/tone';
+	import { api } from '$lib/api/client';
+
+	/** Real checks since v1.1, from the day-level counters. Nothing shows if they are off. */
+	let checks = $state<number | null>(null);
+	$effect(() => {
+		void api
+			.stats()
+			.then((stats) => {
+				if (!stats.enabled) return;
+				checks = stats.totals.find((t) => t.kind === 'check_completed')?.real ?? 0;
+			})
+			.catch(() => (checks = null));
+	});
 
 	const p = published.engine_params;
 	const pct = (n: number) => `${(n * 100).toFixed(n === 1 ? 0 : 1)}%`;
@@ -66,6 +79,9 @@
 		<Callout tone="neutral" title={copy.headlineTitle}>
 			{copy.headlineBody(published.n_cases, published.false_accusations, pct(published.claim_accuracy))}
 		</Callout>
+		{#if checks !== null}
+			<p class="text-sm text-muted" id="usage-count">{copy.usage(checks)}</p>
+		{/if}
 
 	<h2>{copy.howTitle}</h2>
 	<p>{copy.howBody}</p>

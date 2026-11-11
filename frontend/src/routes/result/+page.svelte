@@ -51,7 +51,7 @@
 		busy = true;
 		failure = null;
 		try {
-			const answer = await api.analyze(caseStore.toRequest());
+			const answer = await api.analyze(caseStore.toRequest(), caseStore.isDemo);
 			caseStore.analysis = answer;
 			analysis = answer;
 		} catch (error) {
@@ -81,7 +81,12 @@
 		failure = null;
 		try {
 			saveBlob(
-				await api.documents.packet(analysis, captureMap?.() ?? null, caseStore.fixes),
+				await api.documents.packet(
+					analysis,
+					captureMap?.() ?? null,
+					caseStore.fixes,
+					caseStore.isDemo
+				),
 				'servetrace-evidence-packet.pdf'
 			);
 		} catch (error) {

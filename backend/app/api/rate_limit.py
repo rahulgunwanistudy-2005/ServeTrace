@@ -145,6 +145,22 @@ def get_extract_limiter() -> TokenBucketLimiter:
     )
 
 
+@lru_cache(maxsize=1)
+def get_leads_limiter() -> TokenBucketLimiter:
+    """The contact form: a handful an hour per client (build prompt §8.2). The address is
+    a key in this in-memory map and nowhere else; it is never written to the store."""
+    per_hour = get_settings().leads_per_hour
+    return TokenBucketLimiter(capacity=float(per_hour), refill_per_s=per_hour / 3600.0)
+
+
+def enforce_leads_rate_limit(request: Request) -> None:
+    wait = get_leads_limiter().retry_after(
+        client_key(request, get_settings().rate_limit_trusted_hops)
+    )
+    if wait is not None:
+        raise _refuse(wait)
+
+
 def _refuse(wait: float) -> RateLimitedError:
     seconds = max(1, round(wait))
     return RateLimitedError(

@@ -177,3 +177,21 @@ describe('retry_after', () => {
 		await expect(api.health()).rejects.toMatchObject({ retryAfter: 3 });
 	});
 });
+
+describe('demo tagging', () => {
+	it('marks a demo analysis so the server counts it apart, and only then', async () => {
+		const seen: Headers[] = [];
+		vi.stubGlobal(
+			'fetch',
+			vi.fn(async (_url: string, init: RequestInit) => {
+				seen.push(new Headers(init.headers));
+				return { ok: true, status: 200, json: async () => ({}) } as unknown as Response;
+			})
+		);
+		const body = {} as Parameters<typeof api.analyze>[0];
+		await api.analyze(body, true);
+		await api.analyze(body);
+		expect(seen[0]!.get('x-servetrace-demo')).toBe('1');
+		expect(seen[1]!.get('x-servetrace-demo')).toBeNull();
+	});
+});

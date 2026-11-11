@@ -28,6 +28,20 @@
 			{#each copy.server as point (point)}<li>{point}</li>{/each}
 		</ul>
 
+		<h2>{copy.countsTitle}</h2>
+		<ul>
+			{#each copy.counts as point (point)}<li>{point}</li>{/each}
+		</ul>
+
+		<h2 id="contact">{copy.leadsTitle}</h2>
+		<ul>
+			{#each copy.leads as point (point)}<li>{point}</li>{/each}
+			<li>{copy.deletion(copy.deletionContact)}</li>
+		</ul>
+
+		<h2>{copy.readerTitle}</h2>
+		<p>{copy.reader}</p>
+
 		<!-- Session 3 found this and wrote it down rather than leaving it for someone else. -->
 		<h2>{copy.mapTitle}</h2>
 		<p>{copy.mapBody}</p>

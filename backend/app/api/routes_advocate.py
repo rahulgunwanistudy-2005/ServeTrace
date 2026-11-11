@@ -16,7 +16,7 @@ from collections.abc import Callable
 from datetime import UTC, datetime
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, File, Form, Response, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, Request, Response, UploadFile
 from pydantic import ValidationError
 
 from app.advocate import batch as batch_analysis
@@ -36,8 +36,10 @@ from app.domain.models import (
     RejectedRow,
     ServerReport,
     ServiceRecord,
+    UsageEventKind,
 )
 from app.engine.params import PARAMS, PARAMS_VERSION
+from app.metrics import events
 
 router = APIRouter(tags=["advocate"], prefix="/advocate")
 
@@ -249,7 +251,9 @@ at most one affidavit, so 2,000 affidavits is the most a legitimate batch can ca
 
 
 @router.post("/batch", response_model=BatchReport, dependencies=[Depends(enforce_rate_limit)])
-async def batch(affidavits: list[Affidavit]) -> BatchReport:
+async def batch(
+    affidavits: list[Affidavit], request: Request, background: BackgroundTasks
+) -> BatchReport:
     """Confirmed affidavits in, servers and agencies ranked and rule rates counted out.
 
     The browser read each file through `/api/extract`, a person confirmed each one, and
@@ -260,7 +264,14 @@ async def batch(affidavits: list[Affidavit]) -> BatchReport:
         raise BadInputError(
             f"That is more than {MAX_BATCH_AFFIDAVITS:,} affidavits. Please split the batch."
         )
-    return batch_analysis.analyze_batch(affidavits, PARAMS)
+    report = batch_analysis.analyze_batch(affidavits, PARAMS)
+    events.record(
+        background,
+        request,
+        UsageEventKind.ADVOCATE_BATCH,
+        bucket=events.batch_bucket(len(affidavits)),
+    )
+    return report
 
 
 def _pairs_csv(report: BatchReport) -> bytes:

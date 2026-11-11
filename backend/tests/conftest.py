@@ -19,7 +19,7 @@ from typing import Any
 import httpx
 import pytest
 
-from app.api.rate_limit import get_extract_limiter, get_limiter
+from app.api.rate_limit import get_extract_limiter, get_leads_limiter, get_limiter
 from app.documents.render import pdf_available
 
 SKIP_PDF_ENV = "SERVETRACE_SKIP_PDF_TESTS"
@@ -67,6 +67,22 @@ def fresh_rate_limiter() -> Iterator[None]:
     """
     get_limiter.cache_clear()
     get_extract_limiter.cache_clear()
+    get_leads_limiter.cache_clear()
     yield
     get_limiter.cache_clear()
     get_extract_limiter.cache_clear()
+    get_leads_limiter.cache_clear()
+
+
+@pytest.fixture(autouse=True)
+def no_store() -> Iterator[None]:
+    """Every test starts with the store off and the stats cache empty, whatever `.env`
+    says; a test that wants a store puts one with a mock transport in place."""
+    from app.metrics.events import clear_cache
+    from app.metrics.store import NullStore, set_store
+
+    set_store(NullStore())
+    clear_cache()
+    yield
+    set_store(None)
+    clear_cache()

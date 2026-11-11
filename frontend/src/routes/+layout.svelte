@@ -17,6 +17,7 @@
 	const links = [
 		{ href: '/demo', label: 'Demo' },
 		{ href: '/advocate', label: nav.advocate },
+		{ href: '/attorneys', label: nav.attorneys },
 		{ href: '/methodology', label: nav.methodology },
 		{ href: '/privacy', label: nav.privacy }
 	];
@@ -102,6 +103,7 @@
 						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/check">Check an affidavit</a></li>
 						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/demo">See a demo</a></li>
 						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/advocate">{nav.advocate}</a></li>
+						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/attorneys">{nav.attorneys}</a></li>
 					</ul>
 				</div>
 				<div>

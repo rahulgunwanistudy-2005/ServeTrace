@@ -13,14 +13,15 @@ from __future__ import annotations
 
 import re
 
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, BackgroundTasks, Depends, Request, Response
 
 from app.api.errors import AffidavitNotConfirmedError, BadInputError
 from app.api.rate_limit import enforce_rate_limit
 from app.config import get_settings
 from app.documents.affidavit import build_draft_affidavit
 from app.documents.packet import build_packet
-from app.domain.models import CaseAnalysis, DraftAffidavitRequest, PacketRequest
+from app.domain.models import CaseAnalysis, DraftAffidavitRequest, PacketRequest, UsageEventKind
+from app.metrics.events import record
 
 router = APIRouter(tags=["documents"], prefix="/documents")
 
@@ -70,9 +71,10 @@ def _pdf(body: bytes, filename: str) -> Response:
 
 
 @router.post("/packet", dependencies=[Depends(enforce_rate_limit)])
-async def packet(body: PacketRequest) -> Response:
+async def packet(body: PacketRequest, request: Request, background: BackgroundTasks) -> Response:
     _guard(body.analysis, len(body.fixes))
     pdf = build_packet(body.analysis, body.fixes, body.map_png_base64, body.affiant_name)
+    record(background, request, UsageEventKind.PACKET_DOWNLOADED)
     return _pdf(pdf, _filename("evidence-packet", body.analysis.affidavit.defendant_name))
 
 

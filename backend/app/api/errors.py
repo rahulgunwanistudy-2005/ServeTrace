@@ -93,6 +93,13 @@ class UpstreamError(ServeTraceError):
     status_code = status.HTTP_502_BAD_GATEWAY
 
 
+class ContactUnavailableError(ServeTraceError):
+    """The contact form cannot keep a message: the store is off here, or did not answer."""
+
+    code = "contact_unavailable"
+    status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+
+
 class RateLimitedError(ServeTraceError):
     code = "rate_limited"
     status_code = status.HTTP_429_TOO_MANY_REQUESTS

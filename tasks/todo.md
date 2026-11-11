@@ -13,7 +13,7 @@ the public site is one the eval or the store actually produced.
 - [x] **C** Eight affidavit layouts, HEIC, page classification, provenance, judgment date
 - [x] **D** Flagged-first correction UI on `ExtractionResult`, legacy endpoint deleted
 - [x] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
-- [ ] **F** Usage counts + leads (Supabase over PostgREST), `/attorneys`, privacy update
+- [x] **F** Usage counts + leads (Supabase over PostgREST), `/attorneys`, privacy update
 - [ ] **G** i18n plumbing; eval, REPORT, methodology, changelog, version 1.1.0, README
 - [ ] **H** Regression, self-review, security pass, Docker, deploy notes, smoke script
 
@@ -124,6 +124,42 @@ the public site is one the eval or the store actually produced.
   typed-in row geocoded and confirmed. 375 px: no horizontal page scroll with a review
   open (an `sr-only` label positioned against the body was widening the page to 941 px;
   fixed by making the table wrapper `relative`).
+
+- **Counting is server-side, after the response** (FastAPI background task, 2 s timeout,
+  every error swallowed and logged as the exception's class name only). Off unless
+  `METRICS_ENABLED=true` and both Supabase settings are present; tests force a `NullStore`
+  whatever `.env` says, and every store test uses an `httpx.MockTransport`.
+- **Demo vs real:** the browser sends `X-ServeTrace-Demo: 1` for the bundled cases, the
+  sample affidavit (a check built on it is now marked a demo on the result too) and the
+  sample batch; `DEMO_ONLY` deployments count everything as demo. A client could omit the
+  header to inflate the real count; detecting fixtures by payload would mean reading case
+  data for a counter, which is the thing this store exists not to do.
+- **The SQL locks `bump_usage` to `service_role`.** A `security definer` function is
+  executable by PUBLIC by default, so with the spec's SQL as written anyone holding the
+  public anon key could call `/rpc/bump_usage` and inflate counts despite RLS. Added
+  `revoke … from public, anon, authenticated; grant … to service_role` and a fixed
+  `search_path`. Rahul applies the file.
+- **`/api/stats` uses Phase A's `UsageStats {enabled, since, totals[kind, real, demo]}`**,
+  cached 5 min in memory; `since` is the earliest counted day. Methodology shows the real
+  `check_completed` count only when `enabled`.
+- **Leads:** honeypot checked before the rate limit (a bot cannot spend a real person's
+  hourly allowance) and answered 200 with nothing kept; 5/hour per client in memory; store
+  off or failing → 503 `contact_unavailable` saying nothing was sent (a lead is the
+  person's own action, so unlike a count its failure is reported).
+- **Privacy page:** "no database" became "nothing about your case is stored"; adds photos
+  (never uploaded), what is counted and what is not, leads and deletion, and the
+  free-tier statement. The deletion address is a visible placeholder for Rahul to fill
+  (`privacy.deletionContact` in `en.ts`).
+- **No screenshot on `/attorneys` yet.** Its "Open the sample batch" button opens
+  `/advocate?mode=affidavits` on the live thing instead; a screenshot is captured with the
+  README screens in Phase G.
+- **Phase F checkpoint.** 25 tests against a mocked PostgREST: kind/tier/bucket per event,
+  demo bucket, outage and 500 never fail `/api/analyze`, honeypot, 6th lead in an hour →
+  429, validation 422s, store off → 503, and a log grep over leads + analyze + batch + a
+  failing store finds no name, email, organisation, message, address, coordinate or key.
+  Browser: `/attorneys` with the store off shows "not switched on … nothing was sent";
+  with the response stubbed, the success state; payload carries exactly the seven
+  `LeadIn` fields, honeypot empty and out of the tab order; 375 px no horizontal scroll.
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what

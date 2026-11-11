@@ -620,3 +620,7 @@ class UsageStats(BaseModel):
     enabled: bool
     since: date | None
     totals: list[UsageTotals]
+
+
+class LeadAccepted(BaseModel):
+    ok: Literal[True] = True

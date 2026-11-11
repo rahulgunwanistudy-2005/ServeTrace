@@ -254,6 +254,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Stats */
+        get: operations["stats_api_stats_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/leads": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Leads */
+        post: operations["leads_api_leads_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -914,6 +948,44 @@ export interface components {
             /** Lng */
             lng: number;
         };
+        /** LeadAccepted */
+        LeadAccepted: {
+            /**
+             * Ok
+             * @default true
+             * @constant
+             */
+            ok?: true;
+        };
+        /**
+         * LeadIn
+         * @description A contact request from the /attorneys page. Never carries case data.
+         */
+        LeadIn: {
+            /** Name */
+            name: string;
+            /** Email */
+            email: string;
+            /** Organization */
+            organization?: string | null;
+            /**
+             * Role
+             * @enum {string}
+             */
+            role: "consumer_attorney" | "legal_aid" | "court_staff" | "researcher" | "other";
+            /** Message */
+            message?: string | null;
+            /**
+             * Consent
+             * @constant
+             */
+            consent: true;
+            /**
+             * Website
+             * @default
+             */
+            website?: string;
+        };
         /** LocationFix */
         LocationFix: {
             /**
@@ -1091,6 +1163,31 @@ export interface components {
          * @enum {string}
          */
         Severity: "strong" | "moderate" | "info";
+        /**
+         * UsageEventKind
+         * @enum {string}
+         */
+        UsageEventKind: "check_completed" | "packet_downloaded" | "advocate_batch";
+        /**
+         * UsageStats
+         * @description Day-level counters only. No timestamps finer than a day exist to report.
+         */
+        UsageStats: {
+            /** Enabled */
+            enabled: boolean;
+            /** Since */
+            since: string | null;
+            /** Totals */
+            totals: components["schemas"]["UsageTotals"][];
+        };
+        /** UsageTotals */
+        UsageTotals: {
+            kind: components["schemas"]["UsageEventKind"];
+            /** Real */
+            real: number;
+            /** Demo */
+            demo: number;
+        };
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -1544,6 +1641,59 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    stats_api_stats_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UsageStats"];
+                };
+            };
+        };
+    };
+    leads_api_leads_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LeadIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LeadAccepted"];
                 };
             };
             /** @description Validation Error */

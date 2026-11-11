@@ -24,6 +24,7 @@ export const landing = {
 	startCheck: 'Start check',
 	seeDemo: 'See a demo',
 	advocate: "I'm a legal advocate",
+	attorneys: 'For attorneys and legal aid',
 	privacyBadge: 'Your location file is read on this device.',
 	steps: [
 		{
@@ -561,6 +562,9 @@ export const methodology = {
 	intro:
 		'How the check works, the numbers behind every threshold it uses, how it scores against hundreds of synthetic cases, and where it cannot help.',
 	headlineTitle: 'The number that matters most',
+	/** Build prompt §8.2: real counts only, never demos. Shown only when the store is on. */
+	usage: (checks: number) =>
+		`${checks.toLocaleString('en-US')} check${checks === 1 ? '' : 's'} run since version 1.1, counted by day. Demos and samples are not included.`,
 	headlineBody: (cases: number, falseAccusations: number, accuracy: string) =>
 		`Across ${cases} synthetic cases, ServeTrace told ${falseAccusations} people their data conflicted with an affidavit when it did not. It read the claimed moment correctly in ${accuracy} of them.`,
 
@@ -987,24 +991,77 @@ export const advocate = {
 	}
 } as const;
 
+/** The /attorneys page (build prompt §8.3). No legal claim here beyond bible §5. */
+export const attorneys = {
+	title: 'For attorneys and legal aid',
+	sub: 'Bring a folder of affidavits of service. ServeTrace reads them, you confirm them, and it shows where one server\u2019s or one agency\u2019s sworn filings cannot all be right.',
+	blocks: [
+		{
+			title: 'Read, then confirmed',
+			body: 'Upload PDFs or phone photos of affidavits. Each is read automatically, and anything the reader was unsure of is flagged beside the words on the page. Nothing is counted until a person confirms it.'
+		},
+		{
+			title: 'Checked against each other',
+			body: 'Two services sworn kilometers apart and minutes apart cannot both be right. ServeTrace finds those sequences, the same description reused at different doors, and how often each CPLR 308 timing rule is flagged, counted only against the affidavits the rule applies to.'
+		},
+		{
+			title: 'Ranked by agency',
+			body: 'Servers are grouped by the agency named on the affidavit, by licence number where one is printed. You get a PDF report and three CSVs, built only from documents you supplied. Data conflicts are not findings of misconduct.'
+		}
+	],
+	tryIt: 'Open the sample batch',
+	tryItNote: 'Sixty synthetic affidavits from three invented agencies. Nothing in them is real.',
+	dataTitle: 'What happens to the papers',
+	noReader:
+		'Prefer no third-party reading at all? ServeTrace can run with automatic reading switched off: every field is then typed in from the page image, and nothing leaves the deployment.',
+	notStored:
+		'The affidavits and the report are never stored by ServeTrace. They live in your browser tab and in the files you download.',
+	formTitle: 'Talk to us',
+	formIntro:
+		'If you work on consumer debt cases in New York City and want to use this on your own files, or tell us what it gets wrong, write to us.',
+	fields: {
+		name: 'Your name',
+		email: 'Email',
+		organization: 'Organization (optional)',
+		role: 'You are',
+		message: 'Message (optional)'
+	},
+	roles: {
+		consumer_attorney: 'A consumer attorney',
+		legal_aid: 'At a legal aid organization',
+		court_staff: 'Court staff',
+		researcher: 'A researcher',
+		other: 'Something else'
+	},
+	consent: 'I agree to ServeTrace storing these details to contact me.',
+	consentNeeded: 'Please tick the box so we can keep your details to reply.',
+	honeypot: 'Leave this empty',
+	send: 'Send',
+	sending: 'Sending\u2026',
+	sentTitle: 'Thank you',
+	sent: 'We have your message and will reply by email. Only what you typed was kept.',
+	privacyLink: 'What we keep, and how to have it deleted'
+} as const;
+
 /** The Privacy page (bible §14.7, §16). Every claim here is one the code actually keeps. */
 export const privacy = {
 	intro:
 		'ServeTrace is built so that the thing you are most worried about sharing never leaves your phone.',
 	shortVersionTitle: 'The short version',
 	shortVersion:
-		'There is no account, no database and nothing stored on our server. Your location history is read in your browser, and only the few hours around the times on the affidavit are ever sent anywhere.',
+		'There is no account, and nothing about your case is stored on our server. Your location history and your photos are read in your browser, and only the few hours around the times on the affidavit are ever sent anywhere. What we do keep is a count of how many checks are run each day, never what was in them.',
 
 	whatStaysTitle: 'What stays on your device',
 	whatStays: [
 		'Your whole location file. A Google Timeline export can cover years; it is opened, read and windowed in your browser.',
+		'Your photos. When you add photos as evidence of where you were, only the time and place recorded inside each file are read, on your device. The pictures are never uploaded or shown back, and their file names are never sent.',
 		'Everything on a bank or card statement except the address: the merchant and the amount never leave the page.',
 		'Anything you type and then change your mind about before pressing the button.'
 	],
 
 	whatLeavesTitle: 'What is sent, and when',
 	whatLeaves: [
-		'The affidavit you upload, so its fields can be read. It is processed in memory and not kept.',
+		'The affidavit you upload, so its fields can be read. It is processed in memory and not kept. When automatic reading is on, its pages go to the reading service named on the upload screen and are then discarded.',
 		'Addresses, one at a time, to look up where they are on the map.',
 		'Only the location points within three hours of a time the affidavit names. The screen tells you how many of your points that is before you send them.',
 		'The household details you choose to enter, which are optional.'
@@ -1012,11 +1069,31 @@ export const privacy = {
 
 	serverTitle: 'What the server does',
 	server: [
-		'It holds nothing. There is no case id, because there is nothing to come back for.',
+		'It holds nothing about your case. There is no case id, because there is nothing to come back for.',
 		'Uploads are handled in memory and discarded when the request ends.',
 		'Logs record the request, not you: a request id, the route, the status and how long it took. No names, no addresses, no coordinates, no document text.',
 		'The analysis itself is ordinary arithmetic on our own servers. Your location points are never sent to any third party.'
 	],
+
+	countsTitle: 'What we count',
+	counts: [
+		'How many checks finished each day, with the kind of result (conflicts, consistent, no data, or inconclusive); how many evidence packets were downloaded; and how many advocate batches were compared, with the batch size as 1–10, 11–50 or 51 and up.',
+		'Demos and samples are counted separately, so they never inflate the real numbers.',
+		'Nothing else. No time finer than a day, no names, no addresses, no coordinates, no IP addresses and no device details. There is no analytics script in these pages; the counting happens on our server after your request is answered.'
+	],
+
+	leadsTitle: 'If you contact us',
+	leads: [
+		'The form on the For attorneys page keeps what you type into it (your name, email, organization, role and message) with the day it arrived, and only when you tick the box agreeing to that.',
+		'It is used to reply to you and for nothing else. It is never linked to a check, because there is no check to link it to.'
+	],
+	/** Build prompt §8.3: a placeholder the site owner replaces before launch. */
+	deletionContact: '[deletion contact address, to be added before launch]',
+	deletion: (contact: string) => `To have your details deleted, write to ${contact}.`,
+
+	readerTitle: 'About automatic reading',
+	reader:
+		'Some AI services\u2019 free tiers allow the provider to use what is sent to them to improve their products. Real court papers must never be read on such a tier. A deployment of ServeTrace accepts real papers only when whoever runs it has confirmed that the reading service\u2019s terms exclude training on what is sent; until then, every upload screen says it is for demos and synthetic data only. Automatic reading can also be switched off entirely, and every field typed in by hand.',
 
 	mapTitle: 'One thing worth knowing about the map',
 	mapBody:
@@ -1043,6 +1120,7 @@ export const errors = {
 		'This is the demo version, so it does not take uploads. The example cases show what a real check looks like.',
 	upstream_error: 'Something upstream did not answer. Please try again.',
 	rate_limited: 'Too many requests. Please wait a moment.',
+	contact_unavailable: 'The contact form is not available right now. Nothing was sent.',
 	invalid_request: 'Some of the details sent were not in the expected format.',
 	not_found: 'We could not find that page.',
 	internal_error: 'Something went wrong on our side.',
@@ -1123,6 +1201,7 @@ export const demo = {
 } as const;
 
 export const nav = {
+	attorneys: 'For attorneys',
 	methodology: 'Methodology',
 	privacy: 'Privacy',
 	home: 'Home',
