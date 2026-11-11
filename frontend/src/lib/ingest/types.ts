@@ -8,7 +8,7 @@
 
 export type LatLng = { lat: number; lng: number };
 
-export type FixKind = 'visit' | 'path' | 'transaction' | 'manual';
+export type FixKind = 'visit' | 'path' | 'transaction' | 'manual' | 'photo';
 
 export type LocationFix = {
 	t: string;
@@ -18,6 +18,10 @@ export type LocationFix = {
 	kind: FixKind;
 	source: string;
 	label?: string | null;
+	/** v1.1: seconds either way the time could be off. 0 (or absent) means exact. */
+	time_uncertainty_s?: number;
+	/** v1.1: the source carried no zone, and New York was assumed. */
+	tz_assumed?: boolean;
 };
 
 /**

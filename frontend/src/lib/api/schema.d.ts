@@ -204,7 +204,7 @@ export interface components {
              * Records
              * @default []
              */
-            records: components["schemas"]["ServiceRecord"][];
+            records?: components["schemas"]["ServiceRecord"][];
             mapping: components["schemas"]["AdvocateColumnMapping"];
             stats: components["schemas"]["AdvocateStats"];
         };
@@ -281,17 +281,17 @@ export interface components {
              * States Not Served
              * @default false
              */
-            states_not_served: boolean;
+            states_not_served?: boolean;
             /**
              * States Not My Address
              * @default false
              */
-            states_not_my_address: boolean;
+            states_not_my_address?: boolean;
             /**
              * States No Notice In Time
              * @default false
              */
-            states_no_notice_in_time: boolean;
+            states_no_notice_in_time?: boolean;
             /** Defense Summary */
             defense_summary?: string | null;
         };
@@ -311,6 +311,8 @@ export interface components {
             server_license?: string | null;
             /** Agency License */
             agency_license?: string | null;
+            /** Agency Name */
+            agency_name?: string | null;
             method: components["schemas"]["ServiceMethod"];
             /**
              * Served At
@@ -329,7 +331,7 @@ export interface components {
              * Attempts
              * @default []
              */
-            attempts: components["schemas"]["ServiceAttempt"][];
+            attempts?: components["schemas"]["ServiceAttempt"][];
             /** Mailing Date */
             mailing_date?: string | null;
             /** Mailing Address */
@@ -342,14 +344,21 @@ export interface components {
              * Field Confidence
              * @default {}
              */
-            field_confidence: {
+            field_confidence?: {
                 [key: string]: number;
             };
             /**
              * User Confirmed
              * @default false
              */
-            user_confirmed: boolean;
+            user_confirmed?: boolean;
+            /**
+             * Evidence
+             * @default {}
+             */
+            evidence?: {
+                [key: string]: components["schemas"]["FieldEvidence"];
+            };
         };
         /**
          * AffidavitDraft
@@ -374,6 +383,8 @@ export interface components {
             server_license?: string | null;
             /** Agency License */
             agency_license?: string | null;
+            /** Agency Name */
+            agency_name?: string | null;
             /** Method */
             method?: string | null;
             /** Served Date */
@@ -386,7 +397,7 @@ export interface components {
              * Served At Ambiguous
              * @default false
              */
-            served_at_ambiguous: boolean;
+            served_at_ambiguous?: boolean;
             /** Served Address */
             served_address?: string | null;
             served_location?: components["schemas"]["LatLng"] | null;
@@ -399,7 +410,7 @@ export interface components {
              * Attempts
              * @default []
              */
-            attempts: components["schemas"]["AttemptDraft"][];
+            attempts?: components["schemas"]["AttemptDraft"][];
             /** Mailing Date */
             mailing_date?: string | null;
             /** Mailing Address */
@@ -410,15 +421,22 @@ export interface components {
              * Field Confidence
              * @default {}
              */
-            field_confidence: {
+            field_confidence?: {
                 [key: string]: number;
             };
             /**
              * Evidence Quotes
              * @default {}
              */
-            evidence_quotes: {
+            evidence_quotes?: {
                 [key: string]: string;
+            };
+            /**
+             * Evidence
+             * @default {}
+             */
+            evidence?: {
+                [key: string]: components["schemas"]["FieldEvidence"];
             };
         };
         /** AnalyzeRequest */
@@ -430,7 +448,7 @@ export interface components {
              * Household
              * @default []
              */
-            household: components["schemas"]["HouseholdMember"][];
+            household?: components["schemas"]["HouseholdMember"][];
             /** Knowledge Date */
             knowledge_date?: string | null;
             /** Judgment Entry Date */
@@ -513,7 +531,7 @@ export interface components {
              * Fixes Used
              * @default []
              */
-            fixes_used: components["schemas"]["LocationFix"][];
+            fixes_used?: components["schemas"]["LocationFix"][];
         };
         /** Deadlines */
         Deadlines: {
@@ -543,7 +561,7 @@ export interface components {
              * Notes
              * @default []
              */
-            notes: components["schemas"]["ValidationNote"][];
+            notes?: components["schemas"]["ValidationNote"][];
             /** Provider */
             provider: string;
             /** Source Sha256 */
@@ -554,6 +572,23 @@ export interface components {
             has_text_layer: boolean;
             /** Used Vision */
             used_vision: boolean;
+        };
+        /**
+         * FieldEvidence
+         * @description Where a value was read: the words, the page, and on a text-layer PDF the box.
+         */
+        FieldEvidence: {
+            /** Quote */
+            quote?: string | null;
+            /** Page */
+            page?: number | null;
+            /** Bbox */
+            bbox?: [
+                number,
+                number,
+                number,
+                number
+            ] | null;
         };
         /** Finding */
         Finding: {
@@ -568,7 +603,7 @@ export interface components {
              * Numbers
              * @default {}
              */
-            numbers: {
+            numbers?: {
                 [key: string]: number | string;
             };
             /** Legal Ref */
@@ -578,7 +613,7 @@ export interface components {
          * FixKind
          * @enum {string}
          */
-        FixKind: "visit" | "path" | "transaction" | "manual";
+        FixKind: "visit" | "path" | "transaction" | "manual" | "photo";
         /** GeocodeRequest */
         GeocodeRequest: {
             /** Address */
@@ -616,12 +651,16 @@ export interface components {
         Health: {
             /** Status */
             status: string;
+            /** App Version */
+            app_version: string;
             /** Engine Version */
             engine_version: string;
             /** Params Version */
             params_version: string;
             /** Llm Provider */
             llm_provider: string;
+            /** Llm Real Data Allowed */
+            llm_real_data_allowed: boolean;
         };
         /** HouseholdMember */
         HouseholdMember: {
@@ -637,7 +676,7 @@ export interface components {
              * Is Defendant
              * @default false
              */
-            is_defendant: boolean;
+            is_defendant?: boolean;
         };
         /** ImpossiblePair */
         ImpossiblePair: {
@@ -674,6 +713,16 @@ export interface components {
             source: string;
             /** Label */
             label?: string | null;
+            /**
+             * Time Uncertainty S
+             * @default 0
+             */
+            time_uncertainty_s?: number;
+            /**
+             * Tz Assumed
+             * @default false
+             */
+            tz_assumed?: boolean;
         };
         /** PacketRequest */
         PacketRequest: {
@@ -682,7 +731,7 @@ export interface components {
              * Fixes
              * @default []
              */
-            fixes: components["schemas"]["LocationFix"][];
+            fixes?: components["schemas"]["LocationFix"][];
             /** Map Png Base64 */
             map_png_base64?: string | null;
             /** Affiant Name */

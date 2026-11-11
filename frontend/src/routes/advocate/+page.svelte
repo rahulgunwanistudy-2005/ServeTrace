@@ -257,7 +257,7 @@
 		</div>
 
 		{#if selectedReport}
-			<ServerDetail report={selectedReport} records={analysis.records} />
+			<ServerDetail report={selectedReport} records={analysis.records ?? []} />
 		{:else}
 			<p class="text-muted">{advocate.selectServer}</p>
 		{/if}

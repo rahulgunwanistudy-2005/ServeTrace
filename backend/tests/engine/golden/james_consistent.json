@@ -41,7 +41,9 @@
      },
      "source": "timeline_android",
      "t": "2025-05-14T17:18:00-04:00",
-     "t_end": "2025-05-14T20:18:00-04:00"
+     "t_end": "2025-05-14T20:18:00-04:00",
+     "time_uncertainty_s": 0,
+     "tz_assumed": false
     }
    ],
    "nearest_fix_km": 0.03,

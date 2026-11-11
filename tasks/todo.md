@@ -1,5 +1,41 @@
 # tasks/todo.md
 
+## v1.1 — Survive first contact (session 13)
+
+Goal: an attorney can upload their own affidavit on a live call and have it confirmed in
+under two minutes; a defendant with no Google Timeline still gets an answer from their
+photos; advocate mode reads a folder of affidavits and ranks agencies; and every number on
+the public site is one the eval or the store actually produced.
+
+### Phase checklist
+- [x] **A** Bible amendments, contracts, config, version stamp, regenerated types
+- [ ] **B** Photo ingest (exifr, on-device), time-uncertainty rule, property tests
+- [ ] **C** Eight affidavit layouts, HEIC, page classification, provenance, judgment date
+- [ ] **D** Flagged-first correction UI on `ExtractionResult`, legacy endpoint deleted
+- [ ] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
+- [ ] **F** Usage counts + leads (Supabase over PostgREST), `/attorneys`, privacy update
+- [ ] **G** i18n plumbing; eval, REPORT, methodology, changelog, version 1.1.0, README
+- [ ] **H** Regression, self-review, security pass, Docker, deploy notes, smoke script
+
+### Decisions taken
+(Filled in as they are made; each is the more conservative or more private option.)
+
+- **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
+  service time, an address and a method; a reader that misses one must still return what
+  it did find. Each entry is `ExtractedAffidavit {draft, notes, pages}`. Confirmation is
+  still the only thing that makes an `Affidavit`.
+- **No `EmailStr`.** `email-validator` is not installed and not approved; `LeadIn.email`
+  uses a strict regex validator, as the spec allows.
+- **Types are generated with `--default-non-nullable false`.** Pydantic emits one
+  `LocationFix` schema for request and response; with the default flag a field that has a
+  default (`time_uncertainty_s = 0`) became *required* on the client, so every v1.0 fix the
+  browser builds stopped type-checking. Optional-with-default is the true contract.
+- **Engine goldens regenerated in Phase A, additively.** The diff is exactly
+  `time_uncertainty_s: 0` and `tz_assumed: false` on each of the five fixes used; no
+  tier, finding, number or code moved.
+- **`/api/extract` gets its own rate budget** (60/min, burst 6) separate from geocode's
+  30/min, because a batch upload is one call per file.
+
 ## Session 1 — Scaffold, contracts, synthetic fixtures
 
 **Goal:** a repo that builds, type-checks and tests clean on both sides, with every data

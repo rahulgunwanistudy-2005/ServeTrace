@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Response
 from pydantic import BaseModel
 
-from app.config import ENGINE_VERSION, get_settings
+from app.config import APP_VERSION, ENGINE_VERSION, get_settings
 from app.engine.params import PARAMS_VERSION
 
 router = APIRouter(tags=["health"])
@@ -11,18 +11,23 @@ router = APIRouter(tags=["health"])
 
 class Health(BaseModel):
     status: str
+    app_version: str
     engine_version: str
     params_version: str
     llm_provider: str
+    llm_real_data_allowed: bool
+    """The upload screens read this to decide which data-handling notice to show."""
 
 
 @router.get("/health", response_model=Health)
 async def health() -> Health:
     return Health(
         status="ok",
+        app_version=APP_VERSION,
         engine_version=ENGINE_VERSION,
         params_version=PARAMS_VERSION,
         llm_provider=get_settings().llm_provider,
+        llm_real_data_allowed=get_settings().llm_real_data_allowed,
     )
 
 

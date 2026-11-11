@@ -4,11 +4,12 @@ Nothing outside this module may define a shape that crosses a module boundary.
 All datetimes are timezone-aware; naive datetimes are rejected at the boundary.
 """
 
+import re
 from datetime import date
 from enum import StrEnum
 from typing import Literal
 
-from pydantic import AwareDatetime, BaseModel, Field
+from pydantic import AwareDatetime, BaseModel, Field, field_validator
 
 
 class ServiceMethod(StrEnum):
@@ -36,6 +37,26 @@ class PersonDescription(BaseModel):
     """Verbatim description block as extracted from the document."""
 
 
+class PageType(StrEnum):
+    """What a page of an uploaded court file is. v1.1, bible §12."""
+
+    AFFIDAVIT_OF_SERVICE = "affidavit_of_service"
+    SUMMONS_COMPLAINT = "summons_complaint"
+    JUDGMENT = "judgment"
+    NOTICE = "notice"
+    OTHER = "other"
+
+
+class FieldEvidence(BaseModel):
+    """Where a value was read: the words, the page, and on a text-layer PDF the box."""
+
+    quote: str | None = None
+    page: int | None = None
+    """0-based page index in the uploaded file."""
+    bbox: tuple[float, float, float, float] | None = None
+    """PDF points (x0, top, x1, bottom), text-layer documents only."""
+
+
 class ServiceAttempt(BaseModel):
     at: AwareDatetime
     address: str
@@ -51,6 +72,8 @@ class Affidavit(BaseModel):
     server_name: str | None = None
     server_license: str | None = None
     agency_license: str | None = None
+    agency_name: str | None = None
+    """The process serving agency, if the affidavit names one. v1.1: advocate rollups."""
     method: ServiceMethod
     served_at: AwareDatetime
     """The claimed completed service: delivery for 308(1)/308(2), affixing for 308(4)."""
@@ -69,6 +92,9 @@ class Affidavit(BaseModel):
     """0..1 per field, from the extractor."""
     user_confirmed: bool = False
     """Analysis refuses unconfirmed affidavits."""
+    evidence: dict[str, FieldEvidence] = {}
+    """v1.1: where on the uploaded file each field was read. Provenance only; nothing in
+    the engine reads it. `field_confidence` stays the confidence channel."""
 
 
 # --- Extraction (bible §12) -------------------------------------------------------------
@@ -106,6 +132,7 @@ class AffidavitDraft(BaseModel):
     server_name: str | None = None
     server_license: str | None = None
     agency_license: str | None = None
+    agency_name: str | None = None
     method: str | None = None
     served_date: str | None = None
     served_time: str | None = None
@@ -128,6 +155,9 @@ class AffidavitDraft(BaseModel):
     """Per field, the verbatim span the value was read from. Also the "exactly as written"
     form of every date and time: the field holds the normalised value, the quote holds the
     words on the page, and the grounding check scores that quote against the text layer."""
+    evidence: dict[str, FieldEvidence] = {}
+    """v1.1: the same quotes with the page they came from and, when the file has a text
+    layer, the box around them, so the review screen can point at the words."""
 
 
 class ValidationNote(BaseModel):
@@ -175,6 +205,8 @@ class FixKind(StrEnum):
     PATH = "path"
     TRANSACTION = "transaction"
     MANUAL = "manual"
+    PHOTO = "photo"
+    """v1.1: where and when a camera says a photo was taken. Read on the device."""
 
 
 class LocationFix(BaseModel):
@@ -187,6 +219,12 @@ class LocationFix(BaseModel):
     source: str
     label: str | None = None
     """For example "Timeline visit: WORK"."""
+    time_uncertainty_s: int = Field(default=0, ge=0, le=86_400)
+    """v1.1: 0 when the time is exact; above 0 when a time zone or clock was assumed.
+    The engine only ever widens what the fix could mean by this, never narrows it."""
+    tz_assumed: bool = False
+    """v1.1: true when the source had no offset and no UTC reading, so the time zone was
+    assumed. A contradiction resting only on such fixes is never STRONG (bible §11.1.7)."""
 
 
 class HouseholdMember(BaseModel):
@@ -421,3 +459,115 @@ class AdvocateAnalysis(BaseModel):
     somebody disputes the report.
     """
     stats: AdvocateStats
+
+
+# --- v1.1: court files, advocate batches, usage counts and leads --------------------------
+
+
+class ExtractedAffidavit(BaseModel):
+    """One affidavit of service found in an uploaded file, as a draft the user confirms.
+
+    The spec for v1.1 sketched `ExtractionResult.affidavits` as confirmed `Affidavit`s.
+    It is drafts here, deliberately: an `Affidavit` requires a service time, an address
+    and a method, and a reader that could not find one must still hand back everything
+    else it did find rather than fail the whole file. The user's confirmation is what
+    turns a draft into an `Affidavit`, exactly as in v1.0.
+    """
+
+    draft: AffidavitDraft
+    notes: list[ValidationNote] = []
+    pages: list[int] = []
+    """0-based pages of the uploaded file this affidavit was read from."""
+
+
+class RuleRate(BaseModel):
+    """How often one NY rule fired across a batch, out of the affidavits it applies to."""
+
+    rule_code: str
+    flagged: int
+    applicable: int
+    rate: float
+
+
+class AgencyReport(BaseModel):
+    agency_key: str
+    """Normalized agency licence, else normalized agency name, else "unknown"."""
+    agency_display: str
+    n_affidavits: int
+    servers: list[str]
+    impossible_pairs: int
+    max_services_per_hour: int
+    repeated_descriptions: list[tuple[str, int]]
+    rule_rates: list[RuleRate]
+    risk_rank: int
+
+
+class BatchRejection(BaseModel):
+    """An affidavit that was in the batch but not analysed, and why. Never its contents."""
+
+    index: int
+    """Position in the submitted list, 0-based."""
+    code: str
+    reason: str
+
+
+class BatchReport(BaseModel):
+    servers: list[ServerReport]
+    agencies: list[AgencyReport]
+    rule_rates: list[RuleRate]
+    """Batch-wide."""
+    n_affidavits: int
+    n_records: int
+    rejected: list[BatchRejection]
+    records: list[ServiceRecord] = []
+    """The service records the batch produced, so the map can draw a server's day."""
+    params_version: str
+    engine_version: str
+    app_version: str
+    generated_at: AwareDatetime
+
+
+class UsageEventKind(StrEnum):
+    CHECK_COMPLETED = "check_completed"
+    PACKET_DOWNLOADED = "packet_downloaded"
+    ADVOCATE_BATCH = "advocate_batch"
+
+
+_EMAIL = re.compile(r"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$")
+"""Strict enough to catch a typo, loose enough for any real address. `EmailStr` would need
+`email-validator`, which is not an approved dependency."""
+
+
+class LeadIn(BaseModel):
+    """A contact request from the /attorneys page. Never carries case data."""
+
+    name: str = Field(min_length=1, max_length=120)
+    email: str = Field(min_length=3, max_length=254)
+    organization: str | None = Field(default=None, max_length=200)
+    role: Literal["consumer_attorney", "legal_aid", "court_staff", "researcher", "other"]
+    message: str | None = Field(default=None, max_length=2000)
+    consent: Literal[True]
+    website: str = Field(default="", max_length=200)
+    """The honeypot. A person never sees it, so a person never fills it in."""
+
+    @field_validator("email")
+    @classmethod
+    def _email_shape(cls, value: str) -> str:
+        value = value.strip()
+        if not _EMAIL.match(value):
+            raise ValueError("not an email address")
+        return value
+
+
+class UsageTotals(BaseModel):
+    kind: UsageEventKind
+    real: int
+    demo: int
+
+
+class UsageStats(BaseModel):
+    """Day-level counters only. No timestamps finer than a day exist to report."""
+
+    enabled: bool
+    since: date | None
+    totals: list[UsageTotals]

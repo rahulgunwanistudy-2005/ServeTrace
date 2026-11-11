@@ -161,6 +161,7 @@ FIX_KIND_LABELS = {
     "path": "Journey point",
     "transaction": "Card transaction",
     "manual": "Stated by hand",
+    "photo": "Photo",
 }
 """Column values in the packet's table of records, where a heading supplies the context."""
 
@@ -169,6 +170,7 @@ FIX_KIND_IN_SENTENCE = {
     "path": "recorded points along a journey",
     "transaction": "card transactions with a time and a place",
     "manual": "times and places I wrote down myself",
+    "photo": "photos my phone recorded the time and place of",
 }
 """The same four kinds inside a sentence somebody swears to, where nothing supplies context.
 

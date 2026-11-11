@@ -7,6 +7,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ENGINE_VERSION = "0.1.0"
 
+APP_VERSION = "1.1.0"
+"""Bible §19. Semver for the product as a whole, shown in the footer, `/api/health` and
+every generated PDF. The engine and its parameters keep their own stamps, because a
+change to the wizard is not a change to any verdict."""
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
@@ -40,6 +45,30 @@ class Settings(BaseSettings):
     rate_limit_trusted_hops: int = 0
     """Proxies in front of this app whose `X-Forwarded-For` entries can be believed."""
     geosearch_url: str = "https://geosearch.planninglabs.nyc/v2/search"
+
+    # --- v1.1 -------------------------------------------------------------------------
+    llm_real_data_allowed: bool = False
+    """Whether this deployment may be sent real court papers. False shows a blocking
+    notice on every upload. Setting it true is a statement that the configured provider's
+    plan excludes training on inputs - a statement Rahul verifies, never the code."""
+    extract_rate_limit_per_minute: int = 60
+    """Sustained `/api/extract` calls a minute per client. A batch upload is the browser
+    calling this route once per file, so it gets its own, larger budget. 0 disables."""
+    extract_rate_limit_burst: int = 6
+    max_extract_pages: int = 25
+    """Pages accepted in one uploaded file. A whole NYC consumer court file is ~6-10."""
+    max_batch_affidavits: int = 200
+    """Confirmed affidavits accepted in one `/api/advocate/batch` request."""
+    supabase_url: str = ""
+    supabase_service_key: str = ""
+    metrics_enabled: bool = False
+    """Day-level usage counters and the attorneys' contact form. Off locally."""
+    leads_per_hour: int = 5
+    """Contact-form submissions a client may make in an hour. Counted in memory only."""
+
+    @property
+    def store_configured(self) -> bool:
+        return self.metrics_enabled and bool(self.supabase_url and self.supabase_service_key)
 
     @property
     def max_upload_bytes(self) -> int:

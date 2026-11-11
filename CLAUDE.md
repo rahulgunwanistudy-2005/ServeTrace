@@ -87,7 +87,7 @@ Browser (SvelteKit, static)                         Server (FastAPI, stateless)
 └─────────────────────────────────────┘            └──────────────────────────────────────┘
 ```
 Decisions (do not relitigate):
-- **Stateless server, no database.** Privacy and leanness. Case state lives in the browser and in the exported bundle.
+- **No case data is ever persisted server-side.** A single small store (Supabase Postgres) holds only (a) anonymous day-level usage counters and (b) contact-form leads that people submit voluntarily with consent. Case state lives in the browser and in the exported bundle. *(v1.1 amendment; was "Stateless server, no database".)*
 - **Single deployable:** Docker multi-stage build; FastAPI serves the built SvelteKit static bundle. One Render web service.
 - **LLM used in exactly one place:** affidavit field extraction. Engine, rules, verdicts and documents are deterministic Python. Documents are Jinja2 templates filled from user-confirmed fields.
 - **Engine in Python, once.** Frontend never reimplements engine logic. Frontend sends windowed fixes only.
@@ -97,6 +97,7 @@ Decisions (do not relitigate):
 Backend: Python 3.12, `uv`, FastAPI, Pydantic v2, pdfplumber, pypdfium2 (rasterize), httpx, Jinja2, WeasyPrint, openpyxl, python-multipart, `google-genai` (default LLM), `anthropic` (optional), pytest, hypothesis, ruff, mypy.
 Frontend: SvelteKit 2 + Svelte 5, TypeScript strict, adapter-static, Tailwind, maplibre-gl, OpenFreeMap tiles (`https://tiles.openfreemap.org/styles/liberty`), papaparse, openapi-typescript, vitest.
 Geocoding: NYC GeoSearch `https://geosearch.planninglabs.nyc/v2/search?text=` (free, no key). Cache to `backend/app/geo/cache.json` for fixtures and demo.
+v1.1 additions (approved): backend `pillow-heif` (HEIC decode), `pillow` declared explicitly, `piexif` (dev/fixtures only); frontend `exifr` (EXIF/GPS, on-device); fixtures-only OFL handwriting font under `fixtures/fonts/`; Supabase via its REST API (PostgREST) over `httpx` — no Supabase SDK, no psycopg.
 Deploy: Docker on Render (single web service). Env: `LLM_PROVIDER=gemini|anthropic|none`, `GEMINI_API_KEY`, `ANTHROPIC_API_KEY`, `DEMO_ONLY=false`, `MAX_UPLOAD_MB=15`.
 
 ## 9. Repo layout
@@ -206,6 +207,8 @@ class ServerReport(BaseModel):
     max_services_per_hour: int; repeated_descriptions: list[tuple[str, int]]; risk_rank: int
 ```
 
+**v1.1 additions** (all additive; v1.0 payloads still validate): `FixKind.PHOTO`; `LocationFix.time_uncertainty_s` (0 = exact) and `LocationFix.tz_assumed`; `PageType`; `FieldEvidence {quote, page, bbox}`; `Affidavit.agency_name` and `Affidavit.evidence`; `ExtractionResult {page_types, affidavits, judgment_entry_date, judgment_evidence, notes, source_sha256, n_pages, ...}` where each affidavit is an `ExtractedAffidavit {draft, notes, pages}` (drafts, not confirmed `Affidavit`s: the user's confirmation is still what makes an `Affidavit`); advocate `RuleRate`, `AgencyReport`, `BatchReport`; `UsageEventKind`; `LeadIn` (honeypot `website`, `consent: Literal[True]`). The authoritative definitions are in `models.py`.
+
 ## 11. Engine specification (deterministic; all thresholds in `engine/params.py`, versioned)
 ```python
 PARAMS_VERSION = "2026.09-v1"
@@ -230,12 +233,16 @@ TZ = "America/New_York"
 4. No fixes in window → `NO_DATA`.
 5. Precedence: visit test result wins over prism; CONSISTENT evidence at T overrides a MODERATE contradiction (report both as findings).
 6. Overall = strongest CONTRADICTED across claims, else CONSISTENT if the main claim is consistent, else NO_DATA/INCONCLUSIVE.
+7. **Time uncertainty (v1.1).** Uncertain time must never strengthen a contradiction. A fix with `time_uncertainty_s = u > 0` has its interval widened by `u` on both sides for the visit test; in the prism its elapsed time is `|T − t| + u` (the most favourable gap, which lowers speed). A contradiction resting only on fixes with `tz_assumed = true` is capped at MODERATE, never STRONG.
 
 Invariants (property tests):
 - Moving any fix farther from P never lowers the contradiction severity.
 - Shifting every timestamp by the same Δ changes nothing.
 - Adding a fix far outside the window changes nothing.
 - A fix exactly at P at exactly T always yields CONSISTENT.
+- Raising `time_uncertainty_s` on any fix never raises severity. (v1.1)
+- A contradiction resting only on `tz_assumed` fixes is never STRONG. (v1.1)
+- An exact photo at P at T yields CONSISTENT. (v1.1)
 
 ### 11.2 Description check (`F-DESC`)
 - 308(1) personal service: compare `recipient_description` to the household member with `is_defendant=True`.
@@ -268,6 +275,10 @@ Pipeline: `pdf_text` (pdfplumber text layer) → if text ≥ 200 chars, send tex
 - Validators (deterministic): date sanity (service not in future, mailing not > 60 days from service), license number pattern (digits, 7), times parse, method inferred from keywords when LLM leaves it UNKNOWN ("suitable age and discretion" → 308_2; "affixing" / "door" → 308_4; "personally" → 308_1), every field's `evidence_quote` must appear in the source text layer (fuzzy ratio ≥ 90) when a text layer exists, else confidence capped at 0.6.
 - `LLM_PROVIDER=none` → returns empty draft; UI shows manual entry form. The app must be fully usable without any LLM.
 - Temperature 0, one retry on schema failure, 30 s timeout, never log document text.
+- **v1.1 — real uploads.** Accept PDF, JPEG, PNG and HEIC/HEIF (decoded with `pillow-heif`); apply EXIF orientation, convert to RGB, cap the long edge at 2400 px; at most 25 pages per file.
+- **v1.1 — page classification** (`classify.py`) runs first: text-layer pages by deterministic keyword scoring (affidavit / judgment / summons-complaint cues, highest score above threshold, else OTHER); image-only pages by one LLM call over ≤768 px thumbnails returning page types only, and on any failure every page is treated as a candidate affidavit page. Field extraction runs only on affidavit pages and their continuation pages; one file can yield several affidavits.
+- **v1.1 — judgment entry date:** text layer → regex near "entered"/"judgment"; image → a small field call on the judgment page only. Always a draft the user confirms.
+- **v1.1 — provenance:** the prompt returns quote and page per field; on text-layer PDFs the quote is located with pdfplumber word positions (fuzzy ≥ 0.90) to fill `bbox`. A quote not found caps confidence at 0.6 with a note. A checked method box that disagrees with keyword inference → confidence 0.5 and "Method unclear — please confirm". Agency licence is digits-checked and agency names normalized (case, punctuation, Inc/LLC/Corp) for advocate rollups.
 
 ## 13. Location ingest (browser Web Worker)
 Parsers must handle:
@@ -275,6 +286,7 @@ Parsers must handle:
 - **Google Timeline, iOS export:** top-level array; `visit.topCandidate.placeLocation` as `"geo:40.7,-73.9"`; `activity.start` / `activity.end` as `geo:` strings; `startTime`/`endTime`.
 - **Card/bank CSV:** user maps columns (date, time, merchant, optional address). Rows with address → geocode via `/api/geocode` (address only, no amounts sent). Kind TRANSACTION, accuracy 500 m.
 - **Manual entries:** "I was at work from 8:00 to 20:00 at <address>". Kind MANUAL.
+- **Photos (v1.1):** camera-roll files read with `exifr`, **metadata only** — pixels are never read, images never uploaded, no previews. Time priority: GPS date+time stamp (UTC, exact) → `DateTimeOriginal` + `OffsetTimeOriginal` (exact) → `DateTimeOriginal` alone (America/New_York, `tz_assumed`, `time_uncertainty_s = 3600`) → no original time: skipped (file modified time is not evidence). Accuracy `GPSHPositioningError`, else 100 m. Bursts within 25 m and 60 s collapse to one. Kind PHOTO, `source = "photo"`, label "Photo taken here", never the filename.
 - Robustness: stream-parse files up to 200 MB without freezing UI; reject unknown shapes with a clear message; dedupe identical fixes.
 - `window.ts`: given claim times, keep only fixes within ±3 h of any claim. Only windowed fixes are sent to `/api/analyze`. UI shows "Sending N of M location points (only around the claimed times)".
 
@@ -295,7 +307,8 @@ Accessibility: WCAG AA contrast, keyboard navigable, map has a text alternative 
 - No LLM in documents. Ever.
 
 ## 16. Privacy, safety, security
-- Stateless server; uploads processed in memory; temp files deleted in `finally`.
+- No case data persisted; uploads processed in memory; temp files deleted in `finally`. The one store (v1.1) receives only `bump_usage(day, kind, tier, bucket)` and voluntary `leads` rows — no IPs, user agents, coordinates, affidavit fields or timestamps finer than a day. A metrics failure never fails a user request.
+- Real court papers (v1.1): `LLM_REAL_DATA_ALLOWED=false` (default) shows a blocking "demos and synthetic data only" notice on upload. Free LLM tiers may let the provider use inputs for product improvement; enable only on a plan whose terms exclude training on inputs, verified by Rahul.
 - Logs: request id, route, latency, status. Never names, addresses, coordinates, document text.
 - Size limits: 15 MB upload, 5,000 fixes per analyze request, 50,000 advocate rows.
 - CORS locked to the deployed origin. Basic rate limit (in-memory token bucket per IP).
@@ -313,3 +326,6 @@ Backend: `ruff check`, `ruff format --check`, `mypy app`, `pytest -q` all green.
 6. Never write legal statements outside §5. Never invent case law or statutes.
 7. Never put real personal data in the repo.
 8. Report at the end of each session: built, verified (with command output summary), deferred.
+
+## 19. Versioning (v1.1)
+`APP_VERSION` in `backend/app/config.py`, semver. `CHANGELOG.md` in Keep a Changelog format, rendered at `/changelog`. The version is shown in the footer, `/api/health`, the OpenAPI document and every generated PDF. `ENGINE_VERSION` and `PARAMS_VERSION` stay separate stamps: a UI change is not a verdict change.

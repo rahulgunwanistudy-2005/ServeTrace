@@ -10,7 +10,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "typecheck": "svelte-kit sync && tsc --noEmit",
     "test": "vitest run",
-    "gen:types": "openapi-typescript http://localhost:8000/api/openapi.json -o src/lib/api/schema.d.ts"
+    "gen:types": "openapi-typescript http://localhost:8000/api/openapi.json --default-non-nullable false -o src/lib/api/schema.d.ts"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.6",

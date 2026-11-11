@@ -16,7 +16,7 @@ from app.api import (
 from app.api.errors import install_error_handlers
 from app.api.security import security_headers_middleware
 from app.api.static_site import mount_frontend
-from app.config import get_settings
+from app.config import APP_VERSION, get_settings
 from app.logging import configure_logging, request_log_middleware
 
 FRONTEND_BUILD = Path(__file__).resolve().parents[2] / "frontend" / "build"
@@ -28,7 +28,7 @@ def create_app() -> FastAPI:
 
     app = FastAPI(
         title="ServeTrace",
-        version="0.1.0",
+        version=APP_VERSION,
         description="Check an affidavit of service against your own location history.",
         openapi_url="/api/openapi.json",
         docs_url="/api/docs",

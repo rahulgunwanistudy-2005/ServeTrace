@@ -52,7 +52,9 @@
      },
      "source": "timeline_android",
      "t": "2025-06-12T08:00:00-04:00",
-     "t_end": "2025-06-12T20:00:00-04:00"
+     "t_end": "2025-06-12T20:00:00-04:00",
+     "time_uncertainty_s": 0,
+     "tz_assumed": false
     }
    ],
    "nearest_fix_km": 10.578,
