@@ -18,6 +18,8 @@ RUN npm ci --no-audit --no-fund
 
 COPY frontend/ ./
 COPY fixtures/demo_cases /build/fixtures/demo_cases
+# /changelog and the footer's version are read from CHANGELOG.md at build time.
+COPY CHANGELOG.md /build/CHANGELOG.md
 RUN npm run build
 
 

@@ -17,6 +17,10 @@ import pytest
 from eval.advocate_eval import load_records
 from eval.advocate_eval import published_figures as advocate_published
 from eval.advocate_eval import score as advocate_score
+from eval.batch_eval import published_figures as batch_published
+from eval.batch_eval import run as run_batch
+from eval.photos import published_figures as photos_published
+from eval.photos import run as run_photos
 from eval.robustness import published_figures as robustness_published
 from eval.robustness import run as run_robustness
 from eval.run_eval import (
@@ -28,6 +32,8 @@ from eval.run_eval import (
     published_figures,
     score_corpus,
 )
+from eval.uncertainty import published_figures as uncertainty_published
+from eval.uncertainty import run as run_uncertainty
 
 CORPUS = Path(__file__).resolve().parents[3] / "fixtures" / "out"
 
@@ -142,6 +148,24 @@ def test_the_figures_on_the_methodology_page_are_the_figures_this_run_produced(
     assert isinstance(committed_advocate.pop("runtime_ms"), (int, float))
     assert isinstance(fresh_advocate.pop("runtime_ms"), (int, float))
     assert committed_advocate == fresh_advocate
+
+    # The v1.1 blocks, by the same route: each against its own scorer.
+    assert committed.pop("advocate_batch", None) == batch_published(run_batch()), (
+        "the attorney-batch figures on the page are not the ones the fixture produces"
+    )
+    assert committed.pop("photos", None) == photos_published(run_photos(CORPUS)), (
+        "the photo-only figures on the page are not the ones this corpus produces"
+    )
+    assert committed.pop("uncertainty", None) == uncertainty_published(run_uncertainty(CORPUS)), (
+        "the time-uncertainty figures on the page are not the ones this corpus produces"
+    )
+    # The layout pass renders and reads 225 documents, which is the eval's job and not a
+    # unit test's; here its block is checked for shape, and `eval/run_eval.py` twice in a
+    # row is what shows it reproduces (tasks/todo.md, Phase G).
+    layouts = committed.pop("layouts", None)
+    assert layouts is not None, "the page publishes layout figures; re-run the eval"
+    assert layouts["provider"] == "none"
+    assert all("text_layer" in row for row in layouts["layouts"].values())
 
     assert committed.pop("latency_ms").keys() == fresh.pop("latency_ms").keys()
     assert committed == fresh

@@ -25,6 +25,7 @@ from __future__ import annotations
 
 from datetime import date, datetime
 
+from app.config import APP_VERSION
 from app.engine.copy import (
     MONTHS,
     fmt_date,
@@ -254,9 +255,13 @@ INTEGRITY_BODY = (
 )
 
 
-def generated_line(when: datetime, engine_version: str, params_version: str) -> str:
+def generated_line(
+    when: datetime, engine_version: str, params_version: str, app_version: str = APP_VERSION
+) -> str:
+    """The stamp on every PDF. Bible §19: the app version is printed beside, never instead
+    of, the engine and threshold versions, because a UI change is not a verdict change."""
     return (
-        f"Prepared by {PRODUCT} at {fmt_datetime(when)} (New York time). "
+        f"Prepared by {PRODUCT} {app_version} at {fmt_datetime(when)} (New York time). "
         f"Engine {engine_version}, thresholds {params_version}."
     )
 

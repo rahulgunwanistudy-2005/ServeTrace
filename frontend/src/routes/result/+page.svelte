@@ -27,7 +27,7 @@
 	import AffiantForm from '$lib/ui/AffiantForm.svelte';
 	import ResultMap from '$lib/map/ResultMap.svelte';
 	import { saveBlob } from '$lib/download';
-	import { result } from '$copy/en';
+	import { result, common } from '$copy/en';
 
 	let analysis = $state<CaseAnalysis | null>(caseStore.analysis);
 	let failure = $state<string | null>(null);
@@ -118,7 +118,7 @@
 		<!-- Reachable from a bookmark and from the nav. It cannot throw and it cannot show
 		     an empty verdict card, so it says what happened and points at the two doors. -->
 		<div class="st-shell-prose">
-			<Eyebrow>Step 03 / 03</Eyebrow>
+			<Eyebrow>{common.resultStep}</Eyebrow>
 			<h1 class="st-display mt-5 text-3xl sm:text-5xl">{result.emptyTitle}</h1>
 			<p class="mt-5 text-lg leading-relaxed text-muted">{result.emptyBody}</p>
 			<div class="mt-8 grid max-w-xl gap-3 sm:grid-cols-2">
@@ -131,12 +131,12 @@
 
 		{#if failure}
 			<div class="mb-8">
-				<Callout tone="contradicted" title="That did not work">{failure}</Callout>
+				<Callout tone="contradicted" title={common.failedTitle}>{failure}</Callout>
 			</div>
 		{/if}
 
 		{#if busy && !analysis}
-			<p class="text-lg text-muted">Working it out…</p>
+			<p class="text-lg text-muted">{common.resultWorking}</p>
 		{/if}
 
 		{#if analysis}

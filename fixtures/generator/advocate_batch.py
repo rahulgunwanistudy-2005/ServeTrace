@@ -115,7 +115,7 @@ def _description(index: int, rng: random.Random) -> PersonDescription:
         f"Hair: {hair}  Age: {age_min}-{age_min + 5}  Height: 5'4\"-5'8\"  Weight: 140-160 lbs"
     )
     return PersonDescription(
-        sex=sex,  # type: ignore[arg-type]
+        sex=sex,
         age_min=age_min,
         age_max=age_min + 5,
         height_in_min=64,
@@ -243,7 +243,7 @@ async def _sample(affidavit: Affidavit, pdf: bytes, name: str) -> dict[str, Any]
     result: ExtractionResult = await extract_document(
         pdf,
         previews=False,
-        extractor=DerivedExtractor(payload),  # type: ignore[arg-type]
+        extractor=DerivedExtractor(payload),
     )
     found = result.affidavits[0]
     draft = found.draft.model_copy(

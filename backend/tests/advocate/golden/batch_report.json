@@ -192,7 +192,7 @@
   }
  ],
  "disclaimer": "Analysis of documents supplied by the user. Data conflicts are not findings of misconduct.",
- "generated": "Prepared by ServeTrace at 10:00 AM on November 12, 2026 (New York time). Engine 0.2.0, thresholds 2026.09-v1. App 1.1.0.",
+ "generated": "Prepared by ServeTrace 1.1.0 at 10:00 AM on November 12, 2026 (New York time). Engine 0.2.0, thresholds 2026.09-v1.",
  "generated_iso": "2026-11-12T10:00:00-05:00",
  "intro": "This report covers 60 affidavits of service, each read off the document and then confirmed by a person before it was analysed. Left out: 2 affidavits left unconfirmed in review and 1 file that could not be read. Nothing unconfirmed is counted anywhere in it.",
  "limits": "Every number here comes from the affidavits supplied, as confirmed in review. A wrong time or address on an affidavit, or a misread one that was confirmed anyway, will show here as a conflict. A conflict between two filings is a reason to request the server's GPS records (L7), not a finding about what happened.",

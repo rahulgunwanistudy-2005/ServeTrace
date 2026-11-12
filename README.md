@@ -22,6 +22,32 @@ Scope, the legal model and the engineering rules live in [`CLAUDE.md`](CLAUDE.md
 before changing anything — in particular §5, which is the only place legal facts may come
 from, and §6, which governs what the product is allowed to say.
 
+## What's new in 1.1
+
+Version 1.1.0 (2026-11-12) makes ServeTrace work on the papers people actually have. The
+full list is in [`CHANGELOG.md`](CHANGELOG.md), also at `/changelog` in the app.
+
+- **Photos as evidence.** A camera roll is read on the device for each photo's time and
+  place only; pixels are never read and nothing is uploaded. A photo with no time zone is
+  treated as possibly an hour off, and uncertain time can only weaken a conflict, never
+  strengthen it.
+- **Whole court files.** PDF, JPEG, PNG or HEIC, up to 25 pages: pages are sorted into
+  summons, affidavit and judgment, one file can hold several affidavits, the judgment date
+  is offered as a draft, and every field shows the quote and page it came from.
+- **Attorney edition.** A folder of affidavits, read and confirmed one by one, compared as a
+  batch: impossible back-to-back services, how often each New York rule flags out of the
+  affidavits it applies to, and a ranking by agency, with a PDF report and CSVs.
+- **Credibility.** Four new evaluations — photo-only, time-uncertainty invariants, batch
+  rule rates against an answer key, and court-file page sorting — run from the same one
+  command, reproduce identically, and are published on the Methodology page
+  ([`eval/REPORT.md`](eval/REPORT.md)). Day-level usage counts and an attorney contact
+  form use one small store that holds no case data ([privacy](docs/DISCLOSURE.md)).
+- **Ready for a second language**, with none added yet: see [`docs/I18N.md`](docs/I18N.md).
+
+| For attorneys | Methodology, v1.1 sections | Changelog |
+|---|---|---|
+| ![The attorneys page](docs/screens/attorneys.png) | ![Time-uncertainty, court-file and batch evaluations](docs/screens/methodology-v11.png) | ![The changelog page](docs/screens/changelog.png) |
+
 ## What it actually does
 
 Three steps and one verdict.

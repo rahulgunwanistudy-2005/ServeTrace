@@ -35,7 +35,7 @@
 	import StepHeader from '$lib/ui/StepHeader.svelte';
 	import TextField from '$lib/ui/TextField.svelte';
 	import { buildAffidavit } from '$lib/check/affidavit';
-	import { steps, upload, wizard } from '$copy/en';
+	import { steps, upload, wizard, common } from '$copy/en';
 
 	let step = $state(1);
 	let busy = $state(false);
@@ -273,7 +273,7 @@
 	{/if}
 
 	{#if failure}
-		<div class="mb-8"><Callout tone="contradicted" title="That did not work">{failure}</Callout></div>
+		<div class="mb-8"><Callout tone="contradicted" title={common.failedTitle}>{failure}</Callout></div>
 	{/if}
 	{#if blocked}
 		<div class="mb-8"><Callout tone="caution">{blocked}</Callout></div>

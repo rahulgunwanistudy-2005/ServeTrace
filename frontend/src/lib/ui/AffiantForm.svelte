@@ -20,7 +20,7 @@
 	import Card from './Card.svelte';
 	import Eyebrow from './Eyebrow.svelte';
 	import TextField from './TextField.svelte';
-	import { result } from '$copy/en';
+	import { result, common } from '$copy/en';
 
 	let {
 		defaultName = '',
@@ -113,8 +113,7 @@
 
 		<div class="mt-6">
 			<Callout tone="neutral">
-				Everything we generate is a draft and is not legal advice. Review it with the NYC Civil
-				Court Help Center or a legal aid organization before you file it.
+				{common.draftNotice}
 			</Callout>
 		</div>
 

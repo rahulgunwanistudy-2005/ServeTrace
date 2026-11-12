@@ -17,6 +17,7 @@ import json
 import pytest
 
 from app.api.errors import BadInputError
+from app.config import APP_VERSION
 from app.documents import copy
 from app.documents.packet import (
     MAX_FIXES_IN_TABLE,
@@ -143,6 +144,7 @@ def test_the_versions_are_stamped_so_a_number_can_be_traced_back() -> None:
     html = html_for()
     assert analysis.engine_version in html
     assert analysis.params_version in html
+    assert APP_VERSION in html  # bible §19: every generated PDF carries the app version
 
 
 # --- The records table --------------------------------------------------------------------

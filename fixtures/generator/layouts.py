@@ -229,7 +229,9 @@ def phone_photo(rng: random.Random, pdf: bytes) -> tuple[bytes, bytes]:
     canvas.paste(page, (margin, margin))
 
     # Corner jitter: the phone is never square to the page.
-    jitter = lambda: rng.uniform(-0.035, 0.035) * width  # noqa: E731
+    def jitter() -> float:
+        return float(rng.uniform(-0.035, 0.035) * width)
+
     w, h = canvas.size
     quad = (
         margin * 0.6 + jitter(),

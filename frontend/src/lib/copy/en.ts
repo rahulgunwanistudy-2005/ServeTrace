@@ -691,10 +691,74 @@ export const methodology = {
 	robustnessColumnRecall: 'Of the real conflicts, how many it finds',
 	robustnessColumnFalse: 'People wrongly told their data conflicts',
 
-	limitsTitle: 'Where this cannot help',
+	/* v1.1 sections. Every figure is passed in from published.json, never typed here. */
+	photosTitle: 'When all you have is photos',
+	photosBody: (cases: number, photos: number, zoneLost: number, clockOff: number) =>
+		`Each of the ${cases} cases was run again as if the person had only a few photos ` +
+		`from around that time: ${photos} photos in all. ${zoneLost} of them had no time zone ` +
+		`saved, and ${clockOff} of those were taken on a camera whose clock was an hour off.`,
+	photosResult: (falseStrong: number, falseModerate: number, noData: number, cases: number) =>
+		`${falseStrong} people were told, strongly, that their data conflicted when it did not, ` +
+		`and ${falseModerate} were told so with less certainty. With so few points, ` +
+		`${noData} of ${cases} cases had nothing near the claimed time, and the check said so.`,
+
+	uncertaintyTitle: 'When a time might be wrong',
+	uncertaintyBody:
+		'A photo with no time zone could be off by an hour. ServeTrace gives such a time the ' +
+		'benefit of the doubt: it can only make a conflict weaker, never stronger, and a ' +
+		'conflict that rests only on times like that is never called strong. These promises ' +
+		'are tested on every case, at a fixed seed, so anyone can repeat the run.',
+	uncertaintyRows: {
+		raising: 'Made a time less certain, and the conflict got stronger',
+		assumed: 'Every time had no zone, and the conflict was still called strong',
+		photo: 'Added a photo at the door at the claimed time, and it was not called consistent'
+	},
+	uncertaintyColumnTrials: 'Tries',
+	uncertaintyColumnBroken: 'Times it happened',
+
+	classifyTitle: 'Finding the affidavit in a court file',
+	classifyBody:
+		'A court file can hold a summons, the affidavit of service and the judgment, in any ' +
+		'order. When pages have text, simple keyword counts decide which is which, and the ' +
+		'judgment date is read the same way. Photographed pages need the reader for that; ' +
+		'without one, every page is offered to you as a possible affidavit. Below: synthetic ' +
+		'files in nine layouts, scored with no reader at all.',
+	classifyColumnLayout: 'Layout',
+	classifyColumnText: 'Has text',
+	classifyColumnPages: 'Pages sorted right',
+	classifyColumnGrouping: 'Affidavits found right',
+	classifyJudgment: (rate: string, falseDates: number) =>
+		`On the file that includes a judgment, its entry date was read right in ${rate} of ` +
+		`files, and a date was invented ${falseDates} times. You confirm it either way.`,
+	classifyFields:
+		'How well each field is read off the page depends on the reader, and is measured ' +
+		'separately when one is set up. Every field is shown to you to confirm before it is used.',
+	yes: 'Yes',
+	no: 'No',
+
+	batchTitle: 'Rule rates in a batch of affidavits',
+	batchBody: (n: number) =>
+		`For legal advocates, ServeTrace counts how often each New York rule flags a set of ` +
+		`affidavits. Each rate is out of the affidavits the rule applies to: a missing mailing ` +
+		`cannot be flagged on a personal service, which needs none. Scored on ${n} synthetic ` +
+		`affidavits with problems planted on purpose:`,
+	batchColumnRule: 'Rule',
+	batchColumnFlagged: 'Flagged',
+	batchColumnExpected: 'Planted',
+	batchColumnPrecision: 'Flags that were right',
+	batchColumnRecall: 'Planted problems found',
+	batchChecks: (pairs: string, ratesWrong: number, ratesChecked: number) =>
+		`Impossible back-to-back services found: ${pairs}. Every rate's count was also worked ` +
+		`out a second way, straight from the rule table: ${ratesWrong} of ${ratesChecked} disagreed.`,
+	batchClean: 'The agency with no planted problems had no flags and ranked last.',
+	batchNotClean: 'The agency with no planted problems was flagged or did not rank last.',
+
+	limitsTitle: 'Known limitations',
 	limits: [
 		'Location history shows where your phone was. It is not proof of where you were, and a judge decides what happened.',
 		'If your phone was off, out of battery or not recording, the check has nothing to work with and says so.',
+		"A photo's clock can be wrong. A camera set to the wrong time, or a photo with no time zone, is treated as possibly an hour off, so it can weaken a conflict but never strengthen one.",
+		'Handwriting and blurry scans get misread. That is why you check and confirm every field read off your papers before anything is compared.',
 		'A consistent result does not mean the service was proper. It means this particular check does not help you.',
 		'Only New York City Civil Court consumer credit cases, and only service on a person under CPLR 308(1), 308(2) and 308(4).',
 		'Nothing here is legal advice, and ServeTrace never predicts whether you will win.'
@@ -1200,10 +1264,46 @@ export const demo = {
 	]
 } as const;
 
+/** Strings shared by the page chrome and several routes. Build prompt §9: every string a
+ * person reads lives in this file, so a second locale is a second file, not a hunt. */
+export const common = {
+	skipToContent: 'Skip to content',
+	mainNav: 'Main',
+	startCheck: 'Start check',
+	footerStart: 'Start',
+	footerCheckAffidavit: 'Check an affidavit',
+	footerSeeDemo: 'See a demo',
+	footerCheckWork: 'Check our work',
+	footerWhere: 'Where this applies',
+	footerWhereBody:
+		'New York City Civil Court, consumer credit cases. Service on a person under CPLR 308.',
+	version: (version: string) => `Version ${version}`,
+	changelog: "What's changed",
+	failedTitle: 'That did not work',
+	draftNotice:
+		'Everything we generate is a draft and is not legal advice. Review it with the NYC Civil Court Help Center or a legal aid organization before you file it.',
+	needed: 'needed',
+	landingEyebrow: 'New York City · Civil Court',
+	advocateEyebrow: 'For legal advocates',
+	advocateModeLegend: 'What are you bringing?',
+	demoTitle: 'Demo — ServeTrace',
+	demoEyebrow: 'Three cases',
+	demoStartOwn: 'Start your own check',
+	resultStep: 'Step 03 / 03',
+	resultWorking: 'Working it out…'
+};
+
+export const changelogPage = {
+	title: "What's changed",
+	intro:
+		'Every release of ServeTrace, newest first. A change to the screens is not a change to how a verdict is reached: those carry their own engine and threshold versions, listed on the methodology page.'
+};
+
 export const nav = {
 	attorneys: 'For attorneys',
 	methodology: 'Methodology',
 	privacy: 'Privacy',
 	home: 'Home',
-	advocate: 'Advocates'
+	advocate: 'Advocates',
+	changelog: 'Changelog'
 } as const;

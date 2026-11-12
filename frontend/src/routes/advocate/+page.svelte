@@ -11,7 +11,7 @@
 	 * at 375 px, because "works on a phone" and "designed for one" are different claims.
 	 */
 	import { api, ApiError, type AdvocateAnalysis, type AdvocateColumnMapping } from '$lib/api/client';
-	import { advocate } from '$copy/en';
+	import { advocate, common } from '$copy/en';
 	import ColumnMapper from '$lib/advocate/ColumnMapper.svelte';
 	import ServerDetail from '$lib/advocate/ServerDetail.svelte';
 	import ServerTable from '$lib/advocate/ServerTable.svelte';
@@ -143,7 +143,7 @@
 <section class="st-panel st-iridescent rounded-none">
 	<IridescentField />
 	<div class="st-shell py-12 sm:py-16">
-		{#if isDemo}<div class="mb-5"><DemoNote invert /></div>{:else}<Eyebrow>For legal advocates</Eyebrow>{/if}
+		{#if isDemo}<div class="mb-5"><DemoNote invert /></div>{:else}<Eyebrow>{common.advocateEyebrow}</Eyebrow>{/if}
 		<h1 class="st-display mt-4 max-w-3xl text-3xl text-panel-ink sm:text-5xl">{advocate.title}</h1>
 		<p class="mt-5 max-w-2xl text-lg leading-relaxed text-panel-muted">{advocate.sub}</p>
 	</div>
@@ -152,12 +152,12 @@
 <div class="st-shell space-y-8 py-12 sm:py-16">
 
 	{#if failure}
-		<Callout tone="contradicted" title="That did not work">{failure}</Callout>
+		<Callout tone="contradicted" title={common.failedTitle}>{failure}</Callout>
 	{/if}
 
 	{#if stage === 'choose'}
 		<fieldset class="grid gap-3 sm:grid-cols-2">
-			<legend class="sr-only">What are you bringing?</legend>
+			<legend class="sr-only">{common.advocateModeLegend}</legend>
 			{#each [['sheet', advocate.modeSheet, advocate.modeSheetHint], ['affidavits', advocate.modeAffidavits, advocate.modeAffidavitsHint]] as [value, title, hint] (value)}
 				<label
 					class="flex cursor-pointer gap-3 rounded-card border p-4

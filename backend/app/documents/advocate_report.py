@@ -96,9 +96,8 @@ def report_context(request: BatchReportRequest) -> dict[str, Any]:
         "disclaimer": copy.ADVOCATE_FOOTER,
         "generated_iso": copy.local(report.generated_at).isoformat(),
         "generated": copy.generated_line(
-            report.generated_at, report.engine_version, report.params_version
-        )
-        + f" App {report.app_version}.",
+            report.generated_at, report.engine_version, report.params_version, report.app_version
+        ),
         "intro": copy.advocate_intro(
             analysed, report.n_affidavits, request.unconfirmed, request.failed
         ),

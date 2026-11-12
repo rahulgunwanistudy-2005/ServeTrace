@@ -16,7 +16,7 @@
 	import Eyebrow from '$lib/ui/Eyebrow.svelte';
 	import IridescentField from '$lib/ui/IridescentField.svelte';
 	import TierBadge from '$lib/ui/TierBadge.svelte';
-	import { demo } from '$copy/en';
+	import { demo, common } from '$copy/en';
 
 	let opening = $state<DemoCaseId | null>(null);
 	let failure = $state<string | null>(null);
@@ -50,7 +50,7 @@
 	}
 </script>
 
-<svelte:head><title>Demo — ServeTrace</title></svelte:head>
+<svelte:head><title>{common.demoTitle}</title></svelte:head>
 
 <section class="st-panel st-iridescent rounded-none">
 	<IridescentField />
@@ -66,10 +66,10 @@
 </section>
 
 <div class="st-shell py-14 sm:py-20">
-	<Eyebrow index="01">Three cases</Eyebrow>
+	<Eyebrow index="01">{common.demoEyebrow}</Eyebrow>
 
 	{#if failure}
-		<div class="mt-6"><Callout tone="contradicted" title="That did not work">{failure}</Callout></div>
+		<div class="mt-6"><Callout tone="contradicted" title={common.failedTitle}>{failure}</Callout></div>
 	{/if}
 
 	<ul class="mt-6 grid gap-4 sm:grid-cols-3">
@@ -94,7 +94,7 @@
 
 	<div class="mt-12 border-t border-line pt-8">
 		<div class="flex flex-wrap items-center gap-3">
-			<Button href="/check" size="lg" arrow>Start your own check</Button>
+			<Button href="/check" size="lg" arrow>{common.demoStartOwn}</Button>
 			<div class="w-full max-w-xs"><ActionRow href="/methodology" label="How the check works" /></div>
 		</div>
 	</div>

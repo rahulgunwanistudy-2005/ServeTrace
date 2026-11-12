@@ -1,7 +1,8 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/stores';
-	import { DRAFT_BANNER, nav, site } from '$copy/en';
+	import { DRAFT_BANNER, nav, site, common } from '$copy/en';
+	import { appVersion } from '$lib/changelog';
 	import Button from '$lib/ui/Button.svelte';
 	import Eyebrow from '$lib/ui/Eyebrow.svelte';
 	import IridescentField from '$lib/ui/IridescentField.svelte';
@@ -32,11 +33,11 @@
 		class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50
 		       focus:rounded-control focus:bg-raised focus:px-4 focus:py-2 focus:shadow-card"
 	>
-		Skip to content
+		{common.skipToContent}
 	</a>
 
 	<header class="sticky top-0 z-30 border-b border-line bg-canvas/80 backdrop-blur-md">
-		<nav aria-label="Main" class="st-shell flex items-center gap-x-6 gap-y-2 py-3.5">
+		<nav aria-label={common.mainNav} class="st-shell flex items-center gap-x-6 gap-y-2 py-3.5">
 			<a href="/" class="flex shrink-0 items-center gap-2 text-[0.9375rem] font-semibold tracking-[-0.02em]">
 				<!-- A pin with a line through it: a claimed place, and a track that disagrees. -->
 				<svg viewBox="0 0 24 24" class="size-[1.125rem] text-ink" aria-hidden="true" fill="none">
@@ -71,7 +72,7 @@
 			</div>
 
 			<div class="hidden shrink-0 sm:block">
-				<Button href="/check" arrow>Start check</Button>
+				<Button href="/check" arrow>{common.startCheck}</Button>
 			</div>
 		</nav>
 	</header>
@@ -98,31 +99,36 @@
 
 			<div class="mt-12 grid gap-8 border-t border-panel-line pt-8 sm:grid-cols-3">
 				<div>
-					<Eyebrow>Start</Eyebrow>
+					<Eyebrow>{common.footerStart}</Eyebrow>
 					<ul class="mt-3 space-y-2 text-sm">
-						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/check">Check an affidavit</a></li>
-						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/demo">See a demo</a></li>
+						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/check">{common.footerCheckAffidavit}</a></li>
+						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/demo">{common.footerSeeDemo}</a></li>
 						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/advocate">{nav.advocate}</a></li>
 						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/attorneys">{nav.attorneys}</a></li>
 					</ul>
 				</div>
 				<div>
-					<Eyebrow>Check our work</Eyebrow>
+					<Eyebrow>{common.footerCheckWork}</Eyebrow>
 					<ul class="mt-3 space-y-2 text-sm">
 						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/methodology">{nav.methodology}</a></li>
 						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/privacy">{nav.privacy}</a></li>
+						<li><a class="text-panel-ink hover:underline underline-offset-4" href="/changelog">{nav.changelog}</a></li>
 					</ul>
 				</div>
 				<div>
-					<Eyebrow>Where this applies</Eyebrow>
+					<Eyebrow>{common.footerWhere}</Eyebrow>
 					<p class="mt-3 text-sm leading-relaxed text-panel-muted">
-						New York City Civil Court, consumer credit cases. Service on a person under
-						CPLR 308.
+						{common.footerWhereBody}
 					</p>
 				</div>
 			</div>
 
 			<p class="mt-10 max-w-2xl text-sm leading-relaxed text-panel-muted">{DRAFT_BANNER}</p>
+			<p class="mt-3 text-sm text-panel-muted">
+				<a class="tabular-nums hover:underline underline-offset-4" href="/changelog" id="app-version"
+					>{common.version(appVersion)}</a
+				>
+			</p>
 
 			<!-- The oversized wordmark, cropped by the panel exactly as the reference crops
 			     its own. Decorative: the name is already in the header and the page title. -->

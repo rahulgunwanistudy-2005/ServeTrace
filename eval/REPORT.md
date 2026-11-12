@@ -1,9 +1,12 @@
 # Evaluation
 
-Four evals live here. The **engine**, the **rules**, **advocate mode** and the
-**robustness sweep** all run from one command and their numbers are below. The
-**extraction** eval needs a paid model call per document, so it runs on its own, on a
-smaller corpus, and its caveats are stated beside its numbers.
+**Run 2026-11-12 · ServeTrace 1.1.0 · thresholds `2026.09-v1` · engine 0.2.0.**
+
+Eight evals live here. The **engine**, the **rules**, **advocate mode**, the
+**robustness sweep** and, new in 1.1, the **photo-only sweep**, the **time-uncertainty
+invariants**, the **attorney batch** and the **no-reader layout pass** all run from one
+command and their numbers are below. Field-by-field **extraction** needs a paid model call
+per document, so it runs on its own, and its caveats are stated beside its numbers.
 
 ```bash
 python eval/run_eval.py
@@ -13,10 +16,90 @@ It generates the corpus if it is not there, scores everything, rewrites
 `eval/results/*.json`, draws `eval/results/robustness.png`, and rewrites
 `frontend/src/lib/eval/published.json` — which is what the Methodology page reads, so the
 published figures cannot drift from the run that produced them. A backend test fails if
-they do. About 40 seconds on a laptop, most of it the first-time corpus build.
+they do. About a minute on a laptop. It exits non-zero if any gate fails: a false
+contradiction, a false STRONG contradiction from photos, a broken time-uncertainty
+invariant, or a batch rule rate that disagrees with the independent count.
 
-Run it twice and the numbers are identical, including the PNG byte for byte. Nothing here
-is sampled at report time.
+Run it twice and the numbers are identical, including the PNG byte for byte; this was
+checked for 1.1 by running it twice and comparing `published.json` and every results file.
+The only figures that move are the ones that time a machine (per-case latency, advocate
+runtime). Nothing is sampled at report time; every random choice is seeded.
+
+## Changes since 1.0
+
+Nothing in 1.0's figures moved: the engine's verdicts on exact data are unchanged, and
+every number in the sections after this one is what 1.0 published. What 1.1 adds:
+
+### Photos only
+
+Every one of the 500 cases, run again as if its owner had only a few camera-roll photos
+from around the claimed time: 865 photos, 335 with no time zone, and 104 of those taken on
+a clock an hour off New York (so the time the engine gets is wrong by an hour and marked as
+assumed). Labels are the generator's, untouched.
+
+| | |
+|---|---|
+| False STRONG contradictions (gate) | **0** |
+| False MODERATE contradictions | 0 |
+| STRONG resting only on assumed-zone photos | 0 |
+| Cases with nothing near the claimed time | 196 of 500 |
+
+Fewer records honestly means fewer answers: of the 200 truly contradicted cases, 23 are
+still caught from photos alone, 176 become INCONCLUSIVE or NO_DATA, and 1 comes back
+CONSISTENT — a photo taken at the door with a clock an hour off, whose widened time covers
+the claim. That is a missed conflict, and the direction this product is built to err in. None of the 212 truly consistent cases
+became a conflict of any strength.
+
+### Time uncertainty
+
+Bible §11.1.7's three promises, checked on every corpus case at seed 11 (`eval/uncertainty.py`):
+
+| Invariant | Trials | Violations |
+|---|---:|---:|
+| Raising a fix's time uncertainty never strengthens the conflict | 1,500 | **0** |
+| A conflict resting only on assumed-zone fixes is never STRONG | 500 | **0** |
+| An exact photo at the door at the claimed time is CONSISTENT | 500 | **0** |
+
+200 of the 500 cases were STRONG before every fix was marked zone-assumed; none stayed
+STRONG after. The same three are also property tests over generated geometry
+(`tests/engine/test_properties.py`).
+
+### Attorney batch
+
+60 synthetic affidavits from three agencies with problems planted on purpose, scored
+against the generator's answer key (`eval/batch_eval.py`):
+
+| Rule | Flagged | Planted | Precision | Recall |
+|---|---:|---:|---:|---:|
+| R-T1 missing mailing | 4 | 4 | 100% | 100% |
+| R-D1 thin diligence | 5 | 5 | 100% | 100% |
+| R-T2, R-T3, R-M1 | 0 | 0 | — | — |
+
+Impossible back-to-back services: 2 of 2 found, none extra. The repeated description was
+found at its three addresses. The clean agency had no flags and ranked last. Every rate's
+denominator (affidavits the rule *applies* to) was recomputed independently from the raw
+JSON and bible §11.3's table, and its numerator from the answer key: **0 of 5 rates
+disagreed**. R-T2 and R-T3 at 0 flagged are honest zeros: the fixture plants no late
+mailing or filing.
+
+### Court files, with no reader
+
+225 synthetic documents in nine layouts (`fixtures/out/layouts`), run through page
+classification, affidavit grouping and judgment-date reading with `LLM_PROVIDER=none`:
+
+| Layout | Text layer | Pages sorted right | Affidavits found right |
+|---|---|---:|---:|
+| L1–L3, L5 | yes | 100% | 100% |
+| L4, L6, L7, L7-heic | no | 100% | 100% |
+| L8 (summons + affidavits + judgment) | yes | 100% | 100% |
+
+On L8 the judgment entry date was read right in 100% of files and never invented. Read the
+image-only rows with care: with no reader, every image page is offered as a candidate
+affidavit page by design, and these layouts hold only affidavit pages, so 100% there says
+the fallback lost nothing, not that images were classified. Per-field accuracy on these
+layouts needs a provider (`eval/layout_eval.py` with a key); it was **not measured for
+1.1** because the Gemini key's credits were exhausted during the build. The 1.0 extraction
+figures below still stand for the 1.0 layout.
 
 ## The engine
 

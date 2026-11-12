@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { common } from '$copy/en';
 	/**
 	 * A labelled text input.
 	 *
@@ -47,7 +48,7 @@
 <div>
 	<label class="block text-sm font-medium" for={id}>
 		{label}
-		{#if required}<span class="ml-1 font-normal text-caution">·&nbsp;needed</span>{/if}
+		{#if required}<span class="ml-1 font-normal text-caution">·&nbsp;{common.needed}</span>{/if}
 	</label>
 
 	{#if multiline}

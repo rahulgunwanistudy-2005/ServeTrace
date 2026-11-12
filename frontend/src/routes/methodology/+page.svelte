@@ -41,6 +41,34 @@
 
 	const advocate = published.advocate;
 	const robustness = published.robustness;
+	const photos = published.photos;
+	const uncertainty = published.uncertainty;
+	const batch = published.advocate_batch;
+	const layouts = Object.entries(
+		published.layouts.layouts as Record<
+			string,
+			{
+				text_layer: boolean;
+				page_classification: number | null;
+				affidavit_grouping: number | null;
+				judgment_entry_date?: number | null;
+				judgment_false_dates?: number;
+			}
+		>
+	);
+	const judgment = layouts.find(([, row]) => row.judgment_entry_date !== undefined)?.[1];
+	const batchRules = Object.entries(
+		batch.rules as Record<
+			string,
+			{ predicted: number; expected: number; precision: number | null; recall: number | null }
+		>
+	);
+	const maybe = (n: number | null | undefined) => (n === null || n === undefined ? '—' : pct(n));
+	const invariants = [
+		{ label: copy.uncertaintyRows.raising, row: uncertainty.raising_never_strengthens },
+		{ label: copy.uncertaintyRows.assumed, row: uncertainty.assumed_only_never_strong },
+		{ label: copy.uncertaintyRows.photo, row: uncertainty.exact_photo_consistent }
+	];
 
 	/**
 	 * The three sweeps, each as a small table. The numbers come straight out of
@@ -262,6 +290,99 @@
 			</table>
 		</div>
 	{/each}
+
+	<h2>{copy.photosTitle}</h2>
+	<p>{copy.photosBody(photos.n_cases, photos.n_photos, photos.zone_lost, photos.clock_off)}</p>
+	<p>{copy.photosResult(photos.false_strong, photos.false_moderate, photos.no_data, photos.n_cases)}</p>
+
+	<h2>{copy.uncertaintyTitle}</h2>
+	<p>{copy.uncertaintyBody}</p>
+	<div class="not-prose my-5 overflow-x-auto" id="uncertainty-table">
+		<table class="w-full text-sm">
+			<thead>
+				<tr class="border-b border-line text-left">
+					<th class="py-2 pr-4 font-medium"></th>
+					<th class="py-2 pr-4 text-right font-medium">{copy.uncertaintyColumnTrials}</th>
+					<th class="py-2 text-right font-medium">{copy.uncertaintyColumnBroken}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each invariants as item (item.label)}
+					<tr class="border-b border-line/60">
+						<td class="py-2 pr-4">{item.label}</td>
+						<td class="py-2 pr-4 text-right tabular-nums">{item.row.trials}</td>
+						<td class="py-2 text-right tabular-nums {item.row.violations ? toneInk.contradicted : ''}">
+							{item.row.violations}
+						</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+
+	<h2>{copy.classifyTitle}</h2>
+	<p>{copy.classifyBody}</p>
+	<div class="not-prose my-5 overflow-x-auto" id="layout-table">
+		<table class="w-full text-sm">
+			<thead>
+				<tr class="border-b border-line text-left">
+					<th class="py-2 pr-4 font-medium">{copy.classifyColumnLayout}</th>
+					<th class="py-2 pr-4 font-medium">{copy.classifyColumnText}</th>
+					<th class="py-2 pr-4 text-right font-medium">{copy.classifyColumnPages}</th>
+					<th class="py-2 text-right font-medium">{copy.classifyColumnGrouping}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each layouts as [name, row] (name)}
+					<tr class="border-b border-line/60">
+						<td class="py-2 pr-4 tabular-nums">{name}</td>
+						<td class="py-2 pr-4">{row.text_layer ? copy.yes : copy.no}</td>
+						<td class="py-2 pr-4 text-right tabular-nums">{maybe(row.page_classification)}</td>
+						<td class="py-2 text-right tabular-nums">{maybe(row.affidavit_grouping)}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+	{#if judgment}
+		<p>{copy.classifyJudgment(maybe(judgment.judgment_entry_date), judgment.judgment_false_dates ?? 0)}</p>
+	{/if}
+	<p>{copy.classifyFields}</p>
+
+	<h2>{copy.batchTitle}</h2>
+	<p>{copy.batchBody(batch.n_affidavits)}</p>
+	<div class="not-prose my-5 overflow-x-auto" id="batch-eval-table">
+		<table class="w-full text-sm">
+			<thead>
+				<tr class="border-b border-line text-left">
+					<th class="py-2 pr-4 font-medium">{copy.batchColumnRule}</th>
+					<th class="py-2 pr-4 text-right font-medium">{copy.batchColumnFlagged}</th>
+					<th class="py-2 pr-4 text-right font-medium">{copy.batchColumnExpected}</th>
+					<th class="py-2 pr-4 text-right font-medium">{copy.batchColumnPrecision}</th>
+					<th class="py-2 text-right font-medium">{copy.batchColumnRecall}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each batchRules as [code, row] (code)}
+					<tr class="border-b border-line/60">
+						<td class="py-2 pr-4 tabular-nums">{code}</td>
+						<td class="py-2 pr-4 text-right tabular-nums">{row.predicted}</td>
+						<td class="py-2 pr-4 text-right tabular-nums">{row.expected}</td>
+						<td class="py-2 pr-4 text-right tabular-nums">{maybe(row.precision)}</td>
+						<td class="py-2 text-right tabular-nums">{maybe(row.recall)}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+	<p>
+		{copy.batchChecks(
+			`${batch.impossible_pairs.true_positives} of ${batch.impossible_pairs.expected}`,
+			batch.rates_wrong,
+			batch.rates_checked
+		)}
+		{batch.clean_agency_clean && batch.clean_agency_last ? copy.batchClean : copy.batchNotClean}
+	</p>
 
 	<h2>{copy.limitsTitle}</h2>
 	<ul>

@@ -14,7 +14,7 @@ the public site is one the eval or the store actually produced.
 - [x] **D** Flagged-first correction UI on `ExtractionResult`, legacy endpoint deleted
 - [x] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
 - [x] **F** Usage counts + leads (Supabase over PostgREST), `/attorneys`, privacy update
-- [ ] **G** i18n plumbing; eval, REPORT, methodology, changelog, version 1.1.0, README
+- [x] **G** i18n plumbing; eval, REPORT, methodology, changelog, version 1.1.0, README
 - [ ] **H** Regression, self-review, security pass, Docker, deploy notes, smoke script
 
 ### Decisions taken
@@ -160,6 +160,41 @@ the public site is one the eval or the store actually produced.
   Browser: `/attorneys` with the store off shows "not switched on … nothing was sent";
   with the response stubbed, the success state; payload carries exactly the seven
   `LeadIn` fields, honeypot empty and out of the tab order; 375 px no horizontal scroll.
+
+- **Phase G — one command, eight evals, reproduced twice.** `eval/run_eval.py` now also
+  runs the photo sweep, `eval/uncertainty.py` (bible §11.1.7's three invariants on all 500
+  cases, seed 11: 0 of 1,500 / 500 / 500 violated), `eval/batch_eval.py` (attorney batch
+  against `expected.json`: every flag right, 2 of 2 pairs, and every rule rate's
+  denominator recomputed from raw JSON and §11.3's table without importing `APPLICABLE`:
+  0 of 5 disagree) and the layout pass. Run twice: `published.json` and every results
+  file identical except the two machine timings. It exits non-zero on any v1.1 gate.
+- **The layout pass runs with `LLM_PROVIDER=none` whatever `.env` says.** It measures page
+  sorting, grouping and the judgment date, which need no reader, so a run costs nothing and
+  cannot depend on a provider. `text_layer` is published per layout because on image-only
+  layouts 100% is the no-reader fallback (every page a candidate affidavit) meeting
+  affidavit-only files, not classification; REPORT and the page both say so. Field
+  accuracy on the new layouts is unmeasured (Gemini credits exhausted).
+- **The staleness test covers the new blocks** (batch, photos, uncertainty compared to
+  their scorers; layouts checked for shape only, since rendering 225 documents is the
+  eval's job, not a unit test's).
+- **Version: CHANGELOG.md is the frontend's source, `APP_VERSION` the backend's, and a
+  test holds them equal.** The footer reads the newest release from the changelog at build
+  time (no extra dependency, no reading `config.py` from Vite); every PDF's stamp line now
+  reads "Prepared by ServeTrace 1.1.0 … Engine …, thresholds …" via the one
+  `generated_line`. The Dockerfile copies `CHANGELOG.md` into the frontend stage.
+- **`/changelog` uses a 60-line reader, not a Markdown library and not `{@html}`.** §8
+  pins dependencies, and injecting markup from a file would be the only `{@html}` in the
+  app. Code spans render as `<code>`; links are not supported and the file has none (no
+  tags exist yet, so compare links would have been dead).
+- **i18n: plumbing only.** `src/lib/copy/index.ts` (registry `{en}`, typed `CopyKey`, `t`,
+  `resolveLocale`: `?lang=` → stored → `en`). The 23 strings the new scan found in markup
+  were moved into `common` in `en.ts` rather than allowlisted; the allowlist holds only
+  `ServeTrace`, `CPLR`, units. Components still import `$copy/en` directly — switching them
+  to `t` is the first step of adding a language, documented in `docs/I18N.md` with the
+  native-speaker legal review requirement.
+- **mypy over `fixtures/` and `eval/` was red since Phase B** (piexif stubs, an untyped
+  lambda, two stale ignores) because my gate script only ran `mypy app`; the README's gate
+  runs all three. Fixed, and the script now matches the README.
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what

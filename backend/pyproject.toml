@@ -65,7 +65,7 @@ warn_unreachable = true
 plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
-module = ["pdfplumber.*", "pypdfium2.*", "weasyprint.*", "openpyxl.*"]
+module = ["pdfplumber.*", "pypdfium2.*", "weasyprint.*", "openpyxl.*", "piexif.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

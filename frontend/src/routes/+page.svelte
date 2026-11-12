@@ -14,7 +14,7 @@
 	import IridescentField from '$lib/ui/IridescentField.svelte';
 	import Section from '$lib/ui/Section.svelte';
 	import StatTile from '$lib/ui/StatTile.svelte';
-	import { landing, site } from '$copy/en';
+	import { landing, site, common } from '$copy/en';
 </script>
 
 <svelte:head><title>{site.name} — {landing.headline}</title></svelte:head>
@@ -23,7 +23,7 @@
 <section class="st-panel st-iridescent rounded-none">
 	<IridescentField />
 	<div class="st-shell flex min-h-[32rem] flex-col justify-end py-16 sm:min-h-[38rem] sm:py-24">
-		<Eyebrow>New York City · Civil Court</Eyebrow>
+		<Eyebrow>{common.landingEyebrow}</Eyebrow>
 
 		<h1 class="st-display mt-6 max-w-4xl text-[clamp(2.25rem,7vw,4.5rem)] text-panel-ink">
 			{landing.headline}

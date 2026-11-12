@@ -51,11 +51,21 @@ from app.engine.verdict import MAIN_CLAIM, analyze  # noqa: E402
 from eval.advocate_eval import format_report as format_advocate  # noqa: E402
 from eval.advocate_eval import published_figures as advocate_published  # noqa: E402
 from eval.advocate_eval import run as run_advocate  # noqa: E402
+from eval.batch_eval import format_report as format_batch  # noqa: E402
+from eval.batch_eval import published_figures as batch_published  # noqa: E402
+from eval.batch_eval import run as run_batch  # noqa: E402
 from eval.corpus import case_dirs, claim_answer, load_case  # noqa: E402
+from eval.photos import format_report as format_photos  # noqa: E402
+from eval.photos import published_figures as photos_published  # noqa: E402
+from eval.photos import run as run_photos  # noqa: E402
 from eval.plots import write_robustness_png  # noqa: E402
 from eval.robustness import format_report as format_robustness  # noqa: E402
 from eval.robustness import published_figures as robustness_published  # noqa: E402
 from eval.robustness import run as run_robustness  # noqa: E402
+from eval.uncertainty import as_json as uncertainty_json  # noqa: E402
+from eval.uncertainty import format_report as format_uncertainty  # noqa: E402
+from eval.uncertainty import published_figures as uncertainty_published  # noqa: E402
+from eval.uncertainty import run as run_uncertainty  # noqa: E402
 
 TIERS = ("contradicted", "consistent", "no_data", "inconclusive")
 
@@ -127,6 +137,8 @@ class Report:
     description: dict[str, Any] = field(default_factory=dict)
     latency_ms: dict[str, float] = field(default_factory=dict)
     disagreements: list[dict[str, Any]] = field(default_factory=list)
+    gate_failures: list[str] = field(default_factory=list)
+    """The v1.1 sweeps' gates, filled by `run`; each must be empty for the run to pass."""
 
 
 def score_case(case_dir: Path) -> CaseResult:
@@ -451,18 +463,73 @@ def ensure_corpus(corpus: Path, n_cases: int = CORPUS_CASES, seed: int = CORPUS_
     return corpus
 
 
+def run_layouts(corpus: Path, out: Path) -> dict[str, Any] | None:
+    """The per-layout extraction figures that need no reader, at no cost and every time.
+
+    Page classification on text-layer pages, grouping pages into affidavits and the
+    judgment entry date are deterministic code; field accuracy needs a provider and is
+    scored separately by `eval/layout_eval.py` with a key configured. So this pass runs
+    with `LLM_PROVIDER=none` whatever `.env` says, which also keeps a run from spending
+    credits or depending on a provider being up.
+    """
+    if not corpus.is_dir():
+        return None
+    import asyncio
+    import os
+
+    from app.config import get_settings
+    from eval.layout_eval import run as run_layout_eval
+    from eval.layout_eval import targets
+
+    saved = os.environ.get("LLM_PROVIDER")
+    os.environ["LLM_PROVIDER"] = "none"
+    get_settings.cache_clear()
+    try:
+        report = asyncio.run(run_layout_eval(corpus, out))
+    finally:
+        if saved is None:
+            os.environ.pop("LLM_PROVIDER", None)
+        else:
+            os.environ["LLM_PROVIDER"] = saved
+        get_settings.cache_clear()
+    text_layer = {variant: bool(truth["text_layer"]) for variant, _, truth in targets(corpus)}
+    return layouts_published(report, text_layer)
+
+
+def layouts_published(report: dict[str, Any], text_layer: dict[str, bool]) -> dict[str, Any]:
+    """Only what the no-reader pass measures; the field columns say "not run".
+
+    `text_layer` is published beside each layout because it changes what the
+    classification figure means. On a text layer it is keyword scoring, measured. On an
+    image-only layout with no reader, every page is treated as a candidate affidavit page
+    (the fallback in `classify.py`), so a 100% there says the fallback lost nothing on
+    these layouts, which are affidavit pages only — not that images were classified.
+    """
+    keep = ("n_documents", "n_failed", "page_classification", "affidavit_grouping")
+    layouts: dict[str, Any] = {}
+    for name, entry in report["layouts"].items():
+        row: dict[str, Any] = {k: entry[k] for k in keep if k in entry}
+        row["text_layer"] = text_layer.get(name, False)
+        for extra in ("judgment_entry_date", "judgment_false_dates"):
+            if extra in entry:
+                row[extra] = entry[extra]
+        layouts[name] = row
+    return {"provider": report["provider"], "layouts": layouts}
+
+
 def run(
     corpus: Path,
     out: Path,
     publish: Path | None = PUBLISHED,
     robustness: bool = True,
+    layouts: bool = True,
 ) -> Report:
     """Analyse every case, compare tiers against ground truth, write the report.
 
-    Batch mode and the robustness sweep are scored in the same pass. All three share the
-    thresholds and the same independently-labelled corpus, and the Methodology page prints
-    every set of numbers, so running them apart is how one of them goes stale without
-    anybody noticing.
+    Batch mode, the attorney-edition batch, the robustness and photo sweeps, the
+    time-uncertainty invariants and the no-reader layout figures are all scored in the
+    same pass. They share the thresholds and the Methodology page prints every set of
+    numbers, so running them apart is how one of them goes stale without anybody noticing.
     """
     results = score_corpus(corpus)
     report = build_report(results)
@@ -477,24 +544,50 @@ def run(
     )
 
     advocate = run_advocate(corpus, out) if (corpus / "advocate").is_dir() else None
+    batch = run_batch(out)
+    photos = run_photos(corpus)
+    uncertainty = run_uncertainty(corpus)
+    (out / "photos.json").write_text(json.dumps(asdict(photos), indent=1, sort_keys=True) + "\n")
+    (out / "uncertainty.json").write_text(
+        json.dumps(uncertainty_json(uncertainty), indent=1, sort_keys=True) + "\n"
+    )
     sweep = run_robustness(corpus, out) if robustness else None
     if sweep is not None:
         write_robustness_png(sweep, out / "robustness.png")
+    layout_figures = run_layouts(corpus / "layouts", out) if layouts else None
 
     if publish is not None:
         figures = published_figures(report)
         if advocate is not None:
             figures["advocate"] = advocate_published(advocate)
+        figures["advocate_batch"] = batch_published(batch)
+        figures["photos"] = photos_published(photos)
+        figures["uncertainty"] = uncertainty_published(uncertainty)
         if sweep is not None:
             figures["robustness"] = robustness_published(sweep)
+        if layout_figures is not None:
+            figures["layouts"] = layout_figures
         publish.parent.mkdir(parents=True, exist_ok=True)
         publish.write_text(json.dumps(figures, indent=1, sort_keys=True) + "\n")
 
     print(format_report(report))
     if advocate is not None:
         print("\n" + format_advocate(advocate))
+    print("\n" + format_batch(batch))
+    print("\n" + format_photos(photos))
+    print("\n" + format_uncertainty(uncertainty))
     if sweep is not None:
         print("\n" + format_robustness(sweep))
+    if layout_figures is not None:
+        print("\nLayouts, no reader (page types, grouping, judgment date):")
+        for name, row in layout_figures["layouts"].items():
+            print(f"  {name:<8} {json.dumps(row, sort_keys=True)}")
+    gates = {
+        "photo-only false STRONG contradictions": photos.false_strong,
+        "time-uncertainty invariant violations": uncertainty.violations,
+        "batch rule rates that disagree with the independent count": len(batch.rates_wrong),
+    }
+    report.gate_failures = [name for name, count in gates.items() if count]
     return report
 
 
@@ -513,6 +606,11 @@ def main() -> None:
         help="skip the perturbation sweep, which is most of the runtime",
     )
     parser.add_argument(
+        "--no-layouts",
+        action="store_true",
+        help="skip the no-reader layout pass (needs fixtures/out/layouts)",
+    )
+    parser.add_argument(
         "--n",
         type=int,
         default=CORPUS_CASES,
@@ -525,9 +623,12 @@ def main() -> None:
         args.out,
         None if args.no_publish else PUBLISHED,
         robustness=not args.no_robustness,
+        layouts=not args.no_layouts,
     )
     if report.false_accusations:
         raise SystemExit("false contradictions found: the no-false-accusation gate failed")
+    if report.gate_failures:
+        raise SystemExit(f"gates failed: {', '.join(report.gate_failures)}")
 
 
 if __name__ == "__main__":
