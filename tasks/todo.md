@@ -15,7 +15,7 @@ the public site is one the eval or the store actually produced.
 - [x] **E** Advocate attorney edition: bulk extract, review queue, agencies, rule rates, PDF
 - [x] **F** Usage counts + leads (Supabase over PostgREST), `/attorneys`, privacy update
 - [x] **G** i18n plumbing; eval, REPORT, methodology, changelog, version 1.1.0, README
-- [ ] **H** Regression, self-review, security pass, Docker, deploy notes, smoke script
+- [x] **H** Regression, self-review, security pass, Docker, deploy notes, smoke script
 
 ### Decisions taken
 (Filled in as they are made; each is the more conservative or more private option.)
@@ -195,6 +195,28 @@ the public site is one the eval or the store actually produced.
 - **mypy over `fixtures/` and `eval/` was red since Phase B** (piexif stubs, an untyped
   lambda, two stale ignores) because my gate script only ran `mypy app`; the README's gate
   runs all three. Fixed, and the script now matches the README.
+
+- **Phase H — security pass findings, both fixed.** (1) No route capped the raw request
+  body: every limit (15 MB upload, 5,000 fixes, 2,000 affidavits, 3 MB map) ran after the
+  whole body was read and parsed. `app/api/body_limit.py` refuses anything over the upload
+  limit + 4 MB at the door, by `Content-Length` or by counting a chunked stream (FastAPI
+  turns an error raised mid-read into its own 400, so the stream is cut short and the
+  route's answer replaced whole by the 413). (2) uvicorn's access log printed client IPs,
+  contradicting the privacy page's "a request id, the route, the status and how long it
+  took"; the image now runs `--no-access-log`. Also: `MAX_BATCH_AFFIDAVITS` was a dead
+  setting (documented 200; the route used a 2,000 constant) — the route now reads the
+  setting, default 2,000, which matches the browser's 2,000-page cap.
+- **Phase H — what was checked and is unchanged.** CSP (hash mode, no new origins; the
+  store is server-side), CORS (same-origin, empty allowlist), every POST route behind a
+  rate limit (extract and leads with their own budgets), upload/page/fix/batch/map caps,
+  `{@html}` nowhere, the dev-only review timer behind `import.meta.env.DEV`, and the only
+  log calls in `app/` are the request line and the metrics failure (class name only).
+- **Phase H — Docker.** `docker build` clean (637 MB); the container passes
+  `scripts/smoke.sh` (version, six pages, headers, demo verdict `contradicted`, packet
+  PDF, 20 MB body → 413, store off). Docker Desktop was started for this and quit after.
+- **Render blueprint gains the v1.1 settings** (real-data flag false, extract budget,
+  batch cap, store off with `sync: false` Supabase values). `docs/DEPLOY.md` is the
+  runbook, including the deletion-contact placeholder to fill before the store goes on.
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what

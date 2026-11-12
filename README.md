@@ -240,7 +240,10 @@ them where Debian's linker already looks.
 ## Deploying
 
 [`render.yaml`](render.yaml) is a Render blueprint for one web service built from the
-`Dockerfile`, with a health check on `/api/health`. Two things are worth knowing:
+`Dockerfile`, with a health check on `/api/health`. The full runbook — secrets, the
+optional store, switching on real court papers, rollback, and the release checklist — is
+[`docs/DEPLOY.md`](docs/DEPLOY.md); `scripts/smoke.sh <url>` checks a running deployment.
+Two things are worth knowing:
 
 - **`RATE_LIMIT_TRUSTED_HOPS=1`.** Render terminates TLS and proxies to the container, so
   every request arrives from the proxy. Without this the rate limiter sees one client for

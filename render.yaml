@@ -51,3 +51,31 @@ services:
 
       - key: GEOSEARCH_URL
         value: https://geosearch.planninglabs.nyc/v2/search
+
+      # --- v1.1 ------------------------------------------------------------------------
+      # Real court papers are refused-with-a-notice until Rahul has checked that the
+      # provider's plan excludes training on inputs (free tiers may not). The code never
+      # decides that; this flag records that a person did.
+      - key: LLM_REAL_DATA_ALLOWED
+        value: false
+      # The reader's own budget: a batch upload calls /api/extract once per file.
+      - key: EXTRACT_RATE_LIMIT_PER_MINUTE
+        value: 60
+      - key: EXTRACT_RATE_LIMIT_BURST
+        value: 6
+      - key: MAX_EXTRACT_PAGES
+        value: 25
+      - key: MAX_BATCH_AFFIDAVITS
+        value: 2000
+
+      # Day-level counts and the /attorneys contact form. Off until the SQL in
+      # infra/supabase/001_v1_1.sql has been applied and both values below are set; with
+      # it off the form says it is not switched on and nothing is counted.
+      - key: METRICS_ENABLED
+        value: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: LEADS_PER_HOUR
+        value: 5

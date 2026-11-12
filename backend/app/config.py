@@ -58,8 +58,10 @@ class Settings(BaseSettings):
     extract_rate_limit_burst: int = 6
     max_extract_pages: int = 25
     """Pages accepted in one uploaded file. A whole NYC consumer court file is ~6-10."""
-    max_batch_affidavits: int = 200
-    """Confirmed affidavits accepted in one `/api/advocate/batch` request."""
+    max_batch_affidavits: int = 2_000
+    """Confirmed affidavits accepted in one `/api/advocate/batch` request. The browser caps
+    a batch at 200 files or 2,000 pages, and a page holds at most one affidavit, so 2,000
+    is the most a legitimate batch can carry."""
     supabase_url: str = ""
     supabase_service_key: str = ""
     metrics_enabled: bool = False

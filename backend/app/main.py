@@ -14,6 +14,7 @@ from app.api import (
     routes_health,
     routes_metrics,
 )
+from app.api.body_limit import BodyLimitMiddleware, body_ceiling
 from app.api.errors import install_error_handlers
 from app.api.security import security_headers_middleware
 from app.api.static_site import mount_frontend
@@ -50,6 +51,9 @@ def create_app() -> FastAPI:
             allow_headers=["content-type"],
         )
 
+    # Inside the security headers, outside everything else: an oversized body is refused
+    # before any route or parser reads it, and the refusal still carries the headers.
+    app.add_middleware(BodyLimitMiddleware, limit=body_ceiling(settings.max_upload_bytes))
     app.middleware("http")(security_headers_middleware)
 
     install_error_handlers(app)

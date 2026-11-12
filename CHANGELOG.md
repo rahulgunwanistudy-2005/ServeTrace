@@ -46,6 +46,11 @@ to how a verdict is reached unless it says so.
 - The store holds no case data: no names from affidavits, addresses, coordinates, IP
   addresses, user agents, or times finer than a day. A store failure never fails a check.
 - The contact form has a honeypot and its own rate limit; the reader endpoint has one too.
+- Every API request body is capped before it is read (the upload limit plus 4 MB), whether
+  or not it declares its length, and the advocate batch size is a setting
+  (`MAX_BATCH_AFFIDAVITS`, 2,000) rather than a constant.
+- The server's access log no longer records client IP addresses, matching what the privacy
+  page says the logs hold.
 
 ## [1.0.0] — 2026-09-27
 

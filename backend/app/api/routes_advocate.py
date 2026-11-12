@@ -245,11 +245,6 @@ async def export_csv(reports: list[ServerReport], kind: str = "pairs") -> Respon
     )
 
 
-MAX_BATCH_AFFIDAVITS = 2_000
-"""Build prompt §6.1 caps a batch at 200 files or 2,000 pages in the browser; a page holds
-at most one affidavit, so 2,000 affidavits is the most a legitimate batch can carry."""
-
-
 @router.post("/batch", response_model=BatchReport, dependencies=[Depends(enforce_rate_limit)])
 async def batch(
     affidavits: list[Affidavit], request: Request, background: BackgroundTasks
@@ -260,10 +255,9 @@ async def batch(
     only then does the batch come here. Unconfirmed affidavits are refused one by one and
     listed in the report, never analysed.
     """
-    if len(affidavits) > MAX_BATCH_AFFIDAVITS:
-        raise BadInputError(
-            f"That is more than {MAX_BATCH_AFFIDAVITS:,} affidavits. Please split the batch."
-        )
+    ceiling = get_settings().max_batch_affidavits
+    if len(affidavits) > ceiling:
+        raise BadInputError(f"That is more than {ceiling:,} affidavits. Please split the batch.")
     report = batch_analysis.analyze_batch(affidavits, PARAMS)
     events.record(
         background,

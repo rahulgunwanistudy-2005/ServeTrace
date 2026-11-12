@@ -76,4 +76,7 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=4).status == 200 else 1)"
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# --no-access-log: uvicorn's own access line carries the client's IP address. The privacy
+# page promises logs hold a request id, the route, the status and the latency, and the
+# app's JSON request log (app/logging.py) is exactly that, so uvicorn's line is dropped.
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]
