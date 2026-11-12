@@ -14,7 +14,7 @@
 
 <p class="st-eyebrow flex items-center gap-2">
 	{#if index}
-		<span aria-hidden="true" class="tabular-nums opacity-70">{index}</span>
+		<span aria-hidden="true" class="tabular-nums">{index}</span>
 		<span aria-hidden="true" class="h-px w-4 bg-current opacity-40"></span>
 	{/if}
 	{@render children()}

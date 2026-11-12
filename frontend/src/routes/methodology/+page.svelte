@@ -301,7 +301,7 @@
 		<table class="w-full text-sm">
 			<thead>
 				<tr class="border-b border-line text-left">
-					<th class="py-2 pr-4 font-medium"></th>
+					<th class="py-2 pr-4 font-medium">{copy.uncertaintyColumnCheck}</th>
 					<th class="py-2 pr-4 text-right font-medium">{copy.uncertaintyColumnTrials}</th>
 					<th class="py-2 text-right font-medium">{copy.uncertaintyColumnBroken}</th>
 				</tr>

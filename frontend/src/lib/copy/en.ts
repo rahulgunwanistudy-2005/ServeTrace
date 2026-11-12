@@ -713,6 +713,7 @@ export const methodology = {
 		assumed: 'Every time had no zone, and the conflict was still called strong',
 		photo: 'Added a photo at the door at the claimed time, and it was not called consistent'
 	},
+	uncertaintyColumnCheck: 'What was tried',
 	uncertaintyColumnTrials: 'Tries',
 	uncertaintyColumnBroken: 'Times it happened',
 

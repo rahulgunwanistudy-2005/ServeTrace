@@ -214,6 +214,11 @@ the public site is one the eval or the store actually produced.
 - **Phase H — Docker.** `docker build` clean (637 MB); the container passes
   `scripts/smoke.sh` (version, six pages, headers, demo verdict `contradicted`, packet
   PDF, 20 MB body → 413, store off). Docker Desktop was started for this and quit after.
+- **Phase H — Lighthouse accessibility** (13.5.0, cached CLI, against the built site):
+  `/` 95 → 100, `/check` 96 → 100, `/result`, `/advocate`, `/attorneys`, `/changelog` 100,
+  `/methodology` 100 with one `td-has-header` (my empty header cell; now labelled). The two
+  contrast failures were v1.0 numerals dimmed with opacity (the "/ 03" step counter at
+  2.9:1); the dimming is gone.
 - **Render blueprint gains the v1.1 settings** (real-data flag false, extract budget,
   batch cap, store off with `sync: false` Supabase values). `docs/DEPLOY.md` is the
   runbook, including the deletion-contact placeholder to fill before the store goes on.

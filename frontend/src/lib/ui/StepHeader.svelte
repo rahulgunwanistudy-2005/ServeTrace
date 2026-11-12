@@ -16,7 +16,7 @@
 	<div class="flex items-baseline gap-3">
 		<p class="st-eyebrow shrink-0">
 			<span class="text-ink">{String(step).padStart(2, '0')}</span>
-			<span class="opacity-60">/ {String(total).padStart(2, '0')}</span>
+			<span>/ {String(total).padStart(2, '0')}</span>
 		</p>
 		<div class="flex flex-1 items-center gap-1.5" aria-hidden="true">
 			{#each { length: total } as _, i (i)}
