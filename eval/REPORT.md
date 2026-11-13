@@ -96,10 +96,55 @@ classification, affidavit grouping and judgment-date reading with `LLM_PROVIDER=
 On L8 the judgment entry date was read right in 100% of files and never invented. Read the
 image-only rows with care: with no reader, every image page is offered as a candidate
 affidavit page by design, and these layouts hold only affidavit pages, so 100% there says
-the fallback lost nothing, not that images were classified. Per-field accuracy on these
-layouts needs a provider (`eval/layout_eval.py` with a key); it was **not measured for
-1.1** because the Gemini key's credits were exhausted during the build. The 1.0 extraction
-figures below still stand for the 1.0 layout.
+the fallback lost nothing, not that images were classified.
+
+### Court files, with the reader (a small paid sample)
+
+Run 2026-11-13 with `gemini-3.8-flash`, **two documents per layout, 18 in all**, chosen by
+`--per-layout 2` (the first two files of each layout in sorted order, not hand-picked):
+
+```bash
+python eval/layout_eval.py --per-layout 2 --name layouts_paid
+```
+
+| Layout | Docs | Every field right | Pages sorted right | Affidavits found right | Quote boxed on the page |
+|---|---:|---:|---:|---:|---:|
+| L1–L3, L5 (text layer) | 8 | 16 of 16 fields, all docs | 100% | 100% | 100% (L2: 96.4%) |
+| L4 handwritten, L6, L7, L7-heic (images) | 8 | 16 of 16 fields, all docs | 100% | 100% | n/a, no text layer |
+| L8 court file | 2 | 16 of 16 fields, all docs | 100% | 100% | 100% |
+
+The judgment entry date on L8 was right in both files and never invented elsewhere. No
+document failed and the reader never failed. Here the image pages *were* classified by the
+model, so unlike the no-reader pass above, 100% does mean the images were sorted.
+
+**Read this as "it works on every layout", not as an accuracy rate.** Eighteen synthetic
+documents cannot measure a rate: one error would have moved a layout by 50 points, and a
+perfect score on 2 documents is compatible with a true error rate well above 10%. The
+sample was kept small on purpose, to keep the bill to a few cents. A real figure needs
+the full 225-document corpus (`python eval/layout_eval.py` with no `--per-layout`), and
+real court papers would need more than synthetic ones.
+
+On image-only pages every field is shown amber for the person to check, because no text
+layer exists to locate the quote in and confidence is therefore capped at 0.6
+(bible §12). That is the design working, not a weakness of the reader.
+
+### Upload to review, in the app
+
+Three documents from the corpus above went through `/check` in the browser, against the
+dev server with the Gemini reader on, on 2026-11-14:
+
+| Document | Pages | Upload → review card | Fields shown amber |
+|---|---:|---:|---:|
+| Handwritten affidavit (L4, PDF of a scan) | 1 | 23.3 s | 18 of 18 (image only) |
+| Phone photo (L7, HEIC) | 1 | 11.6 s | 18 of 18 (image only) |
+| Whole court file (L8: summons, affidavit, judgment) | 6 | 10.6 s | 5 of 18 (fields absent from the affidavit) |
+
+In the court file the reader sorted all six pages, found the one affidavit on pages 4–5,
+and filled in the judgment entry date for the person to confirm. Each document leaves well
+over a minute and a half of a 2-minute budget for a person to read and confirm the card.
+How long that human review takes was **not** measured here: the browser was driven by a
+script, so its confirm click took no time. The dev build logs
+`[review-timer] … s to confirm` for that, and timing a real person is the next step.
 
 ## The engine
 

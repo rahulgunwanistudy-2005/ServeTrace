@@ -161,9 +161,31 @@ def summarise(results: list[Scored], provider: str) -> dict[str, Any]:
     return report
 
 
-async def run(corpus: Path, out: Path, limit: int | None = None) -> dict[str, Any]:
+def sample(found: list[tuple[str, Path, dict[str, Any]]], per_layout: int) -> list[Any]:
+    """The first `per_layout` documents of each layout, so a paid run covers every layout
+    at a fraction of the cost. Deterministic: the corpus is sorted and seeded."""
+    taken: dict[str, int] = defaultdict(int)
+    kept = []
+    for item in found:
+        if taken[item[0]] < per_layout:
+            taken[item[0]] += 1
+            kept.append(item)
+    return kept
+
+
+async def run(
+    corpus: Path,
+    out: Path,
+    limit: int | None = None,
+    per_layout: int | None = None,
+    name: str = "layouts",
+) -> dict[str, Any]:
     settings = get_settings()
-    found = targets(corpus)[:limit] if limit else targets(corpus)
+    found = targets(corpus)
+    if per_layout:
+        found = sample(found, per_layout)
+    if limit:
+        found = found[:limit]
     if not found:
         raise SystemExit(f"no layouts under {corpus}. Run fixtures.generator.layouts first.")
     gate = asyncio.Semaphore(CONCURRENCY)
@@ -176,6 +198,8 @@ async def run(corpus: Path, out: Path, limit: int | None = None) -> dict[str, An
     report = {
         "generated_at": datetime.now(UTC).isoformat(),
         "provider": settings.llm_provider,
+        "model": settings.gemini_model if settings.llm_provider == "gemini" else None,
+        "per_layout": per_layout,
         "corpus": str(corpus),
         "targets": TARGETS,
         "layouts": summarise(results, settings.llm_provider),
@@ -194,7 +218,7 @@ async def run(corpus: Path, out: Path, limit: int | None = None) -> dict[str, An
         ],
     }
     out.mkdir(parents=True, exist_ok=True)
-    (out / "layouts.json").write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    (out / f"{name}.json").write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
     return report
 
 
@@ -203,8 +227,15 @@ def main() -> None:
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     parser.add_argument("--out", type=Path, default=ROOT / "eval" / "results")
     parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument(
+        "--per-layout",
+        type=int,
+        default=None,
+        help="score only the first N documents of each layout (keeps a paid run cheap)",
+    )
+    parser.add_argument("--name", default="layouts", help="results file name, without .json")
     args = parser.parse_args()
-    report = asyncio.run(run(args.corpus, args.out, args.limit))
+    report = asyncio.run(run(args.corpus, args.out, args.limit, args.per_layout, args.name))
     print(f"provider: {report['provider']}")
     for layout, figures in report["layouts"].items():
         shown = {k: v for k, v in figures.items() if k != "per_field_accuracy"}

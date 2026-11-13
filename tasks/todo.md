@@ -222,6 +222,25 @@ the public site is one the eval or the store actually produced.
 - **Render blueprint gains the v1.1 settings** (real-data flag false, extract budget,
   batch cap, store off with `sync: false` Supabase values). `docs/DEPLOY.md` is the
   runbook, including the deletion-contact placeholder to fill before the store goes on.
+- **After release, credits back (2026-11-13/14): the deferred checks, run cheaply.**
+  `eval/layout_eval.py` gained `--per-layout N` (first N files of each layout, sorted, not
+  hand-picked) and `--name`. Paid sample, `gemini-3.8-flash`, 2 per layout = 18 docs:
+  every field right on every layout incl. handwritten, HEIC and the 6-page court file;
+  pages and affidavits 100% (images classified by the model this time); L8 judgment
+  dates 2/2. REPORT says plainly this shows "works on every layout", not a rate — 2 docs
+  per layout cannot measure one. The full 225-doc run stays Rahul's call (cost).
+- **Attorney-call check, the machine half.** Three corpus files through `/check` in the
+  browser: handwritten 23.3 s, HEIC phone photo 11.6 s, 6-page court file 10.6 s from
+  upload to review card. Image-only pages show every field amber (0.6 cap, by design).
+  The human half — a person reading and confirming in the remaining time — is not
+  measured: a scripted click takes 0 s. Timing a real person with the dev
+  `[review-timer]` is Rahul's to do.
+- **Supabase store: not switched on.** The connected org (free plan) holds four projects,
+  all other apps'; putting ServeTrace's tables in one of them would mix data across
+  products, so it was not done. Creating a new project needs a cost confirmation this
+  session's tools cannot give, and the service-role key cannot be read through the MCP
+  (only publishable keys) — it must be pasted into `.env`/Render by Rahul. The store also
+  stays off until `privacy.deletionContact` holds a real address. Steps: `docs/DEPLOY.md` §3.
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what
