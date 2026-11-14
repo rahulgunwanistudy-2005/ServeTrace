@@ -31,6 +31,12 @@ alter table usage_daily enable row level security;
 alter table leads enable row level security;
 -- No policies: only the service-role key (bypasses RLS) can read or write.
 
+-- Supabase grants anon and authenticated full table privileges by default, so with only
+-- the lines above, RLS is the single thing between the public key and every lead's name
+-- and email. Revoking the grants means switching RLS off by mistake still exposes nothing.
+revoke all on table usage_daily from anon, authenticated;
+revoke all on table leads from anon, authenticated;
+
 create or replace function bump_usage(p_day date, p_kind text, p_tier text, p_bucket text)
 returns void
 language sql

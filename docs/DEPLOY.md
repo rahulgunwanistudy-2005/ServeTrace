@@ -66,8 +66,12 @@ script waits 90 seconds for health. Open the URL a couple of minutes before show
 
 1. Create a Supabase project.
 2. In its SQL editor, run `infra/supabase/001_v1_1.sql`. It creates `usage_daily` and
-   `leads` with row-level security on and no policies, and a `bump_usage` function only the
-   service role may call. The public anon key can read or write nothing.
+   `leads` with row-level security on and no policies, revokes the table privileges
+   Supabase grants `anon` and `authenticated` by default, and adds a `bump_usage` function
+   only the service role may call. The public anon key can read or write nothing, even if
+   RLS were switched off by mistake. The security advisor then reports only "RLS enabled,
+   no policy" on both tables, which is intended. The server key may be a new
+   `sb_secret_…` key or the legacy `service_role` key; both work.
 3. Set `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` and `METRICS_ENABLED=true` on Render.
 4. **Before switching it on, replace the deletion-contact placeholder** in
    `frontend/src/lib/copy/en.ts` (`privacy.deletionContact`, currently

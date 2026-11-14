@@ -241,6 +241,16 @@ the public site is one the eval or the store actually produced.
   session's tools cannot give, and the service-role key cannot be read through the MCP
   (only publishable keys) — it must be pasted into `.env`/Render by Rahul. The store also
   stays off until `privacy.deletionContact` holds a real address. Steps: `docs/DEPLOY.md` §3.
+- **Supabase store: schema applied (2026-11-14).** Rahul created project `ServeTrace`
+  (`sipewujnaikxtgzfrknr`, ap-southeast-2). `001_v1_1.sql` applied through the existing
+  connector (no project-scoped `.mcp.json` added to the repo). Checked with
+  `has_*_privilege`: RLS was on and `bump_usage` refused to anon, **but Supabase's default
+  grants still gave anon and authenticated SELECT/INSERT on `leads`** — RLS was the only
+  thing between the public key and every lead's name and email. Revoked those table
+  grants (second migration, now also in `001_v1_1.sql`); anon and authenticated now hold
+  no privilege at all, service_role all. Security advisor: only the intended
+  "RLS enabled, no policy" INFO on both tables. The key goes into `.env` through a
+  hidden-input prompt in Rahul's terminal, never through the conversation.
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what
