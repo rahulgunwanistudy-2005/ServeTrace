@@ -251,6 +251,16 @@ the public site is one the eval or the store actually produced.
   no privilege at all, service_role all. Security advisor: only the intended
   "RLS enabled, no policy" INFO on both tables. The key goes into `.env` through a
   hidden-input prompt in Rahul's terminal, never through the conversation.
+- **Supabase store: verified end to end, locally (2026-11-14).** Rahul put an
+  `sb_secret_` key in `.env` (as `SECRET_KEY`; renamed to `SUPABASE_SERVICE_KEY`, value
+  never printed). Backend restarted: `/api/stats` `enabled: true`; a demo analyze wrote
+  `check_completed / contradicted / demo = 1`; a synthetic lead (`example.com`) landed in
+  `leads`; after a restart (stats are cached 5 min by design) stats read `demo: 1`, since
+  2026-11-14. From outside, both public keys (publishable and legacy anon) get
+  `permission denied` on reading leads, reading counts, inserting a lead and calling
+  `bump_usage`. Test rows deleted; both tables empty. **Still before production:** the
+  real deletion-contact address in `privacy.deletionContact`, then the three settings on
+  Render (Rahul's go-ahead).
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what
