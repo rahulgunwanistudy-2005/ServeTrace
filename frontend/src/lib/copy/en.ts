@@ -1152,9 +1152,13 @@ export const privacy = {
 		'The form on the For attorneys page keeps what you type into it (your name, email, organization, role and message) with the day it arrived, and only when you tick the box agreeing to that.',
 		'It is used to reply to you and for nothing else. It is never linked to a check, because there is no check to link it to.'
 	],
-	/** Build prompt §8.3: a placeholder the site owner replaces before launch. */
-	deletionContact: '[deletion contact address, to be added before launch]',
-	deletion: (contact: string) => `To have your details deleted, write to ${contact}.`,
+	/**
+	 * Build prompt §8.3 asked for a deletion contact. The request comes back through the
+	 * same form rather than to a published personal address: it lands where the data
+	 * already is, and the operator deletes by email (docs/DEPLOY.md §3).
+	 */
+	deletion:
+		'To have your details deleted, send the form again from the same email address with \u201cPlease delete my details\u201d as the message. Every entry for that address is then deleted, including that one.',
 
 	readerTitle: 'About automatic reading',
 	reader:

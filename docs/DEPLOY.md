@@ -73,10 +73,11 @@ script waits 90 seconds for health. Open the URL a couple of minutes before show
    no policy" on both tables, which is intended. The server key may be a new
    `sb_secret_…` key or the legacy `service_role` key; both work.
 3. Set `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` and `METRICS_ENABLED=true` on Render.
-4. **Before switching it on, replace the deletion-contact placeholder** in
-   `frontend/src/lib/copy/en.ts` (`privacy.deletionContact`, currently
-   *"[deletion contact address, to be added before launch]"*) with a real address people
-   can write to for their lead to be deleted, and redeploy.
+4. **Deletion requests come through the form.** The privacy page tells people to send the
+   `/attorneys` form again from the same address with *"Please delete my details"* as the
+   message; no personal address is published. Whoever runs the store reads new leads and
+   honours those requests with the query at the end of this section. Find them with
+   `select id, created_day from leads where message ilike '%delete my details%';`.
 5. Check: `curl https://<service>/api/stats` says `"enabled": true`, and submitting the
    `/attorneys` form adds one row to `leads`.
 

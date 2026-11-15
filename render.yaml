@@ -68,11 +68,12 @@ services:
       - key: MAX_BATCH_AFFIDAVITS
         value: 2000
 
-      # Day-level counts and the /attorneys contact form. Off until the SQL in
-      # infra/supabase/001_v1_1.sql has been applied and both values below are set; with
-      # it off the form says it is not switched on and nothing is counted.
+      # Day-level counts and the /attorneys contact form. The store is on only when this
+      # is true AND both values below are set (app/config.py checks all three), so a
+      # service without the Supabase values simply runs with it off: the form says it is
+      # not switched on and nothing is counted. Schema: infra/supabase/001_v1_1.sql.
       - key: METRICS_ENABLED
-        value: false
+        value: true
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_SERVICE_KEY

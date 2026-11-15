@@ -36,7 +36,7 @@
 		<h2 id="contact">{copy.leadsTitle}</h2>
 		<ul>
 			{#each copy.leads as point (point)}<li>{point}</li>{/each}
-			<li>{copy.deletion(copy.deletionContact)}</li>
+			<li>{copy.deletion}</li>
 		</ul>
 
 		<h2>{copy.readerTitle}</h2>
