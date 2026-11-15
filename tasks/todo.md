@@ -261,6 +261,22 @@ the public site is one the eval or the store actually produced.
   `bump_usage`. Test rows deleted; both tables empty. **Still before production:** the
   real deletion-contact address in `privacy.deletionContact`, then the three settings on
   Render (Rahul's go-ahead).
+- **Production, decided under "you decide and complete the work" (2026-11-16).**
+  - *Deletion contact:* no personal address is published. The privacy page asks people
+    to send the `/attorneys` form again from the same address with "Please delete my
+    details"; DEPLOY.md §3 has the query to find and honour those. `deletionContact` and
+    the templated `deletion()` are gone; `deletion` is a plain string.
+  - *Render:* service `srv-daq8ks0jo6nc73dhf0n0` ("My Workspace"; the "mnb" workspace has
+    no ServeTrace). `SUPABASE_URL` and `METRICS_ENABLED=true` set through the Render MCP;
+    `render.yaml` now says `METRICS_ENABLED: true` too, safe because `metrics_on`
+    also needs both Supabase values.
+  - *The service key is not set by Claude.* The Render MCP only sets a value written into
+    the call, which would put the secret into the conversation, so Rahul pastes
+    `SUPABASE_SERVICE_KEY` in the dashboard. Until then production runs with the store
+    off, exactly as before.
+  - *Deployed:* `780f112` live on Render. `scripts/smoke.sh https://servetrace.onrender.com`
+    all green (1.1.0, six pages, headers, demo `contradicted`, 33 KB packet PDF, 20 MB →
+    413, store enabled = False); the new deletion sentence is in the served bundle.
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what
