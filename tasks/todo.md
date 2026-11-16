@@ -277,6 +277,13 @@ the public site is one the eval or the store actually produced.
   - *Deployed:* `780f112` live on Render. `scripts/smoke.sh https://servetrace.onrender.com`
     all green (1.1.0, six pages, headers, demo `contradicted`, 33 KB packet PDF, 20 MB →
     413, store enabled = False); the new deletion sentence is in the served bundle.
+- **Store live in production (2026-11-16).** Rahul added `SUPABASE_SERVICE_KEY` on Render;
+  the `service_updated` deploy went live. `scripts/smoke.sh` on the public URL: all green
+  with `store enabled = True` (a first run stopped after health, the full rerun was clean).
+  The database then held exactly the test traffic — `check_completed contradicted/demo 1`,
+  `packet_downloaded /demo 1`, one `example.com` lead — and nothing else. Test rows
+  deleted; both tables empty. v1.1's deferred items are now all closed except timing a
+  real person's review on the attorney call, and the full 225-document paid eval.
 
 - **`ExtractionResult.affidavits` holds drafts, not `Affidavit`s.** An `Affidavit` needs a
   service time, an address and a method; a reader that misses one must still return what
