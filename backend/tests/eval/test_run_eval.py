@@ -8,8 +8,12 @@ rows rather than on the corpus, so a change in the engine cannot quietly change 
 
 from __future__ import annotations
 
+from pathlib import Path
+
+import pytest
+
 from app.domain.models import ServiceMethod
-from eval.run_eval import CaseResult, build_report, format_report
+from eval.run_eval import CaseResult, build_report, ensure_layouts, format_report
 
 
 def row(
@@ -151,3 +155,23 @@ def test_the_printed_report_leads_with_the_number_that_matters() -> None:
     assert "FALSE CONTRADICTIONS" in text
     assert text.index("FALSE CONTRADICTIONS") < text.index("accuracy")
     assert headline.startswith("ServeTrace")
+
+
+def test_a_clean_checkout_generates_the_layouts_instead_of_skipping_them(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import fixtures.generator.layouts as layouts
+
+    calls: list[tuple[Path, int, int]] = []
+    monkeypatch.setattr(
+        layouts, "generate", lambda out, per_layout, seed: calls.append((out, per_layout, seed))
+    )
+    missing = tmp_path / "layouts"
+    ensure_layouts(missing)
+    # 25 per layout at seed 11: the corpus the published layout figures were measured on.
+    assert calls == [(missing, 25, 11)]
+
+    present = tmp_path / "present"
+    (present / "L1").mkdir(parents=True)
+    ensure_layouts(present)
+    assert len(calls) == 1

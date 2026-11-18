@@ -1,6 +1,8 @@
 # Evaluation
 
-**Run 2026-11-12 · ServeTrace 1.1.0 · thresholds `2026.09-v1` · engine 0.2.0.**
+**Run 2026-11-12 · ServeTrace 1.1.0 · thresholds `2026.09-v1` · engine 0.2.0.** Re-run
+2026-11-19 from a clean clone of `main` (1.1.1): every figure below reproduced exactly, except
+the two that time a machine, which are updated in [Speed](#speed).
 
 Eight evals live here. The **engine**, the **rules**, **advocate mode**, the
 **robustness sweep** and, new in 1.1, the **photo-only sweep**, the **time-uncertainty
@@ -16,7 +18,9 @@ It generates the corpus if it is not there, scores everything, rewrites
 `eval/results/*.json`, draws `eval/results/robustness.png`, and rewrites
 `frontend/src/lib/eval/published.json` — which is what the Methodology page reads, so the
 published figures cannot drift from the run that produced them. A backend test fails if
-they do. About a minute on a laptop. It exits non-zero if any gate fails: a false
+they do. About 30 seconds on a laptop once the corpora exist; from a clean checkout it
+first generates both of them (the 500 cases and the 225 court-file documents) and takes
+about 2½ minutes. It exits non-zero if any gate fails: a false
 contradiction, a false STRONG contradiction from photos, a broken time-uncertainty
 invariant, or a batch rule rate that disagrees with the independent count.
 
@@ -269,7 +273,7 @@ servers, some of whose sequences were built so that nobody could have travelled 
 | Impossible sequences found that were planted | 100% (12 / 12) |
 | Planted sequences found | 100% |
 | Reused descriptions | 16 / 16 doors |
-| Runtime | 2,000 filings in ~20 ms |
+| Runtime | 2,000 filings in 16 ms |
 
 Precision leads and recall follows. A sequence this misses costs an advocate one line of
 evidence; a sequence it reports wrongly costs them their credibility with whoever reads the
@@ -356,10 +360,15 @@ their data conflicts.
 
 | | |
 |---|---|
-| Per case, median | 0.14 ms |
-| Per case, p95 | 0.71 ms |
-| Per case, max | 1.4 ms |
-| 2,000 advocate filings | ~20 ms |
+| Per case, median | 0.18 ms |
+| Per case, p95 | 0.87 ms |
+| Per case, max | 1.5 ms |
+| 2,000 advocate filings | 16 ms |
+
+Measured 2026-11-19 on an Apple-silicon laptop, clean checkout, nothing else running. Across
+three runs that day p95 was 0.85–0.89 ms and advocate 15–16 ms; with the test suite running
+alongside, p95 rose to 1.7 ms and advocate to 24 ms. These are the only figures that change
+between runs.
 
 Whole-corpus, whole-sweep: about 10 seconds for 500 cases scored 22 times over.
 

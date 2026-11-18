@@ -1,5 +1,31 @@
 # tasks/todo.md
 
+## v1.1.1 submission hardening (2026-11-19)
+
+Goal: every number in the fellowship deck verified by a command run today, the live site
+fast and working on a phone first try, and a README a reviewer reads in two minutes. No new
+features. Facts land in `SUBMISSION_FACTS.md`.
+
+- [x] **1** Suites and evals from a clean clone of `main`; claims table
+- [ ] **2** Production configuration audit
+- [ ] **3** Keep-warm workflow, warm load time
+- [ ] **4** Reviewer-first README top
+- [ ] **5** `scripts/smoke_live.py`, both viewports, three video clips
+- [ ] **6** Usage counts, release, tag `v1.1.1` after a green smoke
+- [ ] **7** `SUBMISSION_FACTS.md`
+
+### Decisions
+- **Bug: a clean checkout skipped the layout eval silently.** `run_eval.py` only ran the
+  no-reader court-file pass when `fixtures/out/layouts` already existed, and otherwise
+  published figures without the layout section. It now generates that corpus (25 per
+  layout, seed 11, ~90 s) like it generates the case corpus. Test in `test_run_eval.py`.
+  With it, a clean clone reproduces every figure; only latency and advocate runtime move.
+- **Version stays 1.1.1.** 1.1.1 was already released today (the notice removal), with no
+  tag yet. This session's work is added to the same dated entry and the tag goes on after
+  the post-deploy smoke test, rather than inventing a 1.1.2 nobody has seen.
+- **"Since the hackathon" counts from 2026-09-28 00:00 IST**, the first commit after the
+  v1.0.0 entry (2026-09-27); the hackathon has no tag. Command in `SUBMISSION_FACTS.md`.
+
 ## v1.1 — Survive first contact (session 13)
 
 Goal: an attorney can upload their own affidavit on a live call and have it confirmed in

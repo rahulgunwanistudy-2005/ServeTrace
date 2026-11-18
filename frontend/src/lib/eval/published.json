@@ -8,7 +8,7 @@
   "n_servers": 5,
   "precision": 1.0,
   "recall": 1.0,
-  "runtime_ms": 15.8,
+  "runtime_ms": 16.2,
   "true_positives": 12
  },
  "advocate_batch": {
@@ -184,9 +184,9 @@
  },
  "false_accusations": 0,
  "latency_ms": {
-  "max": 1.52,
-  "median": 0.17,
-  "p95": 0.83
+  "max": 1.48,
+  "median": 0.18,
+  "p95": 0.87
  },
  "layouts": {
   "layouts": {

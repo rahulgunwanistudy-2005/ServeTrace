@@ -463,6 +463,29 @@ def ensure_corpus(corpus: Path, n_cases: int = CORPUS_CASES, seed: int = CORPUS_
     return corpus
 
 
+LAYOUTS_PER_LAYOUT = 25
+LAYOUTS_SEED = 11
+
+
+def ensure_layouts(
+    corpus: Path, per_layout: int = LAYOUTS_PER_LAYOUT, seed: int = LAYOUTS_SEED
+) -> Path:
+    """Generate the court-file layouts if they are not there, like `ensure_corpus`.
+
+    Without this a clean checkout skipped the layout pass without a word and published
+    figures with the layout section missing, so "one command" was only true on a machine
+    that had already run `fixtures.generator.layouts` by hand. About 90 seconds, once.
+    """
+    if corpus.is_dir() and any(corpus.iterdir()):
+        return corpus
+
+    from fixtures.generator.layouts import generate
+
+    print(f"no layouts at {corpus} — generating {per_layout} per layout at seed {seed}", flush=True)
+    generate(corpus, per_layout, seed)
+    return corpus
+
+
 def run_layouts(corpus: Path, out: Path) -> dict[str, Any] | None:
     """The per-layout extraction figures that need no reader, at no cost and every time.
 
@@ -618,6 +641,8 @@ def main() -> None:
     )
     args = parser.parse_args()
     ensure_corpus(args.corpus, n_cases=args.n)
+    if not args.no_layouts:
+        ensure_layouts(args.corpus / "layouts")
     report = run(
         args.corpus,
         args.out,
