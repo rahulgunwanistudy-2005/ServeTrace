@@ -52,6 +52,13 @@ After each deploy:
 scripts/smoke.sh https://<your-service>.onrender.com
 ```
 
+Then the browser check, which also runs the demo, the attorney sample batch and a photo
+import on a desktop and an emulated phone, and writes `scripts/smoke_live_report.md`:
+
+```bash
+uv run scripts/smoke_live.py --base-url https://<your-service>.onrender.com
+```
+
 **Logs.** The app writes one JSON line per request: request id, route, method, status,
 latency. The image runs uvicorn with `--no-access-log` because uvicorn's own line carries
 the client's IP address, which the privacy page says the logs do not hold. Render's edge

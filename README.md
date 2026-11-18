@@ -27,7 +27,7 @@ served.
 | Affidavits read by Gemini, every field right (2026-09-28 run) | 66 of 66 |
 | Attorney mode: planted impossible sequences found / ordinary servers named | 12 of 12 / 0 of 3 |
 | Engine time per case, p95 · 2,000 filings | 0.87 ms · 16 ms |
-| Automated tests | 1,217 (841 backend, 376 frontend) |
+| Automated tests | 1,219 (843 backend, 376 frontend) |
 
 Reproduce all eight evaluations with one command (`eval/REPORT.md` has the detail):
 `cd backend && uv run python ../eval/run_eval.py`

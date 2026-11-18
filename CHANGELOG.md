@@ -15,6 +15,18 @@ to how a verdict is reached unless it says so.
   the pages, and that ServeTrace keeps nothing. The `LLM_REAL_DATA_ALLOWED` setting is
   gone, and `/api/health` no longer reports it.
 - The privacy page says deletion requests come through the contact form.
+- Submission hardening: verified evals, keep-warm, live smoke test, reviewer README.
+  Every published figure was re-run from a clean clone; `scripts/smoke_live.py` checks
+  every page on a desktop and an emulated phone and runs the demo, the attorney sample
+  batch and a photo import; a scheduled ping keeps the free-plan service awake.
+
+### Fixed
+
+- The attorney sample batch on /advocate ("Or load a sample batch") said it could not be
+  loaded in production. The image never included it; it does now, and a test fails if
+  the frontend bundles a fixture the image build leaves out.
+- `python eval/run_eval.py` on a clean checkout skipped the court-file layout evaluation
+  without a word. It now generates that corpus first, like the case corpus.
 
 ## [1.1.0] — 2026-11-12
 
