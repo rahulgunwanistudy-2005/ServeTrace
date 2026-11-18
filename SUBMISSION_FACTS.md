@@ -18,7 +18,7 @@ in this session. Test sets are synthetic with generator-set ground truth.
 | 9 | ~20 ms for 2,000 filings | 15.1–16.2 ms over 3 runs (24 ms under load) | same | ✅ |
 | 10 | 980+ automated tests | 1,219: 843 backend (pytest) + 376 frontend (vitest) | `uv run pytest`; `npx vitest run` | ⚠️ |
 | 11 | 8 evaluations, one command | 8, one command, after a fix: from a clean checkout the court-file layout eval was silently skipped (commit `60895c7`). 2 min 32 s from empty. | same | ✅ (fixed) |
-| 12 | 14 commits since the hackathon | 34 since 2026-09-28 00:00 IST (first commit after v1.0.0); 23 since v1.1 work began 2026-11-12 | `git log --oneline --since="2026-09-28 00:00" \| wc -l` | ⚠️ |
+| 12 | 14 commits since the hackathon | 36 since 2026-09-28 00:00 IST (first commit after v1.0.0); 25 since v1.1 work began 2026-11-12 | `git log --oneline --since="2026-09-28 00:00" \| wc -l` | ⚠️ |
 | 13 | Lighthouse accessibility 100 on every main page | 100 on `/`, `/check`, `/demo`, `/attorneys`, `/advocate`, `/methodology` (live site, Lighthouse 12.8.2, mobile profile) | `npx lighthouse <url> --only-categories=accessibility` | ✅ |
 
 ### Deck edits needed
@@ -26,14 +26,14 @@ in this session. Test sets are synthetic with generator-set ground truth.
 Slide numbers aren't in the repo, so slides are named as in the brief.
 
 - **Momentum slide:** "980+ automated tests" → "1,219 automated tests".
-- **Momentum slide:** "14 commits since the hackathon" → "34 commits since the hackathon".
+- **Momentum slide:** "14 commits since the hackathon" → "36 commits since the hackathon".
 - Optional, **Advocate slide:** "~20 ms for 2,000 filings" → "~16 ms for 2,000 filings".
 
 ## 2. One-line answers
 
 - Tests: 1,219 (843 backend, 376 frontend), all passing.
 - Evaluations: 8 from one command (plus the paid extraction eval and the paid 18-document layout sample, run separately).
-- Commits since the hackathon: 34.
+- Commits since the hackathon: 36.
 - Releases: 3, namely 1.0.0 (2026-09-27), 1.1.0 (2026-11-12) and 1.1.1 (2026-11-19).
 - Warm load, browser `loadEventEnd` from India to Render Oregon: `/` 0.9–2.3 s across 5 fresh desktop loads (1.07 s in the smoke run), 1.18 s iPhone; other pages 0.38–0.90 s. Cold start: about 22 s.
 - Keep-warm: the workflow is registered and active, but no scheduled run had fired 75 min after the push (0 runs), and it could not be triggered from here. ❓ Not yet verified.
@@ -95,4 +95,4 @@ the v1.0 deploy" cannot be answered. Every demo row is from this session's smoke
 - `a22f0b3` Fix: the attorney sample batch now ships in the image, plus a test
 - `aee2995` `scripts/smoke_live.py`: live browser smoke test and the three clips
 - `b205db0` 1.1.1 changelog, test count, runbook step (tagged `v1.1.1`, deployed, smoke green)
-- this commit: `SUBMISSION_FACTS.md`, post-deploy smoke report, notes
+- `2bb50f5`, `2d16a45` and this commit: `SUBMISSION_FACTS.md`, post-deploy smoke report, notes
