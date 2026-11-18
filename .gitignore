@@ -27,3 +27,6 @@ eval/results/*
 
 # OS
 .DS_Store
+
+# Live smoke test output (screenshots, clips)
+scripts/smoke_out/
