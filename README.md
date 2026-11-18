@@ -1,5 +1,50 @@
 # ServeTrace
 
+Checks a New York City process server's sworn affidavit of service against the defendant's
+own phone location history, for people who lost a debt case by default without ever being
+served.
+
+**[Live demo](https://servetrace.onrender.com/demo)** ·
+**[For attorneys](https://servetrace.onrender.com/attorneys)** ·
+**[LexHack 2026, 2nd place](https://lexhack-2026.devpost.com/)** ·
+**[90-second video](VIDEO_URL_TBD)**
+
+**How it works**
+
+1. The location file (Google Timeline, card statement, photos) is read in the browser; only the ±3 hours around each sworn time leave the device.
+2. The affidavit is read (PDF, photo or HEIC) and every field is confirmed by the person.
+3. A deterministic space-time check asks whether anyone could have been at the door at the sworn time.
+4. Result: one of four verdicts, an evidence-packet PDF, a draft supporting affidavit and the CPLR 317 deadline.
+
+**Results** on synthetic test sets with generator-set ground truth (measured 2026-11-19):
+
+| Check | Result |
+|---|---|
+| People wrongly told their data conflicts with the affidavit | **0 of 500** cases |
+| Truly contradicted cases caught at the strong level | 200 of 200 |
+| GPS noise of 300 m, accuracy reported | 0 false contradictions |
+| Photos with an assumed time zone (865 photos) | 0 strong verdicts |
+| Affidavits read by Gemini, every field right (2026-09-28 run) | 66 of 66 |
+| Attorney mode: planted impossible sequences found / ordinary servers named | 12 of 12 / 0 of 3 |
+| Engine time per case, p95 · 2,000 filings | 0.87 ms · 16 ms |
+| Automated tests | 1,217 (841 backend, 376 frontend) |
+
+Reproduce all eight evaluations with one command (`eval/REPORT.md` has the detail):
+`cd backend && uv run python ../eval/run_eval.py`
+
+**Since LexHack** ([changelog](CHANGELOG.md))
+
+- Photos as evidence: read on the device for time and place only; uncertain time can only weaken a conflict.
+- Whole court files: PDF, JPEG, PNG or HEIC up to 25 pages, sorted into summons, affidavit and judgment, with the source quote for every field.
+- Attorney batch mode: many affidavits compared at once, with impossible back-to-back services, rule rates and an agency ranking, exported as PDF and CSV.
+- Four more evaluations, a deploy runbook and smoke test, and Lighthouse accessibility 100 on the main pages.
+
+**Status:** Defense side only. Not legal advice. [Pilot partners welcome](https://servetrace.onrender.com/attorneys).
+
+---
+
+## Background
+
 **They swore they served you. Your phone says otherwise.**
 
 More than 70% of debt collection suits end in a default judgment. Many of those defendants
