@@ -39,7 +39,7 @@
 			.catch(() => (health = null));
 	});
 	const PROVIDERS: Record<string, string> = { gemini: 'Google Gemini', anthropic: 'Anthropic' };
-	const realAllowed = $derived(health?.llm_real_data_allowed === true && health.llm_provider !== 'none');
+	const reading = $derived(health !== null && health.llm_provider !== 'none');
 
 	async function submit(event: SubmitEvent) {
 		event.preventDefault();
@@ -98,12 +98,10 @@
 
 	<section class="max-w-3xl space-y-4">
 		<h2 class="st-display-sm text-xl sm:text-2xl">{copy.dataTitle}</h2>
-		{#if realAllowed && health}
+		{#if reading && health}
 			<Callout tone="neutral">
-				{upload.realDataAllowed(PROVIDERS[health.llm_provider] ?? health.llm_provider)}
+				{upload.readerNote(PROVIDERS[health.llm_provider] ?? health.llm_provider)}
 			</Callout>
-		{:else}
-			<Callout tone="caution">{upload.realDataBlocked}</Callout>
 		{/if}
 		<p class="leading-relaxed text-muted">{copy.notStored}</p>
 		<p class="leading-relaxed text-muted">{copy.noReader}</p>

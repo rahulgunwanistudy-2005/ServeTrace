@@ -53,11 +53,6 @@ services:
         value: https://geosearch.planninglabs.nyc/v2/search
 
       # --- v1.1 ------------------------------------------------------------------------
-      # Real court papers are refused-with-a-notice until Rahul has checked that the
-      # provider's plan excludes training on inputs (free tiers may not). The code never
-      # decides that; this flag records that a person did.
-      - key: LLM_REAL_DATA_ALLOWED
-        value: false
       # The reader's own budget: a batch upload calls /api/extract once per file.
       - key: EXTRACT_RATE_LIMIT_PER_MINUTE
         value: 60

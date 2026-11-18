@@ -15,7 +15,6 @@ def test_health_reports_the_versions_a_verdict_is_stamped_with() -> None:
         "engine_version": ENGINE_VERSION,
         "params_version": PARAMS_VERSION,
         "llm_provider": "none",
-        "llm_real_data_allowed": False,
     }
 
 

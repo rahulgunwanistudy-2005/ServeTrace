@@ -133,11 +133,8 @@ export const upload = {
 	resolving: 'Finding that address…',
 	addressNotFound:
 		'We could not find that address in New York City. Check the spelling — the check needs a point on the map to measure from.',
-	/** Build prompt §2.3. Exact wording; it is a promise about where the pages go. */
-	realDataBlocked:
-		'This deployment is for demos and synthetic data. Do not upload real court papers.',
-	realDataAck: 'I understand. The papers I upload are a demo or made up.',
-	realDataAllowed: (provider: string) =>
+	/** A promise about where the pages go, shown wherever a reader is switched on. */
+	readerNote: (provider: string) =>
 		`Pages you upload are sent to ${provider} to read the text, then discarded. Nothing is stored by ServeTrace.`,
 	sample: 'No papers to hand? Try a sample affidavit',
 	sampleNote: 'This is a synthetic sample. The person, the case and the server are invented.',
@@ -1162,7 +1159,7 @@ export const privacy = {
 
 	readerTitle: 'About automatic reading',
 	reader:
-		'Some AI services\u2019 free tiers allow the provider to use what is sent to them to improve their products. Real court papers must never be read on such a tier. A deployment of ServeTrace accepts real papers only when whoever runs it has confirmed that the reading service\u2019s terms exclude training on what is sent; until then, every upload screen says it is for demos and synthetic data only. Automatic reading can also be switched off entirely, and every field typed in by hand.',
+		'When automatic reading is on, the pages of an affidavit you upload are sent to the reading service named on the upload screen, which reads the fields back so you can check them. ServeTrace keeps nothing; the pages are discarded when the request ends. Automatic reading can also be switched off entirely, and every field typed in by hand.',
 
 	mapTitle: 'One thing worth knowing about the map',
 	mapBody:

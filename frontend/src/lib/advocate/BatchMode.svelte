@@ -15,7 +15,6 @@
 	import { buildAffidavit, type Geocoder } from '$lib/check/affidavit';
 	import Button from '$lib/ui/Button.svelte';
 	import Callout from '$lib/ui/Callout.svelte';
-	import CheckBox from '$lib/ui/CheckBox.svelte';
 	import DemoNote from '$lib/ui/DemoNote.svelte';
 	import FileDrop from '$lib/ui/FileDrop.svelte';
 	import BatchQueue from './BatchQueue.svelte';
@@ -52,10 +51,9 @@
 	let report = $state.raw<BatchReport | null>(null);
 	let sample = $state(false);
 
-	/** The same gate as the defendant upload: real papers only where the deployment allows. */
+	/** Which service reads the pages, so the upload can say so before anything is sent. */
 	let health = $state<Health | null>(null);
-	let acknowledged = $state(false);
-	const realAllowed = $derived(health?.llm_real_data_allowed === true);
+	const PROVIDERS: Record<string, string> = { gemini: 'Google Gemini', anthropic: 'Anthropic' };
 	$effect(() => {
 		void api
 			.health()
@@ -253,23 +251,19 @@
 			<Callout tone="contradicted" title="That did not work">{failure}</Callout>
 		{/if}
 
-		{#if !realAllowed}
-			<Callout tone="caution" title={upload.realDataBlocked}>
-				<div class="mt-3">
-					<CheckBox id="batch-real-data-ack" bind:checked={acknowledged} label={upload.realDataAck} />
-				</div>
+		{#if health && health.llm_provider !== 'none'}
+			<Callout tone="neutral">
+				{upload.readerNote(PROVIDERS[health.llm_provider] ?? health.llm_provider)}
 			</Callout>
 		{/if}
 
-		{#if realAllowed || acknowledged}
-			<FileDrop
-				accept=".pdf,image/*,.heic,.heif"
-				multiple
-				label={words.upload}
-				hint={words.uploadHint(MAX_FILES, MAX_PAGES)}
-				onfiles={(files) => void add(files)}
-			/>
-		{/if}
+		<FileDrop
+			accept=".pdf,image/*,.heic,.heif"
+			multiple
+			label={words.upload}
+			hint={words.uploadHint(MAX_FILES, MAX_PAGES)}
+			onfiles={(files) => void add(files)}
+		/>
 		<div class="flex flex-wrap items-center gap-3">
 			<Button variant="secondary" onclick={useSample}>{words.sample}</Button>
 			<p class="text-sm text-muted">{words.sampleNote}</p>

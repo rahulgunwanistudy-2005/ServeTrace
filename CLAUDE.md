@@ -308,7 +308,7 @@ Accessibility: WCAG AA contrast, keyboard navigable, map has a text alternative 
 
 ## 16. Privacy, safety, security
 - No case data persisted; uploads processed in memory; temp files deleted in `finally`. The one store (v1.1) receives only `bump_usage(day, kind, tier, bucket)` and voluntary `leads` rows — no IPs, user agents, coordinates, affidavit fields or timestamps finer than a day. A metrics failure never fails a user request.
-- Real court papers (v1.1): `LLM_REAL_DATA_ALLOWED=false` (default) shows a blocking "demos and synthetic data only" notice on upload. Free LLM tiers may let the provider use inputs for product improvement; enable only on a plan whose terms exclude training on inputs, verified by Rahul.
+- Real court papers (v1.1.1 amendment; was a `LLM_REAL_DATA_ALLOWED` flag and a blocking "demos and synthetic data only" notice): the notice and the flag are removed at Rahul's decision. Uploads go to the configured reader, and every upload screen names it. Free LLM tiers may let the provider use inputs for product improvement, so the reader runs only on a plan whose terms exclude training on inputs — the operator's responsibility, verified by Rahul.
 - Logs: request id, route, latency, status. Never names, addresses, coordinates, document text.
 - Size limits: 15 MB upload, 5,000 fixes per analyze request, 50,000 advocate rows.
 - CORS locked to the deployed origin. Basic rate limit (in-memory token bucket per IP).

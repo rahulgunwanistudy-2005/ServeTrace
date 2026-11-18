@@ -39,8 +39,7 @@ Everything else has a committed value. The ones that matter:
 
 - **`RATE_LIMIT_TRUSTED_HOPS=1`.** Render proxies every request; without this the rate
   limiter sees one client for the whole internet.
-- **`LLM_REAL_DATA_ALLOWED=false`.** Every upload screen then says *"This deployment is for
-  demos and synthetic data. Do not upload real court papers."* See step 4 before changing it.
+- **The reader's plan.** Uploaded court papers go to the configured reader. See step 4.
 - **`METRICS_ENABLED=false`** until step 3 is done.
 - **`CORS_ORIGINS` empty.** Site and API share one origin, so nothing needs allowing.
 
@@ -90,13 +89,13 @@ editor.
 
 ## 4. Real court papers
 
-`LLM_REAL_DATA_ALLOWED=true` removes the demo-data notice and invites real affidavits,
-which are sent to the configured reader (Gemini or Claude) for field extraction. Free
-model tiers may let the provider use inputs to improve its products. **Turn this on only
-after confirming, in the provider's current terms for the plan the key is on, that inputs
-are not used for training.** That is a person's check, not something the code can verify.
-Nothing else about the product changes: location files are still read only on the device,
-and photos are never uploaded.
+Since 1.1.1 there is no demo-only notice: affidavits people upload are sent to the
+configured reader (Gemini or Claude) for field extraction, and every upload screen names
+it. Free model tiers may let the provider use inputs to improve its products. **Keep the
+key on a plan whose current terms say inputs are not used for training** (for Gemini, a
+project with billing enabled), and set `LLM_PROVIDER=none` if that ever lapses. That is a
+person's check, not something the code can verify. Location files are still read only on
+the device, and photos are never uploaded.
 
 ## 5. Rolling back
 

@@ -911,8 +911,6 @@ export interface components {
             params_version: string;
             /** Llm Provider */
             llm_provider: string;
-            /** Llm Real Data Allowed */
-            llm_real_data_allowed: boolean;
         };
         /** HouseholdMember */
         HouseholdMember: {

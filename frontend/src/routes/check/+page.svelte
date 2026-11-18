@@ -69,15 +69,8 @@
 	let retagging = $state(false);
 	let sample = $state(false);
 
-	/**
-	 * Build prompt §2.3: until the deployment says real papers may go to its reader, the
-	 * upload is behind a notice the person has to acknowledge. If we cannot ask the server,
-	 * we assume the stricter answer.
-	 */
+	/** Which service reads the pages, so the upload can say so before anything is sent. */
 	let health = $state<Health | null>(null);
-	let acknowledged = $state(false);
-	const realAllowed = $derived(health?.llm_real_data_allowed === true);
-	const uploadOpen = $derived(realAllowed || acknowledged);
 	const PROVIDERS: Record<string, string> = { gemini: 'Google Gemini', anthropic: 'Anthropic' };
 	$effect(() => {
 		void api
@@ -302,27 +295,19 @@
 		</details>
 
 		<div class="mt-6 space-y-4">
-			{#if realAllowed && health && health.llm_provider !== 'none'}
+			{#if health && health.llm_provider !== 'none'}
 				<Callout tone="neutral">
-					{upload.realDataAllowed(PROVIDERS[health.llm_provider] ?? health.llm_provider)}
-				</Callout>
-			{:else if !realAllowed}
-				<Callout tone="caution" title={upload.realDataBlocked}>
-					<div class="mt-3">
-						<CheckBox id="real-data-ack" bind:checked={acknowledged} label={upload.realDataAck} />
-					</div>
+					{upload.readerNote(PROVIDERS[health.llm_provider] ?? health.llm_provider)}
 				</Callout>
 			{/if}
 
-			{#if uploadOpen}
-				<FileDrop
-					accept=".pdf,image/*,.heic,.heif"
-					label={busy ? upload.reading : upload.prompt}
-					hint="A PDF or a photo, up to 15 MB."
-					{busy}
-					onfile={upload_}
-				/>
-			{/if}
+			<FileDrop
+				accept=".pdf,image/*,.heic,.heif"
+				label={busy ? upload.reading : upload.prompt}
+				hint="A PDF or a photo, up to 15 MB."
+				{busy}
+				onfile={upload_}
+			/>
 			<p>
 				<Button variant="quiet" onclick={useSample}>{upload.sample}</Button>
 			</p>

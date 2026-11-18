@@ -1900,3 +1900,26 @@ everyone after that types theirs in.
   fix). PDFs byte-identical; engine, advocate and robustness evals identical but for
   timings. Rescored: **100% on every field, clean and scanned.** `eval/REPORT.md` updated.
 - Backend **684 passed**, gates clean.
+
+## 1.1.1 — the demo-only notice removed (2026-11-19)
+
+- **Rahul's decision:** remove "This deployment is for demos and synthetic data. Do not
+  upload real court papers." and every such notice. Removed with the setting behind it,
+  not just flipped: `LLM_REAL_DATA_ALLOWED` is gone from config, `/api/health` (types
+  regenerated), `.env.example`, `render.yaml`, DEPLOY and DISCLOSURE; CLAUDE.md §16 is
+  amended. The three screens it gated (`/check`, the attorney batch upload, `/attorneys`)
+  now open the upload straight away and keep the factual line naming the reader
+  ("Pages you upload are sent to Google Gemini…"), renamed `upload.readerNote`.
+- **Kept on purpose:** the sample/demo-case labels ("This is a synthetic sample…") — they
+  label invented example cases, not the deployment, and bible §16 requires them.
+- **What now carries the old promise:** the Gemini key must stay on a billed plan whose
+  terms exclude training on inputs (billing was enabled in session 12). DEPLOY §4 says
+  to set `LLM_PROVIDER=none` if that lapses. Privacy copy no longer describes the gate;
+  it says pages go to the named service and nothing is kept.
+- Version 1.1.1 (CHANGELOG, `APP_VERSION`, advocate golden's "Prepared by" line). The
+  changelog vitest no longer pins the newest version; test_version.py already ties it to
+  `APP_VERSION`. The stale `LLM_REAL_DATA_ALLOWED` value on Render is ignored
+  (`extra="ignore"`).
+- Gates: backend 840 passed, ruff/format/mypy clean; frontend svelte-check 0/0, tsc
+  clean, vitest 376 passed, build ok. Browser: all three screens show no notice, an open
+  upload and the reader line.

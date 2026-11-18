@@ -6,6 +6,16 @@ All notable changes to ServeTrace. The format follows
 version stamps (`ENGINE_VERSION`, `PARAMS_VERSION`): a change listed here is not a change
 to how a verdict is reached unless it says so.
 
+## [1.1.1] — 2026-11-19
+
+### Changed
+
+- Uploads are no longer behind a "demos and synthetic data" notice. The affidavit upload,
+  the attorney batch upload and the For attorneys page now say only which service reads
+  the pages, and that ServeTrace keeps nothing. The `LLM_REAL_DATA_ALLOWED` setting is
+  gone, and `/api/health` no longer reports it.
+- The privacy page says deletion requests come through the contact form.
+
 ## [1.1.0] — 2026-11-12
 
 ### Added

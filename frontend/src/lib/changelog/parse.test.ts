@@ -47,8 +47,17 @@ describe('reading the changelog', () => {
 
 	it('reads the real file, newest release first, with the two required releases', () => {
 		const releases = parseChangelog(text);
-		expect(releases[0]!.version).toBe('1.1.0');
-		expect(releases.map((r) => r.version)).toContain('1.0.0');
+		const versions = releases.map((r) => r.version);
+		expect(versions).toContain('1.1.0');
+		expect(versions).toContain('1.0.0');
+		// Newest first. Which release is newest is the backend's check (test_version.py
+		// ties it to APP_VERSION), so this test does not need editing on every release.
+		const key = (v: string) => v.split('.').map(Number);
+		for (let i = 1; i < versions.length; i++) {
+			const [a, b] = [key(versions[i - 1]!), key(versions[i]!)];
+			const newer = a[0]! - b[0]! || a[1]! - b[1]! || a[2]! - b[2]!;
+			expect(newer).toBeGreaterThan(0);
+		}
 		for (const release of releases) {
 			expect(release.sections.length).toBeGreaterThan(0);
 			expect(release.sections.every((s) => s.items.length > 0)).toBe(true);

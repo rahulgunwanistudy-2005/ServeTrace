@@ -15,8 +15,7 @@ class Health(BaseModel):
     engine_version: str
     params_version: str
     llm_provider: str
-    llm_real_data_allowed: bool
-    """The upload screens read this to decide which data-handling notice to show."""
+    """The upload screens read this to say which service reads the pages, if any."""
 
 
 @router.get("/health", response_model=Health)
@@ -27,7 +26,6 @@ async def health() -> Health:
         engine_version=ENGINE_VERSION,
         params_version=PARAMS_VERSION,
         llm_provider=get_settings().llm_provider,
-        llm_real_data_allowed=get_settings().llm_real_data_allowed,
     )
 
 

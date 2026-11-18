@@ -37,13 +37,13 @@ than trusting one.
 The product is fully usable with `LLM_PROVIDER=none`: the extraction step is replaced by a
 manual entry form and nothing else changes.
 
-**Free tiers and real papers (v1.1).** Free LLM API tiers may permit the provider to use
-submitted content for product improvement. Real affidavits must never be processed on such
-a tier. `LLM_REAL_DATA_ALLOWED` defaults to `false`, and while it is false every upload
-screen shows a blocking notice: *"This deployment is for demos and synthetic data. Do not
-upload real court papers."* Setting it to `true` is a statement that the configured
-provider's plan excludes training on inputs; the operator (Rahul) verifies those terms. The
-code and its authors make no claim about any provider's terms.
+**Free tiers and real papers.** Free LLM API tiers may permit the provider to use
+submitted content for product improvement, so real affidavits must never be processed on
+such a tier. Version 1.1 kept every upload behind a "demos and synthetic data" notice until
+the operator confirmed the plan; 1.1.1 removes that notice, and the reader is run on a
+billed plan whose terms the operator (Rahul) verifies. Every upload screen names the
+service the pages go to. The code and its authors make no claim about any provider's
+terms.
 
 ## What the location check can and cannot show
 

@@ -8,7 +8,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 ENGINE_VERSION = "0.2.0"
 """0.2.0 (v1.1): the time-uncertainty rule, bible §11.1.7. No v1.0 input changes its verdict."""
 
-APP_VERSION = "1.1.0"
+APP_VERSION = "1.1.1"
 """Bible §19. Semver for the product as a whole, shown in the footer, `/api/health` and
 every generated PDF. The engine and its parameters keep their own stamps, because a
 change to the wizard is not a change to any verdict."""
@@ -48,10 +48,6 @@ class Settings(BaseSettings):
     geosearch_url: str = "https://geosearch.planninglabs.nyc/v2/search"
 
     # --- v1.1 -------------------------------------------------------------------------
-    llm_real_data_allowed: bool = False
-    """Whether this deployment may be sent real court papers. False shows a blocking
-    notice on every upload. Setting it true is a statement that the configured provider's
-    plan excludes training on inputs - a statement Rahul verifies, never the code."""
     extract_rate_limit_per_minute: int = 60
     """Sustained `/api/extract` calls a minute per client. A batch upload is the browser
     calling this route once per file, so it gets its own, larger budget. 0 disables."""
