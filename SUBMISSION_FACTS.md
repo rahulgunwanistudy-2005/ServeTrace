@@ -35,7 +35,8 @@ Slide numbers aren't in the repo, so slides are named as in the brief.
 - Evaluations: 8 from one command (plus the paid extraction eval and the paid 18-document layout sample, run separately).
 - Commits since the hackathon: 34.
 - Releases: 3, namely 1.0.0 (2026-09-27), 1.1.0 (2026-11-12) and 1.1.1 (2026-11-19).
-- Warm load, browser `loadEventEnd` from India to Render Oregon: `/` 1.07 s desktop, 1.18 s iPhone; other pages 0.38–0.90 s. Cold start: about 22 s.
+- Warm load, browser `loadEventEnd` from India to Render Oregon: `/` 0.9–2.3 s across 5 fresh desktop loads (1.07 s in the smoke run), 1.18 s iPhone; other pages 0.38–0.90 s. Cold start: about 22 s.
+- Keep-warm: the workflow is registered and active, but no scheduled run had fired 75 min after the push (0 runs), and it could not be triggered from here. ❓ Not yet verified.
 - Lighthouse accessibility: 100 on all 6 main pages.
 
 ## 3. Real usage (Supabase store, read-only, counts only)
@@ -84,7 +85,7 @@ the v1.0 deploy" cannot be answered. Every demo row is from this session's smoke
 4. **Gemini spend cap:** confirm a budget and cap exist on the Google project before the deck says "spend capped".
 5. **Deck:** apply the edits in §1.
 6. **README stale lines** (below the new top, left untouched as briefed): the "has not been run" extraction note and "switching on real court papers". Say if you want them corrected.
-7. **`gh` CLI** is logged in as `rahul-software-dev`, which can only read this repo, so I couldn't trigger the workflow by hand.
+7. **Keep-warm:** GitHub → Actions → keepwarm → Run workflow, and check it goes green. It never ran during this session. (`gh` here is logged in as `rahul-software-dev`, which can only read the repo.)
 
 ## 7. What changed this session
 
