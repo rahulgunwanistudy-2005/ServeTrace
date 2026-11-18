@@ -7,12 +7,12 @@ fast and working on a phone first try, and a README a reviewer reads in two minu
 features. Facts land in `SUBMISSION_FACTS.md`.
 
 - [x] **1** Suites and evals from a clean clone of `main`; claims table
-- [ ] **2** Production configuration audit
-- [ ] **3** Keep-warm workflow, warm load time
-- [ ] **4** Reviewer-first README top
-- [ ] **5** `scripts/smoke_live.py`, both viewports, three video clips
-- [ ] **6** Usage counts, release, tag `v1.1.1` after a green smoke
-- [ ] **7** `SUBMISSION_FACTS.md`
+- [x] **2** Production configuration audit
+- [x] **3** Keep-warm workflow, warm load time
+- [x] **4** Reviewer-first README top
+- [x] **5** `scripts/smoke_live.py`, both viewports, three video clips
+- [x] **6** Usage counts, release, tag `v1.1.1` after a green smoke
+- [x] **7** `SUBMISSION_FACTS.md`
 
 ### Decisions
 - **Bug: a clean checkout skipped the layout eval silently.** `run_eval.py` only ran the
@@ -27,6 +27,17 @@ features. Facts land in `SUBMISSION_FACTS.md`.
   file matches nothing without an error. Fixed with one COPY line;
   `tests/test_dockerfile.py` now fails whenever the frontend imports a fixture the build
   stage does not copy (checked: it fails on the old Dockerfile).
+- **Keep-warm is time-boxed.** Render's 750 free hours are per workspace, and this
+  workspace has ~20 free web services. Always-on ServeTrace would use ~744 of them, and an
+  exhausted pool suspends every free service until the 1st. The workflow stops pinging after
+  `KEEPWARM_UNTIL` (2026-11-30); moving it is Rahul's call after checking billing.
+- **`gh` is logged in as a read-only account**, so `gh workflow run` was refused (403); the
+  schedule is the only trigger available from here.
+- **Playwright is not a project dependency.** `scripts/smoke_live.py` declares
+  `playwright==1.56.0` (and the photo libraries) inline for `uv run`; 1.56.0 matches the
+  Chromium already cached on this machine.
+- **The contact form is never submitted by the smoke test.** No dry-run flag exists; the
+  test checks that Send stays disabled without consent and that nothing reaches /api/leads.
 - **Version stays 1.1.1.** 1.1.1 was already released today (the notice removal), with no
   tag yet. This session's work is added to the same dated entry and the tag goes on after
   the post-deploy smoke test, rather than inventing a 1.1.2 nobody has seen.
