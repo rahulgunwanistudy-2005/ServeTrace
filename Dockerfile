@@ -18,6 +18,8 @@ RUN npm ci --no-audit --no-fund
 
 COPY frontend/ ./
 COPY fixtures/demo_cases /build/fixtures/demo_cases
+# The attorney sample batch (/advocate, "Or load a sample batch") is bundled the same way.
+COPY fixtures/advocate_batch/sample_extractions.json /build/fixtures/advocate_batch/sample_extractions.json
 # /changelog and the footer's version are read from CHANGELOG.md at build time.
 COPY CHANGELOG.md /build/CHANGELOG.md
 RUN npm run build

@@ -20,6 +20,13 @@ features. Facts land in `SUBMISSION_FACTS.md`.
   published figures without the layout section. It now generates that corpus (25 per
   layout, seed 11, ~90 s) like it generates the case corpus. Test in `test_run_eval.py`.
   With it, a clean clone reproduces every figure; only latency and advocate runtime move.
+- **Bug: the attorney sample batch never shipped.** On production, /advocate → "A folder of
+  affidavits" → "Or load a sample batch" said "The sample batch could not be loaded." The
+  Dockerfile's frontend stage copied `fixtures/demo_cases` but not
+  `fixtures/advocate_batch/sample_extractions.json`, and `import.meta.glob` over a missing
+  file matches nothing without an error. Fixed with one COPY line;
+  `tests/test_dockerfile.py` now fails whenever the frontend imports a fixture the build
+  stage does not copy (checked: it fails on the old Dockerfile).
 - **Version stays 1.1.1.** 1.1.1 was already released today (the notice removal), with no
   tag yet. This session's work is added to the same dated entry and the tag goes on after
   the post-deploy smoke test, rather than inventing a 1.1.2 nobody has seen.
